@@ -1,0 +1,164 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="jp.mihiraki.pdfutility"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="35" />
+10
+11    <permission
+11-->[androidx.core:core:1.15.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/773af2670ca34221a97bf59b181aa5d6/transformed/core-1.15.0/AndroidManifest.xml:22:5-24:47
+12        android:name="jp.mihiraki.pdfutility.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+12-->[androidx.core:core:1.15.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/773af2670ca34221a97bf59b181aa5d6/transformed/core-1.15.0/AndroidManifest.xml:23:9-81
+13        android:protectionLevel="signature" />
+13-->[androidx.core:core:1.15.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/773af2670ca34221a97bf59b181aa5d6/transformed/core-1.15.0/AndroidManifest.xml:24:9-44
+14
+15    <uses-permission android:name="jp.mihiraki.pdfutility.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+15-->[androidx.core:core:1.15.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/773af2670ca34221a97bf59b181aa5d6/transformed/core-1.15.0/AndroidManifest.xml:26:5-97
+15-->[androidx.core:core:1.15.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/773af2670ca34221a97bf59b181aa5d6/transformed/core-1.15.0/AndroidManifest.xml:26:22-94
+16
+17    <application
+17-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:4:5-30:19
+18        android:name="jp.mihiraki.pdfutility.PdfApplication"
+18-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:5:9-39
+19        android:allowBackup="true"
+19-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:6:9-35
+20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+20-->[androidx.core:core:1.15.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/773af2670ca34221a97bf59b181aa5d6/transformed/core-1.15.0/AndroidManifest.xml:28:18-86
+21        android:debuggable="true"
+22        android:extractNativeLibs="false"
+23        android:icon="@mipmap/ic_launcher"
+23-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:7:9-43
+24        android:label="@string/app_name"
+24-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:8:9-41
+25        android:roundIcon="@mipmap/ic_launcher_round"
+25-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:9:9-54
+26        android:supportsRtl="true"
+26-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:10:9-35
+27        android:testOnly="true"
+28        android:theme="@style/Theme.MihirakiPDFUtility" >
+28-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:11:9-56
+29        <activity
+29-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:12:9-29:20
+30            android:name="jp.mihiraki.pdfutility.MainActivity"
+30-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:13:13-41
+31            android:exported="true"
+31-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:14:13-36
+32            android:theme="@style/Theme.MihirakiPDFUtility" >
+32-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:15:13-60
+33            <intent-filter>
+33-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:16:13-19:29
+34                <action android:name="android.intent.action.MAIN" />
+34-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:17:17-69
+34-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:17:25-66
+35
+36                <category android:name="android.intent.category.LAUNCHER" />
+36-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:18:17-77
+36-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:18:27-74
+37            </intent-filter>
+38
+39            <!-- Handle PDF files -->
+40            <intent-filter>
+40-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:22:13-28:29
+41                <action android:name="android.intent.action.VIEW" />
+41-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:23:17-69
+41-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:23:25-66
+42                <action android:name="android.intent.action.EDIT" />
+42-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:24:17-69
+42-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:24:25-66
+43
+44                <category android:name="android.intent.category.DEFAULT" />
+44-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:25:17-76
+44-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:25:27-73
+45                <category android:name="android.intent.category.BROWSABLE" />
+45-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:26:17-78
+45-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:26:27-75
+46
+47                <data android:mimeType="application/pdf" />
+47-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:27:17-60
+47-->/Users/tyamada22/src/MihirakiPDFUtility_Android/app/src/main/AndroidManifest.xml:27:23-57
+48            </intent-filter>
+49        </activity>
+50        <activity
+50-->[androidx.compose.ui:ui-tooling-android:1.7.5] /Users/tyamada22/.gradle/caches/8.14.5/transforms/6165bb912c73d5db077da1f8b3a1c016/transformed/jetified-ui-tooling-release/AndroidManifest.xml:23:9-25:39
+51            android:name="androidx.compose.ui.tooling.PreviewActivity"
+51-->[androidx.compose.ui:ui-tooling-android:1.7.5] /Users/tyamada22/.gradle/caches/8.14.5/transforms/6165bb912c73d5db077da1f8b3a1c016/transformed/jetified-ui-tooling-release/AndroidManifest.xml:24:13-71
+52            android:exported="true" />
+52-->[androidx.compose.ui:ui-tooling-android:1.7.5] /Users/tyamada22/.gradle/caches/8.14.5/transforms/6165bb912c73d5db077da1f8b3a1c016/transformed/jetified-ui-tooling-release/AndroidManifest.xml:25:13-36
+53        <activity
+53-->[androidx.compose.ui:ui-test-manifest:1.7.5] /Users/tyamada22/.gradle/caches/8.14.5/transforms/9972bb220ae47307a4a9d79b6dbf1300/transformed/jetified-ui-test-manifest-1.7.5/AndroidManifest.xml:23:9-25:39
+54            android:name="androidx.activity.ComponentActivity"
+54-->[androidx.compose.ui:ui-test-manifest:1.7.5] /Users/tyamada22/.gradle/caches/8.14.5/transforms/9972bb220ae47307a4a9d79b6dbf1300/transformed/jetified-ui-test-manifest-1.7.5/AndroidManifest.xml:24:13-63
+55            android:exported="true" />
+55-->[androidx.compose.ui:ui-test-manifest:1.7.5] /Users/tyamada22/.gradle/caches/8.14.5/transforms/9972bb220ae47307a4a9d79b6dbf1300/transformed/jetified-ui-test-manifest-1.7.5/AndroidManifest.xml:25:13-36
+56
+57        <provider
+57-->[androidx.emoji2:emoji2:1.3.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/33d16b565d3df3243cf1d2c77493cd89/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+58            android:name="androidx.startup.InitializationProvider"
+58-->[androidx.emoji2:emoji2:1.3.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/33d16b565d3df3243cf1d2c77493cd89/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
+59            android:authorities="jp.mihiraki.pdfutility.androidx-startup"
+59-->[androidx.emoji2:emoji2:1.3.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/33d16b565d3df3243cf1d2c77493cd89/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
+60            android:exported="false" >
+60-->[androidx.emoji2:emoji2:1.3.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/33d16b565d3df3243cf1d2c77493cd89/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
+61            <meta-data
+61-->[androidx.emoji2:emoji2:1.3.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/33d16b565d3df3243cf1d2c77493cd89/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+62                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+62-->[androidx.emoji2:emoji2:1.3.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/33d16b565d3df3243cf1d2c77493cd89/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
+63                android:value="androidx.startup" />
+63-->[androidx.emoji2:emoji2:1.3.0] /Users/tyamada22/.gradle/caches/8.14.5/transforms/33d16b565d3df3243cf1d2c77493cd89/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
+64            <meta-data
+64-->[androidx.lifecycle:lifecycle-process:2.8.7] /Users/tyamada22/.gradle/caches/8.14.5/transforms/1a3dd7d4e7a6a8d371a679567924ff47/transformed/jetified-lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
+65                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+65-->[androidx.lifecycle:lifecycle-process:2.8.7] /Users/tyamada22/.gradle/caches/8.14.5/transforms/1a3dd7d4e7a6a8d371a679567924ff47/transformed/jetified-lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
+66                android:value="androidx.startup" />
+66-->[androidx.lifecycle:lifecycle-process:2.8.7] /Users/tyamada22/.gradle/caches/8.14.5/transforms/1a3dd7d4e7a6a8d371a679567924ff47/transformed/jetified-lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
+67            <meta-data
+67-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+68                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+68-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+69                android:value="androidx.startup" />
+69-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+70        </provider>
+71
+72        <receiver
+72-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+73            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+73-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+74            android:directBootAware="false"
+74-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+75            android:enabled="true"
+75-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+76            android:exported="true"
+76-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+77            android:permission="android.permission.DUMP" >
+77-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+78            <intent-filter>
+78-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+79                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+79-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+79-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+80            </intent-filter>
+81            <intent-filter>
+81-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+82                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+82-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+82-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+83            </intent-filter>
+84            <intent-filter>
+84-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+85                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+85-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+85-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+86            </intent-filter>
+87            <intent-filter>
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+88                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/tyamada22/.gradle/caches/8.14.5/transforms/cb83e975c41e2bc012527b0b7a3dd314/transformed/jetified-profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+89            </intent-filter>
+90        </receiver>
+91    </application>
+92
+93</manifest>
