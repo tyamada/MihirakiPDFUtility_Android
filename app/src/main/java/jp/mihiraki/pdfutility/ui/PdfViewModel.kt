@@ -22,7 +22,9 @@ data class PageState(
     val rotation: Int = 0,
     val originalIndex: Int,
     val isBlank: Boolean = false,
-    val sourceUri: Uri? = null
+    val sourceUri: Uri? = null,
+    val isSplit: Boolean = false,
+    val splitPart: Int = 0 // 0: Left/Top, 1: Right/Bottom
 )
 
 data class PdfUiState(
@@ -36,7 +38,9 @@ data class PdfUiState(
     val errorMessage: String? = null,
     val showPasswordDialog: Boolean = false,
     val pendingUri: Uri? = null,
-    val isAppending: Boolean = false
+    val isAppending: Boolean = false,
+    val canUndo: Boolean = false,
+    val canRedo: Boolean = false
 )
 
 class PdfViewModel(application: Application) : AndroidViewModel(application) {
@@ -45,6 +49,44 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     
     private val _uiState = MutableStateFlow(PdfUiState())
     val uiState: StateFlow<PdfUiState> = _uiState
+
+    private val undoStack = mutableListOf<List<PageState>>()
+    private val redoStack = mutableListOf<List<PageState>>()
+    private val maxHistorySize = 20
+
+    private fun saveToHistory() {
+        undoStack.add(_uiState.value.pages.toList())
+        if (undoStack.size > maxHistorySize) {
+            undoStack.removeAt(0)
+        }
+        redoStack.clear()
+        updateHistoryFlags()
+    }
+
+    private fun updateHistoryFlags() {
+        _uiState.value = _uiState.value.copy(
+            canUndo = undoStack.isNotEmpty(),
+            canRedo = redoStack.isNotEmpty()
+        )
+    }
+
+    fun undo() {
+        if (undoStack.isEmpty()) return
+        val currentState = _uiState.value.pages.toList()
+        redoStack.add(currentState)
+        val previousState = undoStack.removeAt(undoStack.size - 1)
+        _uiState.value = _uiState.value.copy(pages = previousState, isDirty = true)
+        updateHistoryFlags()
+    }
+
+    fun redo() {
+        if (redoStack.isEmpty()) return
+        val currentState = _uiState.value.pages.toList()
+        undoStack.add(currentState)
+        val nextState = redoStack.removeAt(redoStack.size - 1)
+        _uiState.value = _uiState.value.copy(pages = nextState, isDirty = true)
+        updateHistoryFlags()
+    }
 
     fun loadPdf(uri: Uri, password: String? = null) {
         viewModelScope.launch {
@@ -76,6 +118,10 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                             isDirty = false,
                             pendingUri = null
                         )
+                        // Clear history on new load
+                        undoStack.clear()
+                        redoStack.clear()
+                        updateHistoryFlags()
                     }
                 } catch (e: InvalidPasswordException) {
                     _uiState.value = _uiState.value.copy(
@@ -108,6 +154,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                 try {
                     val inputStream = getApplication<Application>().contentResolver.openInputStream(uri)
                     if (inputStream != null) {
+                        saveToHistory()
                         val startIndex = processor.append(inputStream, password) - thumbnailProvider.getPageCount(uri)
                         
                         val pageCount = thumbnailProvider.getPageCount(uri)
@@ -166,6 +213,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun rotateSelected(degrees: Int) {
+        saveToHistory()
         val currentPages = _uiState.value.pages.toMutableList()
         val selected = _uiState.value.selectedIndices
         
@@ -182,6 +230,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun deleteSelected() {
+        saveToHistory()
         val currentPages = _uiState.value.pages.toMutableList()
         val selected = _uiState.value.selectedIndices.sortedDescending()
         
@@ -199,6 +248,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun moveSelected(direction: Int) {
+        saveToHistory()
         val currentPages = _uiState.value.pages.toMutableList()
         val selected = _uiState.value.selectedIndices.toSet()
         val newSelected = mutableSetOf<Int>()
@@ -225,6 +275,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun insertBlankAfterSelected() {
+        saveToHistory()
         val currentPages = _uiState.value.pages.toMutableList()
         val selected = _uiState.value.selectedIndices.sortedDescending()
         
@@ -271,6 +322,57 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.value = _uiState.value.copy(isMihirakiView = !_uiState.value.isMihirakiView)
     }
 
+    fun splitSelectedPages() {
+        saveToHistory()
+        val currentPages = _uiState.value.pages.toMutableList()
+        val selected = _uiState.value.selectedIndices.sortedDescending()
+        val isRtl = _uiState.value.isRtl
+        
+        selected.forEach { index ->
+            if (index in currentPages.indices) {
+                val page = currentPages[index]
+                if (!page.isBlank && !page.isSplit) {
+                    val thumb = page.thumbnail
+                    if (thumb != null) {
+                        val w = thumb.width
+                        val h = thumb.height
+                        
+                        val leftThumb = Bitmap.createBitmap(thumb, 0, 0, w / 2, h)
+                        val rightThumb = Bitmap.createBitmap(thumb, w / 2, 0, w / 2, h)
+                        
+                        val leftPage = page.copy(
+                            id = UUID.randomUUID().toString(),
+                            thumbnail = leftThumb,
+                            isSplit = true,
+                            splitPart = 0
+                        )
+                        val rightPage = page.copy(
+                            id = UUID.randomUUID().toString(),
+                            thumbnail = rightThumb,
+                            isSplit = true,
+                            splitPart = 1
+                        )
+                        
+                        currentPages.removeAt(index)
+                        if (isRtl) {
+                            currentPages.add(index, rightPage)
+                            currentPages.add(index + 1, leftPage)
+                        } else {
+                            currentPages.add(index, leftPage)
+                            currentPages.add(index + 1, rightPage)
+                        }
+                    }
+                }
+            }
+        }
+        
+        _uiState.value = _uiState.value.copy(
+            pages = currentPages,
+            isDirty = true,
+            selectedIndices = emptySet()
+        )
+    }
+
     fun toggleRtl() {
         _uiState.value = _uiState.value.copy(isRtl = !_uiState.value.isRtl)
     }
@@ -279,20 +381,12 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         if (fromIndex !in _uiState.value.pages.indices || toIndex !in _uiState.value.pages.indices) return
         if (fromIndex == toIndex) return
 
+        saveToHistory()
         val currentPages = _uiState.value.pages.toMutableList()
         val page = currentPages.removeAt(fromIndex)
         currentPages.add(toIndex, page)
         
-        // Update selection indices to match new positions
-        val currentSelected = _uiState.value.selectedIndices
         val newSelected = mutableSetOf<Int>()
-        
-        currentPages.indices.forEach { index ->
-            // This is a bit complex if we want to track the EXACT page objects.
-            // But since they have UUIDs, we can use that.
-        }
-        
-        // Simpler way: just map the IDs
         val selectedIds = _uiState.value.selectedIndices.mapNotNull { i -> 
             _uiState.value.pages.getOrNull(i)?.id 
         }.toSet()

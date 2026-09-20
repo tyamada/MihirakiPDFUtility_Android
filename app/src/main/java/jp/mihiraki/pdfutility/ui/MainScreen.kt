@@ -16,6 +16,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.Undo
+import androidx.compose.material.icons.automirrored.filled.Redo
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -80,6 +82,14 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                         viewModel.selectAll()
                         true
                     }
+                    Key.Z -> {
+                        if (event.isShiftPressed) viewModel.redo() else viewModel.undo()
+                        true
+                    }
+                    Key.Y -> {
+                        viewModel.redo()
+                        true
+                    }
                     else -> false
                 }
             } else if (event.type == KeyEventType.KeyDown && event.key == Key.Delete) {
@@ -101,6 +111,13 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                     ) 
                 },
                 actions = {
+                    IconButton(onClick = { viewModel.undo() }, enabled = uiState.canUndo) {
+                        Icon(Icons.AutoMirrored.Filled.Undo, contentDescription = "Undo")
+                    }
+                    IconButton(onClick = { viewModel.redo() }, enabled = uiState.canRedo) {
+                        Icon(Icons.AutoMirrored.Filled.Redo, contentDescription = "Redo")
+                    }
+                    
                     if (uiState.selectedIndices.isEmpty()) {
                         IconButton(onClick = { openLauncher.launch("application/pdf") }) {
                             Icon(Icons.Default.FileOpen, contentDescription = "Open")
@@ -133,6 +150,9 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                         }
                         IconButton(onClick = { viewModel.invertSelection() }) {
                             Icon(Icons.Default.Flip, contentDescription = "Invert Selection")
+                        }
+                        IconButton(onClick = { viewModel.splitSelectedPages() }) {
+                            Icon(Icons.Default.ContentCut, contentDescription = "Split Pages")
                         }
                         IconButton(onClick = { viewModel.rotateSelected(90) }) {
                             Icon(Icons.Default.RotateRight, contentDescription = "Rotate Right")

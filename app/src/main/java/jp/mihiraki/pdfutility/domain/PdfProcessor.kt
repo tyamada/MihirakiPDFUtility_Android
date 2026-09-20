@@ -98,7 +98,6 @@ class PdfProcessor {
         if (afterIndex >= doc.numberOfPages - 1) {
             doc.addPage(newPage)
         } else {
-            // Need to insert into PDPageTree
             doc.pages.insertBefore(newPage, doc.getPage(afterIndex + 1))
         }
     }
@@ -115,14 +114,22 @@ class PdfProcessor {
             if (pageState.isBlank) {
                 newDoc.addPage(PDPage(PDRectangle.A4))
             } else {
-                // Since we merged everything into 'document' in 'append', 
-                // 'originalIndex' refers to the index in the merged 'document'.
-                // However, 'originalIndex' in PageState was intended for the initial load.
-                // We need to update how we track pages if we support merging.
                 if (pageState.originalIndex in 0 until sourceDoc.numberOfPages) {
                     val page = sourceDoc.getPage(pageState.originalIndex)
                     val importedPage = newDoc.importPage(page)
                     importedPage.rotation = (page.rotation + pageState.rotation) % 360
+                    
+                    if (pageState.isSplit) {
+                        val mediaBox = importedPage.mediaBox
+                        val width = mediaBox.width
+                        val height = mediaBox.height
+                        
+                        if (pageState.splitPart == 0) { // Left/Top
+                            importedPage.cropBox = PDRectangle(0f, 0f, width / 2f, height)
+                        } else { // Right/Bottom
+                            importedPage.cropBox = PDRectangle(width / 2f, 0f, width, height)
+                        }
+                    }
                 }
             }
         }
