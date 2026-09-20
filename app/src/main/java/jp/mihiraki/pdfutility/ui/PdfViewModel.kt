@@ -420,6 +420,24 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun exportSelected(uri: Uri, password: String? = null) {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true)
+            withContext(Dispatchers.IO) {
+                try {
+                    val selectedPages = _uiState.value.selectedIndices.sorted().map { _uiState.value.pages[it] }
+                    getApplication<Application>().contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        processor.save(outputStream, selectedPages, password)
+                    }
+                } catch (e: Exception) {
+                    _uiState.value = _uiState.value.copy(errorMessage = "Failed to export pages")
+                } finally {
+                    _uiState.value = _uiState.value.copy(isLoading = false)
+                }
+            }
+        }
+    }
+
     private fun rotateBitmap(source: Bitmap, degrees: Float): Bitmap {
         val matrix = Matrix()
         matrix.postRotate(degrees)
