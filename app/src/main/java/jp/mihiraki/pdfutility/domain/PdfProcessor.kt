@@ -9,6 +9,7 @@ import com.tom_roush.pdfbox.pdmodel.interactive.viewerpreferences.PDViewerPrefer
 import com.tom_roush.pdfbox.pdmodel.common.PDRectangle
 import com.tom_roush.pdfbox.pdmodel.encryption.AccessPermission
 import com.tom_roush.pdfbox.pdmodel.encryption.StandardProtectionPolicy
+import jp.mihiraki.pdfutility.ui.SplitDirection
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -182,11 +183,28 @@ class PdfProcessor {
                         val width = mediaBox.width
                         val height = mediaBox.height
                         
-                        if (pageState.splitPart == 0) { // Left/Top
-                            importedPage.cropBox = PDRectangle(0f, 0f, width / 2f, height)
-                        } else { // Right/Bottom
-                            importedPage.cropBox = PDRectangle(width / 2f, 0f, width, height)
+                        if (pageState.splitDirection == SplitDirection.VERTICAL) {
+                            if (pageState.splitPart == 0) { // Left
+                                importedPage.cropBox = PDRectangle(0f, 0f, width / 2f, height)
+                            } else { // Right
+                                importedPage.cropBox = PDRectangle(width / 2f, 0f, width, height)
+                            }
+                        } else {
+                            if (pageState.splitPart == 0) { // Top
+                                importedPage.cropBox = PDRectangle(0f, height / 2f, width, height)
+                            } else { // Bottom
+                                importedPage.cropBox = PDRectangle(0f, 0f, width, height / 2f)
+                            }
                         }
+                    }
+                    
+                    if (pageState.cropMargin > 0f) {
+                        val cb = importedPage.cropBox
+                        val w = cb.width
+                        val h = cb.height
+                        val mx = w * pageState.cropMargin
+                        val my = h * pageState.cropMargin
+                        importedPage.cropBox = PDRectangle(cb.lowerLeftX + mx, cb.lowerLeftY + my, w - 2*mx, h - 2*my)
                     }
                 }
             }
