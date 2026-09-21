@@ -4,6 +4,7 @@ import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.net.Uri
+import android.provider.OpenableColumns
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.tom_roush.pdfbox.pdmodel.encryption.InvalidPasswordException
@@ -106,9 +107,10 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadPdf(uri: Uri, password: String? = null) {
         viewModelScope.launch {
+            val fileName = getFileName(uri)
             _uiState.value = _uiState.value.copy(
                 isLoading = true, 
-                fileName = uri.lastPathSegment,
+                fileName = fileName,
                 errorMessage = null,
                 showPasswordDialog = false,
                 isAppending = false
@@ -544,6 +546,29 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         val matrix = Matrix()
         matrix.postRotate(degrees)
         return Bitmap.createBitmap(source, 0, 0, source.width, source.height, matrix, true)
+    }
+
+    private fun getFileName(uri: Uri): String? {
+        var result: String? = null
+        if (uri.scheme == "content") {
+            val cursor = getApplication<Application>().contentResolver.query(uri, null, null, null, null)
+            cursor?.use {
+                if (it.moveToFirst()) {
+                    val index = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                    if (index != -1) {
+                        result = it.getString(index)
+                    }
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.path
+            val cut = result?.lastIndexOf('/') ?: -1
+            if (cut != -1) {
+                result = result?.substring(cut + 1)
+            }
+        }
+        return result
     }
 
     override fun onCleared() {
