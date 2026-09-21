@@ -1,5 +1,6 @@
 package jp.mihiraki.pdfutility.ui.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.*
 import androidx.compose.material.icons.filled.*
@@ -8,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextOverflow
 import jp.mihiraki.pdfutility.ui.PdfUiState
 import jp.mihiraki.pdfutility.ui.PdfViewModel
+import jp.mihiraki.pdfutility.ui.SettingsDialogType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,8 +63,27 @@ fun PdfTopAppBar(
                     IconButton(onClick = onSave) {
                         Icon(Icons.Default.Save, contentDescription = "Save")
                     }
-                    IconButton(onClick = { viewModel.toggleSettingsDialog() }) {
-                        Icon(Icons.Default.Settings, contentDescription = "PDF Settings")
+                    Box {
+                        IconButton(onClick = { viewModel.toggleSettingsMenu() }) {
+                            Icon(Icons.Default.Settings, contentDescription = "Settings")
+                        }
+                        DropdownMenu(
+                            expanded = uiState.showSettingsMenu,
+                            onDismissRequest = { viewModel.toggleSettingsMenu() }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("プロパティ") },
+                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("パスワード") },
+                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.PASSWORD) }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("バージョン") },
+                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.VERSION) }
+                            )
+                        }
                     }
                 }
             } else {
