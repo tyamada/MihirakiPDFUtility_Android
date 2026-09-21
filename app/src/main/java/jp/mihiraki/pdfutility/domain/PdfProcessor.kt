@@ -145,7 +145,16 @@ class PdfProcessor {
             
             val catalog = newDoc.documentCatalog
             meta["layout"]?.let { layoutStr ->
-                try { catalog.pageLayout = PageLayout.fromString(layoutStr) } catch (e: Exception) {}
+                try {
+                    val layout = PageLayout.fromString(layoutStr)
+                    catalog.pageLayout = layout
+                    // PDF 1.5 is required for TwoPageLeft/Right
+                    if (layoutStr == "TwoPageLeft" || layoutStr == "TwoPageRight") {
+                        if (newDoc.version < 1.5f) {
+                            newDoc.version = 1.5f
+                        }
+                    }
+                } catch (e: Exception) {}
             }
             
             var vp = catalog.viewerPreferences
