@@ -40,7 +40,13 @@ data class PdfUiState(
     val pendingUri: Uri? = null,
     val isAppending: Boolean = false,
     val canUndo: Boolean = false,
-    val canRedo: Boolean = false
+    val canRedo: Boolean = false,
+    val title: String = "",
+    val author: String = "",
+    val subject: String = "",
+    val keywords: String = "",
+    val savePassword: String = "",
+    val showSettingsDialog: Boolean = false
 )
 
 class PdfViewModel(application: Application) : AndroidViewModel(application) {
@@ -112,11 +118,19 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                                 sourceUri = uri
                             )
                         }
+                        
+                        val metadata = processor.getMetadata()
+                        
                         _uiState.value = _uiState.value.copy(
                             pages = pages,
                             isLoading = false,
                             isDirty = false,
-                            pendingUri = null
+                            pendingUri = null,
+                            title = metadata["title"] ?: "",
+                            author = metadata["author"] ?: "",
+                            subject = metadata["subject"] ?: "",
+                            keywords = metadata["keywords"] ?: "",
+                            savePassword = ""
                         )
                         // Clear history on new load
                         undoStack.clear()
@@ -210,6 +224,24 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
 
     fun clearError() {
         _uiState.value = _uiState.value.copy(errorMessage = null)
+    }
+
+    fun toggleSettingsDialog() {
+        _uiState.value = _uiState.value.copy(showSettingsDialog = !_uiState.value.showSettingsDialog)
+    }
+
+    fun updateMetadata(title: String, author: String, subject: String, keywords: String) {
+        _uiState.value = _uiState.value.copy(
+            title = title,
+            author = author,
+            subject = subject,
+            keywords = keywords,
+            isDirty = true
+        )
+    }
+
+    fun setSavePassword(password: String) {
+        _uiState.value = _uiState.value.copy(savePassword = password)
     }
 
     fun rotateSelected(degrees: Int) {
@@ -407,8 +439,17 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
             _uiState.value = _uiState.value.copy(isLoading = true)
             withContext(Dispatchers.IO) {
                 try {
+                    val currentState = _uiState.value
+                    val metadata = mapOf(
+                        "title" to currentState.title,
+                        "author" to currentState.author,
+                        "subject" to currentState.subject,
+                        "keywords" to currentState.keywords
+                    )
+                    val savePassword = password ?: currentState.savePassword.takeIf { it.isNotEmpty() }
+                    
                     getApplication<Application>().contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        processor.save(outputStream, _uiState.value.pages, password)
+                        processor.save(outputStream, currentState.pages, savePassword, metadata)
                     }
                     _uiState.value = _uiState.value.copy(isDirty = false)
                 } catch (e: Exception) {
@@ -425,9 +466,18 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
             _uiState.value = _uiState.value.copy(isLoading = true)
             withContext(Dispatchers.IO) {
                 try {
-                    val selectedPages = _uiState.value.selectedIndices.sorted().map { _uiState.value.pages[it] }
+                    val currentState = _uiState.value
+                    val selectedPages = currentState.selectedIndices.sorted().map { currentState.pages[it] }
+                    val metadata = mapOf(
+                        "title" to currentState.title,
+                        "author" to currentState.author,
+                        "subject" to currentState.subject,
+                        "keywords" to currentState.keywords
+                    )
+                    val savePassword = password ?: currentState.savePassword.takeIf { it.isNotEmpty() }
+
                     getApplication<Application>().contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        processor.save(outputStream, selectedPages, password)
+                        processor.save(outputStream, selectedPages, savePassword, metadata)
                     }
                 } catch (e: Exception) {
                     _uiState.value = _uiState.value.copy(errorMessage = "Failed to export pages")

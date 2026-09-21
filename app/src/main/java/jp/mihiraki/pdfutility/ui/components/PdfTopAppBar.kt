@@ -61,6 +61,9 @@ fun PdfTopAppBar(
                     IconButton(onClick = onSave) {
                         Icon(Icons.Default.Save, contentDescription = "Save")
                     }
+                    IconButton(onClick = { viewModel.toggleSettingsDialog() }) {
+                        Icon(Icons.Default.Settings, contentDescription = "PDF Settings")
+                    }
                 }
             } else {
                 IconButton(onClick = { viewModel.selectAll() }) {

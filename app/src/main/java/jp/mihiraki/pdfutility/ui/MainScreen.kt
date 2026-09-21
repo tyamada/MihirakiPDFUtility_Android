@@ -11,6 +11,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import jp.mihiraki.pdfutility.ui.components.DeleteConfirmationDialog
 import jp.mihiraki.pdfutility.ui.components.PasswordDialog
 import jp.mihiraki.pdfutility.ui.components.PdfPageGrid
+import jp.mihiraki.pdfutility.ui.components.PdfSettingsDialog
 import jp.mihiraki.pdfutility.ui.components.PdfTopAppBar
 
 @Composable
@@ -93,6 +94,8 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
     }
 
     PasswordDialog(viewModel = viewModel, uiState = uiState)
+    
+    PdfSettingsDialog(viewModel = viewModel, uiState = uiState)
 
     DeleteConfirmationDialog(
         show = showDeleteConfirmation,

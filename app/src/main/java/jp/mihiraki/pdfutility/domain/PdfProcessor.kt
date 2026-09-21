@@ -1,6 +1,7 @@
 package jp.mihiraki.pdfutility.domain
 
 import com.tom_roush.pdfbox.pdmodel.PDDocument
+import com.tom_roush.pdfbox.pdmodel.PDDocumentInformation
 import com.tom_roush.pdfbox.pdmodel.PDPage
 import com.tom_roush.pdfbox.pdmodel.common.PDRectangle
 import com.tom_roush.pdfbox.pdmodel.encryption.AccessPermission
@@ -54,6 +55,16 @@ class PdfProcessor {
 
     fun getPageCount(): Int = document?.numberOfPages ?: 0
 
+    fun getMetadata(): Map<String, String> {
+        val info = document?.documentInformation ?: return emptyMap()
+        return mapOf(
+            "title" to (info.title ?: ""),
+            "author" to (info.author ?: ""),
+            "subject" to (info.subject ?: ""),
+            "keywords" to (info.keywords ?: "")
+        )
+    }
+
     fun deletePages(indices: List<Int>) {
         val doc = document ?: return
         indices.sortedDescending().forEach { index ->
@@ -105,11 +116,22 @@ class PdfProcessor {
     fun save(
         outputStream: OutputStream,
         pages: List<jp.mihiraki.pdfutility.ui.PageState>,
-        password: String? = null
+        password: String? = null,
+        metadata: Map<String, String>? = null
     ) {
         val sourceDoc = document ?: return
         val newDoc = PDDocument()
         
+        // Apply metadata
+        metadata?.let {
+            val info = PDDocumentInformation()
+            info.title = it["title"]
+            info.author = it["author"]
+            info.subject = it["subject"]
+            info.keywords = it["keywords"]
+            newDoc.documentInformation = info
+        }
+
         pages.forEach { pageState ->
             if (pageState.isBlank) {
                 newDoc.addPage(PDPage(PDRectangle.A4))
