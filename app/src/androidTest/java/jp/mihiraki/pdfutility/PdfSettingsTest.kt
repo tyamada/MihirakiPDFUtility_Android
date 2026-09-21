@@ -9,6 +9,8 @@ import com.tom_roush.pdfbox.pdmodel.PDPage
 import com.tom_roush.pdfbox.pdmodel.PageLayout
 import com.tom_roush.pdfbox.pdmodel.interactive.viewerpreferences.PDViewerPreferences
 import jp.mihiraki.pdfutility.domain.PdfProcessor
+import jp.mihiraki.pdfutility.ui.PageState
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -73,6 +75,40 @@ class PdfSettingsTest {
             
             processor.close()
         }
+    }
+
+    @Test
+    fun testVersionUpgradeForTwoPageLayouts() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val processor = PdfProcessor()
+        val saveFile = File(context.cacheDir, "version_test.pdf")
+
+        // Case: TwoPageRight should force version to 1.5+
+        val pages = listOf(PageState(originalIndex = 0, thumbnail = null))
+        val metadata = mapOf("layout" to "TwoPageRight")
+        
+        // We need a document loaded to call save
+        val initialFile = File(context.cacheDir, "initial.pdf")
+        val doc = PDDocument()
+        doc.addPage(PDPage())
+        doc.version = 1.4f
+        doc.save(initialFile)
+        doc.close()
+        
+        processor.load(initialFile.inputStream())
+        
+        val out = FileOutputStream(saveFile)
+        processor.save(out, pages, metadata = metadata)
+        out.close()
+        
+        // Verify version in saved file
+        val verifier = PdfProcessor()
+        verifier.load(saveFile.inputStream())
+        val meta = verifier.getMetadata()
+        val version = meta["version"]?.toFloat() ?: 0f
+        
+        Assert.assertTrue("Version should be 1.5 or higher for TwoPageRight", version >= 1.5f)
+        verifier.close()
     }
 
     private data class TestSpec(
