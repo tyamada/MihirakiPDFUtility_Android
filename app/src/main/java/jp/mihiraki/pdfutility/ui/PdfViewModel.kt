@@ -27,6 +27,10 @@ data class PageState(
     val splitPart: Int = 0 // 0: Left/Top, 1: Right/Bottom
 )
 
+enum class SettingsDialogType {
+    PROPERTY, PASSWORD, VERSION
+}
+
 data class PdfUiState(
     val pages: List<PageState> = emptyList(),
     val isLoading: Boolean = false,
@@ -46,7 +50,8 @@ data class PdfUiState(
     val subject: String = "",
     val keywords: String = "",
     val savePassword: String = "",
-    val showSettingsDialog: Boolean = false,
+    val showSettingsMenu: Boolean = false,
+    val activeSettingsDialog: SettingsDialogType? = null,
     val previewPageIndex: Int? = null,
     val pdfVersion: String = "",
     val pageLayout: String = "SinglePage",
@@ -235,8 +240,16 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.value = _uiState.value.copy(errorMessage = null)
     }
 
-    fun toggleSettingsDialog() {
-        _uiState.value = _uiState.value.copy(showSettingsDialog = !_uiState.value.showSettingsDialog)
+    fun toggleSettingsMenu() {
+        _uiState.value = _uiState.value.copy(showSettingsMenu = !_uiState.value.showSettingsMenu)
+    }
+
+    fun openSettingsDialog(type: SettingsDialogType) {
+        _uiState.value = _uiState.value.copy(activeSettingsDialog = type, showSettingsMenu = false)
+    }
+
+    fun closeSettingsDialog() {
+        _uiState.value = _uiState.value.copy(activeSettingsDialog = null)
     }
 
     fun openPreview(index: Int) {
