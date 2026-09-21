@@ -60,7 +60,13 @@ fun PdfPageGrid(
                             PageThumbnail(
                                 page = page,
                                 isSelected = uiState.selectedIndices.contains(index),
-                                onClick = { viewModel.toggleSelection(index) }
+                                onClick = { 
+                                    if (uiState.selectedIndices.isEmpty()) {
+                                        viewModel.openPreview(index)
+                                    } else {
+                                        viewModel.toggleSelection(index)
+                                    }
+                                }
                             )
                         }
                     }
@@ -85,7 +91,13 @@ fun PdfPageGrid(
                 PageThumbnail(
                     page = page,
                     isSelected = uiState.selectedIndices.contains(index),
-                    onClick = { viewModel.toggleSelection(index) },
+                    onClick = { 
+                        if (uiState.selectedIndices.isEmpty()) {
+                            viewModel.openPreview(index)
+                        } else {
+                            viewModel.toggleSelection(index)
+                        }
+                    },
                     modifier = Modifier
                         .pointerInput(Unit) {
                             detectDragGesturesAfterLongPress(

@@ -46,7 +46,8 @@ data class PdfUiState(
     val subject: String = "",
     val keywords: String = "",
     val savePassword: String = "",
-    val showSettingsDialog: Boolean = false
+    val showSettingsDialog: Boolean = false,
+    val previewPageIndex: Int? = null
 )
 
 class PdfViewModel(application: Application) : AndroidViewModel(application) {
@@ -228,6 +229,21 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
 
     fun toggleSettingsDialog() {
         _uiState.value = _uiState.value.copy(showSettingsDialog = !_uiState.value.showSettingsDialog)
+    }
+
+    fun openPreview(index: Int) {
+        _uiState.value = _uiState.value.copy(previewPageIndex = index)
+    }
+
+    fun closePreview() {
+        _uiState.value = _uiState.value.copy(previewPageIndex = null)
+    }
+
+    fun getHighResThumbnail(index: Int): Bitmap? {
+        val page = _uiState.value.pages.getOrNull(index) ?: return null
+        val uri = page.sourceUri ?: return null
+        // 1024 or similar for high res
+        return thumbnailProvider.getThumbnail(uri, page.originalIndex, 1024)
     }
 
     fun updateMetadata(title: String, author: String, subject: String, keywords: String) {

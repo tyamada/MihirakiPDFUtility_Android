@@ -11,6 +11,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import jp.mihiraki.pdfutility.ui.components.DeleteConfirmationDialog
 import jp.mihiraki.pdfutility.ui.components.PasswordDialog
 import jp.mihiraki.pdfutility.ui.components.PdfPageGrid
+import jp.mihiraki.pdfutility.ui.components.PdfPagePreview
 import jp.mihiraki.pdfutility.ui.components.PdfSettingsDialog
 import jp.mihiraki.pdfutility.ui.components.PdfTopAppBar
 
@@ -43,7 +44,12 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         modifier = Modifier.onKeyEvent { event ->
-            if (event.type == KeyEventType.KeyDown && event.isCtrlPressed) {
+            if (uiState.previewPageIndex != null) {
+                if (event.type == KeyEventType.KeyDown && event.key == Key.Back) {
+                    viewModel.closePreview()
+                    true
+                } else false
+            } else if (event.type == KeyEventType.KeyDown && event.isCtrlPressed) {
                 when (event.key) {
                     Key.O -> {
                         openLauncher.launch("application/pdf")
@@ -91,6 +97,10 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
         Box(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
             PdfPageGrid(uiState = uiState, viewModel = viewModel)
         }
+    }
+
+    if (uiState.previewPageIndex != null) {
+        PdfPagePreview(uiState = uiState, viewModel = viewModel)
     }
 
     PasswordDialog(viewModel = viewModel, uiState = uiState)
