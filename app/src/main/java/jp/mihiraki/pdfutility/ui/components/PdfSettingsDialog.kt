@@ -23,6 +23,19 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         
         var pageLayout by remember { mutableStateOf(uiState.pageLayout) }
         var scrollDirection by remember { mutableStateOf(uiState.scrollDirection) }
+        var showCover by remember { mutableStateOf(uiState.showCover) }
+
+        val pageDisplayString = remember(pageLayout) {
+            when (pageLayout) {
+                "SinglePage" -> "単一ページ表示"
+                "OneColumn" -> "単一ページ表示、スクロール有効"
+                "TwoColumnLeft" -> "見開きページ表示、スクロール有効"
+                "TwoColumnRight" -> "見開きページ表示、表紙を表示、スクロール有効"
+                "TwoPageLeft" -> "見開きページ表示"
+                "TwoPageRight" -> "見開きページ表示、表紙を表示"
+                else -> ""
+            }
+        }
 
         AlertDialog(
             onDismissRequest = { viewModel.toggleSettingsDialog() },
@@ -37,6 +50,11 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                     Text("Detailed Info", style = MaterialTheme.typography.titleSmall)
                     Text("PDF Version: ${uiState.pdfVersion}", style = MaterialTheme.typography.bodySmall)
                     
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("ページを表示: ", style = MaterialTheme.typography.bodySmall)
+                        Text(pageDisplayString, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+                    }
+
                     OutlinedTextField(
                         value = title,
                         onValueChange = { title = it },
@@ -75,11 +93,34 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                                     text = { Text(layout) },
                                     onClick = {
                                         pageLayout = layout
+                                        if (layout == "TwoColumnRight" || layout == "TwoPageRight") {
+                                            showCover = true
+                                        } else if (layout == "TwoColumnLeft" || layout == "TwoPageLeft") {
+                                            showCover = false
+                                        }
                                         layoutExpanded = false
                                     }
                                 )
                             }
                         }
+                    }
+
+                    // Show Cover Switch
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("表紙を表示: ", modifier = Modifier.weight(1f))
+                        Switch(
+                            checked = showCover,
+                            onCheckedChange = { isChecked ->
+                                showCover = isChecked
+                                if (isChecked) {
+                                    if (pageLayout == "TwoColumnLeft") pageLayout = "TwoColumnRight"
+                                    if (pageLayout == "TwoPageLeft") pageLayout = "TwoPageRight"
+                                } else {
+                                    if (pageLayout == "TwoColumnRight") pageLayout = "TwoColumnLeft"
+                                    if (pageLayout == "TwoPageRight") pageLayout = "TwoPageLeft"
+                                }
+                            }
+                        )
                     }
 
                     // Reading Direction
@@ -110,7 +151,7 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
             },
             confirmButton = {
                 Button(onClick = {
-                    viewModel.updateMetadata(title, author, subject, keywords, pageLayout, scrollDirection)
+                    viewModel.updateMetadata(title, author, subject, keywords, pageLayout, scrollDirection, showCover)
                     viewModel.setSavePassword(savePassword)
                     viewModel.toggleSettingsDialog()
                 }) {
@@ -144,6 +185,8 @@ private fun OutlinedTextField(
     onValueChange: (String) -> Unit,
     label: @Composable () -> Unit,
     placeholder: (@Composable () -> Unit)? = null,
+    readOnly: Boolean = false,
+    trailingIcon: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier.fillMaxWidth()
 ) {
     OutlinedTextField(
@@ -151,6 +194,8 @@ private fun OutlinedTextField(
         onValueChange = onValueChange,
         label = label,
         placeholder = placeholder,
+        readOnly = readOnly,
+        trailingIcon = trailingIcon,
         modifier = modifier,
         singleLine = true
     )
