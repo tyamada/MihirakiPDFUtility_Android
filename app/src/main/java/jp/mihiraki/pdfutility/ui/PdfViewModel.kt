@@ -50,7 +50,8 @@ data class PdfUiState(
     val previewPageIndex: Int? = null,
     val pdfVersion: String = "",
     val pageLayout: String = "SinglePage",
-    val scrollDirection: String = "L2R"
+    val scrollDirection: String = "L2R",
+    val showCover: Boolean = false
 )
 
 class PdfViewModel(application: Application) : AndroidViewModel(application) {
@@ -137,6 +138,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                             pdfVersion = metadata["version"] ?: "",
                             pageLayout = metadata["layout"] ?: "SinglePage",
                             scrollDirection = metadata["direction"] ?: "L2R",
+                            showCover = metadata["layout"]?.let { it == "TwoColumnRight" || it == "TwoPageRight" } ?: false,
                             savePassword = ""
                         )
                         // Clear history on new load
@@ -258,7 +260,8 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         subject: String, 
         keywords: String,
         pageLayout: String,
-        scrollDirection: String
+        scrollDirection: String,
+        showCover: Boolean
     ) {
         _uiState.value = _uiState.value.copy(
             title = title,
@@ -267,6 +270,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
             keywords = keywords,
             pageLayout = pageLayout,
             scrollDirection = scrollDirection,
+            showCover = showCover,
             isDirty = true
         )
     }
