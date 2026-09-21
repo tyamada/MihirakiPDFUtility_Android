@@ -1,8 +1,11 @@
 package jp.mihiraki.pdfutility.domain
 
+import com.tom_roush.pdfbox.cos.COSDictionary
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.pdmodel.PDDocumentInformation
 import com.tom_roush.pdfbox.pdmodel.PDPage
+import com.tom_roush.pdfbox.pdmodel.PageLayout
+import com.tom_roush.pdfbox.pdmodel.interactive.viewerpreferences.PDViewerPreferences
 import com.tom_roush.pdfbox.pdmodel.common.PDRectangle
 import com.tom_roush.pdfbox.pdmodel.encryption.AccessPermission
 import com.tom_roush.pdfbox.pdmodel.encryption.StandardProtectionPolicy
@@ -56,13 +59,22 @@ class PdfProcessor {
     fun getPageCount(): Int = document?.numberOfPages ?: 0
 
     fun getMetadata(): Map<String, String> {
-        val info = document?.documentInformation ?: return emptyMap()
-        return mapOf(
+        val doc = document ?: return emptyMap()
+        val info = doc.documentInformation
+        val metadata = mutableMapOf(
             "title" to (info.title ?: ""),
             "author" to (info.author ?: ""),
             "subject" to (info.subject ?: ""),
-            "keywords" to (info.keywords ?: "")
+            "keywords" to (info.keywords ?: ""),
+            "version" to doc.version.toString()
         )
+        
+        val catalog = doc.documentCatalog
+        val vp = catalog.viewerPreferences
+        metadata["direction"] = vp?.readingDirection ?: "L2R"
+        metadata["layout"] = catalog.pageLayout?.stringValue() ?: "SinglePage"
+        
+        return metadata
     }
 
     fun deletePages(indices: List<Int>) {
@@ -122,14 +134,29 @@ class PdfProcessor {
         val sourceDoc = document ?: return
         val newDoc = PDDocument()
         
-        // Apply metadata
-        metadata?.let {
+        // Apply metadata and viewer preferences
+        metadata?.let { meta ->
             val info = PDDocumentInformation()
-            info.title = it["title"]
-            info.author = it["author"]
-            info.subject = it["subject"]
-            info.keywords = it["keywords"]
+            info.title = meta["title"]
+            info.author = meta["author"]
+            info.subject = meta["subject"]
+            info.keywords = meta["keywords"]
             newDoc.documentInformation = info
+            
+            val catalog = newDoc.documentCatalog
+            meta["layout"]?.let { layoutStr ->
+                try { catalog.pageLayout = PageLayout.fromString(layoutStr) } catch (e: Exception) {}
+            }
+            
+            var vp = catalog.viewerPreferences
+            if (vp == null) {
+                vp = PDViewerPreferences(COSDictionary())
+                catalog.viewerPreferences = vp
+            }
+            
+            meta["direction"]?.let { dir ->
+                try { vp.setReadingDirection(PDViewerPreferences.READING_DIRECTION.valueOf(dir)) } catch (e: Exception) {}
+            }
         }
 
         pages.forEach { pageState ->

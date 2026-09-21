@@ -5,11 +5,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import jp.mihiraki.pdfutility.ui.PdfUiState
 import jp.mihiraki.pdfutility.ui.PdfViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
     if (uiState.showSettingsDialog) {
@@ -18,6 +20,9 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         var subject by remember { mutableStateOf(uiState.subject) }
         var keywords by remember { mutableStateOf(uiState.keywords) }
         var savePassword by remember { mutableStateOf(uiState.savePassword) }
+        
+        var pageLayout by remember { mutableStateOf(uiState.pageLayout) }
+        var scrollDirection by remember { mutableStateOf(uiState.scrollDirection) }
 
         AlertDialog(
             onDismissRequest = { viewModel.toggleSettingsDialog() },
@@ -29,31 +34,69 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                         .padding(vertical = 8.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    Text("Detailed Info", style = MaterialTheme.typography.titleSmall)
+                    Text("PDF Version: ${uiState.pdfVersion}", style = MaterialTheme.typography.bodySmall)
+                    
                     OutlinedTextField(
                         value = title,
                         onValueChange = { title = it },
-                        label = { Text("Title") },
-                        fullWidth = true
+                        label = { Text("Title") }
                     )
                     OutlinedTextField(
                         value = author,
                         onValueChange = { author = it },
-                        label = { Text("Author") },
-                        fullWidth = true
-                    )
-                    OutlinedTextField(
-                        value = subject,
-                        onValueChange = { subject = it },
-                        label = { Text("Subject") },
-                        fullWidth = true
-                    )
-                    OutlinedTextField(
-                        value = keywords,
-                        onValueChange = { keywords = it },
-                        label = { Text("Keywords") },
-                        fullWidth = true
+                        label = { Text("Author") }
                     )
                     
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                    
+                    Text("Viewer Preferences", style = MaterialTheme.typography.titleSmall)
+                    
+                    // Page Layout Dropdown
+                    var layoutExpanded by remember { mutableStateOf(false) }
+                    ExposedDropdownMenuBox(
+                        expanded = layoutExpanded,
+                        onExpandedChange = { layoutExpanded = it }
+                    ) {
+                        OutlinedTextField(
+                            value = pageLayout,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text("Page Layout") },
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = layoutExpanded) },
+                            modifier = Modifier.menuAnchor().fillMaxWidth()
+                        )
+                        ExposedDropdownMenu(
+                            expanded = layoutExpanded,
+                            onDismissRequest = { layoutExpanded = false }
+                        ) {
+                            listOf("SinglePage", "OneColumn", "TwoColumnLeft", "TwoColumnRight", "TwoPageLeft", "TwoPageRight").forEach { layout ->
+                                DropdownMenuItem(
+                                    text = { Text(layout) },
+                                    onClick = {
+                                        pageLayout = layout
+                                        layoutExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+
+                    // Reading Direction
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("Direction: ", modifier = Modifier.weight(1f))
+                        SegmentedButton(
+                            selected = scrollDirection == "L2R",
+                            onClick = { scrollDirection = "L2R" },
+                            label = "L2R"
+                        )
+                        SegmentedButton(
+                            selected = scrollDirection == "R2L",
+                            onClick = { scrollDirection = "R2L" },
+                            label = "R2L"
+                        )
+                    }
+
                     HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                     
                     Text("Security", style = MaterialTheme.typography.titleSmall)
@@ -61,14 +104,13 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                         value = savePassword,
                         onValueChange = { savePassword = it },
                         label = { Text("Encryption Password") },
-                        placeholder = { Text("Leave empty for no password") },
-                        fullWidth = true
+                        placeholder = { Text("Leave empty for no password") }
                     )
                 }
             },
             confirmButton = {
                 Button(onClick = {
-                    viewModel.updateMetadata(title, author, subject, keywords)
+                    viewModel.updateMetadata(title, author, subject, keywords, pageLayout, scrollDirection)
                     viewModel.setSavePassword(savePassword)
                     viewModel.toggleSettingsDialog()
                 }) {
@@ -84,21 +126,32 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
     }
 }
 
-// Helper to avoid duplicate code, though Material3 TextField doesn't have 'fullWidth' param directly like this
+@Composable
+private fun SegmentedButton(selected: Boolean, onClick: () -> Unit, label: String) {
+    Button(
+        onClick = onClick,
+        colors = if (selected) ButtonDefaults.buttonColors() else ButtonDefaults.filledTonalButtonColors(),
+        modifier = Modifier.padding(horizontal = 4.dp),
+        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp)
+    ) {
+        Text(label, style = MaterialTheme.typography.labelSmall)
+    }
+}
+
 @Composable
 private fun OutlinedTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: @Composable () -> Unit,
     placeholder: (@Composable () -> Unit)? = null,
-    fullWidth: Boolean = true
+    modifier: Modifier = Modifier.fillMaxWidth()
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         label = label,
         placeholder = placeholder,
-        modifier = if (fullWidth) Modifier.fillMaxWidth() else Modifier,
+        modifier = modifier,
         singleLine = true
     )
 }

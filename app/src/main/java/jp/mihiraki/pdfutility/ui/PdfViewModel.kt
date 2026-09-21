@@ -47,7 +47,10 @@ data class PdfUiState(
     val keywords: String = "",
     val savePassword: String = "",
     val showSettingsDialog: Boolean = false,
-    val previewPageIndex: Int? = null
+    val previewPageIndex: Int? = null,
+    val pdfVersion: String = "",
+    val pageLayout: String = "SinglePage",
+    val scrollDirection: String = "L2R"
 )
 
 class PdfViewModel(application: Application) : AndroidViewModel(application) {
@@ -131,6 +134,9 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                             author = metadata["author"] ?: "",
                             subject = metadata["subject"] ?: "",
                             keywords = metadata["keywords"] ?: "",
+                            pdfVersion = metadata["version"] ?: "",
+                            pageLayout = metadata["layout"] ?: "SinglePage",
+                            scrollDirection = metadata["direction"] ?: "L2R",
                             savePassword = ""
                         )
                         // Clear history on new load
@@ -246,12 +252,21 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         return thumbnailProvider.getThumbnail(uri, page.originalIndex, 1024)
     }
 
-    fun updateMetadata(title: String, author: String, subject: String, keywords: String) {
+    fun updateMetadata(
+        title: String, 
+        author: String, 
+        subject: String, 
+        keywords: String,
+        pageLayout: String,
+        scrollDirection: String
+    ) {
         _uiState.value = _uiState.value.copy(
             title = title,
             author = author,
             subject = subject,
             keywords = keywords,
+            pageLayout = pageLayout,
+            scrollDirection = scrollDirection,
             isDirty = true
         )
     }
@@ -460,7 +475,9 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         "title" to currentState.title,
                         "author" to currentState.author,
                         "subject" to currentState.subject,
-                        "keywords" to currentState.keywords
+                        "keywords" to currentState.keywords,
+                        "layout" to currentState.pageLayout,
+                        "direction" to currentState.scrollDirection
                     )
                     val savePassword = password ?: currentState.savePassword.takeIf { it.isNotEmpty() }
                     
@@ -488,7 +505,9 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         "title" to currentState.title,
                         "author" to currentState.author,
                         "subject" to currentState.subject,
-                        "keywords" to currentState.keywords
+                        "keywords" to currentState.keywords,
+                        "layout" to currentState.pageLayout,
+                        "direction" to currentState.scrollDirection
                     )
                     val savePassword = password ?: currentState.savePassword.takeIf { it.isNotEmpty() }
 
