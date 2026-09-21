@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Mihiraki PDF Utility</string>
+    <string name="action_open">Ouvrir</string>
+    <string name="action_save">Enregistrer</string>
+    <string name="action_undo">Annuler</string>
+    <string name="action_redo">Rétablir</string>
+    <string name="action_add_pdf">Ajouter un PDF</string>
+    <string name="action_toggle_rtl">Basculer RTL</string>
+    <string name="action_toggle_view">Changer de vue</string>
+    <string name="action_select_all">Tout sélectionner</string>
+    <string name="action_invert_selection">Inverser la sélection</string>
+    <string name="action_export_selected">Exporter la sélection</string>
+    <string name="action_split_pages">Diviser les pages</string>
+    <string name="action_rotate_right">Rotation à droite</string>
+    <string name="action_insert_blank">Insérer une page blanche</string>
+    <string name="action_move_up">Monter</string>
+    <string name="action_move_down">Descendre</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_clear_selection">Effacer la sélection</string>
+    <string name="action_close">Fermer</string>
+    <string name="action_apply">Appliquer</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_unlock">Déverrouiller</string>
+    <string name="action_run">Exécuter</string>
+    <string name="action_clear">Effacer</string>
+    <string name="action_set">Définir</string>
+
+    <string name="dialog_password_title">Mot de passe requis</string>
+    <string name="dialog_password_desc">Ce PDF est protégé par un mot de passe.</string>
+    <string name="dialog_password_label">Mot de passe</string>
+    <string name="dialog_delete_title">Supprimer les pages</string>
+    <string name="dialog_delete_desc">Voulez-vous vraiment supprimer les %1$d pages sélectionnées ?</string>
+
+    <string name="error_load_failed">Échec du chargement du PDF</string>
+    <string name="error_append_failed">Échec de l\'ajout du PDF</string>
+    <string name="error_export_failed">Échec de l\'exportation des pages</string>
+    <string name="error_incorrect_password">Mot de passe incorrect</string>
+
+    <string name="settings_title">Paramètres PDF</string>
+    <string name="settings_property">Propriétés</string>
+    <string name="settings_password">Mot de passe</string>
+    <string name="settings_version">Version</string>
+
+    <string name="prop_filename">Nom du fichier</string>
+    <string name="prop_title">Titre</string>
+    <string name="prop_author">Auteur</string>
+    <string name="prop_subtitle">Sous-titre</string>
+    <string name="prop_keywords">Mots-clés</string>
+    <string name="prop_pdf_version">Version PDF : %1$s</string>
+    <string name="prop_display_settings">Paramètres d\'affichage</string>
+    <string name="prop_page_layout">Mise en page</string>
+    <string name="prop_show_cover">Afficher la couverture</string>
+    <string name="prop_scroll_direction">Sens de défilement</string>
+    <string name="prop_page_display">Affichage des pages</string>
+
+    <string name="layout_single">Page unique</string>
+    <string name="layout_one_column">Une colonne</string>
+    <string name="layout_two_column_left">Deux colonnes gauche</string>
+    <string name="layout_two_column_right">Deux colonnes droite</string>
+    <string name="layout_two_page_left">Deux pages gauche</string>
+    <string name="layout_two_page_right">Deux pages droite</string>
+
+    <string name="display_single">Affichage page unique</string>
+    <string name="display_one_column">Affichage page unique, défilement activé</string>
+    <string name="display_two_column_left">Vue en double page, défilement activé</string>
+    <string name="display_two_column_right">Vue en double page, afficher la couverture, défilement activé</string>
+    <string name="display_two_page_left">Vue en double page</string>
+    <string name="display_two_page_right">Vue en double page, afficher la couverture</string>
+
+    <string name="security_title">Sécurité</string>
+    <string name="security_desc">Définir un mot de passe pour l\'enregistrement/exportation.</string>
+    <string name="security_password_label">Mot de passe de chiffrement</string>
+    <string name="security_not_set">Non défini</string>
+    <string name="security_leave_empty">Laisser vide pour aucun mot de passe</string>
+
+    <string name="version_app_name">Mihiraki PDF Utility</string>
+    <string name="version_number">Version : %1$s</string>
+    <string name="version_build">Build : %1$s</string>
+    <string name="version_copyright">© 2026 Mihiraki Project</string>
+
+    <string name="split_title">Diviser les pages</string>
+    <string name="split_desc">Sélectionner le sens de division.</string>
+    <string name="split_vertical">Division verticale (Gauche/Droite)</string>
+    <string name="split_horizontal">Division horizontale (Haut/Bas)</string>
+
+    <string name="crop_title">Rogner les marges</string>
+    <string name="crop_desc">Spécifier le pourcentage à rogner de chaque côté.</string>
+    <string name="crop_percent">%1$d%% Rogné</string>
+
+    <string name="preview_page_counter">Page %1$d / %2$d</string>
+</resources>

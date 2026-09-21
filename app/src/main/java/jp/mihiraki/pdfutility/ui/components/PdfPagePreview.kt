@@ -21,7 +21,9 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import jp.mihiraki.pdfutility.R
 import jp.mihiraki.pdfutility.ui.PdfUiState
 import jp.mihiraki.pdfutility.ui.PdfViewModel
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +60,7 @@ fun PdfPagePreview(
         TopAppBar(
             title = {
                 Text(
-                    "Page ${pagerState.currentPage + 1} / ${uiState.pages.size}",
+                    stringResource(R.string.preview_page_counter, pagerState.currentPage + 1, uiState.pages.size),
                     color = Color.White
                 )
             },
@@ -66,7 +68,7 @@ fun PdfPagePreview(
                 IconButton(onClick = { viewModel.closePreview() }) {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Close",
+                        contentDescription = stringResource(R.string.action_close),
                         tint = Color.White
                     )
                 }

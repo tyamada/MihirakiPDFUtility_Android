@@ -5,7 +5,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import jp.mihiraki.pdfutility.R
 import jp.mihiraki.pdfutility.ui.SplitDirection
 
 @Composable
@@ -18,35 +20,35 @@ fun SplitDialog(
         var direction by remember { mutableStateOf(SplitDirection.VERTICAL) }
         AlertDialog(
             onDismissRequest = onDismiss,
-            title = { Text("ページ分割") },
+            title = { Text(stringResource(R.string.split_title)) },
             text = {
                 Column {
-                    Text("分割方向を選択してください。")
+                    Text(stringResource(R.string.split_desc))
                     Spacer(Modifier.height(16.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(
                             selected = direction == SplitDirection.VERTICAL,
                             onClick = { direction = SplitDirection.VERTICAL }
                         )
-                        Text("垂直分割 (左右)", modifier = Modifier.padding(start = 8.dp))
+                        Text(stringResource(R.string.split_vertical), modifier = Modifier.padding(start = 8.dp))
                     }
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(
                             selected = direction == SplitDirection.HORIZONTAL,
                             onClick = { direction = SplitDirection.HORIZONTAL }
                         )
-                        Text("水平分割 (上下)", modifier = Modifier.padding(start = 8.dp))
+                        Text(stringResource(R.string.split_horizontal), modifier = Modifier.padding(start = 8.dp))
                     }
                 }
             },
             confirmButton = {
                 Button(onClick = { onConfirm(direction) }) {
-                    Text("実行")
+                    Text(stringResource(R.string.action_run))
                 }
             },
             dismissButton = {
                 TextButton(onClick = onDismiss) {
-                    Text("キャンセル")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )
@@ -63,10 +65,10 @@ fun CropDialog(
         var sliderValue by remember { mutableStateOf(0.1f) }
         AlertDialog(
             onDismissRequest = onDismiss,
-            title = { Text("余白をカット") },
+            title = { Text(stringResource(R.string.crop_title)) },
             text = {
                 Column {
-                    Text("各辺からカットする割合を指定してください。")
+                    Text(stringResource(R.string.crop_desc))
                     Spacer(Modifier.height(16.dp))
                     Slider(
                         value = sliderValue,
@@ -74,17 +76,17 @@ fun CropDialog(
                         valueRange = 0f..0.4f,
                         steps = 7
                     )
-                    Text("${(sliderValue * 100).toInt()}% カット", modifier = Modifier.align(Alignment.End))
+                    Text(stringResource(R.string.crop_percent, (sliderValue * 100).toInt()), modifier = Modifier.align(Alignment.End))
                 }
             },
             confirmButton = {
                 Button(onClick = { onConfirm(sliderValue) }) {
-                    Text("実行")
+                    Text(stringResource(R.string.action_run))
                 }
             },
             dismissButton = {
                 TextButton(onClick = onDismiss) {
-                    Text("キャンセル")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )

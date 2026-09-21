@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Mihiraki PDF Utility</string>
+    <string name="action_open">Öffnen</string>
+    <string name="action_save">Speichern</string>
+    <string name="action_undo">Rückgängig</string>
+    <string name="action_redo">Wiederholen</string>
+    <string name="action_add_pdf">PDF hinzufügen</string>
+    <string name="action_toggle_rtl">RTL umschalten</string>
+    <string name="action_toggle_view">Ansicht umschalten</string>
+    <string name="action_select_all">Alle auswählen</string>
+    <string name="action_invert_selection">Auswahl umkehren</string>
+    <string name="action_export_selected">Auswahl exportieren</string>
+    <string name="action_split_pages">Seiten teilen</string>
+    <string name="action_rotate_right">Nach rechts drehen</string>
+    <string name="action_insert_blank">Leerseite einfügen</string>
+    <string name="action_move_up">Nach oben</string>
+    <string name="action_move_down">Nach unten</string>
+    <string name="action_delete">Löschen</string>
+    <string name="action_clear_selection">Auswahl aufheben</string>
+    <string name="action_close">Schließen</string>
+    <string name="action_apply">Übernehmen</string>
+    <string name="action_cancel">Abbrechen</string>
+    <string name="action_unlock">Entsperren</string>
+    <string name="action_run">Ausführen</string>
+    <string name="action_clear">Löschen</string>
+    <string name="action_set">Festlegen</string>
+
+    <string name="dialog_password_title">Passwort erforderlich</string>
+    <string name="dialog_password_desc">Dieses PDF ist passwortgeschützt.</string>
+    <string name="dialog_password_label">Passwort</string>
+    <string name="dialog_delete_title">Seiten löschen</string>
+    <string name="dialog_delete_desc">Möchten Sie die %1$d ausgewählten Seiten wirklich löschen?</string>
+
+    <string name="error_load_failed">PDF konnte nicht geladen werden</string>
+    <string name="error_append_failed">PDF konnte nicht hinzugefügt werden</string>
+    <string name="error_export_failed">Seiten konnten nicht exportiert werden</string>
+    <string name="error_incorrect_password">Falsches Passwort</string>
+
+    <string name="settings_title">PDF-Einstellungen</string>
+    <string name="settings_property">Eigenschaften</string>
+    <string name="settings_password">Passwort</string>
+    <string name="settings_version">Version</string>
+
+    <string name="prop_filename">Dateiname</string>
+    <string name="prop_title">Titel</string>
+    <string name="prop_author">Autor</string>
+    <string name="prop_subtitle">Untertitel</string>
+    <string name="prop_keywords">Schlüsselwörter</string>
+    <string name="prop_pdf_version">PDF-Version: %1$s</string>
+    <string name="prop_display_settings">Anzeigeeinstellungen</string>
+    <string name="prop_page_layout">Seitenlayout</string>
+    <string name="prop_show_cover">Cover anzeigen</string>
+    <string name="prop_scroll_direction">Scrollrichtung</string>
+    <string name="prop_page_display">Seitenanzeige</string>
+
+    <string name="layout_single">Einzelne Seite</string>
+    <string name="layout_one_column">Eine Spalte</string>
+    <string name="layout_two_column_left">Zwei Spalten links</string>
+    <string name="layout_two_column_right">Zwei Spalten rechts</string>
+    <string name="layout_two_page_left">Zwei Seiten links</string>
+    <string name="layout_two_page_right">Zwei Seiten rechts</string>
+
+    <string name="display_single">Einzelseitenanzeige</string>
+    <string name="display_one_column">Einzelseitenanzeige, Scrollen aktiviert</string>
+    <string name="display_two_column_left">Doppelseitenansicht, Scrollen aktiviert</string>
+    <string name="display_two_column_right">Doppelseitenansicht, Cover anzeigen, Scrollen aktiviert</string>
+    <string name="display_two_page_left">Doppelseitenansicht</string>
+    <string name="display_two_page_right">Doppelseitenansicht, Cover anzeigen</string>
+
+    <string name="security_title">Sicherheit</string>
+    <string name="security_desc">Passwort für Speichern/Exportieren festlegen.</string>
+    <string name="security_password_label">Verschlüsselungspasswort</string>
+    <string name="security_not_set">Nicht festgelegt</string>
+    <string name="security_leave_empty">Leer lassen für kein Passwort</string>
+
+    <string name="version_app_name">Mihiraki PDF Utility</string>
+    <string name="version_number">Version: %1$s</string>
+    <string name="version_build">Build: %1$s</string>
+    <string name="version_copyright">© 2026 Mihiraki Project</string>
+
+    <string name="split_title">Seiten teilen</string>
+    <string name="split_desc">Teilungsrichtung wählen.</string>
+    <string name="split_vertical">Vertikal teilen (Links/Rechts)</string>
+    <string name="split_horizontal">Horizontal teilen (Oben/Unten)</string>
+
+    <string name="crop_title">Ränder beschneiden</string>
+    <string name="crop_desc">Prozentsatz zum Beschneiden von jeder Seite angeben.</string>
+    <string name="crop_percent">%1$d%% Beschnitt</string>
+
+    <string name="preview_page_counter">Seite %1$d / %2$d</string>
+</resources>

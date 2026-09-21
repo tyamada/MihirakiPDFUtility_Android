@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Tiện ích Mihiraki PDF</string>
+    <string name="action_open">Mở</string>
+    <string name="action_save">Lưu</string>
+    <string name="action_undo">Hoàn tác</string>
+    <string name="action_redo">Làm lại</string>
+    <string name="action_add_pdf">Thêm PDF</string>
+    <string name="action_toggle_rtl">Chế độ đọc phải</string>
+    <string name="action_toggle_view">Chế độ hiển thị</string>
+    <string name="action_select_all">Chọn tất cả</string>
+    <string name="action_invert_selection">Đảo ngược chọn</string>
+    <string name="action_export_selected">Lưu trang đã chọn</string>
+    <string name="action_split_pages">Chia trang</string>
+    <string name="action_rotate_right">Xoay phải</string>
+    <string name="action_insert_blank">Chèn trang trống</string>
+    <string name="action_move_up">Di chuyển lên</string>
+    <string name="action_move_down">Di chuyển xuống</string>
+    <string name="action_delete">Xóa</string>
+    <string name="action_clear_selection">Bỏ chọn</string>
+    <string name="action_close">Đóng</string>
+    <string name="action_apply">Áp dụng</string>
+    <string name="action_cancel">Hủy</string>
+    <string name="action_unlock">Mở khóa</string>
+    <string name="action_run">Chạy</string>
+    <string name="action_clear">Xóa</string>
+    <string name="action_set">Thiết lập</string>
+
+    <string name="dialog_password_title">Yêu cầu mật khẩu</string>
+    <string name="dialog_password_desc">Tệp PDF này được bảo vệ bằng mật khẩu.</string>
+    <string name="dialog_password_label">Mật khẩu</string>
+    <string name="dialog_delete_title">Xóa trang</string>
+    <string name="dialog_delete_desc">Bạn có chắc chắn muốn xóa %1$d trang đã chọn không?</string>
+
+    <string name="error_load_failed">Không thể tải PDF</string>
+    <string name="error_append_failed">Không thể thêm PDF</string>
+    <string name="error_export_failed">Không thể lưu các trang</string>
+    <string name="error_incorrect_password">Mật khẩu không đúng</string>
+
+    <string name="settings_title">Cài đặt PDF</string>
+    <string name="settings_property">Thuộc tính</string>
+    <string name="settings_password">Mật khẩu</string>
+    <string name="settings_version">Phiên bản</string>
+
+    <string name="prop_filename">Tên tệp</string>
+    <string name="prop_title">Tiêu đề</string>
+    <string name="prop_author">Tác giả</string>
+    <string name="prop_subtitle">Phụ đề</string>
+    <string name="prop_keywords">Từ khóa</string>
+    <string name="prop_pdf_version">Phiên bản PDF: %1$s</string>
+    <string name="prop_display_settings">Cài đặt hiển thị</string>
+    <string name="prop_page_layout">Bố cục trang</string>
+    <string name="prop_show_cover">Hiển thị trang bìa</string>
+    <string name="prop_scroll_direction">Hướng cuộn</string>
+    <string name="prop_page_display">Hiển thị trang</string>
+
+    <string name="layout_single">Trang đơn</string>
+    <string name="layout_one_column">Một cột</string>
+    <string name="layout_two_column_left">Hai cột bên trái</string>
+    <string name="layout_two_column_right">Hai cột bên phải</string>
+    <string name="layout_two_page_left">Hai trang bên trái</string>
+    <string name="layout_two_page_right">Hai trang bên phải</string>
+
+    <string name="display_single">Hiển thị trang đơn</string>
+    <string name="display_one_column">Trang đơn, có thể cuộn</string>
+    <string name="display_two_column_left">Xem hai trang, có thể cuộn</string>
+    <string name="display_two_column_right">Xem hai trang, hiện bìa, có thể cuộn</string>
+    <string name="display_two_page_left">Xem hai trang</string>
+    <string name="display_two_page_right">Xem hai trang, hiện bìa</string>
+
+    <string name="security_title">Bảo mật</string>
+    <string name="security_desc">Đặt mật khẩu khi lưu/xuất.</string>
+    <string name="security_password_label">Mật khẩu mã hóa</string>
+    <string name="security_not_set">Chưa thiết lập</string>
+    <string name="security_leave_empty">Để trống nếu không dùng mật khẩu</string>
+
+    <string name="version_app_name">Tiện ích Mihiraki PDF</string>
+    <string name="version_number">Phiên bản: %1$s</string>
+    <string name="version_build">Build: %1$s</string>
+    <string name="version_copyright">© 2026 Mihiraki Project</string>
+
+    <string name="split_title">Chia trang</string>
+    <string name="split_desc">Chọn hướng chia.</string>
+    <string name="split_vertical">Chia dọc (Trái/Phải)</string>
+    <string name="split_horizontal">Chia ngang (Trên/Dưới)</string>
+
+    <string name="crop_title">Cắt lề</string>
+    <string name="crop_desc">Chỉ định tỷ lệ phần trăm cần cắt từ mỗi bên.</string>
+    <string name="crop_percent">Đã cắt %1$d%%</string>
+
+    <string name="preview_page_counter">Trang %1$d / %2$d</string>
+</resources>

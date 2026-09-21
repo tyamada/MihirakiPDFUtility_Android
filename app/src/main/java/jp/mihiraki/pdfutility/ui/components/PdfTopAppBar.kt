@@ -6,7 +6,9 @@ import androidx.compose.material.icons.automirrored.filled.*
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import jp.mihiraki.pdfutility.R
 import jp.mihiraki.pdfutility.ui.PdfUiState
 import jp.mihiraki.pdfutility.ui.PdfViewModel
 import jp.mihiraki.pdfutility.ui.SettingsDialogType
@@ -27,62 +29,62 @@ fun PdfTopAppBar(
     TopAppBar(
         title = {
             Text(
-                text = uiState.fileName ?: "Mihiraki PDF Utility",
+                text = uiState.fileName ?: stringResource(R.string.app_name),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         },
         actions = {
             IconButton(onClick = { viewModel.undo() }, enabled = uiState.canUndo) {
-                Icon(Icons.AutoMirrored.Filled.Undo, contentDescription = "Undo")
+                Icon(Icons.AutoMirrored.Filled.Undo, contentDescription = stringResource(R.string.action_undo))
             }
             IconButton(onClick = { viewModel.redo() }, enabled = uiState.canRedo) {
-                Icon(Icons.AutoMirrored.Filled.Redo, contentDescription = "Redo")
+                Icon(Icons.AutoMirrored.Filled.Redo, contentDescription = stringResource(R.string.action_redo))
             }
 
             if (uiState.selectedIndices.isEmpty()) {
                 IconButton(onClick = onOpen) {
-                    Icon(Icons.Default.FileOpen, contentDescription = "Open")
+                    Icon(Icons.Default.FileOpen, contentDescription = stringResource(R.string.action_open))
                 }
                 if (uiState.pages.isNotEmpty()) {
                     IconButton(onClick = onAppend) {
-                        Icon(Icons.Default.Add, contentDescription = "Add PDF")
+                        Icon(Icons.Default.Add, contentDescription = stringResource(R.string.action_add_pdf))
                     }
                     if (uiState.isMihirakiView) {
                         IconButton(onClick = { viewModel.toggleRtl() }) {
                             Icon(
                                 if (uiState.isRtl) Icons.AutoMirrored.Filled.ArrowBack else Icons.AutoMirrored.Filled.ArrowForward,
-                                contentDescription = "Toggle RTL"
+                                contentDescription = stringResource(R.string.action_toggle_rtl)
                             )
                         }
                     }
                     IconButton(onClick = { viewModel.toggleMihirakiView() }) {
                         Icon(
                             if (uiState.isMihirakiView) Icons.Default.GridView else Icons.AutoMirrored.Filled.MenuBook,
-                            contentDescription = "Toggle View"
+                            contentDescription = stringResource(R.string.action_toggle_view)
                         )
                     }
                     IconButton(onClick = onSave) {
-                        Icon(Icons.Default.Save, contentDescription = "Save")
+                        Icon(Icons.Default.Save, contentDescription = stringResource(R.string.action_save))
                     }
                     Box {
                         IconButton(onClick = { viewModel.toggleSettingsMenu() }) {
-                            Icon(Icons.Default.Settings, contentDescription = "Settings")
+                            Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_title))
                         }
                         DropdownMenu(
                             expanded = uiState.showSettingsMenu,
                             onDismissRequest = { viewModel.toggleSettingsMenu() }
                         ) {
                             DropdownMenuItem(
-                                text = { Text("プロパティ") },
+                                text = { Text(stringResource(R.string.settings_property)) },
                                 onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) }
                             )
                             DropdownMenuItem(
-                                text = { Text("パスワード") },
+                                text = { Text(stringResource(R.string.settings_password)) },
                                 onClick = { viewModel.openSettingsDialog(SettingsDialogType.PASSWORD) }
                             )
                             DropdownMenuItem(
-                                text = { Text("バージョン") },
+                                text = { Text(stringResource(R.string.settings_version)) },
                                 onClick = { viewModel.openSettingsDialog(SettingsDialogType.VERSION) }
                             )
                         }
@@ -90,37 +92,37 @@ fun PdfTopAppBar(
                 }
             } else {
                 IconButton(onClick = { viewModel.selectAll() }) {
-                    Icon(Icons.Default.SelectAll, contentDescription = "Select All")
+                    Icon(Icons.Default.SelectAll, contentDescription = stringResource(R.string.action_select_all))
                 }
                 IconButton(onClick = { viewModel.invertSelection() }) {
-                    Icon(Icons.Default.Flip, contentDescription = "Invert Selection")
+                    Icon(Icons.Default.Flip, contentDescription = stringResource(R.string.action_invert_selection))
                 }
                 IconButton(onClick = onExport) {
-                    Icon(Icons.Default.Output, contentDescription = "Export Selected")
+                    Icon(Icons.Default.Output, contentDescription = stringResource(R.string.action_export_selected))
                 }
                 IconButton(onClick = onSplitClick) {
-                    Icon(Icons.Default.ContentCut, contentDescription = "Split Pages")
+                    Icon(Icons.Default.ContentCut, contentDescription = stringResource(R.string.action_split_pages))
                 }
                 IconButton(onClick = onCropClick) {
-                    Icon(Icons.Default.Crop, contentDescription = "Crop Margins")
+                    Icon(Icons.Default.Crop, contentDescription = stringResource(R.string.crop_title))
                 }
                 IconButton(onClick = { viewModel.rotateSelected(90) }) {
-                    Icon(Icons.Default.RotateRight, contentDescription = "Rotate Right")
+                    Icon(Icons.Default.RotateRight, contentDescription = stringResource(R.string.action_rotate_right))
                 }
                 IconButton(onClick = { viewModel.insertBlankAfterSelected() }) {
-                    Icon(Icons.Default.AddBox, contentDescription = "Insert Blank")
+                    Icon(Icons.Default.AddBox, contentDescription = stringResource(R.string.action_insert_blank))
                 }
                 IconButton(onClick = { viewModel.moveSelected(-1) }) {
-                    Icon(Icons.Default.ArrowUpward, contentDescription = "Move Up")
+                    Icon(Icons.Default.ArrowUpward, contentDescription = stringResource(R.string.action_move_up))
                 }
                 IconButton(onClick = { viewModel.moveSelected(1) }) {
-                    Icon(Icons.Default.ArrowDownward, contentDescription = "Move Down")
+                    Icon(Icons.Default.ArrowDownward, contentDescription = stringResource(R.string.action_move_down))
                 }
                 IconButton(onClick = onDeleteClick) {
-                    Icon(Icons.Default.Delete, contentDescription = "Delete")
+                    Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.action_delete))
                 }
                 IconButton(onClick = { viewModel.clearSelection() }) {
-                    Icon(Icons.Default.Close, contentDescription = "Clear Selection")
+                    Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_clear_selection))
                 }
             }
         }

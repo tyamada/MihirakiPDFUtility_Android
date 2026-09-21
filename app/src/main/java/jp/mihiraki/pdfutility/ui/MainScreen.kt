@@ -7,7 +7,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.*
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import jp.mihiraki.pdfutility.R
 import jp.mihiraki.pdfutility.ui.components.DeleteConfirmationDialog
 import jp.mihiraki.pdfutility.ui.components.PasswordDialog
 import jp.mihiraki.pdfutility.ui.components.PdfPageGrid
@@ -38,8 +40,10 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
         uri?.let { viewModel.exportSelected(it) }
     }
 
-    LaunchedEffect(uiState.errorMessage) {
-        uiState.errorMessage?.let {
+    val errorText = uiState.errorResId?.let { stringResource(it) } ?: uiState.errorMessage
+
+    LaunchedEffect(errorText) {
+        errorText?.let {
             snackbarHostState.showSnackbar(it)
             viewModel.clearError()
         }

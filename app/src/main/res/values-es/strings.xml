@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Mihiraki PDF Utility</string>
+    <string name="action_open">Abrir</string>
+    <string name="action_save">Guardar</string>
+    <string name="action_undo">Deshacer</string>
+    <string name="action_redo">Rehacer</string>
+    <string name="action_add_pdf">Añadir PDF</string>
+    <string name="action_toggle_rtl">Alternar RTL</string>
+    <string name="action_toggle_view">Cambiar vista</string>
+    <string name="action_select_all">Seleccionar todo</string>
+    <string name="action_invert_selection">Invertir selección</string>
+    <string name="action_export_selected">Exportar selección</string>
+    <string name="action_split_pages">Dividir páginas</string>
+    <string name="action_rotate_right">Girar a la derecha</string>
+    <string name="action_insert_blank">Insertar página en blanco</string>
+    <string name="action_move_up">Subir</string>
+    <string name="action_move_down">Bajar</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="action_clear_selection">Limpiar selección</string>
+    <string name="action_close">Cerrar</string>
+    <string name="action_apply">Aplicar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_unlock">Desbloquear</string>
+    <string name="action_run">Ejecutar</string>
+    <string name="action_clear">Limpiar</string>
+    <string name="action_set">Establecer</string>
+
+    <string name="dialog_password_title">Contraseña requerida</string>
+    <string name="dialog_password_desc">Este PDF está protegido por contraseña.</string>
+    <string name="dialog_password_label">Contraseña</string>
+    <string name="dialog_delete_title">Eliminar páginas</string>
+    <string name="dialog_delete_desc">¿Estás seguro de que quieres eliminar las %1$d páginas seleccionadas?</string>
+
+    <string name="error_load_failed">Error al cargar el PDF</string>
+    <string name="error_append_failed">Error al añadir el PDF</string>
+    <string name="error_export_failed">Error al exportar páginas</string>
+    <string name="error_incorrect_password">Contraseña incorrecta</string>
+
+    <string name="settings_title">Ajustes de PDF</string>
+    <string name="settings_property">Propiedades</string>
+    <string name="settings_password">Contraseña</string>
+    <string name="settings_version">Versión</string>
+
+    <string name="prop_filename">Nombre de archivo</string>
+    <string name="prop_title">Título</string>
+    <string name="prop_author">Autor</string>
+    <string name="prop_subtitle">Subtítulo</string>
+    <string name="prop_keywords">Palabras clave</string>
+    <string name="prop_pdf_version">Versión PDF: %1$s</string>
+    <string name="prop_display_settings">Ajustes de pantalla</string>
+    <string name="prop_page_layout">Diseño de página</string>
+    <string name="prop_show_cover">Mostrar portada</string>
+    <string name="prop_scroll_direction">Dirección de desplazamiento</string>
+    <string name="prop_page_display">Visualización de página</string>
+
+    <string name="layout_single">Página única</string>
+    <string name="layout_one_column">Una columna</string>
+    <string name="layout_two_column_left">Dos columnas izquierda</string>
+    <string name="layout_two_column_right">Dos columnas derecha</string>
+    <string name="layout_two_page_left">Dos páginas izquierda</string>
+    <string name="layout_two_page_right">Dos páginas derecha</string>
+
+    <string name="display_single">Visualización de página única</string>
+    <string name="display_one_column">Página única, desplazamiento activado</string>
+    <string name="display_two_column_left">Vista de doble página, desplazamiento activado</string>
+    <string name="display_two_column_right">Vista de doble página, mostrar portada, desplazamiento activado</string>
+    <string name="display_two_page_left">Vista de doble página</string>
+    <string name="display_two_page_right">Vista de doble página, mostrar portada</string>
+
+    <string name="security_title">Seguridad</string>
+    <string name="security_desc">Establecer contraseña para guardar/exportar.</string>
+    <string name="security_password_label">Contraseña de cifrado</string>
+    <string name="security_not_set">No establecida</string>
+    <string name="security_leave_empty">Dejar en blanco para no usar contraseña</string>
+
+    <string name="version_app_name">Mihiraki PDF Utility</string>
+    <string name="version_number">Versión: %1$s</string>
+    <string name="version_build">Compilación: %1$s</string>
+    <string name="version_copyright">© 2026 Mihiraki Project</string>
+
+    <string name="split_title">Dividir páginas</string>
+    <string name="split_desc">Selecciona la dirección de división.</string>
+    <string name="split_vertical">División vertical (Izquierda/Derecha)</string>
+    <string name="split_horizontal">División horizontal (Arriba/Abajo)</string>
+
+    <string name="crop_title">Recortar márgenes</string>
+    <string name="crop_desc">Especifica el porcentaje a recortar de cada lado.</string>
+    <string name="crop_percent">%1$d%% Recortado</string>
+
+    <string name="preview_page_counter">Página %1$d / %2$d</string>
+</resources>

@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Mihiraki PDF Utility</string>
+    <string name="action_open">खोल्नुहोस्</string>
+    <string name="action_save">बचत गर्नुहोस्</string>
+    <string name="action_undo">पछाडि फर्कनुहोस्</string>
+    <string name="action_redo">फेरि गर्नुहोस्</string>
+    <string name="action_add_pdf">PDF थप्नुहोस्</string>
+    <string name="action_toggle_rtl">RTL टगल गर्नुहोस्</string>
+    <string name="action_toggle_view">दृश्य परिवर्तन गर्नुहोस्</string>
+    <string name="action_select_all">सबै चयन गर्नुहोस्</string>
+    <string name="action_invert_selection">चयन उल्टो गर्नुहोस्</string>
+    <string name="action_export_selected">चयन गरिएको निर्यात गर्नुहोस्</string>
+    <string name="action_split_pages">पृष्ठहरू विभाजन गर्नुहोस्</string>
+    <string name="action_rotate_right">दायाँ घुमाउनुहोस्</string>
+    <string name="action_insert_blank">खाली पृष्ठ थप्नुहोस्</string>
+    <string name="action_move_up">माथि सार्नुहोस्</string>
+    <string name="action_move_down">तल सार्नुहोस्</string>
+    <string name="action_delete">हटाउनुहोस्</string>
+    <string name="action_clear_selection">चयन हटाउनुहोस्</string>
+    <string name="action_close">बन्द गर्नुहोस्</string>
+    <string name="action_apply">लागू गर्नुहोस्</string>
+    <string name="action_cancel">रद्द गर्नुहोस्</string>
+    <string name="action_unlock">अनलक गर्नुहोस्</string>
+    <string name="action_run">चलाउनुहोस्</string>
+    <string name="action_clear">हटाउनुहोस्</string>
+    <string name="action_set">सेट गर्नुहोस्</string>
+
+    <string name="dialog_password_title">पासवर्ड आवश्यक छ</string>
+    <string name="dialog_password_desc">यो PDF पासवर्ड सुरक्षित छ।</string>
+    <string name="dialog_password_label">पासवर्ड</string>
+    <string name="dialog_delete_title">पृष्ठहरू हटाउनुहोस्</string>
+    <string name="dialog_delete_desc">के तपाइँ निश्चित रूपमा %1$d चयन गरिएका पृष्ठहरू हटाउन चाहनुहुन्छ?</string>
+
+    <string name="error_load_failed">PDF लोड गर्न असफल</string>
+    <string name="error_append_failed">PDF थप्न असफल</string>
+    <string name="error_export_failed">पृष्ठहरू निर्यात गर्न असफल</string>
+    <string name="error_incorrect_password">गलत पासवर्ड</string>
+
+    <string name="settings_title">PDF सेटिङहरू</string>
+    <string name="settings_property">विशेषता</string>
+    <string name="settings_password">पासवर्ड</string>
+    <string name="settings_version">संस्करण</string>
+
+    <string name="prop_filename">फाइलको नाम</string>
+    <string name="prop_title">शीर्षक</string>
+    <string name="prop_author">लेखक</string>
+    <string name="prop_subtitle">उप-शीर्षक</string>
+    <string name="prop_keywords">कुञ्जी शब्दहरू</string>
+    <string name="prop_pdf_version">PDF संस्करण: %1$s</string>
+    <string name="prop_display_settings">प्रदर्शन सेटिङहरू</string>
+    <string name="prop_page_layout">पृष्ठ रूपरेखा</string>
+    <string name="prop_show_cover">कभर देखाउनुहोस्</string>
+    <string name="prop_scroll_direction">स्क्रोल दिशा</string>
+    <string name="prop_page_display">पृष्ठ प्रदर्शन</string>
+
+    <string name="layout_single">एकल पृष्ठ</string>
+    <string name="layout_one_column">एक स्तम्भ</string>
+    <string name="layout_two_column_left">दुई स्तम्भ बायाँ</string>
+    <string name="layout_two_column_right">दुई स्तम्भ दायाँ</string>
+    <string name="layout_two_page_left">दुई पृष्ठ बायाँ</string>
+    <string name="layout_two_page_right">दुई पृष्ठ दायाँ</string>
+
+    <string name="display_single">एकल पृष्ठ प्रदर्शन</string>
+    <string name="display_one_column">एकल पृष्ठ, स्क्रोलिङ सक्रिय</string>
+    <string name="display_two_column_left">दुई पृष्ठ दृश्य, स्क्रोलिङ सक्रिय</string>
+    <string name="display_two_column_right">दुई पृष्ठ दृश्य, कभर सहित, स्क्रोलिङ सक्रिय</string>
+    <string name="display_two_page_left">दुई पृष्ठ दृश्य</string>
+    <string name="display_two_page_right">दुई पृष्ठ दृश्य, कカバー सहित</string>
+
+    <string name="security_title">सुरक्षा</string>
+    <string name="security_desc">बचत/निर्यातको लागि पासवर्ड सेट गर्नुहोस्।</string>
+    <string name="security_password_label">इन्क्रिप्शन पासवर्ड</string>
+    <string name="security_not_set">सेट गरिएको छैन</string>
+    <string name="security_leave_empty">पासवर्ड नचाहिने भए खाली छोड्नुहोस्</string>
+
+    <string name="version_app_name">Mihiraki PDF Utility</string>
+    <string name="version_number">संस्करण: %1$s</string>
+    <string name="version_build">बिल्ड: %1$s</string>
+    <string name="version_copyright">© 2026 Mihiraki Project</string>
+
+    <string name="split_title">पृष्ठहरू विभाजन गर्नुहोस्</string>
+    <string name="split_desc">विभाजन दिशा चयन गर्नुहोस्।</string>
+    <string name="split_vertical">ठाडो विभाजन (बायाँ/दायाँ)</string>
+    <string name="split_horizontal">तेर्सो विभाजन (माथि/तल)</string>
+
+    <string name="crop_title">किनाराहरू काट्नुहोस्</string>
+    <string name="crop_desc">प्रत्येक छेउबाट काट्ने प्रतिशत उल्लेख गर्नुहोस्।</string>
+    <string name="crop_percent">%1$d%% काटिएको</string>
+
+    <string name="preview_page_counter">पृष्ठ %1$d / %2$d</string>
+</resources>
