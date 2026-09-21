@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Mihiraki PDF Utility</string>
+    <string name="action_open">Buksan</string>
+    <string name="action_save">I-save</string>
+    <string name="action_undo">I-undo</string>
+    <string name="action_redo">I-redo</string>
+    <string name="action_add_pdf">Magdagdag ng PDF</string>
+    <string name="action_toggle_rtl">I-toggle ang RTL</string>
+    <string name="action_toggle_view">I-toggle ang View</string>
+    <string name="action_select_all">Piliin Lahat</string>
+    <string name="action_invert_selection">Baligtarin ang Pili</string>
+    <string name="action_export_selected">I-export ang Pinili</string>
+    <string name="action_split_pages">Hatiin ang mga Pahina</string>
+    <string name="action_rotate_right">I-rotate Pakanan</string>
+    <string name="action_insert_blank">Maglagay ng Bakanteng Pahina</string>
+    <string name="action_move_up">Iakyat</string>
+    <string name="action_move_down">Ibaba</string>
+    <string name="action_delete">I-delete</string>
+    <string name="action_clear_selection">Alisin ang Pili</string>
+    <string name="action_close">Isara</string>
+    <string name="action_apply">I-apply</string>
+    <string name="action_cancel">I-cancel</string>
+    <string name="action_unlock">I-unlock</string>
+    <string name="action_run">I-run</string>
+    <string name="action_clear">I-clear</string>
+    <string name="action_set">I-set</string>
+
+    <string name="dialog_password_title">Kailangan ng Password</string>
+    <string name="dialog_password_desc">Ang PDF na ito ay protektado ng password.</string>
+    <string name="dialog_password_label">Password</string>
+    <string name="dialog_delete_title">I-delete ang mga Pahina</string>
+    <string name="dialog_delete_desc">Sigurado ka bang gusto mong i-delete ang %1$d na piniling pahina?</string>
+
+    <string name="error_load_failed">Bigo sa pag-load ng PDF</string>
+    <string name="error_append_failed">Bigo sa pagdagdag ng PDF</string>
+    <string name="error_export_failed">Bigo sa pag-export ng mga pahina</string>
+    <string name="error_incorrect_password">Maling password</string>
+
+    <string name="settings_title">Mga Setting ng PDF</string>
+    <string name="settings_property">Property</string>
+    <string name="settings_password">Password</string>
+    <string name="settings_version">Bersyon</string>
+
+    <string name="prop_filename">Pangalan ng File</string>
+    <string name="prop_title">Pamagat</string>
+    <string name="prop_author">May-akda</string>
+    <string name="prop_subtitle">Sub-title</string>
+    <string name="prop_keywords">Mga Keyword</string>
+    <string name="prop_pdf_version">Bersyon ng PDF: %1$s</string>
+    <string name="prop_display_settings">Mga Setting ng Display</string>
+    <string name="prop_page_layout">Layout ng Pahina</string>
+    <string name="prop_show_cover">Ipakita ang Cover</string>
+    <string name="prop_scroll_direction">Direksyon ng Scroll</string>
+    <string name="prop_page_display">Display ng Pahina</string>
+
+    <string name="layout_single">Isang Pahina</string>
+    <string name="layout_one_column">Isang Column</string>
+    <string name="layout_two_column_left">Dalawang Column sa Kaliwa</string>
+    <string name="layout_two_column_right">Dalawang Column sa Kanan</string>
+    <string name="layout_two_page_left">Dalawang Pahina sa Kaliwa</string>
+    <string name="layout_two_page_right">Dalawang Pahina sa Kanan</string>
+
+    <string name="display_single">Isahang Pahina Display</string>
+    <string name="display_one_column">Isang Pahina, Pwedeng I-scroll</string>
+    <string name="display_two_column_left">Spread View, Pwedeng I-scroll</string>
+    <string name="display_two_column_right">Spread View, May Cover, Pwedeng I-scroll</string>
+    <string name="display_two_page_left">Spread View</string>
+    <string name="display_two_page_right">Spread View, May Cover</string>
+
+    <string name="security_title">Seguridad</string>
+    <string name="security_desc">Mag-set ng password para sa pag-save/export.</string>
+    <string name="security_password_label">Password ng Encryption</string>
+    <string name="security_not_set">Hindi naka-set</string>
+    <string name="security_leave_empty">Iwanang bakante kung walang password</string>
+
+    <string name="version_app_name">Mihiraki PDF Utility</string>
+    <string name="version_number">Bersyon: %1$s</string>
+    <string name="version_build">Build: %1$s</string>
+    <string name="version_copyright">© 2026 Mihiraki Project</string>
+
+    <string name="split_title">Hatiin ang mga Pahina</string>
+    <string name="split_desc">Pumili ng direksyon ng paghati.</string>
+    <string name="split_vertical">Vertical na Paghati (Kaliwa/Kanan)</string>
+    <string name="split_horizontal">Horizontal na Paghati (Itaas/Ibaba)</string>
+
+    <string name="crop_title">I-crop ang mga Margin</string>
+    <string name="crop_desc">Tukuyin ang porsyento na i-crop mula sa bawat gilid.</string>
+    <string name="crop_percent">%1$d%% na na-crop</string>
+
+    <string name="preview_page_counter">Pahina %1$d / %2$d</string>
+</resources>

@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Utilitas PDF Mihiraki</string>
+    <string name="action_open">Buka</string>
+    <string name="action_save">Simpan</string>
+    <string name="action_undo">Urungkan</string>
+    <string name="action_redo">Ulangi</string>
+    <string name="action_add_pdf">Tambah PDF</string>
+    <string name="action_toggle_rtl">Alihkan RTL</string>
+    <string name="action_toggle_view">Alihkan Tampilan</string>
+    <string name="action_select_all">Pilih Semua</string>
+    <string name="action_invert_selection">Balikkan Pilihan</string>
+    <string name="action_export_selected">Ekspor Pilihan</string>
+    <string name="action_split_pages">Pisahkan Halaman</string>
+    <string name="action_rotate_right">Putar Kanan</string>
+    <string name="action_insert_blank">Sisipkan Halaman Kosong</string>
+    <string name="action_move_up">Pindah ke Atas</string>
+    <string name="action_move_down">Pindah ke Bawah</string>
+    <string name="action_delete">Hapus</string>
+    <string name="action_clear_selection">Bersihkan Pilihan</string>
+    <string name="action_close">Tutup</string>
+    <string name="action_apply">Terapkan</string>
+    <string name="action_cancel">Batal</string>
+    <string name="action_unlock">Buka Kunci</string>
+    <string name="action_run">Jalankan</string>
+    <string name="action_clear">Hapus</string>
+    <string name="action_set">Setel</string>
+
+    <string name="dialog_password_title">Sandi Diperlukan</string>
+    <string name="dialog_password_desc">PDF ini dilindungi sandi.</string>
+    <string name="dialog_password_label">Sandi</string>
+    <string name="dialog_delete_title">Hapus Halaman</string>
+    <string name="dialog_delete_desc">Apakah Anda yakin ingin menghapus %1$d halaman terpilih?</string>
+
+    <string name="error_load_failed">Gagal memuat PDF</string>
+    <string name="error_append_failed">Gagal menambah PDF</string>
+    <string name="error_export_failed">Gagal mengekspor halaman</string>
+    <string name="error_incorrect_password">Sandi salah</string>
+
+    <string name="settings_title">Pengaturan PDF</string>
+    <string name="settings_property">Properti</string>
+    <string name="settings_password">Sandi</string>
+    <string name="settings_version">Versi</string>
+
+    <string name="prop_filename">Nama File</string>
+    <string name="prop_title">Judul</string>
+    <string name="prop_author">Penulis</string>
+    <string name="prop_subtitle">Sub-judul</string>
+    <string name="prop_keywords">Kata Kunci</string>
+    <string name="prop_pdf_version">Versi PDF: %1$s</string>
+    <string name="prop_display_settings">Pengaturan Tampilan</string>
+    <string name="prop_page_layout">Tata Letak Halaman</string>
+    <string name="prop_show_cover">Tampilkan Sampul</string>
+    <string name="prop_scroll_direction">Arah Gulir</string>
+    <string name="prop_page_display">Tampilan Halaman</string>
+
+    <string name="layout_single">Halaman Tunggal</string>
+    <string name="layout_one_column">Satu Kolom</string>
+    <string name="layout_two_column_left">Dua Kolom Kiri</string>
+    <string name="layout_two_column_right">Dua Kolom Kanan</string>
+    <string name="layout_two_page_left">Dua Halaman Kiri</string>
+    <string name="layout_two_page_right">Dua Halaman Kanan</string>
+
+    <string name="display_single">Tampilan Halaman Tunggal</string>
+    <string name="display_one_column">Halaman Tunggal, Gulir Aktif</string>
+    <string name="display_two_column_left">Tampilan Menyamping, Gulir Aktif</string>
+    <string name="display_two_column_right">Tampilan Menyamping, Dengan Sampul, Gulir Aktif</string>
+    <string name="display_two_page_left">Tampilan Menyamping</string>
+    <string name="display_two_page_right">Tampilan Menyamping, Dengan Sampul</string>
+
+    <string name="security_title">Keamanan</string>
+    <string name="security_desc">Setel sandi untuk menyimpan/ekspor.</string>
+    <string name="security_password_label">Sandi Enkripsi</string>
+    <string name="security_not_set">Belum disetel</string>
+    <string name="security_leave_empty">Kosongkan jika tanpa sandi</string>
+
+    <string name="version_app_name">Utilitas PDF Mihiraki</string>
+    <string name="version_number">Versi: %1$s</string>
+    <string name="version_build">Build: %1$s</string>
+    <string name="version_copyright">© 2026 Mihiraki Project</string>
+
+    <string name="split_title">Pisahkan Halaman</string>
+    <string name="split_desc">Pilih arah pemisahan.</string>
+    <string name="split_vertical">Pemisahan Vertikal (Kiri/Kanan)</string>
+    <string name="split_horizontal">Pemisahan Horizontal (Atas/Bawah)</string>
+
+    <string name="crop_title">Potong Margin</string>
+    <string name="crop_desc">Tentukan persentase yang akan dipotong dari setiap sisi.</string>
+    <string name="crop_percent">%1$d%% Terpotong</string>
+
+    <string name="preview_page_counter">Halaman %1$d / %2$d</string>
+</resources>

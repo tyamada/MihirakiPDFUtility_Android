@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">미히라키 PDF 유틸리티</string>
+    <string name="action_open">열기</string>
+    <string name="action_save">저장</string>
+    <string name="action_undo">실행 취소</string>
+    <string name="action_redo">다시 실행</string>
+    <string name="action_add_pdf">PDF 추가</string>
+    <string name="action_toggle_rtl">오른쪽 열기 전환</string>
+    <string name="action_toggle_view">보기 전환</string>
+    <string name="action_select_all">모두 선택</string>
+    <string name="action_invert_selection">선택 반전</string>
+    <string name="action_export_selected">선택된 페이지 내보내기</string>
+    <string name="action_split_pages">페이지 분할</string>
+    <string name="action_rotate_right">오른쪽으로 회전</string>
+    <string name="action_insert_blank">공백 삽입</string>
+    <string name="action_move_up">위로 이동</string>
+    <string name="action_move_down">아래로 이동</string>
+    <string name="action_delete">삭제</string>
+    <string name="action_clear_selection">선택 해제</string>
+    <string name="action_close">닫기</string>
+    <string name="action_apply">적용</string>
+    <string name="action_cancel">취소</string>
+    <string name="action_unlock">잠금 해제</string>
+    <string name="action_run">실행</string>
+    <string name="action_clear">지우기</string>
+    <string name="action_set">설정</string>
+
+    <string name="dialog_password_title">비밀번호 필요</string>
+    <string name="dialog_password_desc">이 PDF는 비밀번호로 보호되어 있습니다.</string>
+    <string name="dialog_password_label">비밀번호</string>
+    <string name="dialog_delete_title">페이지 삭제</string>
+    <string name="dialog_delete_desc">선택된 %1$d개의 페이지를 삭제하시겠습니까?</string>
+
+    <string name="error_load_failed">PDF 로드 실패</string>
+    <string name="error_append_failed">PDF 추가 실패</string>
+    <string name="error_export_failed">페이지 내보내기 실패</string>
+    <string name="error_incorrect_password">비밀번호가 틀렸습니다</string>
+
+    <string name="settings_title">PDF 설정</string>
+    <string name="settings_property">속성</string>
+    <string name="settings_password">비밀번호</string>
+    <string name="settings_version">버전</string>
+
+    <string name="prop_filename">파일명</string>
+    <string name="prop_title">제목</string>
+    <string name="prop_author">저자</string>
+    <string name="prop_subtitle">부제목</string>
+    <string name="prop_keywords">키워드</string>
+    <string name="prop_pdf_version">PDF 버전: %1$s</string>
+    <string name="prop_display_settings">표시 설정</string>
+    <string name="prop_page_layout">페이지 레이아웃</string>
+    <string name="prop_show_cover">표지 표시</string>
+    <string name="prop_scroll_direction">스크롤 방향</string>
+    <string name="prop_page_display">페이지 표시</string>
+
+    <string name="layout_single">단일 페이지</string>
+    <string name="layout_one_column">한 열</string>
+    <string name="layout_two_column_left">두 열 왼쪽</string>
+    <string name="layout_two_column_right">두 열 오른쪽</string>
+    <string name="layout_two_page_left">두 페이지 왼쪽</string>
+    <string name="layout_two_page_right">두 페이지 오른쪽</string>
+
+    <string name="display_single">단일 페이지 표시</string>
+    <string name="display_one_column">단일 페이지 표시, 스크롤 활성화</string>
+    <string name="display_two_column_left">스프레드 보기, 스크롤 활성화</string>
+    <string name="display_two_column_right">스프레드 보기, 표지 표시, 스크롤 활성화</string>
+    <string name="display_two_page_left">스프레드 보기</string>
+    <string name="display_two_page_right">스프레드 보기, 표지 표시</string>
+
+    <string name="security_title">보안</string>
+    <string name="security_desc">저장/내보내기 시 비밀번호를 설정합니다.</string>
+    <string name="security_password_label">암호화 비밀번호</string>
+    <string name="security_not_set">설정되지 않음</string>
+    <string name="security_leave_empty">비밀번호가 없으면 비워 두십시오</string>
+
+    <string name="version_app_name">미히라키 PDF 유틸리티</string>
+    <string name="version_number">버전: %1$s</string>
+    <string name="version_build">빌드: %1$s</string>
+    <string name="version_copyright">© 2026 Mihiraki Project</string>
+
+    <string name="split_title">페이지 분할</string>
+    <string name="split_desc">분할 방향을 선택하십시오.</string>
+    <string name="split_vertical">수직 분할 (좌/우)</string>
+    <string name="split_horizontal">수평 분할 (상/하)</string>
+
+    <string name="crop_title">여백 자르기</string>
+    <string name="crop_desc">각 면에서 자를 비율을 지정하십시오.</string>
+    <string name="crop_percent">%1$d%% 자르기</string>
+
+    <string name="preview_page_counter">페이지 %1$d / %2$d</string>
+</resources>

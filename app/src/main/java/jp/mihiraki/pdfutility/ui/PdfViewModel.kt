@@ -8,6 +8,7 @@ import android.provider.OpenableColumns
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.tom_roush.pdfbox.pdmodel.encryption.InvalidPasswordException
+import jp.mihiraki.pdfutility.R
 import jp.mihiraki.pdfutility.domain.PdfProcessor
 import jp.mihiraki.pdfutility.domain.ThumbnailProvider
 import kotlinx.coroutines.Dispatchers
@@ -47,6 +48,7 @@ data class PdfUiState(
     val isMihirakiView: Boolean = false,
     val isRtl: Boolean = false,
     val errorMessage: String? = null,
+    val errorResId: Int? = null,
     val showPasswordDialog: Boolean = false,
     val pendingUri: Uri? = null,
     val isAppending: Boolean = false,
@@ -118,6 +120,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                 isLoading = true, 
                 fileName = fileName,
                 errorMessage = null,
+                errorResId = null,
                 showPasswordDialog = false,
                 isAppending = false
             )
@@ -165,12 +168,12 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         showPasswordDialog = true,
                         pendingUri = uri,
                         isAppending = false,
-                        errorMessage = if (password != null) "Incorrect password" else null
+                        errorResId = if (password != null) R.string.error_incorrect_password else null
                     )
                 } catch (e: Exception) {
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
-                        errorMessage = e.message ?: "Failed to load PDF"
+                        errorResId = R.string.error_load_failed
                     )
                 }
             }
@@ -182,6 +185,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
             _uiState.value = _uiState.value.copy(
                 isLoading = true,
                 errorMessage = null,
+                errorResId = null,
                 showPasswordDialog = false,
                 isAppending = true
             )
@@ -219,12 +223,12 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         showPasswordDialog = true,
                         pendingUri = uri,
                         isAppending = true,
-                        errorMessage = if (password != null) "Incorrect password" else null
+                        errorResId = if (password != null) R.string.error_incorrect_password else null
                     )
                 } catch (e: Exception) {
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
-                        errorMessage = e.message ?: "Failed to append PDF"
+                        errorResId = R.string.error_append_failed
                     )
                 }
             }
@@ -245,7 +249,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun clearError() {
-        _uiState.value = _uiState.value.copy(errorMessage = null)
+        _uiState.value = _uiState.value.copy(errorMessage = null, errorResId = null)
     }
 
     fun toggleSettingsMenu() {
@@ -561,7 +565,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         processor.save(outputStream, selectedPages, savePassword, metadata)
                     }
                 } catch (e: Exception) {
-                    _uiState.value = _uiState.value.copy(errorMessage = "Failed to export pages")
+                    _uiState.value = _uiState.value.copy(errorResId = R.string.error_export_failed)
                 } finally {
                     _uiState.value = _uiState.value.copy(isLoading = false)
                 }

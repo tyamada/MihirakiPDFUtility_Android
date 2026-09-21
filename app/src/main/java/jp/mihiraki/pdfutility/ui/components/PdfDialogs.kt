@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import jp.mihiraki.pdfutility.R
 import jp.mihiraki.pdfutility.ui.PdfUiState
 import jp.mihiraki.pdfutility.ui.PdfViewModel
 
@@ -14,15 +16,15 @@ fun PasswordDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         var password by remember { mutableStateOf("") }
         AlertDialog(
             onDismissRequest = { viewModel.cancelPasswordDialog() },
-            title = { Text("Password Required") },
+            title = { Text(stringResource(R.string.dialog_password_title)) },
             text = {
                 Column {
-                    Text("This PDF is password protected.")
+                    Text(stringResource(R.string.dialog_password_desc))
                     Spacer(Modifier.height(8.dp))
                     TextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("Password") },
+                        label = { Text(stringResource(R.string.dialog_password_label)) },
                         singleLine = true
                     )
                 }
@@ -31,12 +33,12 @@ fun PasswordDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                 Button(onClick = { 
                     viewModel.handlePassword(password)
                 }) {
-                    Text("Unlock")
+                    Text(stringResource(R.string.action_unlock))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { viewModel.cancelPasswordDialog() }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )
@@ -53,19 +55,19 @@ fun DeleteConfirmationDialog(
     if (show) {
         AlertDialog(
             onDismissRequest = onDismiss,
-            title = { Text("Delete Pages") },
-            text = { Text("Are you sure you want to delete the $selectedCount selected pages?") },
+            title = { Text(stringResource(R.string.dialog_delete_title)) },
+            text = { Text(stringResource(R.string.dialog_delete_desc, selectedCount)) },
             confirmButton = {
                 Button(
                     onClick = onConfirm,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text("Delete")
+                    Text(stringResource(R.string.action_delete))
                 }
             },
             dismissButton = {
                 TextButton(onClick = onDismiss) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )

@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">見開きPDFユーティリティ</string>
+    <string name="action_open">開く</string>
+    <string name="action_save">保存</string>
+    <string name="action_undo">元に戻す</string>
+    <string name="action_redo">やり直し</string>
+    <string name="action_add_pdf">PDFを追加</string>
+    <string name="action_toggle_rtl">右開き切替</string>
+    <string name="action_toggle_view">表示切替</string>
+    <string name="action_select_all">すべて選択</string>
+    <string name="action_invert_selection">選択を反転</string>
+    <string name="action_export_selected">選択ページを保存</string>
+    <string name="action_split_pages">ページ分割</string>
+    <string name="action_rotate_right">右回転</string>
+    <string name="action_insert_blank">空白を挿入</string>
+    <string name="action_move_up">上に移動</string>
+    <string name="action_move_down">下に移動</string>
+    <string name="action_delete">削除</string>
+    <string name="action_clear_selection">選択解除</string>
+    <string name="action_close">閉じる</string>
+    <string name="action_apply">適用</string>
+    <string name="action_cancel">キャンセル</string>
+    <string name="action_unlock">解除</string>
+    <string name="action_run">実行</string>
+    <string name="action_clear">解除</string>
+    <string name="action_set">設定</string>
+
+    <string name="dialog_password_title">パスワードが必要です</string>
+    <string name="dialog_password_desc">このPDFはパスワードで保護されています。</string>
+    <string name="dialog_password_label">パスワード</string>
+    <string name="dialog_delete_title">ページの削除</string>
+    <string name="dialog_delete_desc">選択された %1$d ページを削除してもよろしいですか？</string>
+
+    <string name="error_load_failed">PDFの読み込みに失敗しました</string>
+    <string name="error_append_failed">PDFの追加に失敗しました</string>
+    <string name="error_export_failed">ページの書き出しに失敗しました</string>
+    <string name="error_incorrect_password">パスワードが正しくありません</string>
+
+    <string name="settings_title">PDF設定</string>
+    <string name="settings_property">プロパティ</string>
+    <string name="settings_password">パスワード</string>
+    <string name="settings_version">バージョン</string>
+
+    <string name="prop_filename">ファイル名</string>
+    <string name="prop_title">タイトル</string>
+    <string name="prop_author">作成者</string>
+    <string name="prop_subtitle">サブタイトル</string>
+    <string name="prop_keywords">キーワード</string>
+    <string name="prop_pdf_version">PDFバージョン: %1$s</string>
+    <string name="prop_display_settings">表示設定</string>
+    <string name="prop_page_layout">ページレイアウト</string>
+    <string name="prop_show_cover">表紙を表示</string>
+    <string name="prop_scroll_direction">スクロール方向</string>
+    <string name="prop_page_display">ページを表示</string>
+
+    <string name="layout_single">Single Page</string>
+    <string name="layout_one_column">One Column</string>
+    <string name="layout_two_column_left">Two Column Left</string>
+    <string name="layout_two_column_right">Two Column Right</string>
+    <string name="layout_two_page_left">Two Page Left</string>
+    <string name="layout_two_page_right">Two Page Right</string>
+
+    <string name="display_single">単一ページ表示</string>
+    <string name="display_one_column">単一ページ表示、スクロール有効</string>
+    <string name="display_two_column_left">見開きページ表示、スクロール有効</string>
+    <string name="display_two_column_right">見開きページ表示、表紙を表示、スクロール有効</string>
+    <string name="display_two_page_left">見開きページ表示</string>
+    <string name="display_two_page_right">見開きページ表示、表紙を表示</string>
+
+    <string name="security_title">セキュリティ</string>
+    <string name="security_desc">保存/書き出し時の閲覧パスワードを設定します。</string>
+    <string name="security_password_label">閲覧パスワード</string>
+    <string name="security_not_set">未設定</string>
+    <string name="security_leave_empty">未設定の場合は空欄のままにしてください</string>
+
+    <string name="version_app_name">見開きPDFユーティリティ</string>
+    <string name="version_number">バージョン: %1$s</string>
+    <string name="version_build">ビルド番号: %1$s</string>
+    <string name="version_copyright">© 2026 Mihiraki Project</string>
+
+    <string name="split_title">ページ分割</string>
+    <string name="split_desc">分割方向を選択してください。</string>
+    <string name="split_vertical">垂直分割 (左右)</string>
+    <string name="split_horizontal">水平分割 (上下)</string>
+
+    <string name="crop_title">余白をカット</string>
+    <string name="crop_desc">各辺からカットする割合を指定してください。</string>
+    <string name="crop_percent">%1$d%% カット</string>
+
+    <string name="preview_page_counter">%1$d / %2$d ページ</string>
+</resources>
