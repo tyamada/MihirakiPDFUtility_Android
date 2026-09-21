@@ -20,6 +20,8 @@ fun PdfTopAppBar(
     onAppend: () -> Unit,
     onSave: () -> Unit,
     onExport: () -> Unit,
+    onSplitClick: () -> Unit,
+    onCropClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
     TopAppBar(
@@ -96,8 +98,11 @@ fun PdfTopAppBar(
                 IconButton(onClick = onExport) {
                     Icon(Icons.Default.Output, contentDescription = "Export Selected")
                 }
-                IconButton(onClick = { viewModel.splitSelectedPages() }) {
+                IconButton(onClick = onSplitClick) {
                     Icon(Icons.Default.ContentCut, contentDescription = "Split Pages")
+                }
+                IconButton(onClick = onCropClick) {
+                    Icon(Icons.Default.Crop, contentDescription = "Crop Margins")
                 }
                 IconButton(onClick = { viewModel.rotateSelected(90) }) {
                     Icon(Icons.Default.RotateRight, contentDescription = "Rotate Right")

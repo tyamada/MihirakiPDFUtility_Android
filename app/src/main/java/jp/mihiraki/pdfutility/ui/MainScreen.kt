@@ -14,12 +14,16 @@ import jp.mihiraki.pdfutility.ui.components.PdfPageGrid
 import jp.mihiraki.pdfutility.ui.components.PdfPagePreview
 import jp.mihiraki.pdfutility.ui.components.PdfSettingsDialog
 import jp.mihiraki.pdfutility.ui.components.PdfTopAppBar
+import jp.mihiraki.pdfutility.ui.components.SplitDialog
+import jp.mihiraki.pdfutility.ui.components.CropDialog
 
 @Composable
 fun MainScreen(viewModel: PdfViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
     var showDeleteConfirmation by remember { mutableStateOf(false) }
+    var showSplitDialog by remember { mutableStateOf(false) }
+    var showCropDialog by remember { mutableStateOf(false) }
 
     val openLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let { viewModel.loadPdf(it) }
@@ -90,6 +94,8 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                 onAppend = { appendLauncher.launch("application/pdf") },
                 onSave = { saveLauncher.launch("edited_${uiState.fileName ?: "document"}.pdf") },
                 onExport = { exportLauncher.launch("selected_pages.pdf") },
+                onSplitClick = { showSplitDialog = true },
+                onCropClick = { showCropDialog = true },
                 onDeleteClick = { showDeleteConfirmation = true }
             )
         }
@@ -106,6 +112,24 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
     PasswordDialog(viewModel = viewModel, uiState = uiState)
     
     PdfSettingsDialog(viewModel = viewModel, uiState = uiState)
+
+    SplitDialog(
+        show = showSplitDialog,
+        onDismiss = { showSplitDialog = false },
+        onConfirm = { direction ->
+            viewModel.splitSelectedPages(direction)
+            showSplitDialog = false
+        }
+    )
+
+    CropDialog(
+        show = showCropDialog,
+        onDismiss = { showCropDialog = false },
+        onConfirm = { percent ->
+            viewModel.cropSelectedPages(percent)
+            showCropDialog = false
+        }
+    )
 
     DeleteConfirmationDialog(
         show = showDeleteConfirmation,

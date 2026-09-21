@@ -17,6 +17,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
 
+enum class SplitDirection {
+    VERTICAL, HORIZONTAL
+}
+
 data class PageState(
     val id: String = UUID.randomUUID().toString(),
     val thumbnail: Bitmap?,
@@ -25,7 +29,9 @@ data class PageState(
     val isBlank: Boolean = false,
     val sourceUri: Uri? = null,
     val isSplit: Boolean = false,
-    val splitPart: Int = 0 // 0: Left/Top, 1: Right/Bottom
+    val splitPart: Int = 0, // 0: Left/Top, 1: Right/Bottom
+    val splitDirection: SplitDirection = SplitDirection.VERTICAL,
+    val cropMargin: Float = 0f // 0.0 to 0.45 (percent from each side)
 )
 
 enum class SettingsDialogType {
@@ -404,7 +410,21 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         _uiState.value = _uiState.value.copy(isMihirakiView = !_uiState.value.isMihirakiView)
     }
 
-    fun splitSelectedPages() {
+    fun cropSelectedPages(percent: Float) {
+        saveToHistory()
+        val currentPages = _uiState.value.pages.toMutableList()
+        val selected = _uiState.value.selectedIndices
+        
+        selected.forEach { index ->
+            if (index in currentPages.indices) {
+                currentPages[index] = currentPages[index].copy(cropMargin = percent)
+            }
+        }
+        
+        _uiState.value = _uiState.value.copy(pages = currentPages, isDirty = true)
+    }
+
+    fun splitSelectedPages(direction: SplitDirection = SplitDirection.VERTICAL) {
         saveToHistory()
         val currentPages = _uiState.value.pages.toMutableList()
         val selected = _uiState.value.selectedIndices.sortedDescending()
@@ -419,29 +439,36 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         val w = thumb.width
                         val h = thumb.height
                         
-                        val leftThumb = Bitmap.createBitmap(thumb, 0, 0, w / 2, h)
-                        val rightThumb = Bitmap.createBitmap(thumb, w / 2, 0, w / 2, h)
+                        val (part1Thumb, part2Thumb) = if (direction == SplitDirection.VERTICAL) {
+                            Bitmap.createBitmap(thumb, 0, 0, w / 2, h) to
+                            Bitmap.createBitmap(thumb, w / 2, 0, w / 2, h)
+                        } else {
+                            Bitmap.createBitmap(thumb, 0, 0, w, h / 2) to
+                            Bitmap.createBitmap(thumb, 0, h / 2, w, h / 2)
+                        }
                         
-                        val leftPage = page.copy(
+                        val page1 = page.copy(
                             id = UUID.randomUUID().toString(),
-                            thumbnail = leftThumb,
+                            thumbnail = part1Thumb,
                             isSplit = true,
-                            splitPart = 0
+                            splitPart = 0,
+                            splitDirection = direction
                         )
-                        val rightPage = page.copy(
+                        val page2 = page.copy(
                             id = UUID.randomUUID().toString(),
-                            thumbnail = rightThumb,
+                            thumbnail = part2Thumb,
                             isSplit = true,
-                            splitPart = 1
+                            splitPart = 1,
+                            splitDirection = direction
                         )
                         
                         currentPages.removeAt(index)
-                        if (isRtl) {
-                            currentPages.add(index, rightPage)
-                            currentPages.add(index + 1, leftPage)
+                        if (direction == SplitDirection.VERTICAL && isRtl) {
+                            currentPages.add(index, page2)
+                            currentPages.add(index + 1, page1)
                         } else {
-                            currentPages.add(index, leftPage)
-                            currentPages.add(index + 1, rightPage)
+                            currentPages.add(index, page1)
+                            currentPages.add(index + 1, page2)
                         }
                     }
                 }
