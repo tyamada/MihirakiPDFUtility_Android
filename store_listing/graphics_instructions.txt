@@ -1,0 +1,21 @@
+Google Play Store Graphics Assets Guide
+
+1. App Icon (512 x 512 px)
+   - Use: /icon/MihirakiPDFUtility-icon.png
+   - Format: 32-bit PNG (with alpha)
+
+2. Feature Graphic (1024 x 500 px)
+   - You need to create an image of this size.
+   - Tip: Place the app icon in the center or slightly to one side, with "Mihiraki PDF Utility" in a large, readable font.
+
+3. Screenshots (Phone / 7" Tablet / 10" Tablet)
+   - Recommended Screen States to Capture:
+     a. Main Grid View (with multiple page thumbnails)
+     b. Mihiraki View (Two pages side-by-side)
+     c. Full-screen Preview (Zoomed in on a page)
+     d. PDF Settings Dialog (Metadata/Security tab)
+     e. Split Direction Dialog (Choice between Vertical/Horizontal)
+   - Requirements:
+     - At least 2 screenshots per device type.
+     - JPEG or 24-bit PNG (no alpha).
+     - Min length: 320px. Max length: 3840px.
