@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "jp.mihiraki.pdfutility"
+    namespace = "com.takumayamada22.pdfutility"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "jp.mihiraki.pdfutility"
+        applicationId = "com.takumayamada22.pdfutility"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
@@ -18,9 +20,25 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        val props = Properties()
+        val propFile = file("../local.properties")
+        if (propFile.exists()) {
+            propFile.inputStream().use { props.load(it) }
+        }
+
+        create("release") {
+            storeFile = props.getProperty("signing.storeFile")?.let { file(it) }
+            storePassword = props.getProperty("signing.storePassword")
+            keyAlias = props.getProperty("signing.keyAlias")
+            keyPassword = props.getProperty("signing.keyPassword")
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
