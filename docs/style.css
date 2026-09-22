@@ -68,18 +68,15 @@ footer {
     text-align: right;
     margin-bottom: 1rem;
 }
-.lang-toggle button {
-    background: none;
+.lang-toggle a {
+    text-decoration: none;
     border: 1px solid #007074;
     color: #007074;
     padding: 0.3rem 0.6rem;
-    cursor: pointer;
     border-radius: 4px;
+    font-size: 0.9rem;
 }
-.lang-toggle button.active {
+.lang-toggle a:hover {
     background: #007074;
     color: #fff;
 }
-[lang="ja"] { display: none; }
-body.lang-ja [lang="en"] { display: none; }
-body.lang-ja [lang="ja"] { display: block; }
