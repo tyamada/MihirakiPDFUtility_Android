@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mihiraki PDF Utility - Android PDF Editor</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function setLang(lang) {
+            document.body.className = 'lang-' + lang;
+            document.querySelectorAll('.lang-toggle button').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+    </script>
+</head>
+<body class="lang-en">
+    <div class="lang-toggle">
+        <button id="btn-en" class="active" onclick="setLang('en')">English</button>
+        <button id="btn-ja" onclick="setLang('ja')">日本語</button>
+    </div>
+
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+    </div>
+
+    <header>
+        <h1 lang="en">Mihiraki PDF Utility</h1>
+        <h1 lang="ja">見開きPDFユーティリティ</h1>
+        <p class="tagline" lang="en">Intuitive PDF spreading, splitting, and merging for Android.</p>
+        <p class="tagline" lang="ja">見開き表示、分割、結合を自在に。Androidのための直感的なPDF編集ツール。</p>
+    </header>
+
+    <section>
+        <h2 lang="en">About the App</h2>
+        <h2 lang="ja">アプリについて</h2>
+        <p lang="en">Mihiraki PDF Utility is a feature-rich tool designed for readers and creators. Whether you're organizing scanned books (Jisui), merging documents, or reordering pages, our intuitive interface makes it effortless.</p>
+        <p lang="ja">見開きPDFユーティリティは、読者とクリエイターのために設計された多機能ツールです。自炊した書籍の整理、ドキュメントの結合、ページの並べ替えなど、直感的な操作で思い通りに編集できます。</p>
+    </section>
+
+    <section>
+        <h2 lang="en">Key Features</h2>
+        <h2 lang="ja">主な機能</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3 lang="en">Spread (Mihiraki) View</h3>
+                <h3 lang="ja">見開き表示（Mihiraki）</h3>
+                <p lang="en">View two pages side-by-side. Supports both Left-to-Right (LTR) and Right-to-Left (RTL) reading directions for manga and books.</p>
+                <p lang="ja">2ページを横並びで表示。日本の書籍や漫画に合わせた「右開き（RTL）」にも完全対応しています。</p>
+            </div>
+            <div class="feature-card">
+                <h3 lang="en">Smart Splitting</h3>
+                <h3 lang="ja">スマートなページ分割</h3>
+                <p lang="en">Split double-page spreads into individual pages. Supports both vertical and horizontal splitting.</p>
+                <p lang="ja">見開き1ページを2つのページに分割。垂直（左右）と水平（上下）の両方の分割方向をサポートします。</p>
+            </div>
+            <div class="feature-card">
+                <h3 lang="en">Drag & Drop Reordering</h3>
+                <h3 lang="ja">直感的な並べ替え</h3>
+                <p lang="en">Organize your PDF by simply dragging thumbnails. Move single or multiple pages at once.</p>
+                <p lang="ja">サムネイルをドラッグするだけでページ順序を整理。直感的なインターフェースで編集が捗ります。</p>
+            </div>
+            <div class="feature-card">
+                <h3 lang="en">Merge & Append</h3>
+                <h3 lang="ja">結合と追加</h3>
+                <p lang="en">Combine multiple PDF files into a single document easily.</p>
+                <p lang="ja">複数のPDFファイルを1つに結合したり、既存のPDFにページを追加したりできます。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Mihiraki Project. Built with Jetpack Compose.</p>
+    </footer>
+</body>
+</html>

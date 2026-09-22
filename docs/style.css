@@ -1,0 +1,85 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #f8f9fa;
+}
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+h1 {
+    color: #007074;
+    margin-bottom: 0.5rem;
+}
+.tagline {
+    font-size: 1.2rem;
+    color: #666;
+}
+section {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+h2 {
+    border-bottom: 2px solid #007074;
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+    color: #004D40;
+}
+ul {
+    padding-left: 1.5rem;
+}
+footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 3rem;
+}
+.nav {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.nav a {
+    margin: 0 1rem;
+    text-decoration: none;
+    color: #007074;
+    font-weight: bold;
+}
+.nav a:hover {
+    text-decoration: underline;
+}
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+.feature-card {
+    border: 1px solid #eee;
+    padding: 1rem;
+    border-radius: 4px;
+}
+.lang-toggle {
+    text-align: right;
+    margin-bottom: 1rem;
+}
+.lang-toggle button {
+    background: none;
+    border: 1px solid #007074;
+    color: #007074;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.lang-toggle button.active {
+    background: #007074;
+    color: #fff;
+}
+[lang="ja"] { display: none; }
+body.lang-ja [lang="en"] { display: none; }
+body.lang-ja [lang="ja"] { display: block; }
