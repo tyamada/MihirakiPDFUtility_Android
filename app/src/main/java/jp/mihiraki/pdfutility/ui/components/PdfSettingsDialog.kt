@@ -1,5 +1,6 @@
 package jp.mihiraki.pdfutility.ui.components
 
+import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -12,6 +13,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import jp.mihiraki.pdfutility.R
+import jp.mihiraki.pdfutility.billing.PurchaseState
+import jp.mihiraki.pdfutility.billing.TipTier
 import jp.mihiraki.pdfutility.ui.PdfUiState
 import jp.mihiraki.pdfutility.ui.PdfViewModel
 import jp.mihiraki.pdfutility.ui.SettingsDialogType
@@ -22,6 +25,7 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         SettingsDialogType.PROPERTY -> PdfPropertyDialog(viewModel, uiState)
         SettingsDialogType.PASSWORD -> PdfPasswordDialog(viewModel, uiState)
         SettingsDialogType.VERSION -> PdfVersionDialog(viewModel)
+        SettingsDialogType.SUPPORT -> PdfSupportDialog(viewModel)
         null -> {}
     }
 }
@@ -229,6 +233,82 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
             }
         }
     )
+}
+
+@Composable
+private fun PdfSupportDialog(viewModel: PdfViewModel) {
+    val context = LocalContext.current
+    val manager = viewModel.billing
+    val products by manager.products.collectAsState()
+    val purchaseState by manager.purchase.collectAsState()
+    
+    // In a real app, you might use BuildConfig.DEBUG, but here we'll assume simulation is okay for dev
+    val isDebug = true 
+
+    AlertDialog(
+        onDismissRequest = { viewModel.closeSettingsDialog() },
+        title = { Text(stringResource(R.string.support)) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(stringResource(R.string.tip_message))
+                
+                TipTier.entries.forEach { tier ->
+                    val product = products.firstOrNull { it.productId == tier.productId }
+                    val priceText = product?.oneTimePurchaseOfferDetails?.formattedPrice
+                        ?: if (isDebug) {
+                            when (tier) {
+                                TipTier.BRONZE -> "¥100 (Mock)"
+                                TipTier.SILVER -> "¥500 (Mock)"
+                                TipTier.GOLD -> "¥1000 (Mock)"
+                            }
+                        } else tier.productId
+
+                    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+                        Row(
+                            modifier = Modifier.padding(12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Text(tier.badge, style = MaterialTheme.typography.headlineSmall)
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(tier.name, style = MaterialTheme.typography.labelLarge)
+                                Text(priceText, style = MaterialTheme.typography.bodySmall)
+                            }
+                            Button(
+                                onClick = {
+                                    if (isDebug && product == null) {
+                                        manager.simulateSuccess(tier)
+                                    } else {
+                                        product?.let { manager.purchase(context as Activity, it) }
+                                    }
+                                },
+                                enabled = isDebug || product != null,
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
+                                Text(stringResource(R.string.action_purchase), style = MaterialTheme.typography.labelSmall)
+                            }
+                        }
+                    }
+                }
+                
+                when (val s = purchaseState) {
+                    is PurchaseState.Success -> Text(stringResource(R.string.purchase_thanks, s.tier.name), color = MaterialTheme.colorScheme.primary)
+                    is PurchaseState.Cancelled -> Text(stringResource(R.string.purchase_cancelled), style = MaterialTheme.typography.bodySmall)
+                    is PurchaseState.Error -> Text(stringResource(R.string.purchase_failed), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
+                    else -> Unit
+                }
+            }
+        },
+        confirmButton = {
+            Button(onClick = { viewModel.closeSettingsDialog() }) {
+                Text(stringResource(R.string.action_close))
+            }
+        }
+    )
+
+    LaunchedEffect(Unit) {
+        manager.connect()
+    }
 }
 
 @Composable

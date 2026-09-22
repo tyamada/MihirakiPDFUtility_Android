@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.tom_roush.pdfbox.pdmodel.encryption.InvalidPasswordException
 import jp.mihiraki.pdfutility.R
+import jp.mihiraki.pdfutility.billing.BillingManager
 import jp.mihiraki.pdfutility.domain.PdfProcessor
 import jp.mihiraki.pdfutility.domain.ThumbnailProvider
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +37,7 @@ data class PageState(
 )
 
 enum class SettingsDialogType {
-    PROPERTY, PASSWORD, VERSION
+    PROPERTY, PASSWORD, VERSION, SUPPORT
 }
 
 data class PdfUiState(
@@ -71,6 +72,7 @@ data class PdfUiState(
 class PdfViewModel(application: Application) : AndroidViewModel(application) {
     private val processor = PdfProcessor()
     private val thumbnailProvider = ThumbnailProvider(application)
+    val billing = BillingManager(application)
     
     private val _uiState = MutableStateFlow(PdfUiState())
     val uiState: StateFlow<PdfUiState> = _uiState
@@ -606,5 +608,6 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         super.onCleared()
         processor.close()
         thumbnailProvider.close()
+        billing.close()
     }
 }

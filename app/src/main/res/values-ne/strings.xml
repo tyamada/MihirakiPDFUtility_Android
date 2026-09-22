@@ -24,6 +24,8 @@
     <string name="action_run">चलाउनुहोस्</string>
     <string name="action_clear">हटाउनुहोस्</string>
     <string name="action_set">सेट गर्नुहोस्</string>
+    <string name="action_back">पछाडि</string>
+    <string name="action_purchase">खरिद गर्नुहोस्</string>
 
     <string name="dialog_password_title">पासवर्ड आवश्यक छ</string>
     <string name="dialog_password_desc">यो PDF पासवर्ड सुरक्षित छ।</string>
@@ -40,6 +42,7 @@
     <string name="settings_property">विशेषता</string>
     <string name="settings_password">पासवर्ड</string>
     <string name="settings_version">संस्करण</string>
+    <string name="support">समर्थन</string>
 
     <string name="prop_filename">फाइलको नाम</string>
     <string name="prop_title">शीर्षक</string>
@@ -88,4 +91,9 @@
     <string name="crop_percent">%1$d%% काटिएको</string>
 
     <string name="preview_page_counter">पृष्ठ %1$d / %2$d</string>
+
+    <string name="tip_message">यदि तपाइँ एप मनपर्छ भने, तपाइँ यसको विकासलाई समर्थन गर्न सक्नुहुन्छ।</string>
+    <string name="purchase_thanks">धन्यवाद! %1$s समर्थन प्राप्त भयो।</string>
+    <string name="purchase_cancelled">खरिद रद्द गरियो।</string>
+    <string name="purchase_failed">खरिद असफल भयो। कृपया फेरि प्रयास गर्नुहोस्।</string>
 </resources>

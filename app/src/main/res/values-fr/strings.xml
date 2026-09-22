@@ -24,6 +24,8 @@
     <string name="action_run">Exécuter</string>
     <string name="action_clear">Effacer</string>
     <string name="action_set">Définir</string>
+    <string name="action_back">Retour</string>
+    <string name="action_purchase">Acheter</string>
 
     <string name="dialog_password_title">Mot de passe requis</string>
     <string name="dialog_password_desc">Ce PDF est protégé par un mot de passe.</string>
@@ -40,6 +42,7 @@
     <string name="settings_property">Propriétés</string>
     <string name="settings_password">Mot de passe</string>
     <string name="settings_version">Version</string>
+    <string name="support">Soutenir</string>
 
     <string name="prop_filename">Nom du fichier</string>
     <string name="prop_title">Titre</string>
@@ -88,4 +91,9 @@
     <string name="crop_percent">%1$d%% Rogné</string>
 
     <string name="preview_page_counter">Page %1$d / %2$d</string>
+
+    <string name="tip_message">Si vous appréciez l\'application, vous pouvez soutenir son développement.</string>
+    <string name="purchase_thanks">Merci ! %1$s soutien reçu.</string>
+    <string name="purchase_cancelled">Achat annulé.</string>
+    <string name="purchase_failed">Échec de l\'achat. Veuillez réessayer.</string>
 </resources>

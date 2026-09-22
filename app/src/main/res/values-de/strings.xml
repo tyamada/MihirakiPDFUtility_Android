@@ -24,6 +24,8 @@
     <string name="action_run">Ausführen</string>
     <string name="action_clear">Löschen</string>
     <string name="action_set">Festlegen</string>
+    <string name="action_back">Zurück</string>
+    <string name="action_purchase">Kaufen</string>
 
     <string name="dialog_password_title">Passwort erforderlich</string>
     <string name="dialog_password_desc">Dieses PDF ist passwortgeschützt.</string>
@@ -40,6 +42,7 @@
     <string name="settings_property">Eigenschaften</string>
     <string name="settings_password">Passwort</string>
     <string name="settings_version">Version</string>
+    <string name="support">Unterstützen</string>
 
     <string name="prop_filename">Dateiname</string>
     <string name="prop_title">Titel</string>
@@ -88,4 +91,9 @@
     <string name="crop_percent">%1$d%% Beschnitt</string>
 
     <string name="preview_page_counter">Seite %1$d / %2$d</string>
+
+    <string name="tip_message">Wenn Ihnen die App gefällt, können Sie deren Entwicklung unterstützen.</string>
+    <string name="purchase_thanks">Vielen Dank! %1$s Unterstützung erhalten.</string>
+    <string name="purchase_cancelled">Kauf abgebrochen.</string>
+    <string name="purchase_failed">Kauf fehlgeschlagen. Bitte versuchen Sie es erneut.</string>
 </resources>
