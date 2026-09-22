@@ -2,40 +2,41 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-An intuitive Android PDF utility designed for "Mihiraki" (spread) viewing, flexible splitting, and seamless document merging. Perfect for organizing scanned books (Jisui), manga, and professional documents.
+見開き表示（Mihiraki）と直感的なページ編集機能を備えたAndroid用PDFユーティリティアプリです。
+自炊した書籍の整理、漫画、ビジネス文書の管理に最適です。
 
-[**Visit the Website (GitHub Pages)**](https://tyamada.github.io/MihirakiPDFUtility_Android/)
+[**Webサイトはこちら (日本語)**](https://tyamada.github.io/MihirakiPDFUtility_Android/) | [**English Website**](https://tyamada.github.io/MihirakiPDFUtility_Android/index_en.html)
 
-## Key Features
+## 主な機能
 
-- **Spread (Mihiraki) View**: View two pages side-by-side. 
-- **RTL Support**: Fully supports Right-to-Left page order for Japanese books and manga.
-- **Advanced Splitting**: Split 1 spread into 2 pages (vertical or horizontal).
-- **Merge & Append**: Combine multiple PDFs into a single file easily.
-- **Drag & Drop**: Long-press thumbnails to reorder pages intuitively.
-- **Page Editing**: Rotate, delete, and insert blank pages.
-- **Password Support**: Load and save encrypted PDFs.
-- **Security & Metadata**: Edit PDF properties (Title, Author, etc.) and set passwords.
-- **Full-screen Preview**: High-resolution preview with pinch-to-zoom.
-- **Desktop Ready**: Optimized for ChromeOS with keyboard shortcuts and context menus.
+- **見開き表示モード**: 2ページを横並びで表示。
+- **右開き（RTL）対応**: 日本の書籍や漫画に合わせたページ順序をサポート。
+- **高度なページ分割**: 見開き1ページを2ページに分割（垂直・水平対応）。
+- **結合と追加**: 複数のPDFファイルを1つに結合。
+- **ドラッグ＆ドロップ**: サムネイルを動かして直感的にページを並べ替え。
+- **ページ編集**: 回転、削除、空白ページの挿入。
+- **パスワード保護**: 暗号化されたPDFの読み込みと保存に対応。
+- **プロパティ編集**: タイトルや作成者などのメタデータを編集可能。
+- **全画面プレビュー**: 高解像度表示とピンチズームに対応。
+- **デスクトップ対応**: ChromeOSに最適化（ショートカットキー、右クリックメニュー）。
 
-## Localization
+## 多言語対応
 
-The app is fully localized in 13 languages:
-- English, Japanese, Korean, Chinese (Traditional/Simplified), German, French, Spanish, Portuguese, Vietnamese, Filipino, Nepali, and Indonesian.
+13言語に完全対応しています：
+- 日本語、英語、韓国語、中国語（繁体字・簡体字）、ドイツ語、フランス語、スペイン語、ポルトガル語、ベトナム語、フィリピン語、ネパール語、インドネシア語。
 
-## Support & Privacy
+## サポートとプライバシー
 
-- [Privacy Policy](https://tyamada.github.io/MihirakiPDFUtility_Android/privacy.html)
-- [Support Page](https://tyamada.github.io/MihirakiPDFUtility_Android/support.html)
+- [プライバシーポリシー (日本語)](https://tyamada.github.io/MihirakiPDFUtility_Android/privacy.html) / [English](https://tyamada.github.io/MihirakiPDFUtility_Android/privacy_en.html)
+- [サポートページ (日本語)](https://tyamada.github.io/MihirakiPDFUtility_Android/support.html) / [English](https://tyamada.github.io/MihirakiPDFUtility_Android/support_en.html)
 
-## Technical Stack
+## 技術スタック
 
 - **UI**: Jetpack Compose (Material 3)
 - **Architecture**: MVVM (ViewModel, StateFlow)
-- **PDF Core**: [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android)
-- **Language**: Kotlin
+- **PDF処理**: [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android)
+- **言語**: Kotlin
 
-## License
+## ライセンス
 
 Apache License 2.0
