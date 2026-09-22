@@ -2,6 +2,7 @@ package com.takumayamada22.pdfutility.ui.components
 
 import android.app.Activity
 import android.os.Build
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -10,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.takumayamada22.pdfutility.R
@@ -269,7 +271,16 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
-                            Text(tier.badge, style = MaterialTheme.typography.headlineSmall)
+                            val iconRes = when (tier) {
+                                TipTier.BRONZE -> R.drawable.tip_bronze
+                                TipTier.SILVER -> R.drawable.tip_silver
+                                TipTier.GOLD -> R.drawable.tip_gold
+                            }
+                            Image(
+                                painter = painterResource(iconRes),
+                                contentDescription = null,
+                                modifier = Modifier.size(48.dp)
+                            )
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(tier.name, style = MaterialTheme.typography.labelLarge)
                                 Text(priceText, style = MaterialTheme.typography.bodySmall)
