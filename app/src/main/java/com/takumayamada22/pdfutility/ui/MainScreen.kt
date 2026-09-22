@@ -53,8 +53,13 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
         snackbarHost = { SnackbarHost(snackbarHostState) },
         modifier = Modifier.onKeyEvent { event ->
             if (uiState.previewPageIndex != null) {
-                if (event.type == KeyEventType.KeyDown && event.key == Key.Back) {
+                if (event.type == KeyEventType.KeyDown && (event.key == Key.Back || event.key == Key.Escape)) {
                     viewModel.closePreview()
+                    true
+                } else false
+            } else if (uiState.activeSettingsDialog != null) {
+                if (event.type == KeyEventType.KeyDown && event.key == Key.Escape) {
+                    viewModel.closeSettingsDialog()
                     true
                 } else false
             } else if (event.type == KeyEventType.KeyDown && event.isCtrlPressed) {
@@ -65,6 +70,24 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                     }
                     Key.S -> {
                         saveLauncher.launch("edited_${uiState.fileName ?: "document"}.pdf")
+                        true
+                    }
+                    Key.E -> {
+                        if (uiState.selectedIndices.isNotEmpty()) {
+                            exportLauncher.launch("selected_pages.pdf")
+                        }
+                        true
+                    }
+                    Key.T -> {
+                        viewModel.toggleMihirakiView()
+                        true
+                    }
+                    Key.R -> {
+                        viewModel.toggleRtl()
+                        true
+                    }
+                    Key.L -> {
+                        viewModel.clearSelection()
                         true
                     }
                     Key.A -> {
@@ -105,7 +128,13 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
-            PdfPageGrid(uiState = uiState, viewModel = viewModel)
+            PdfPageGrid(
+                uiState = uiState, 
+                viewModel = viewModel,
+                onSplitClick = { showSplitDialog = true },
+                onCropClick = { showCropDialog = true },
+                onDeleteClick = { showDeleteConfirmation = true }
+            )
         }
     }
 
