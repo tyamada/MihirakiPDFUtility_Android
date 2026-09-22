@@ -1,14 +1,11 @@
 package com.takumayamada22.pdfutility.ui.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,9 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.ui.PageState
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
@@ -29,6 +28,9 @@ import kotlin.math.roundToInt
 fun PdfPageGrid(
     uiState: PdfUiState,
     viewModel: PdfViewModel,
+    onSplitClick: () -> Unit,
+    onCropClick: () -> Unit,
+    onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val gridState = rememberLazyGridState()
@@ -66,7 +68,13 @@ fun PdfPageGrid(
                                     } else {
                                         viewModel.toggleSelection(index)
                                     }
-                                }
+                                },
+                                onSplit = { viewModel.toggleSelection(index); onSplitClick() },
+                                onCrop = { viewModel.toggleSelection(index); onCropClick() },
+                                onRotate = { viewModel.toggleSelection(index); viewModel.rotateSelected(90) },
+                                onInsertBlank = { viewModel.toggleSelection(index); viewModel.insertBlankAfterSelected() },
+                                onDelete = { viewModel.toggleSelection(index); onDeleteClick() },
+                                onPreview = { viewModel.openPreview(index) }
                             )
                         }
                     }
@@ -98,6 +106,12 @@ fun PdfPageGrid(
                             viewModel.toggleSelection(index)
                         }
                     },
+                    onSplit = { viewModel.toggleSelection(index); onSplitClick() },
+                    onCrop = { viewModel.toggleSelection(index); onCropClick() },
+                    onRotate = { viewModel.toggleSelection(index); viewModel.rotateSelected(90) },
+                    onInsertBlank = { viewModel.toggleSelection(index); viewModel.insertBlankAfterSelected() },
+                    onDelete = { viewModel.toggleSelection(index); onDeleteClick() },
+                    onPreview = { viewModel.openPreview(index) },
                     modifier = Modifier
                         .pointerInput(Unit) {
                             detectDragGesturesAfterLongPress(
@@ -157,8 +171,16 @@ fun PageThumbnail(
     page: PageState, 
     isSelected: Boolean, 
     onClick: () -> Unit,
+    onSplit: () -> Unit,
+    onCrop: () -> Unit,
+    onRotate: () -> Unit,
+    onInsertBlank: () -> Unit,
+    onDelete: () -> Unit,
+    onPreview: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var showContextMenu by remember { mutableStateOf(false) }
+
     Box(
         modifier = modifier
             .aspectRatio(0.7f)
@@ -166,7 +188,12 @@ fun PageThumbnail(
                 width = if (isSelected) 4.dp else 1.dp,
                 color = if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
             )
-            .clickable(onClick = onClick)
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = { onClick() },
+                    onLongPress = { showContextMenu = true }
+                )
+            }
     ) {
         page.thumbnail?.let {
             Image(
@@ -187,5 +214,40 @@ fun PageThumbnail(
             color = Color.White,
             style = MaterialTheme.typography.labelSmall
         )
+
+        DropdownMenu(
+            expanded = showContextMenu,
+            onDismissRequest = { showContextMenu = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.action_open)) },
+                onClick = { onPreview(); showContextMenu = false }
+            )
+            DropdownMenuItem(
+                text = { Text(if (isSelected) stringResource(R.string.action_clear_selection) else stringResource(R.string.action_select_all)) },
+                onClick = { onClick(); showContextMenu = false }
+            )
+            HorizontalDivider()
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.action_split_pages)) },
+                onClick = { onSplit(); showContextMenu = false }
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.crop_title)) },
+                onClick = { onCrop(); showContextMenu = false }
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.action_rotate_right)) },
+                onClick = { onRotate(); showContextMenu = false }
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.action_insert_blank)) },
+                onClick = { onInsertBlank(); showContextMenu = false }
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(R.string.action_delete)) },
+                onClick = { onDelete(); showContextMenu = false }
+            )
+        }
     }
 }
