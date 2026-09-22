@@ -24,6 +24,8 @@
     <string name="action_run">실행</string>
     <string name="action_clear">지우기</string>
     <string name="action_set">설정</string>
+    <string name="action_back">뒤로</string>
+    <string name="action_purchase">구매</string>
 
     <string name="dialog_password_title">비밀번호 필요</string>
     <string name="dialog_password_desc">이 PDF는 비밀번호로 보호되어 있습니다.</string>
@@ -40,6 +42,7 @@
     <string name="settings_property">속성</string>
     <string name="settings_password">비밀번호</string>
     <string name="settings_version">버전</string>
+    <string name="support">응원</string>
 
     <string name="prop_filename">파일명</string>
     <string name="prop_title">제목</string>
@@ -88,4 +91,9 @@
     <string name="crop_percent">%1$d%% 자르기</string>
 
     <string name="preview_page_counter">페이지 %1$d / %2$d</string>
+
+    <string name="tip_message">앱이 마음에 드신다면 개발을 응원해 주세요.</string>
+    <string name="purchase_thanks">감사합니다! %1$s 응원을 받았습니다.</string>
+    <string name="purchase_cancelled">구매가 취소되었습니다.</string>
+    <string name="purchase_failed">구매에 실패했습니다. 다시 시도해 주세요.</string>
 </resources>

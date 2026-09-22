@@ -24,6 +24,8 @@
     <string name="action_run">I-run</string>
     <string name="action_clear">I-clear</string>
     <string name="action_set">I-set</string>
+    <string name="action_back">Bumalik</string>
+    <string name="action_purchase">Bumili</string>
 
     <string name="dialog_password_title">Kailangan ng Password</string>
     <string name="dialog_password_desc">Ang PDF na ito ay protektado ng password.</string>
@@ -40,6 +42,7 @@
     <string name="settings_property">Property</string>
     <string name="settings_password">Password</string>
     <string name="settings_version">Bersyon</string>
+    <string name="support">Suporta</string>
 
     <string name="prop_filename">Pangalan ng File</string>
     <string name="prop_title">Pamagat</string>
@@ -88,4 +91,9 @@
     <string name="crop_percent">%1$d%% na na-crop</string>
 
     <string name="preview_page_counter">Pahina %1$d / %2$d</string>
+
+    <string name="tip_message">Kung nagugustuhan mo ang app, maaari mong suportahan ang pagbuo nito.</string>
+    <string name="purchase_thanks">Salamat! Natanggap ang suportang %1$s.</string>
+    <string name="purchase_cancelled">Kinansela ang pagbili.</string>
+    <string name="purchase_failed">Bigo ang pagbili. Pakisubukang muli.</string>
 </resources>

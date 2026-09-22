@@ -87,6 +87,10 @@ fun PdfTopAppBar(
                                 text = { Text(stringResource(R.string.settings_version)) },
                                 onClick = { viewModel.openSettingsDialog(SettingsDialogType.VERSION) }
                             )
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.support)) },
+                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }
+                            )
                         }
                     }
                 }

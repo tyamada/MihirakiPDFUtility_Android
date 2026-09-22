@@ -24,6 +24,8 @@
     <string name="action_run">執行</string>
     <string name="action_clear">清除</string>
     <string name="action_set">設置</string>
+    <string name="action_back">返回</string>
+    <string name="action_purchase">購買</string>
 
     <string name="dialog_password_title">需要密碼</string>
     <string name="dialog_password_desc">此 PDF 受密碼保護。</string>
@@ -40,6 +42,7 @@
     <string name="settings_property">屬性</string>
     <string name="settings_password">密碼</string>
     <string name="settings_version">版本</string>
+    <string name="support">支持</string>
 
     <string name="prop_filename">文件名</string>
     <string name="prop_title">標題</string>
@@ -88,4 +91,9 @@
     <string name="crop_percent">裁剪 %1$d%%</string>
 
     <string name="preview_page_counter">第 %1$d / %2$d 頁</string>
+
+    <string name="tip_message">如果您喜歡此應用程式，可以支持它的開發。</string>
+    <string name="purchase_thanks">謝謝您！已收到 %1$s 的支持。</string>
+    <string name="purchase_cancelled">購買已取消。</string>
+    <string name="purchase_failed">購買失敗。請再試一次。</string>
 </resources>

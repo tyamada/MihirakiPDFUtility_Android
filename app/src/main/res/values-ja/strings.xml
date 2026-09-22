@@ -24,6 +24,8 @@
     <string name="action_run">実行</string>
     <string name="action_clear">解除</string>
     <string name="action_set">設定</string>
+    <string name="action_back">戻る</string>
+    <string name="action_purchase">購入</string>
 
     <string name="dialog_password_title">パスワードが必要です</string>
     <string name="dialog_password_desc">このPDFはパスワードで保護されています。</string>
@@ -40,6 +42,7 @@
     <string name="settings_property">プロパティ</string>
     <string name="settings_password">パスワード</string>
     <string name="settings_version">バージョン</string>
+    <string name="support">応援</string>
 
     <string name="prop_filename">ファイル名</string>
     <string name="prop_title">タイトル</string>
@@ -88,4 +91,9 @@
     <string name="crop_percent">%1$d%% カット</string>
 
     <string name="preview_page_counter">%1$d / %2$d ページ</string>
+
+    <string name="tip_message">アプリを気に入っていただけたら、開発を応援できます。</string>
+    <string name="purchase_thanks">ありがとうございます！%1$sの応援を受け取りました。</string>
+    <string name="purchase_cancelled">購入をキャンセルしました。</string>
+    <string name="purchase_failed">購入に失敗しました。もう一度お試しください。</string>
 </resources>
