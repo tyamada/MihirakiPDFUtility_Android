@@ -210,6 +210,8 @@ private fun PdfPasswordDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
 @Composable
 private fun PdfVersionDialog(viewModel: PdfViewModel) {
     val context = LocalContext.current
+    val manager = viewModel.billing
+    val purchasedTiers by manager.purchasedTiers.collectAsState()
     val packageInfo = remember {
         context.packageManager.getPackageInfo(context.packageName, 0)
     }
@@ -219,10 +221,41 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
         title = { Text(stringResource(R.string.settings_version)) },
         text = {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                if (purchasedTiers.isNotEmpty()) {
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        stringResource(R.string.help_purchased_items),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        purchasedTiers.forEach { tier ->
+                            val iconRes = when (tier) {
+                                TipTier.BRONZE -> R.drawable.tip_bronze
+                                TipTier.SILVER -> R.drawable.tip_silver
+                                TipTier.GOLD -> R.drawable.tip_gold
+                            }
+                            Image(
+                                painter = painterResource(iconRes),
+                                contentDescription = tier.name,
+                                modifier = Modifier.size(40.dp)
+                            )
+                        }
+                    }
+                    Spacer(Modifier.height(8.dp))
+                    HorizontalDivider(modifier = Modifier.fillMaxWidth())
+                    Spacer(Modifier.height(4.dp))
+                }
+
                 Text(stringResource(R.string.version_app_name), style = MaterialTheme.typography.headlineSmall)
                 Spacer(Modifier.height(8.dp))
                 Text(stringResource(R.string.version_number, packageInfo.versionName ?: "1.0.0"))
@@ -334,9 +367,6 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
 
 @Composable
 private fun PdfHelpDialog(viewModel: PdfViewModel) {
-    val manager = viewModel.billing
-    val purchasedTiers by manager.purchasedTiers.collectAsState()
-
     AlertDialog(
         onDismissRequest = { viewModel.closeSettingsDialog() },
         title = { Text(stringResource(R.string.help_title)) },
@@ -347,34 +377,6 @@ private fun PdfHelpDialog(viewModel: PdfViewModel) {
                     .padding(vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                if (purchasedTiers.isNotEmpty()) {
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(
-                            stringResource(R.string.help_purchased_items),
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            purchasedTiers.forEach { tier ->
-                                val iconRes = when (tier) {
-                                    TipTier.BRONZE -> R.drawable.tip_bronze
-                                    TipTier.SILVER -> R.drawable.tip_silver
-                                    TipTier.GOLD -> R.drawable.tip_gold
-                                }
-                                Image(
-                                    painter = painterResource(iconRes),
-                                    contentDescription = tier.name,
-                                    modifier = Modifier.size(40.dp)
-                                )
-                            }
-                        }
-                    }
-                    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
-                }
-
                 HelpSection(
                     title = stringResource(R.string.help_overview_title),
                     text = stringResource(R.string.help_overview_text)
