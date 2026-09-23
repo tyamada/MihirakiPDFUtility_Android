@@ -1,47 +1,47 @@
-# Mihiraki PDF Utility (Android)
+# 見開きPDFユーティリティ (Android)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-A powerful and intuitive PDF utility for Android, specializing in **Mihiraki (two-page spread view)**. It is optimized for managing scanned books, manga, and professional documents.
+Android向けの強力で直感的なPDFユーティリティアプリです。**見開き（2ページスプレッド表示）**に特化しており、自炊した書籍、漫画、ビジネス文書の管理に最適です。
 
-[**Webサイト (日本語)**](https://tyamada.github.io/MihirakiPDFUtility_Android/) | [**English Website**](https://tyamada.github.io/MihirakiPDFUtility_Android/index_en.html)
+[**Webサイト (日本語)**](https://tyamada.github.io/MihirakiPDFUtility_Android/) | [**English Website**](https://tyamada.github.io/MihirakiPDFUtility_Android/index_en.html) | [**English README**](README_en.md)
 
-## 🚀 Key Features
+## 🚀 主な機能
 
-| Feature | Description |
+| 機能 | 説明 |
 | :--- | :--- |
-| 📖 **Mihiraki View** | View two pages side-by-side. Full support for Right-to-Left (RTL) reading directions for manga and Japanese books. |
-| ✂️ **Smart Splitting** | Split double-page spreads into individual pages. Supports vertical and horizontal splitting. |
-| 🔀 **Drag & Drop Reordering** | Easily organize your PDF by dragging and dropping thumbnails. Intuitive page management. |
-| ➕ **Merge & Append** | Combine multiple PDF files into one, or add pages to existing documents. |
-| 🔒 **Security** | Handle encrypted PDFs with password protection and metadata editing. |
-| 🖥️ **Cross-Device Support** | Optimized for Smartphones, Tablets, and ChromeOS (desktop experience). |
+| 📖 **見開き表示** | 2ページを横並びで表示。日本の書籍や漫画に合わせた「右開き（RTL）」にも完全対応しています。 |
+| ✂️ **スマートページ分割** | 見開き1ページを2つのページに分割。垂直（左右）と水平（上下）の両方の分割方向をサポートします。 |
+| 🔀 **ドラッグ＆ドロップ並べ替え** | サムネイルをドラッグするだけでページ順序を整理。直感的なインターフェースで編集が捗ります。 |
+| ➕ **結合と追加** | 複数のPDFファイルを1つに結合したり、既存のPDFにページを追加したりできます。 |
+| 🔒 **セキュリティ** | 暗号化されたPDFのパスワード保護や、メタデータの編集が可能です。 |
+| 🖥️ **クロスデバイス対応** | スマートフォン、タブレット、ChromeOS（デスクトップ環境）で快適に動作するよう最適化されています。 |
 
-### Feature Showcase
+### 機能紹介
 
 <img src="store_listing/MihirakiPDFUtility-feature-graphic.png" alt="Feature Showcase" width="100%" style="margin: 20px 0; border-radius: 8px;">
 
-### Visual Examples
+### 画面イメージ
 
-Explore how the application functions across different device types:
+各デバイスでの動作例：
 
-| Device | View | Image |
+| デバイス | 表示 | 画像 |
 | :--- | :--- | :--- |
-| **Smartphone** | Spread View | <img src="store_listing/screenshots/smartphone/2_mihiraki_view.png" width="300" height="auto" style="margin: 5px;"> |
-| **Tablet** | Smart Splitting | <img src="store_listing/screenshots/tablet_10/1_main_grid.png" width="300" height="auto" style="margin: 5px;"> |
-| **ChromeOS** | Desktop Interface | <img src="store_listing/screenshots/chromebook/6_support_diarlog.png" width="300" height="auto" style="margin: 5px;"> |
+| **スマートフォン** | 見開き表示 | <img src="store_listing/screenshots/smartphone/2_mihiraki_view.png" width="300" height="auto" style="margin: 5px;"> |
+| **タブレット** | ページ分割 | <img src="store_listing/screenshots/tablet_10/1_main_grid.png" width="300" height="auto" style="margin: 5px;"> |
+| **ChromeOS** | デスクトップUI | <img src="store_listing/screenshots/chromebook/6_support_diarlog.png" width="300" height="auto" style="margin: 5px;"> |
 
-## 🌐 Multi-language Support
+## 🌐 多言語サポート
 
-13 languages supported, including Japanese, English, Korean, Chinese, German, French, Spanish, Portuguese, Vietnamese, Filipino, Nepali, and Indonesian.
+日本語、英語、韓国語、中国語、ドイツ語、フランス語、スペイン語、ポルトガル語、ベトナム語、タガログ語、ネパール語、インドネシア語など13言語に対応しています。
 
-## Technical Stack
+## 技術スタック
 
 *   **UI**: Jetpack Compose (Material 3)
-*   **Architecture**: MVVM (ViewModel, StateFlow)
-*   **PDF Processing**: [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android)
-*   **Language**: Kotlin
+*   **アーキテクチャ**: MVVM (ViewModel, StateFlow)
+*   **PDF処理**: [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android)
+*   **言語**: Kotlin
 
-## License
+## ライセンス
 
 Apache License 2.0
