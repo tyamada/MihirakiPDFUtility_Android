@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.PurchaseState
@@ -228,6 +229,13 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                 Text(stringResource(R.string.version_build, if (Build.VERSION.SDK_INT >= 28) packageInfo.longVersionCode.toString() else packageInfo.versionCode.toString()))
                 Spacer(Modifier.height(16.dp))
                 Text(stringResource(R.string.version_copyright), style = MaterialTheme.typography.bodySmall)
+                Spacer(Modifier.height(8.dp))
+                Text(stringResource(R.string.version_license_title), style = MaterialTheme.typography.labelMedium)
+                Text(
+                    text = stringResource(R.string.version_license_text),
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center
+                )
             }
         },
         confirmButton = {

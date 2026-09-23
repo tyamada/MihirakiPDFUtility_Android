@@ -93,6 +93,8 @@
     <string name="version_number">バージョン: %1$s</string>
     <string name="version_build">ビルド番号: %1$s</string>
     <string name="version_copyright">© 2026 Mihiraki Project</string>
+    <string name="version_license_title">ライセンス・オープンソース</string>
+    <string name="version_license_text">Apache License 2.0 の下で提供されています。\nApache PDFBox-Android を使用しています。</string>
 
     <string name="split_title">ページ分割</string>
     <string name="split_desc">分割方向を選択してください。</string>
