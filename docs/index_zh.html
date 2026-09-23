@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>见开PDF实用工具 - Android PDF编辑工具</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body lang="zh-CN">
+    <div class="lang-toggle">
+        <select onchange="location.href=this.value;">
+            <option value="index.html">日本語 (Japanese)</option>
+            <option value="index_en.html">English</option>
+            <option value="index_ko.html">한국어 (Korean)</option>
+            <option value="index_zh.html" selected>中文 (简体)</option>
+            <option value="index_zh_tw.html">中文 (繁體)</option>
+            <option value="index_de.html">Deutsch (German)</option>
+            <option value="index_fr.html">Français (French)</option>
+            <option value="index_es.html">Español (Spanish)</option>
+            <option value="index_pt.html">Português (Portuguese)</option>
+            <option value="index_vi.html">Tiếng Việt (Vietnamese)</option>
+            <option value="index_tl.html">Tagalog (Filipino)</option>
+            <option value="index_ne.html">नेपाली (Nepali)</option>
+            <option value="index_in.html">Bahasa Indonesia</option>
+        </select>
+    </div>
+
+    <div class="nav">
+        <a href="index_zh.html">首页</a>
+        <a href="privacy_zh.html">隐私政策</a>
+        <a href="support_zh.html">支持</a>
+    </div>
+
+    <header>
+        <img src="icon/MihirakiPDFUtility-icon-512.png" alt="见开PDF实用工具图标" style="max-width: 100px; height: auto;">
+        <h1 style="text-align: center;">见开PDF实用工具</h1>
+        <p class="tagline">自由实现双页显示、拆分与合并。专为Android设计的直观PDF编辑工具。</p>
+    </header>
+
+    <section id="about">
+        <h2 style="text-align: center;">关于应用</h2>
+        <div class="content-area">
+            <p>见开PDF实用工具是一款专为读者和创作者设计的全功能工具。无论是整理扫描书籍、合并文档还是重新排序页面，直观的操作让您轻松实现所需编辑。</p>
+            <p>
+                <img src="store_listing/MihirakiPDFUtility-feature-graphic-en.png" alt="主要功能概览" style="width: 80%; margin-top: 20px; border-radius: 10px;">
+            </p>
+        </div>
+    </section>
+
+    <section id="features">
+        <h2 style="text-align: center;">主要功能</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>双页（见开）视图</h3>
+                <p>并排显示两页。完美支持日式书籍和漫画的“从右向左阅读（RTL）”。</p>
+                <img src="store_listing/screenshots/smartphone/2_mihiraki_view.png" alt="双页视图示例" style="max-width: 100%; margin-top: 10px;">
+            </div>
+            <div class="feature-card">
+                <h3>智能拆分</h3>
+                <p>将双页跨页拆分为单页。支持垂直（左右）和水平（上下）拆分方向。</p>
+                <img src="store_listing/screenshots/tablet_10/1_main_grid.png" alt="页面拆分示例" style="max-width: 100%; margin-top: 10px;">
+            </div>
+            <div class="feature-card">
+                <h3>直观排序</h3>
+                <p>仅需拖动缩略图即可整理页面顺序。</p>
+                <img src="store_listing/screenshots/smartphone/5_split_dialog.png" alt="页面排序示例" style="max-width: 100%; margin-top: 10px;">
+            </div>
+            <div class="feature-card">
+                <h3>合并与追加</h3>
+                <p>轻松将多个PDF文件合并为一个，或向现有PDF添加页面。</p>
+                <img src="store_listing/screenshots/tablet_7/1_split_dialog.png" alt="PDF合并示例" style="max-width: 100%; margin-top: 10px;">
+            </div>
+        </div>
+    </section>
+
+    <section id="device-showcase">
+        <h2 style="text-align: center;">多设备支持</h2>
+        <p style="text-align: center;">在智能手机、平板电脑和Chromebook等各种Android环境中流畅运行。</p>
+        <div style="text-align: center; margin-top: 30px;">
+            <img src="store_listing/screenshots/smartphone/6_support_diarlog.png" alt="手机操作" style="width: 30%; margin: 10px;">
+            <img src="store_listing/screenshots/tablet_10/6_support_dialog.png" alt="平板操作" style="width: 30%; margin: 10px;">
+            <img src="store_listing/screenshots/chromebook/6_support_diarlog.png" alt="Chromebook操作" style="width: 30%; margin: 10px;">
+        </div>
+    </section>
+
+    <footer style="text-align: center; margin-top: 50px; padding: 20px; border-top: 1px solid #ccc;">
+        <p>&copy; 2026 Mihiraki Project. Built with Jetpack Compose.</p>
+    </footer>
+</body>
+</html>

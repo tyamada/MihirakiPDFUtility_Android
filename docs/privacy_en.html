@@ -8,7 +8,21 @@
 </head>
 <body>
     <div class="lang-toggle">
-        <a href="privacy.html">日本語</a>
+        <select onchange="location.href=this.value;">
+            <option value="privacy.html">日本語 (Japanese)</option>
+            <option value="privacy_en.html" selected>English</option>
+            <option value="privacy_ko.html">한국어 (Korean)</option>
+            <option value="privacy_zh.html">中文 (简体)</option>
+            <option value="privacy_zh_tw.html">中文 (繁體)</option>
+            <option value="privacy_de.html">Deutsch (German)</option>
+            <option value="privacy_fr.html">Français (French)</option>
+            <option value="privacy_es.html">Español (Spanish)</option>
+            <option value="privacy_pt.html">Português (Portuguese)</option>
+            <option value="privacy_vi.html">Tiếng Việt (Vietnamese)</option>
+            <option value="privacy_tl.html">Tagalog (Filipino)</option>
+            <option value="privacy_ne.html">नेपाली (Nepali)</option>
+            <option value="privacy_in.html">Bahasa Indonesia</option>
+        </select>
     </div>
 
     <div class="nav">
