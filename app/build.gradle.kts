@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.takumayamada22.pdfutility"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.takumayamada22.pdfutility"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0.0"
 
@@ -77,7 +77,7 @@ dependencies {
     // PDF Processing (Apache 2.0)
     implementation("com.tom-roush:pdfbox-android:2.0.27.0")
 
-    implementation("com.android.billingclient:billing-ktx:7.1.1")
+    implementation("com.android.billingclient:billing-ktx:8.0.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
