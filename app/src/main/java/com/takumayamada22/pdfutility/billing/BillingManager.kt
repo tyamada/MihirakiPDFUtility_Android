@@ -56,7 +56,7 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
         client.queryProductDetailsAsync(params) { billingResult, queryResult ->
             Log.d("Billing", "Query result code: ${billingResult.responseCode}")
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                _products.value = queryResult
+                _products.value = queryResult.productDetailsList
             } else {
                 _purchase.value = PurchaseState.Error("Query Error: ${billingResult.debugMessage} (Code ${billingResult.responseCode})")
             }
