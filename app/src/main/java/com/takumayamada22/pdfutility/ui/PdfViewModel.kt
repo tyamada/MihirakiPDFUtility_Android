@@ -37,7 +37,7 @@ data class PageState(
 )
 
 enum class SettingsDialogType {
-    PROPERTY, PASSWORD, VERSION, SUPPORT
+    PROPERTY, PASSWORD, VERSION, SUPPORT, HELP
 }
 
 data class PdfUiState(

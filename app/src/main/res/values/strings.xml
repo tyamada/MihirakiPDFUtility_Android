@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">Mihiraki PDF Utility</string>
     <string name="action_open">Open</string>
     <string name="action_save">Save</string>
@@ -42,7 +42,20 @@
     <string name="settings_property">Property</string>
     <string name="settings_password">Password</string>
     <string name="settings_version">Version</string>
+    <string name="settings_help">Help</string>
     <string name="support">Support</string>
+
+    <string name="help_title">App Guide &amp; Help</string>
+    <string name="help_overview_title">1. Overview</string>
+    <string name="help_overview_text">Mihiraki PDF Utility allows you to reorder PDF pages, view spreads (RTL/LTR), delete, rotate, split, crop pages, and set metadata/passwords.</string>
+    <string name="help_open_title">2. Opening &amp; Saving PDFs</string>
+    <string name="help_open_text">Tap the Open icon (or Ctrl+O) to load a PDF. Use Save (Ctrl+S) to save all pages, or Export Selected (Ctrl+E) to save selected pages.</string>
+    <string name="help_page_ops_title">3. Page Operations</string>
+    <string name="help_page_ops_text">Tap pages to select them. Selected pages can be rotated, deleted, moved, inserted with blank pages, split, or cropped.</string>
+    <string name="help_display_title">4. Display Modes</string>
+    <string name="help_display_text">Toggle between Grid and Spread views. Use Toggle RTL for right-to-left reading mode (manga/books).</string>
+    <string name="help_settings_title">5. Properties &amp; Security</string>
+    <string name="help_settings_text">Configure document title, author, layout settings, and set encryption passwords in Settings.</string>
 
     <string name="prop_filename">Filename</string>
     <string name="prop_title">Title</string>
@@ -93,6 +106,7 @@
     <string name="preview_page_counter">Page %1$d / %2$d</string>
 
     <string name="tip_message">If you enjoy the app, you can support its development.</string>
+    <string name="free_use_message">All features can be used without purchase.</string>
     <string name="purchase_thanks">Thank you! %1$s support received.</string>
     <string name="purchase_cancelled">Purchase cancelled.</string>
     <string name="purchase_failed">Purchase failed. Please try again.</string>

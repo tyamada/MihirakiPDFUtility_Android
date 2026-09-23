@@ -28,6 +28,7 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         SettingsDialogType.PASSWORD -> PdfPasswordDialog(viewModel, uiState)
         SettingsDialogType.VERSION -> PdfVersionDialog(viewModel)
         SettingsDialogType.SUPPORT -> PdfSupportDialog(viewModel)
+        SettingsDialogType.HELP -> PdfHelpDialog(viewModel)
         null -> {}
     }
 }
@@ -253,6 +254,7 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(stringResource(R.string.tip_message))
+                Text(stringResource(R.string.free_use_message), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
                 
                 TipTier.entries.forEach { tier ->
                     val product = products.firstOrNull { it.productId == tier.productId }
@@ -319,6 +321,56 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
 
     LaunchedEffect(Unit) {
         manager.connect()
+    }
+}
+
+@Composable
+private fun PdfHelpDialog(viewModel: PdfViewModel) {
+    AlertDialog(
+        onDismissRequest = { viewModel.closeSettingsDialog() },
+        title = { Text(stringResource(R.string.help_title)) },
+        text = {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                HelpSection(
+                    title = stringResource(R.string.help_overview_title),
+                    text = stringResource(R.string.help_overview_text)
+                )
+                HelpSection(
+                    title = stringResource(R.string.help_open_title),
+                    text = stringResource(R.string.help_open_text)
+                )
+                HelpSection(
+                    title = stringResource(R.string.help_page_ops_title),
+                    text = stringResource(R.string.help_page_ops_text)
+                )
+                HelpSection(
+                    title = stringResource(R.string.help_display_title),
+                    text = stringResource(R.string.help_display_text)
+                )
+                HelpSection(
+                    title = stringResource(R.string.help_settings_title),
+                    text = stringResource(R.string.help_settings_text)
+                )
+            }
+        },
+        confirmButton = {
+            Button(onClick = { viewModel.closeSettingsDialog() }) {
+                Text(stringResource(R.string.action_close))
+            }
+        }
+    )
+}
+
+@Composable
+private fun HelpSection(title: String, text: String) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(title, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary)
+        Text(text, style = MaterialTheme.typography.bodyMedium)
     }
 }
 
