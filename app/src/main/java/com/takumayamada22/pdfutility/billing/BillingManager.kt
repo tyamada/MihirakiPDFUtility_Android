@@ -19,6 +19,8 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
     val products = _products.asStateFlow()
     private val _purchase = MutableStateFlow<PurchaseState>(PurchaseState.Idle)
     val purchase = _purchase.asStateFlow()
+    private val _purchasedTiers = MutableStateFlow<Set<TipTier>>(emptySet())
+    val purchasedTiers = _purchasedTiers.asStateFlow()
     
     private val client = BillingClient.newBuilder(context)
         .setListener(this)
@@ -73,6 +75,7 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
 
     fun simulateSuccess(tier: TipTier) {
         _purchase.value = PurchaseState.Success(tier)
+        _purchasedTiers.value = _purchasedTiers.value + tier
     }
 
     override fun onPurchasesUpdated(result: BillingResult, purchases: MutableList<Purchase>?) {
@@ -88,6 +91,7 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
             purchase.products.firstNotNullOfOrNull(TipTier::fromProductId)?.let { tier ->
                 client.consumeAsync(ConsumeParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build()) { consumed: BillingResult, _: String? ->
                     _purchase.value = if (consumed.responseCode == BillingClient.BillingResponseCode.OK) {
+                        _purchasedTiers.value = _purchasedTiers.value + tier
                         PurchaseState.Success(tier)
                     } else {
                         PurchaseState.Error(consumed.debugMessage)

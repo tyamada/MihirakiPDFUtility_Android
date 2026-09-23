@@ -56,6 +56,8 @@
     <string name="help_display_text">Toggle between Grid and Spread views. Use Toggle RTL for right-to-left reading mode (manga/books).</string>
     <string name="help_settings_title">5. Properties &amp; Security</string>
     <string name="help_settings_text">Configure document title, author, layout settings, and set encryption passwords in Settings.</string>
+    <string name="help_purchased_items">Purchased Support Badges</string>
+    <string name="help_no_purchased_items">No support items purchased yet.</string>
 
     <string name="prop_filename">Filename</string>
     <string name="prop_title">Title</string>

@@ -56,6 +56,8 @@
     <string name="help_display_text">「表示切替」アイコンで一覧（グリッド）表示と見開き表示を切り替えられます。「右開き切替」で右開き（マンガ・和本向け）と左開きを切り替え可能です。</string>
     <string name="help_settings_title">5. プロパティとセキュリティ</string>
     <string name="help_settings_text">PDF設定からタイトルや作成者などのプロパティ、表示レイアウト、保存時の暗号化パスワードを設定できます。</string>
+    <string name="help_purchased_items">購入した応援バッジ</string>
+    <string name="help_no_purchased_items">購入した応援アイテムはまだありません。</string>
 
     <string name="prop_filename">ファイル名</string>
     <string name="prop_title">タイトル</string>
