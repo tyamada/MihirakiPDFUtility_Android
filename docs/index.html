@@ -18,38 +18,58 @@
     </div>
 
     <header>
-        <h1>見開きPDFユーティリティ</h1>
+        <img src="icon/MihirakiPDFUtility-icon-512.png" alt="見開きPDFユーティリティアイコン" style="max-width: 100px; height: auto;">
+        <h1 style="text-align: center;">見開きPDFユーティリティ</h1>
         <p class="tagline">見開き表示、分割、結合を自在に。Androidのための直感的なPDF編集ツール。</p>
     </header>
 
-    <section>
-        <h2>アプリについて</h2>
-        <p>見開きPDFユーティリティは、読者とクリエイターのために設計された多機能ツールです。自炊した書籍の整理、ドキュメントの結合、ページの並べ替えなど、直感的な操作で思い通りに編集できます。</p>
+    <section id="about">
+        <h2 style="text-align: center;">アプリについて</h2>
+        <div class="content-area">
+            <p>見開きPDFユーティリティは、読者とクリエイターのために設計された多機能ツールです。自炊した書籍の整理、ドキュメントの結合、ページの並べ替えなど、直感的な操作で思い通りに編集できます。</p>
+            <p>
+                <img src="store_listing/MihirakiPDFUtility-feature-graphic.png" alt="主な機能の紹介" style="width: 80%; margin-top: 20px; border-radius: 10px;">
+            </p>
+        </div>
     </section>
 
-    <section>
-        <h2>主な機能</h2>
+    <section id="features">
+        <h2 style="text-align: center;">主な機能</h2>
         <div class="features-grid">
             <div class="feature-card">
                 <h3>見開き表示（Mihiraki）</h3>
                 <p>2ページを横並びで表示。日本の書籍や漫画に合わせた「右開き（RTL）」にも完全対応しています。</p>
+                <img src="store_listing/screenshots/smartphone/2_mihiraki_view.png" alt="見開き表示例 (スマホ)" style="max-width: 100%; margin-top: 10px;">
             </div>
             <div class="feature-card">
                 <h3>スマートなページ分割</h3>
                 <p>見開き1ページを2つのページに分割。垂直（左右）と水平（上下）の両方の分割方向をサポートします。</p>
+                <img src="store_listing/screenshots/tablet_10/1_main_grid.png" alt="ページ分割例 (タブレット)" style="max-width: 100%; margin-top: 10px;">
             </div>
             <div class="feature-card">
                 <h3>直感的な並べ替え</h3>
                 <p>サムネイルをドラッグするだけでページ順序を整理。直感的なインターフェースで編集が捗ります。</p>
+                <img src="store_listing/screenshots/smartphone/5_split_dialog.png" alt="ページ並べ替え例 (スマホ)" style="max-width: 100%; margin-top: 10px;">
             </div>
             <div class="feature-card">
                 <h3>結合と追加</h3>
                 <p>複数のPDFファイルを1つに結合したり、既存のPDFにページを追加したりできます。</p>
+                <img src="store_listing/screenshots/tablet_7/1_split_dialog.png" alt="PDF結合・追加例 (タブレット)" style="max-width: 100%; margin-top: 10px;">
             </div>
         </div>
     </section>
 
-    <footer>
+    <section id="device-showcase">
+        <h2 style="text-align: center;">様々なデバイスでの動作</h2>
+        <p style="text-align: center;">本アプリはスマートフォン、タブレット、ChromeOSなど、様々な環境で快適に動作するように設計されています。</p>
+        <div style="text-align: center; margin-top: 30px;">
+            <img src="store_listing/screenshots/smartphone/6_support_diarlog.png" alt="スマートフォンでの操作例" style="width: 30%; margin: 10px;">
+            <img src="store_listing/screenshots/tablet_10/6_support_dialog.png" alt="タブレットでの操作例" style="width: 30%; margin: 10px;">
+            <img src="store_listing/screenshots/chromebook/6_support_diarlog.png" alt="Chromebookでの操作例" style="width: 30%; margin: 10px;">
+        </div>
+    </section>
+
+    <footer style="text-align: center; margin-top: 50px; padding: 20px; border-top: 1px solid #ccc;">
         <p>&copy; 2026 Mihiraki Project. Built with Jetpack Compose.</p>
     </footer>
 </body>
