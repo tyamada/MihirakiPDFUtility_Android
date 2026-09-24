@@ -62,13 +62,8 @@ fun PdfPageGrid(
                             PageThumbnail(
                                 page = page,
                                 isSelected = uiState.selectedIndices.contains(index),
-                                onClick = { 
-                                    if (uiState.selectedIndices.isEmpty()) {
-                                        viewModel.openPreview(index)
-                                    } else {
-                                        viewModel.toggleSelection(index)
-                                    }
-                                },
+                                onClick = { viewModel.toggleSelection(index) },
+                                onDoubleTap = { viewModel.openPreview(index) },
                                 onSplit = { viewModel.toggleSelection(index); onSplitClick() },
                                 onCrop = { viewModel.toggleSelection(index); onCropClick() },
                                 onRotate = { viewModel.toggleSelection(index); viewModel.rotateSelected(90) },
@@ -99,13 +94,8 @@ fun PdfPageGrid(
                 PageThumbnail(
                     page = page,
                     isSelected = uiState.selectedIndices.contains(index),
-                    onClick = { 
-                        if (uiState.selectedIndices.isEmpty()) {
-                            viewModel.openPreview(index)
-                        } else {
-                            viewModel.toggleSelection(index)
-                        }
-                    },
+                    onClick = { viewModel.toggleSelection(index) },
+                    onDoubleTap = { viewModel.openPreview(index) },
                     onSplit = { viewModel.toggleSelection(index); onSplitClick() },
                     onCrop = { viewModel.toggleSelection(index); onCropClick() },
                     onRotate = { viewModel.toggleSelection(index); viewModel.rotateSelected(90) },
@@ -171,6 +161,7 @@ fun PageThumbnail(
     page: PageState, 
     isSelected: Boolean, 
     onClick: () -> Unit,
+    onDoubleTap: () -> Unit,
     onSplit: () -> Unit,
     onCrop: () -> Unit,
     onRotate: () -> Unit,
@@ -191,6 +182,7 @@ fun PageThumbnail(
             .pointerInput(Unit) {
                 detectTapGestures(
                     onTap = { onClick() },
+                    onDoubleTap = { onDoubleTap() },
                     onLongPress = { showContextMenu = true }
                 )
             }
