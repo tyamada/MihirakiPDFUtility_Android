@@ -67,35 +67,37 @@ fun PdfTopAppBar(
                     IconButton(onClick = onSave) {
                         Icon(Icons.Default.Save, contentDescription = stringResource(R.string.action_save))
                     }
-                    Box {
-                        IconButton(onClick = { viewModel.toggleSettingsMenu() }) {
-                            Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_title))
-                        }
-                        DropdownMenu(
-                            expanded = uiState.showSettingsMenu,
-                            onDismissRequest = { viewModel.toggleSettingsMenu() }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_property)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_password)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.PASSWORD) }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_version)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.VERSION) }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_help)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.HELP) }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.support)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }
-                            )
-                        }
+                }
+                Box {
+                    IconButton(onClick = { viewModel.toggleSettingsMenu() }) {
+                        Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_title))
+                    }
+                    DropdownMenu(
+                        expanded = uiState.showSettingsMenu,
+                        onDismissRequest = { viewModel.toggleSettingsMenu() }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.settings_property)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) },
+                            enabled = uiState.pages.isNotEmpty()
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.settings_password)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.PASSWORD) },
+                            enabled = uiState.pages.isNotEmpty()
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.settings_version)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.VERSION) }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.settings_help)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.HELP) }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.support)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }
+                        )
                     }
                 }
             } else {
