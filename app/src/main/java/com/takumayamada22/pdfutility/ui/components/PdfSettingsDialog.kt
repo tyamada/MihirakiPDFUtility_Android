@@ -292,7 +292,7 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                             Image(
                                 painter = painterResource(iconRes),
                                 contentDescription = tier.name,
-                                modifier = Modifier.size(64.dp)
+                                modifier = Modifier.size(120.dp)
                             )
                         }
                     }
