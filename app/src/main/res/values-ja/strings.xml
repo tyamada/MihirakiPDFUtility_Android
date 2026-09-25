@@ -65,6 +65,7 @@
     <string name="prop_subtitle">サブタイトル</string>
     <string name="prop_keywords">キーワード</string>
     <string name="prop_pdf_version">PDFバージョン: %1$s</string>
+    <string name="prop_pdf_version_label">PDFバージョン</string>
     <string name="prop_display_settings">表示設定</string>
     <string name="prop_page_layout">ページレイアウト</string>
     <string name="prop_show_cover">表紙を表示</string>
