@@ -15,5 +15,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "MihirakiPDFUtility_Android"
+rootProject.name = "MihirakiPDFUtility"
 include(":app")
