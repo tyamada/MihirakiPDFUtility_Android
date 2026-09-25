@@ -262,13 +262,23 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                Text(stringResource(R.string.version_app_name), style = MaterialTheme.typography.headlineSmall)
+                Spacer(Modifier.height(8.dp))
+                Text(stringResource(R.string.version_number, packageInfo.versionName ?: "1.0.0"))
+                Text(stringResource(R.string.version_build, if (Build.VERSION.SDK_INT >= 28) packageInfo.longVersionCode.toString() else packageInfo.versionCode.toString()))
+                Spacer(Modifier.height(16.dp))
+                Text(stringResource(R.string.version_copyright), style = MaterialTheme.typography.bodySmall)
+
                 if (purchasedTiers.isNotEmpty()) {
+                    Spacer(Modifier.height(8.dp))
+                    HorizontalDivider(modifier = Modifier.fillMaxWidth())
                     Spacer(Modifier.height(4.dp))
                     Text(
                         stringResource(R.string.help_purchased_items),
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.primary
                     )
+                    Spacer(Modifier.height(4.dp))
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                         verticalAlignment = Alignment.CenterVertically
@@ -291,12 +301,6 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                     Spacer(Modifier.height(4.dp))
                 }
 
-                Text(stringResource(R.string.version_app_name), style = MaterialTheme.typography.headlineSmall)
-                Spacer(Modifier.height(8.dp))
-                Text(stringResource(R.string.version_number, packageInfo.versionName ?: "1.0.0"))
-                Text(stringResource(R.string.version_build, if (Build.VERSION.SDK_INT >= 28) packageInfo.longVersionCode.toString() else packageInfo.versionCode.toString()))
-                Spacer(Modifier.height(16.dp))
-                Text(stringResource(R.string.version_copyright), style = MaterialTheme.typography.bodySmall)
                 Spacer(Modifier.height(8.dp))
                 Text(stringResource(R.string.version_license_title), style = MaterialTheme.typography.labelMedium)
                 Text(
