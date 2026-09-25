@@ -22,16 +22,16 @@ android {
 
     signingConfigs {
         val props = Properties()
-        val propFile = file("../local.properties")
+        val propFile = rootProject.file("local.properties")
         if (propFile.exists()) {
             propFile.inputStream().use { props.load(it) }
         }
 
         create("release") {
-            storeFile = props.getProperty("signing.storeFile")?.let { file(it) }
-            storePassword = props.getProperty("signing.storePassword")
-            keyAlias = props.getProperty("signing.keyAlias")
-            keyPassword = props.getProperty("signing.keyPassword")
+            storeFile = rootProject.file("release-key.jks")
+            storePassword = props.getProperty("signing.storePassword") ?: "password123"
+            keyAlias = props.getProperty("signing.keyAlias") ?: "my-alias"
+            keyPassword = props.getProperty("signing.keyPassword") ?: "password123"
         }
     }
 
