@@ -143,6 +143,15 @@ class PdfProcessor {
             info.subject = meta["subject"]
             info.keywords = meta["keywords"]
             newDoc.documentInformation = info
+
+            meta["version"]?.let { verStr ->
+                try {
+                    val ver = verStr.toFloat()
+                    if (newDoc.version < ver) {
+                        newDoc.version = ver
+                    }
+                } catch (e: Exception) {}
+            }
             
             val catalog = newDoc.documentCatalog
             meta["layout"]?.let { layoutStr ->

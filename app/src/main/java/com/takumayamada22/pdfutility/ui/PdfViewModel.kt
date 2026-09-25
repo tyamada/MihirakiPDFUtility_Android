@@ -286,15 +286,23 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         author: String, 
         subject: String, 
         keywords: String,
+        pdfVersion: String,
         pageLayout: String,
         scrollDirection: String,
         showCover: Boolean
     ) {
+        val verNum = pdfVersion.toFloatOrNull() ?: 1.4f
+        val adjustedVersion = if ((pageLayout == "TwoPageLeft" || pageLayout == "TwoPageRight") && verNum < 1.5f) {
+            "1.5"
+        } else {
+            pdfVersion
+        }
         _uiState.value = _uiState.value.copy(
             title = title,
             author = author,
             subject = subject,
             keywords = keywords,
+            pdfVersion = adjustedVersion,
             pageLayout = pageLayout,
             scrollDirection = scrollDirection,
             showCover = showCover,
@@ -529,7 +537,8 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         "subject" to currentState.subject,
                         "keywords" to currentState.keywords,
                         "layout" to currentState.pageLayout,
-                        "direction" to currentState.scrollDirection
+                        "direction" to currentState.scrollDirection,
+                        "version" to currentState.pdfVersion
                     )
                     val savePassword = password ?: currentState.savePassword.takeIf { it.isNotEmpty() }
                     
@@ -559,7 +568,8 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         "subject" to currentState.subject,
                         "keywords" to currentState.keywords,
                         "layout" to currentState.pageLayout,
-                        "direction" to currentState.scrollDirection
+                        "direction" to currentState.scrollDirection,
+                        "version" to currentState.pdfVersion
                     )
                     val savePassword = password ?: currentState.savePassword.takeIf { it.isNotEmpty() }
 
