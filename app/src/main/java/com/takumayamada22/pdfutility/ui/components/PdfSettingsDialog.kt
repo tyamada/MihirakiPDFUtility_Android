@@ -41,6 +41,7 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
     var author by remember { mutableStateOf(uiState.author) }
     var subject by remember { mutableStateOf(uiState.subject) }
     var keywords by remember { mutableStateOf(uiState.keywords) }
+    var pdfVersion by remember { mutableStateOf(uiState.pdfVersion.ifEmpty { "1.4" }) }
     
     var pageLayout by remember { mutableStateOf(uiState.pageLayout) }
     var scrollDirection by remember { mutableStateOf(uiState.scrollDirection) }
@@ -71,7 +72,35 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                 OutlinedTextField(value = author, onValueChange = { author = it }, label = { Text(stringResource(R.string.prop_author)) })
                 OutlinedTextField(value = subject, onValueChange = { subject = it }, label = { Text(stringResource(R.string.prop_subtitle)) })
                 OutlinedTextField(value = keywords, onValueChange = { keywords = it }, label = { Text(stringResource(R.string.prop_keywords)) })
-                OutlinedTextField(value = uiState.pdfVersion, onValueChange = {}, label = { Text(stringResource(R.string.prop_pdf_version_label)) }, readOnly = true)
+                
+                var versionExpanded by remember { mutableStateOf(false) }
+                ExposedDropdownMenuBox(
+                    expanded = versionExpanded,
+                    onExpandedChange = { versionExpanded = it }
+                ) {
+                    OutlinedTextField(
+                        value = pdfVersion,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text(stringResource(R.string.prop_pdf_version_label)) },
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = versionExpanded) },
+                        modifier = Modifier.menuAnchor().fillMaxWidth()
+                    )
+                    ExposedDropdownMenu(
+                        expanded = versionExpanded,
+                        onDismissRequest = { versionExpanded = false }
+                    ) {
+                        listOf("1.3", "1.4", "1.5", "1.6", "1.7").forEach { ver ->
+                            DropdownMenuItem(
+                                text = { Text(ver) },
+                                onClick = {
+                                    pdfVersion = ver
+                                    versionExpanded = false
+                                }
+                            )
+                        }
+                    }
+                }
 
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 
@@ -113,6 +142,12 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                                     } else if (layout == "TwoColumnLeft" || layout == "TwoPageLeft") {
                                         showCover = false
                                     }
+                                    if (layout == "TwoPageLeft" || layout == "TwoPageRight") {
+                                        val verNum = pdfVersion.toFloatOrNull() ?: 1.4f
+                                        if (verNum < 1.5f) {
+                                            pdfVersion = "1.5"
+                                        }
+                                    }
                                     layoutExpanded = false
                                 }
                             )
@@ -151,7 +186,7 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         },
         confirmButton = {
             Button(onClick = {
-                viewModel.updateMetadata(title, author, subject, keywords, pageLayout, scrollDirection, showCover)
+                viewModel.updateMetadata(title, author, subject, keywords, pdfVersion, pageLayout, scrollDirection, showCover)
                 viewModel.closeSettingsDialog()
             }) {
                 Text(stringResource(R.string.action_apply))
