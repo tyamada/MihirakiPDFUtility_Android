@@ -71,7 +71,7 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                 OutlinedTextField(value = author, onValueChange = { author = it }, label = { Text(stringResource(R.string.prop_author)) })
                 OutlinedTextField(value = subject, onValueChange = { subject = it }, label = { Text(stringResource(R.string.prop_subtitle)) })
                 OutlinedTextField(value = keywords, onValueChange = { keywords = it }, label = { Text(stringResource(R.string.prop_keywords)) })
-                OutlinedTextField(value = stringResource(R.string.prop_pdf_version, uiState.pdfVersion), onValueChange = {}, label = { Text(stringResource(R.string.prop_pdf_version, "")) }, readOnly = true)
+                OutlinedTextField(value = uiState.pdfVersion, onValueChange = {}, label = { Text(stringResource(R.string.prop_pdf_version_label)) }, readOnly = true)
 
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
                 

@@ -65,6 +65,7 @@
     <string name="prop_subtitle">Sub-title</string>
     <string name="prop_keywords">Keywords</string>
     <string name="prop_pdf_version">PDF Version: %1$s</string>
+    <string name="prop_pdf_version_label">PDF Version</string>
     <string name="prop_display_settings">Display Settings</string>
     <string name="prop_page_layout">Page Layout</string>
     <string name="prop_show_cover">Show Cover</string>
