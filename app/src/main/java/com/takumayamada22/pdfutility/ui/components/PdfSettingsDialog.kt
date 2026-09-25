@@ -385,7 +385,10 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                 }
                 
                 when (val s = purchaseState) {
-                    is PurchaseState.Success -> Text(stringResource(R.string.purchase_thanks, s.tier.name), color = MaterialTheme.colorScheme.primary)
+                    is PurchaseState.Success -> Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text(stringResource(R.string.purchase_thanks, s.tier.name), color = MaterialTheme.colorScheme.primary)
+                        Text(stringResource(R.string.purchase_badge_shown), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+                    }
                     is PurchaseState.Cancelled -> Text(stringResource(R.string.purchase_cancelled), style = MaterialTheme.typography.bodySmall)
                     is PurchaseState.Error -> Text(stringResource(R.string.purchase_failed), color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
                     else -> Unit

@@ -112,6 +112,7 @@
 
     <string name="tip_message">アプリを気に入っていただけたら、開発を応援できます。</string>
     <string name="purchase_thanks">ありがとうございます！%1$sの応援を受け取りました。</string>
+    <string name="purchase_badge_shown">バージョン画面に応援バッジを表示しました。</string>
     <string name="purchase_cancelled">購入をキャンセルしました。</string>
     <string name="purchase_failed">購入に失敗しました。もう一度お試しください。</string>
     <string name="free_use_message">購入しなくてもすべての機能を利用できます。</string>

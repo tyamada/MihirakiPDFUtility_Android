@@ -113,6 +113,7 @@
     <string name="tip_message">If you enjoy the app, you can support its development.</string>
     <string name="free_use_message">All features can be used without purchase.</string>
     <string name="purchase_thanks">Thank you! %1$s support received.</string>
+    <string name="purchase_badge_shown">Support badge displayed on the version screen.</string>
     <string name="purchase_cancelled">Purchase cancelled.</string>
     <string name="purchase_failed">Purchase failed. Please try again.</string>
 </resources>
