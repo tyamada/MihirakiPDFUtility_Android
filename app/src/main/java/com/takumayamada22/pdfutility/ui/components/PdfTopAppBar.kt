@@ -81,10 +81,10 @@ fun PdfTopAppBar(
                     else -> Color.Black
                 }
                 IconButton(onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }) {
-                    Text(
-                        text = "♥",
-                        color = heartColor,
-                        style = MaterialTheme.typography.titleMedium
+                    Icon(
+                        imageVector = Icons.Default.Favorite,
+                        contentDescription = stringResource(R.string.support),
+                        tint = heartColor
                     )
                 }
 
