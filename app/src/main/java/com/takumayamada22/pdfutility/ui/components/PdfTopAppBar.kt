@@ -6,6 +6,9 @@ import androidx.compose.material.icons.automirrored.filled.*
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.takumayamada22.pdfutility.R
@@ -68,6 +71,16 @@ fun PdfTopAppBar(
                         Icon(Icons.Default.Save, contentDescription = stringResource(R.string.action_save))
                     }
                 }
+
+                val purchasedTiers by viewModel.billing.purchasedTiers.collectAsState()
+                IconButton(onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }) {
+                    Text(
+                        text = "❤️",
+                        color = if (purchasedTiers.isNotEmpty()) MaterialTheme.colorScheme.primary else Color.Black,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+
                 Box {
                     IconButton(onClick = { viewModel.toggleSettingsMenu() }) {
                         Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_title))
