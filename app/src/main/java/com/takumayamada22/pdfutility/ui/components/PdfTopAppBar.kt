@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.takumayamada22.pdfutility.R
+import com.takumayamada22.pdfutility.billing.TipTier
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
@@ -73,10 +74,16 @@ fun PdfTopAppBar(
                 }
 
                 val purchasedTiers by viewModel.billing.purchasedTiers.collectAsState()
+                val heartColor = when {
+                    purchasedTiers.contains(TipTier.GOLD) -> Color(0xFFFFD700) // Gold (1,000 yen)
+                    purchasedTiers.contains(TipTier.SILVER) -> Color(0xFFC0C0C0) // Silver (500 yen)
+                    purchasedTiers.contains(TipTier.BRONZE) -> Color(0xFFCD7F32) // Bronze (100 yen)
+                    else -> Color.Black
+                }
                 IconButton(onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }) {
                     Text(
                         text = "❤️",
-                        color = if (purchasedTiers.isNotEmpty()) MaterialTheme.colorScheme.primary else Color.Black,
+                        color = heartColor,
                         style = MaterialTheme.typography.titleMedium
                     )
                 }
