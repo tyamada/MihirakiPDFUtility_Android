@@ -54,8 +54,13 @@
     <string name="help_page_ops_text">Tap pages to select them. Selected pages can be rotated, deleted, moved, inserted with blank pages, split, or cropped.</string>
     <string name="help_display_title">4. Display Modes</string>
     <string name="help_display_text">Toggle between Grid and Spread views. Use Toggle RTL for right-to-left reading mode (manga/books).</string>
-    <string name="help_settings_title">5. Properties &amp; Security</string>
-    <string name="help_settings_text">Configure document title, author, layout settings, and set encryption passwords in Settings.</string>
+    <string name="help_settings_title">5. Settings</string>
+    <string name="help_settings_text">From the settings menu (gear icon or support heart button), you can configure and view the following items:
+    • Properties: Configure document title, author, subject, keywords, PDF version, and page layout settings.
+    • Password: Set or clear the encryption password for saving and exporting.
+    • Version: View app version, build number, licenses, and purchased support badges.
+    • Help: Display this app guide.
+    • Support: Purchase one-time support items (Bronze, Silver, Gold) to support app development.</string>
     <string name="help_purchased_items">Purchased Support Badges</string>
     <string name="help_no_purchased_items">No support items purchased yet.</string>
 
