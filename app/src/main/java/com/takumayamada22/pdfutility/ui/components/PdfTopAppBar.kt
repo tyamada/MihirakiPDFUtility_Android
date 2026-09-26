@@ -82,7 +82,7 @@ fun PdfTopAppBar(
                 }
                 IconButton(onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }) {
                     Text(
-                        text = "❤️",
+                        text = "♥",
                         color = heartColor,
                         style = MaterialTheme.typography.titleMedium
                     )
