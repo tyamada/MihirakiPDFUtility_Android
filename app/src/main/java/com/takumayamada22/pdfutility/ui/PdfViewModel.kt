@@ -525,22 +525,21 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
-    fun moveSelectedPages(fromIndex: Int, toIndex: Int): Int {
+    fun moveSelectedPages(fromIndex: Int, toIndex: Int) {
         val currentState = _uiState.value
         val selectedIndices = currentState.selectedIndices.sorted()
         if (selectedIndices.isEmpty() || fromIndex !in currentState.pages.indices || toIndex !in currentState.pages.indices) {
             movePage(fromIndex, toIndex)
-            return toIndex
+            return
         }
 
         if (!selectedIndices.contains(fromIndex) || selectedIndices.size <= 1) {
             movePage(fromIndex, toIndex)
-            return toIndex
+            return
         }
 
         saveToHistory()
         val allPages = currentState.pages.toMutableList()
-        val draggedPage = allPages.getOrNull(fromIndex) ?: return toIndex
         val selectedPages = selectedIndices.map { allPages[it] }
         
         for (i in selectedIndices.reversed()) {
@@ -554,14 +553,10 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
 
         val newSelected = mutableSetOf<Int>()
         val selectedIds = selectedPages.map { it.id }.toSet()
-        var newDraggedIndex = toIndex
 
         allPages.forEachIndexed { index, page ->
             if (selectedIds.contains(page.id)) {
                 newSelected.add(index)
-            }
-            if (page.id == draggedPage.id) {
-                newDraggedIndex = index
             }
         }
 
@@ -570,8 +565,6 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
             isDirty = true,
             selectedIndices = newSelected
         )
-
-        return newDraggedIndex
     }
 
     fun savePdf(uri: Uri, password: String? = null) {

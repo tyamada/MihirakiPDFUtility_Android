@@ -30,6 +30,7 @@ fun PdfPageGrid(
 ) {
     val gridState = rememberLazyGridState()
     var draggedItemIndex by remember { mutableStateOf<Int?>(null) }
+    var dragStartIndex by remember { mutableStateOf<Int?>(null) }
     var draggingOffset by remember { mutableStateOf(Offset.Zero) }
 
     if (uiState.isMihirakiView) {
@@ -88,38 +89,48 @@ fun PdfPageGrid(
                     modifier = Modifier
                         .pointerInput(Unit) {
                             detectDragGesturesAfterLongPress(
-                                onDragStart = { draggedItemIndex = index },
+                                onDragStart = { 
+                                    draggedItemIndex = index
+                                    dragStartIndex = index
+                                },
                                 onDrag = { change, dragAmount ->
                                     change.consume()
                                     draggingOffset += dragAmount
-                                    
-                                    val layoutInfo = gridState.layoutInfo
-                                    val visibleItems = layoutInfo.visibleItemsInfo
-                                    val draggedItemInfo = visibleItems.find { item -> item.index == draggedItemIndex }
-                                    
-                                    if (draggedItemInfo != null) {
-                                        val currentCenter = Offset(
-                                            draggedItemInfo.offset.x + draggedItemInfo.size.width / 2f + draggingOffset.x,
-                                            draggedItemInfo.offset.y + draggedItemInfo.size.height / 2f + draggingOffset.y
-                                        )
-                                        
-                                        val targetItem = visibleItems.find { item ->
-                                            currentCenter.x in item.offset.x.toFloat()..(item.offset.x + item.size.width).toFloat() &&
-                                            currentCenter.y in item.offset.y.toFloat()..(item.offset.y + item.size.height).toFloat()
-                                        }
-                                        
-                                        if (targetItem != null && targetItem.index != draggedItemIndex) {
-                                            draggedItemIndex = viewModel.moveSelectedPages(draggedItemIndex!!, targetItem.index)
-                                            draggingOffset = Offset.Zero
-                                        }
-                                    }
                                 },
                                 onDragEnd = {
+                                    val start = dragStartIndex
+                                    if (start != null) {
+                                        val layoutInfo = gridState.layoutInfo
+                                        val visibleItems = layoutInfo.visibleItemsInfo
+                                        val draggedItemInfo = visibleItems.find { item -> item.index == start }
+                                        
+                                        if (draggedItemInfo != null) {
+                                            val currentCenter = Offset(
+                                                draggedItemInfo.offset.x + draggedItemInfo.size.width / 2f + draggingOffset.x,
+                                                draggedItemInfo.offset.y + draggedItemInfo.size.height / 2f + draggingOffset.y
+                                            )
+                                            
+                                            val targetItem = visibleItems.find { item ->
+                                                currentCenter.x in item.offset.x.toFloat()..(item.offset.x + item.size.width).toFloat() &&
+                                                currentCenter.y in item.offset.y.toFloat()..(item.offset.y + item.size.height).toFloat()
+                                            }
+                                            
+                                            if (targetItem != null && targetItem.index != start) {
+                                                if (uiState.selectedIndices.contains(start) && uiState.selectedIndices.size > 1) {
+                                                    viewModel.moveSelectedPages(start, targetItem.index)
+                                                } else {
+                                                    viewModel.movePage(start, targetItem.index)
+                                                }
+                                            }
+                                        }
+                                    }
                                     draggedItemIndex = null
+                                    dragStartIndex = null
                                     draggingOffset = Offset.Zero
                                 },
                                 onDragCancel = {
                                     draggedItemIndex = null
+                                    dragStartIndex = null
                                     draggingOffset = Offset.Zero
                                 }
                             )
