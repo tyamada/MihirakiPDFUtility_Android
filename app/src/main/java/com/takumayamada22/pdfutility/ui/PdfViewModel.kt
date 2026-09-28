@@ -525,6 +525,10 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    internal fun setPagesForTest(pages: List<PageState>, selected: Set<Int> = emptySet()) {
+        _uiState.value = _uiState.value.copy(pages = pages, selectedIndices = selected)
+    }
+
     fun moveSelectedPages(fromIndex: Int, toIndex: Int) {
         val currentState = _uiState.value
         val selectedIndices = currentState.selectedIndices.sorted()
@@ -539,29 +543,57 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         saveToHistory()
-        val allPages = currentState.pages.toMutableList()
-        val selectedPages = selectedIndices.map { allPages[it] }
-        
-        for (i in selectedIndices.reversed()) {
-            allPages.removeAt(i)
+        val oldPages = currentState.pages
+        val selectedItems = selectedIndices.map { oldPages[it] }
+        val selectedIds = selectedItems.map { it.id }.toSet()
+
+        val remainingPages = oldPages.filterNot { selectedIds.contains(it.id) }.toMutableList()
+
+        val targetPage = oldPages.getOrNull(toIndex)
+        var insertPos = 0
+        if (targetPage != null && !selectedIds.contains(targetPage.id)) {
+            val foundIdx = remainingPages.indexOfFirst { it.id == targetPage.id }
+            if (foundIdx != -1) {
+                insertPos = if (toIndex > fromIndex) foundIdx + 1 else foundIdx
+            } else {
+                insertPos = remainingPages.size
+            }
+        } else {
+            var foundIdx = -1
+            for (i in toIndex until oldPages.size) {
+                val p = oldPages[i]
+                if (!selectedIds.contains(p.id)) {
+                    foundIdx = remainingPages.indexOfFirst { it.id == p.id }
+                    if (foundIdx != -1) break
+                }
+            }
+            if (foundIdx == -1) {
+                for (i in toIndex downTo 0) {
+                    val p = oldPages[i]
+                    if (!selectedIds.contains(p.id)) {
+                        foundIdx = remainingPages.indexOfFirst { it.id == p.id }
+                        if (foundIdx != -1) break
+                    }
+                }
+            }
+            insertPos = if (foundIdx != -1) {
+                if (toIndex > fromIndex) foundIdx + 1 else foundIdx
+            } else {
+                remainingPages.size
+            }
         }
 
-        val countBefore = selectedIndices.count { it < toIndex }
-        val adjustedTarget = (toIndex - countBefore).coerceIn(0, allPages.size)
-
-        allPages.addAll(adjustedTarget, selectedPages)
+        remainingPages.addAll(insertPos.coerceIn(0, remainingPages.size), selectedItems)
 
         val newSelected = mutableSetOf<Int>()
-        val selectedIds = selectedPages.map { it.id }.toSet()
-
-        allPages.forEachIndexed { index, page ->
+        remainingPages.forEachIndexed { index, page ->
             if (selectedIds.contains(page.id)) {
                 newSelected.add(index)
             }
         }
 
         _uiState.value = currentState.copy(
-            pages = allPages,
+            pages = remainingPages,
             isDirty = true,
             selectedIndices = newSelected
         )
