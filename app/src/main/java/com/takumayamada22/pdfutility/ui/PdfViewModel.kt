@@ -77,12 +77,22 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     private val _uiState = MutableStateFlow(PdfUiState())
     val uiState: StateFlow<PdfUiState> = _uiState
 
-    private val undoStack = mutableListOf<List<PageState>>()
-    private val redoStack = mutableListOf<List<PageState>>()
+    private data class HistoryState(
+        val pages: List<PageState>,
+        val selectedIndices: Set<Int>
+    )
+
+    private val undoStack = mutableListOf<HistoryState>()
+    private val redoStack = mutableListOf<HistoryState>()
     private val maxHistorySize = 20
 
     private fun saveToHistory() {
-        undoStack.add(_uiState.value.pages.toList())
+        undoStack.add(
+            HistoryState(
+                _uiState.value.pages.toList(),
+                _uiState.value.selectedIndices.toSet()
+            )
+        )
         if (undoStack.size > maxHistorySize) {
             undoStack.removeAt(0)
         }
@@ -99,19 +109,33 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
 
     fun undo() {
         if (undoStack.isEmpty()) return
-        val currentState = _uiState.value.pages.toList()
+        val currentState = HistoryState(
+            _uiState.value.pages.toList(),
+            _uiState.value.selectedIndices.toSet()
+        )
         redoStack.add(currentState)
         val previousState = undoStack.removeAt(undoStack.size - 1)
-        _uiState.value = _uiState.value.copy(pages = previousState, isDirty = true)
+        _uiState.value = _uiState.value.copy(
+            pages = previousState.pages,
+            selectedIndices = previousState.selectedIndices,
+            isDirty = true
+        )
         updateHistoryFlags()
     }
 
     fun redo() {
         if (redoStack.isEmpty()) return
-        val currentState = _uiState.value.pages.toList()
+        val currentState = HistoryState(
+            _uiState.value.pages.toList(),
+            _uiState.value.selectedIndices.toSet()
+        )
         undoStack.add(currentState)
         val nextState = redoStack.removeAt(redoStack.size - 1)
-        _uiState.value = _uiState.value.copy(pages = nextState, isDirty = true)
+        _uiState.value = _uiState.value.copy(
+            pages = nextState.pages,
+            selectedIndices = nextState.selectedIndices,
+            isDirty = true
+        )
         updateHistoryFlags()
     }
 
