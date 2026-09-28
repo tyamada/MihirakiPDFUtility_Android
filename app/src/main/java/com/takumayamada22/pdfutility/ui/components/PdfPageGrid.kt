@@ -33,6 +33,9 @@ fun PdfPageGrid(
     var dragStartIndex by remember { mutableStateOf<Int?>(null) }
     var draggingOffset by remember { mutableStateOf(Offset.Zero) }
 
+    val currentUiState by rememberUpdatedState(uiState)
+    val currentViewModel by rememberUpdatedState(viewModel)
+
     if (uiState.isMihirakiView) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(1),
@@ -116,10 +119,10 @@ fun PdfPageGrid(
                                             }
                                             
                                             if (targetItem != null && targetItem.index != start) {
-                                                if (uiState.selectedIndices.contains(start) && uiState.selectedIndices.size > 1) {
-                                                    viewModel.moveSelectedPages(start, targetItem.index)
+                                                if (currentUiState.selectedIndices.contains(start) && currentUiState.selectedIndices.size > 1) {
+                                                    currentViewModel.moveSelectedPages(start, targetItem.index)
                                                 } else {
-                                                    viewModel.movePage(start, targetItem.index)
+                                                    currentViewModel.movePage(start, targetItem.index)
                                                 }
                                             }
                                         }
