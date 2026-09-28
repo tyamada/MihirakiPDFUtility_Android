@@ -523,6 +523,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
             isDirty = true,
             selectedIndices = newSelected
         )
+        updateHistoryFlags()
     }
 
     internal fun setPagesForTest(pages: List<PageState>, selected: Set<Int> = emptySet()) {
@@ -597,6 +598,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
             isDirty = true,
             selectedIndices = newSelected
         )
+        updateHistoryFlags()
     }
 
     fun savePdf(uri: Uri, password: String? = null) {
