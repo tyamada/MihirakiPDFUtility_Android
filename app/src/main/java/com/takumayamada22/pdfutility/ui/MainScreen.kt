@@ -130,10 +130,7 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
         Box(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
             PdfPageGrid(
                 uiState = uiState, 
-                viewModel = viewModel,
-                onSplitClick = { showSplitDialog = true },
-                onCropClick = { showCropDialog = true },
-                onDeleteClick = { showDeleteConfirmation = true }
+                viewModel = viewModel
             )
         }
     }
