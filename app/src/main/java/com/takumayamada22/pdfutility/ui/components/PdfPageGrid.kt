@@ -109,8 +109,7 @@ fun PdfPageGrid(
                                         }
                                         
                                         if (targetItem != null && targetItem.index != draggedItemIndex) {
-                                            viewModel.movePage(draggedItemIndex!!, targetItem.index)
-                                            draggedItemIndex = targetItem.index
+                                            draggedItemIndex = viewModel.moveSelectedPages(draggedItemIndex!!, targetItem.index)
                                             draggingOffset = Offset.Zero
                                         }
                                     }

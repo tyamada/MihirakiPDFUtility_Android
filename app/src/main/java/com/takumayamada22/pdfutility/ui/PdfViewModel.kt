@@ -525,6 +525,55 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    fun moveSelectedPages(fromIndex: Int, toIndex: Int): Int {
+        val currentState = _uiState.value
+        val selectedIndices = currentState.selectedIndices.sorted()
+        if (selectedIndices.isEmpty() || fromIndex !in currentState.pages.indices || toIndex !in currentState.pages.indices) {
+            movePage(fromIndex, toIndex)
+            return toIndex
+        }
+
+        if (!selectedIndices.contains(fromIndex) || selectedIndices.size <= 1) {
+            movePage(fromIndex, toIndex)
+            return toIndex
+        }
+
+        saveToHistory()
+        val allPages = currentState.pages.toMutableList()
+        val draggedPage = allPages.getOrNull(fromIndex) ?: return toIndex
+        val selectedPages = selectedIndices.map { allPages[it] }
+        
+        for (i in selectedIndices.reversed()) {
+            allPages.removeAt(i)
+        }
+
+        val countBefore = selectedIndices.count { it < toIndex }
+        val adjustedTarget = (toIndex - countBefore).coerceIn(0, allPages.size)
+
+        allPages.addAll(adjustedTarget, selectedPages)
+
+        val newSelected = mutableSetOf<Int>()
+        val selectedIds = selectedPages.map { it.id }.toSet()
+        var newDraggedIndex = toIndex
+
+        allPages.forEachIndexed { index, page ->
+            if (selectedIds.contains(page.id)) {
+                newSelected.add(index)
+            }
+            if (page.id == draggedPage.id) {
+                newDraggedIndex = index
+            }
+        }
+
+        _uiState.value = currentState.copy(
+            pages = allPages,
+            isDirty = true,
+            selectedIndices = newSelected
+        )
+
+        return newDraggedIndex
+    }
+
     fun savePdf(uri: Uri, password: String? = null) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
