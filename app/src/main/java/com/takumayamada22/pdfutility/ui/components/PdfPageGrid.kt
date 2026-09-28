@@ -31,6 +31,7 @@ fun PdfPageGrid(
     val gridState = rememberLazyGridState()
     var draggedItemIndex by remember { mutableStateOf<Int?>(null) }
     var draggedPageId by remember { mutableStateOf<String?>(null) }
+    var dragTargetIndex by remember { mutableStateOf<Int?>(null) }
     var draggingOffset by remember { mutableStateOf(Offset.Zero) }
 
     val currentUiState by rememberUpdatedState(uiState)
@@ -61,6 +62,7 @@ fun PdfPageGrid(
                             PageThumbnail(
                                 page = page,
                                 isSelected = uiState.selectedIndices.contains(index),
+                                isDropTarget = false,
                                 onClick = { viewModel.toggleSelection(index) },
                                 onDoubleTap = { viewModel.openPreview(index) }
                             )
@@ -85,9 +87,11 @@ fun PdfPageGrid(
             items(uiState.pages, key = { page -> page.id }) { page ->
                 val currentIndex = uiState.pages.indexOfFirst { it.id == page.id }
                 val isDragging = draggedItemIndex == currentIndex
+                val isDropTarget = dragTargetIndex == currentIndex
                 PageThumbnail(
                     page = page,
                     isSelected = uiState.selectedIndices.contains(currentIndex),
+                    isDropTarget = isDropTarget,
                     onClick = { viewModel.toggleSelection(currentIndex) },
                     onDoubleTap = { viewModel.openPreview(currentIndex) },
                     modifier = Modifier
@@ -101,6 +105,27 @@ fun PdfPageGrid(
                                 onDrag = { change, dragAmount ->
                                     change.consume()
                                     draggingOffset += dragAmount
+
+                                    val start = currentUiState.pages.indexOfFirst { it.id == draggedPageId }
+                                    if (start != -1) {
+                                        val layoutInfo = gridState.layoutInfo
+                                        val visibleItems = layoutInfo.visibleItemsInfo
+                                        val draggedItemInfo = visibleItems.find { item -> item.index == start }
+                                        
+                                        if (draggedItemInfo != null) {
+                                            val currentCenter = Offset(
+                                                draggedItemInfo.offset.x + draggedItemInfo.size.width / 2f + draggingOffset.x,
+                                                draggedItemInfo.offset.y + draggedItemInfo.size.height / 2f + draggingOffset.y
+                                            )
+                                            
+                                            val targetItem = visibleItems.find { item ->
+                                                currentCenter.x in item.offset.x.toFloat()..(item.offset.x + item.size.width).toFloat() &&
+                                                currentCenter.y in item.offset.y.toFloat()..(item.offset.y + item.size.height).toFloat()
+                                            }
+                                            
+                                            dragTargetIndex = targetItem?.index
+                                        }
+                                    }
                                 },
                                 onDragEnd = {
                                     val pageId = draggedPageId
@@ -134,11 +159,13 @@ fun PdfPageGrid(
                                     }
                                     draggedItemIndex = null
                                     draggedPageId = null
+                                    dragTargetIndex = null
                                     draggingOffset = Offset.Zero
                                 },
                                 onDragCancel = {
                                     draggedItemIndex = null
                                     draggedPageId = null
+                                    dragTargetIndex = null
                                     draggingOffset = Offset.Zero
                                 }
                             )
@@ -161,6 +188,7 @@ fun PdfPageGrid(
 fun PageThumbnail(
     page: PageState, 
     isSelected: Boolean, 
+    isDropTarget: Boolean,
     onClick: () -> Unit,
     onDoubleTap: () -> Unit,
     modifier: Modifier = Modifier
@@ -169,8 +197,8 @@ fun PageThumbnail(
         modifier = modifier
             .aspectRatio(0.7f)
             .border(
-                width = if (isSelected) 4.dp else 1.dp,
-                color = if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
+                width = if (isDropTarget) 6.dp else if (isSelected) 4.dp else 1.dp,
+                color = if (isDropTarget) MaterialTheme.colorScheme.tertiary else if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
             )
             .pointerInput(Unit) {
                 detectTapGestures(
