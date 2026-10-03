@@ -94,6 +94,13 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
                     _purchasedTiers.value = combined
                     savePurchasedTiers(combined)
                 }
+                // Acknowledge any unacknowledged purchases (Non-consumable requirement)
+                purchases.filter { it.purchaseState == Purchase.PurchaseState.PURCHASED && !it.isAcknowledged }.forEach { purchase ->
+                    val acknowledgeParams = AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(purchase.purchaseToken)
+                        .build()
+                    client.acknowledgePurchase(acknowledgeParams) { _ -> }
+                }
             }
         }
     }
@@ -124,15 +131,25 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
         }
         purchases.orEmpty().filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }.forEach { purchase ->
             purchase.products.firstNotNullOfOrNull(TipTier::fromProductId)?.let { tier ->
-                client.consumeAsync(ConsumeParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build()) { consumed: BillingResult, _: String? ->
-                    _purchase.value = if (consumed.responseCode == BillingClient.BillingResponseCode.OK) {
-                        val newTiers = _purchasedTiers.value + tier
-                        _purchasedTiers.value = newTiers
-                        savePurchasedTiers(newTiers)
-                        PurchaseState.Success(tier)
-                    } else {
-                        PurchaseState.Error(consumed.debugMessage)
+                if (!purchase.isAcknowledged) {
+                    val acknowledgeParams = AcknowledgePurchaseParams.newBuilder()
+                        .setPurchaseToken(purchase.purchaseToken)
+                        .build()
+                    client.acknowledgePurchase(acknowledgeParams) { ackResult ->
+                        if (ackResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                            val newTiers = _purchasedTiers.value + tier
+                            _purchasedTiers.value = newTiers
+                            savePurchasedTiers(newTiers)
+                            _purchase.value = PurchaseState.Success(tier)
+                        } else {
+                            _purchase.value = PurchaseState.Error(ackResult.debugMessage)
+                        }
                     }
+                } else {
+                    val newTiers = _purchasedTiers.value + tier
+                    _purchasedTiers.value = newTiers
+                    savePurchasedTiers(newTiers)
+                    _purchase.value = PurchaseState.Success(tier)
                 }
             }
         }
