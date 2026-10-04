@@ -116,4 +116,7 @@
     <string name="purchase_cancelled">購入をキャンセルしました。</string>
     <string name="purchase_failed">購入に失敗しました。もう一度お試しください。</string>
     <string name="free_use_message">購入しなくてもすべての機能を利用できます。</string>
+    <string name="action_property">プロパティ</string>
+    <string name="action_right_binding">右綴じ</string>
+    <string name="action_right_binding_cover">右綴じ・表紙</string>
 </resources>

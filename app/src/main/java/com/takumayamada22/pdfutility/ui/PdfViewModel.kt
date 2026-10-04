@@ -381,6 +381,34 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         )
     }
 
+    fun setRightBinding() {
+        val verNum = _uiState.value.pdfVersion.toFloatOrNull() ?: 1.4f
+        val adjustedVersion = if (verNum < 1.5f) "1.5" else _uiState.value.pdfVersion
+        _uiState.value = _uiState.value.copy(
+            pageLayout = "TwoPageLeft",
+            scrollDirection = "R2L",
+            showCover = false,
+            pdfVersion = adjustedVersion,
+            isMihirakiView = true,
+            isRtl = true,
+            isDirty = true
+        )
+    }
+
+    fun setRightBindingWithCover() {
+        val verNum = _uiState.value.pdfVersion.toFloatOrNull() ?: 1.4f
+        val adjustedVersion = if (verNum < 1.5f) "1.5" else _uiState.value.pdfVersion
+        _uiState.value = _uiState.value.copy(
+            pageLayout = "TwoPageRight",
+            scrollDirection = "R2L",
+            showCover = true,
+            pdfVersion = adjustedVersion,
+            isMihirakiView = true,
+            isRtl = true,
+            isDirty = true
+        )
+    }
+
     fun setSavePassword(password: String) {
         _uiState.value = _uiState.value.copy(savePassword = password)
     }
