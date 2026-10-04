@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
+import java.io.File
+import java.io.FileOutputStream
 
 enum class SplitDirection {
     VERTICAL, HORIZONTAL
@@ -76,6 +78,51 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     
     private val _uiState = MutableStateFlow(PdfUiState())
     val uiState: StateFlow<PdfUiState> = _uiState
+
+    init {
+        loadSamplePdf()
+    }
+
+    private fun loadSamplePdf() {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true, fileName = "sample.pdf")
+            val count = withContext(Dispatchers.IO) {
+                try {
+                    val inputStream = getApplication<Application>().assets.open("sample.pdf")
+                    processor.load(inputStream)
+                } catch (e: Exception) {
+                    0
+                }
+            }
+            if (count > 0) {
+                val cacheFile = File(getApplication<Application>().cacheDir, "sample.pdf")
+                withContext(Dispatchers.IO) {
+                    try {
+                        getApplication<Application>().assets.open("sample.pdf").use { input ->
+                            FileOutputStream(cacheFile).use { output ->
+                                input.copyTo(output)
+                            }
+                        }
+                    } catch (e: Exception) {}
+                }
+                val uri = Uri.fromFile(cacheFile)
+                val pages = (0 until count).map { index ->
+                    PageState(
+                        originalIndex = index,
+                        thumbnail = thumbnailProvider.getThumbnail(uri, index, 200),
+                        sourceUri = uri
+                    )
+                }
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    pages = pages,
+                    fileName = "sample.pdf"
+                )
+            } else {
+                _uiState.value = _uiState.value.copy(isLoading = false)
+            }
+        }
+    }
 
     private data class HistoryState(
         val pages: List<PageState>,
