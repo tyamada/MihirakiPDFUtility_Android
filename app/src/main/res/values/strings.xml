@@ -116,4 +116,7 @@
     <string name="purchase_badge_shown">Support badge displayed on the version screen.</string>
     <string name="purchase_cancelled">Purchase cancelled.</string>
     <string name="purchase_failed">Purchase failed. Please try again.</string>
+    <string name="action_property">Property</string>
+    <string name="action_right_binding">Right Binding</string>
+    <string name="action_right_binding_cover">Right Binding &amp; Cover</string>
 </resources>

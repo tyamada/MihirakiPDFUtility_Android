@@ -54,6 +54,15 @@ fun PdfTopAppBar(
                     IconButton(onClick = onAppend) {
                         Icon(Icons.Default.Add, contentDescription = stringResource(R.string.action_add_pdf))
                     }
+                    IconButton(onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) }) {
+                        Icon(Icons.Default.Description, contentDescription = stringResource(R.string.action_property))
+                    }
+                    IconButton(onClick = { viewModel.setRightBinding() }) {
+                        Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = stringResource(R.string.action_right_binding))
+                    }
+                    IconButton(onClick = { viewModel.setRightBindingWithCover() }) {
+                        Icon(Icons.Default.AutoStories, contentDescription = stringResource(R.string.action_right_binding_cover))
+                    }
                     if (uiState.isMihirakiView) {
                         IconButton(onClick = { viewModel.toggleRtl() }) {
                             Icon(

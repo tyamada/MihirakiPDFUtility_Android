@@ -49,4 +49,28 @@ class PdfViewModelTest {
         assertTrue(selectedIndices.contains(p1Index))
         assertTrue(selectedIndices.contains(p3Index))
     }
+
+    @Test
+    fun testRightBindingButtons() {
+        val app = ApplicationProvider.getApplicationContext<Application>()
+        val viewModel = PdfViewModel(app)
+
+        viewModel.setRightBinding()
+        var state = viewModel.uiState.value
+        assertEquals("TwoPageLeft", state.pageLayout)
+        assertEquals("R2L", state.scrollDirection)
+        assertEquals(false, state.showCover)
+        assertEquals(true, state.isMihirakiView)
+        assertEquals(true, state.isRtl)
+        assertEquals(true, state.isDirty)
+
+        viewModel.setRightBindingWithCover()
+        state = viewModel.uiState.value
+        assertEquals("TwoPageRight", state.pageLayout)
+        assertEquals("R2L", state.scrollDirection)
+        assertEquals(true, state.showCover)
+        assertEquals(true, state.isMihirakiView)
+        assertEquals(true, state.isRtl)
+        assertEquals(true, state.isDirty)
+    }
 }
