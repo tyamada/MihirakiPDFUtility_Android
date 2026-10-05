@@ -131,4 +131,5 @@
     <string name="logs_privacy">Note: Logs are stored locally on device only. There is no feature to transmit logs externally.</string>
     <string name="copy_logs">Copy Logs to Clipboard</string>
     <string name="logs_copied">Logs copied to clipboard</string>
+    <string name="share_logs">Share Logs</string>
 </resources>

@@ -9,7 +9,7 @@ import java.util.Locale
 
 object AppLogger {
     private const val LOG_FILE_NAME = "app_audit_logs.txt"
-    private const val MAX_RETENTION_DAYS = 14L
+    private const val MAX_RETENTION_HOURS = 24L
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
 
     @Synchronized
@@ -22,7 +22,7 @@ object AppLogger {
             // Append log
             file.appendText(logEntry)
 
-            // Clean up logs older than 14 days
+            // Clean up logs older than 24 hours
             cleanOldLogs(file)
         } catch (e: Exception) {
             Log.e("AppLogger", "Failed to write log", e)
@@ -44,7 +44,7 @@ object AppLogger {
     private fun cleanOldLogs(file: File) {
         if (!file.exists()) return
         try {
-            val cutoffTime = System.currentTimeMillis() - (MAX_RETENTION_DAYS * 24 * 60 * 60 * 1000L)
+            val cutoffTime = System.currentTimeMillis() - (MAX_RETENTION_HOURS * 60 * 60 * 1000L)
             val lines = file.readLines()
             val validLines = mutableListOf<String>()
 
