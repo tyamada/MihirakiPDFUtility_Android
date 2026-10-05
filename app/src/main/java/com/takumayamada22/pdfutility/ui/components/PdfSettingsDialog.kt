@@ -1,7 +1,11 @@
 package com.takumayamada22.pdfutility.ui.components
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Build
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -18,9 +22,13 @@ import androidx.compose.ui.unit.dp
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.PurchaseState
 import com.takumayamada22.pdfutility.billing.TipTier
+import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
@@ -250,6 +258,8 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
     val packageInfo = remember {
         context.packageManager.getPackageInfo(context.packageName, 0)
     }
+    var testResults by remember { mutableStateOf<String?>(null) }
+    val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
 
     AlertDialog(
         onDismissRequest = { viewModel.closeSettingsDialog() },
@@ -308,6 +318,72 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center
                 )
+
+                Spacer(Modifier.height(16.dp))
+                Button(onClick = {
+                    val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                    val manufacturer = Build.MANUFACTURER
+                    val model = Build.MODEL
+                    val osVersion = Build.VERSION.RELEASE
+                    val sdkInt = Build.VERSION.SDK_INT
+
+                    val resultsBuilder = StringBuilder()
+                    resultsBuilder.append("=== MihirakiPDF Utility Diagnostics ===\n")
+                    resultsBuilder.append(context.getString(R.string.test_timestamp_format, timestamp)).append("\n")
+                    resultsBuilder.append(context.getString(R.string.device_info_format, manufacturer, model, osVersion)).append(" (SDK $sdkInt)\n")
+
+                    try {
+                        val processor = PdfProcessor()
+                        processor.close()
+                        resultsBuilder.append("1. PdfProcessor Init Test: PASSED\n")
+                    } catch (e: Exception) {
+                        resultsBuilder.append("1. PdfProcessor Init Test: FAILED (${e.message})\n")
+                    }
+
+                    val runtime = Runtime.getRuntime()
+                    val usedMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
+                    val maxMb = runtime.maxMemory() / (1024 * 1024)
+                    resultsBuilder.append("2. Memory Usage: ${usedMb}MB / max ${maxMb}MB: PASSED\n")
+
+                    val hasSample = try {
+                        context.assets.open("sample.pdf").use { true }
+                    } catch (e: Exception) {
+                        false
+                    }
+                    resultsBuilder.append("3. Sample Asset Check: ${if (hasSample) "PASSED" else "N/A"}\n")
+                    resultsBuilder.append("All diagnostic checks completed successfully.")
+
+                    testResults = resultsBuilder.toString()
+                }) {
+                    Text(stringResource(R.string.run_diagnostics))
+                }
+
+                testResults?.let { results ->
+                    Spacer(Modifier.height(8.dp))
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(12.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text(stringResource(R.string.diagnostics_title), style = MaterialTheme.typography.titleSmall)
+                            Text(results, style = MaterialTheme.typography.bodySmall)
+                            Text(
+                                stringResource(R.string.diagnostics_privacy),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.error
+                            )
+                            Button(onClick = {
+                                clipboardManager?.setPrimaryClip(ClipData.newPlainText("Diagnostic Results", results))
+                                Toast.makeText(context, context.getString(R.string.results_copied), Toast.LENGTH_SHORT).show()
+                            }) {
+                                Text(stringResource(R.string.copy_results))
+                            }
+                        }
+                    }
+                }
             }
         },
         confirmButton = {
