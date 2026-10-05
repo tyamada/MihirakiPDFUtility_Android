@@ -15,6 +15,7 @@ A powerful and intuitive PDF utility for Android, specializing in **Mihiraki (tw
 | 🔀 **Drag & Drop Reordering** | Easily organize your PDF by dragging and dropping thumbnails. Intuitive page management. |
 | ➕ **Merge & Append** | Combine multiple PDF files into one, or add pages to existing documents. |
 | 🔒 **Security** | Handle encrypted PDFs with password protection and metadata editing. |
+| 🔍 **Diagnostics & Logging** | Run quick in-app diagnostic tests and view local app audit logs (14-day retention, privacy-protected with no external transmission). |
 | 🖥️ **Cross-Device Support** | Optimized for Smartphones, Tablets, and ChromeOS (desktop experience). |
 
 ### Feature Showcase
