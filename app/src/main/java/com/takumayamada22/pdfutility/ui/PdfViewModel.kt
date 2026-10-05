@@ -12,6 +12,7 @@ import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.BillingManager
 import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.domain.ThumbnailProvider
+import com.takumayamada22.pdfutility.util.AppLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -95,6 +96,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
             if (count > 0) {
+                AppLogger.log(getApplication(), "INFO", "Sample PDF loaded successfully, pages: $count")
                 val cacheFile = File(getApplication<Application>().cacheDir, "sample.pdf")
                 withContext(Dispatchers.IO) {
                     try {
@@ -230,12 +232,14 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                             showCover = metadata["layout"]?.let { it == "TwoColumnRight" || it == "TwoPageRight" } ?: false,
                             savePassword = ""
                         )
+                        AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: ${pageCount}")
                         // Clear history on new load
                         undoStack.clear()
                         redoStack.clear()
                         updateHistoryFlags()
                     }
                 } catch (e: InvalidPasswordException) {
+                    AppLogger.log(getApplication(), "WARN", "PDF load failed: Invalid password")
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         showPasswordDialog = true,
@@ -244,6 +248,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         errorResId = if (password != null) R.string.error_incorrect_password else null
                     )
                 } catch (e: Exception) {
+                    AppLogger.log(getApplication(), "ERROR", "PDF load failed: ${e.message}")
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         errorResId = R.string.error_load_failed
@@ -291,6 +296,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         )
                     }
                 } catch (e: InvalidPasswordException) {
+                    AppLogger.log(getApplication(), "WARN", "PDF load failed: Invalid password")
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         showPasswordDialog = true,
@@ -299,6 +305,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         errorResId = if (password != null) R.string.error_incorrect_password else null
                     )
                 } catch (e: Exception) {
+                    AppLogger.log(getApplication(), "ERROR", "PDF load failed: ${e.message}")
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         errorResId = R.string.error_append_failed
@@ -720,8 +727,10 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                     getApplication<Application>().contentResolver.openOutputStream(uri)?.use { outputStream ->
                         processor.save(outputStream, currentState.pages, savePassword, metadata)
                     }
+                    AppLogger.log(getApplication(), "INFO", "PDF saved successfully")
                     _uiState.value = _uiState.value.copy(isDirty = false)
                 } catch (e: Exception) {
+                    AppLogger.log(getApplication(), "ERROR", "PDF save failed: ${e.message}")
                     // Handle error
                 } finally {
                     _uiState.value = _uiState.value.copy(isLoading = false)
@@ -751,7 +760,9 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                     getApplication<Application>().contentResolver.openOutputStream(uri)?.use { outputStream ->
                         processor.save(outputStream, selectedPages, savePassword, metadata)
                     }
+                    AppLogger.log(getApplication(), "INFO", "PDF export successfully")
                 } catch (e: Exception) {
+                    AppLogger.log(getApplication(), "ERROR", "PDF export failed: ${e.message}")
                     _uiState.value = _uiState.value.copy(errorResId = R.string.error_export_failed)
                 } finally {
                     _uiState.value = _uiState.value.copy(isLoading = false)

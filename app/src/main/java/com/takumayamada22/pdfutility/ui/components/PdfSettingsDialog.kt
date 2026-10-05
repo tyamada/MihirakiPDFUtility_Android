@@ -26,6 +26,7 @@ import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
+import com.takumayamada22.pdfutility.util.AppLogger
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -383,6 +384,58 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                             }
                         }
                     }
+                }
+
+                Spacer(Modifier.height(8.dp))
+                var showLogDialog by remember { mutableStateOf(false) }
+                Button(onClick = { showLogDialog = true }) {
+                    Text(stringResource(R.string.view_app_logs))
+                }
+
+                if (showLogDialog) {
+                    val logsText = remember(showLogDialog) { AppLogger.getLogs(context) }
+                    AlertDialog(
+                        onDismissRequest = { showLogDialog = false },
+                        title = { Text(stringResource(R.string.logs_dialog_title)) },
+                        text = {
+                            Column(
+                                modifier = Modifier
+                                    .verticalScroll(rememberScrollState())
+                                    .fillMaxWidth(),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(
+                                    stringResource(R.string.logs_privacy),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                                HorizontalDivider()
+                                Text(
+                                    logsText,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .heightIn(max = 300.dp)
+                                )
+                            }
+                        },
+                        confirmButton = {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Button(onClick = {
+                                    clipboardManager?.setPrimaryClip(ClipData.newPlainText("App Logs", logsText))
+                                    Toast.makeText(context, context.getString(R.string.logs_copied), Toast.LENGTH_SHORT).show()
+                                }) {
+                                    Text(stringResource(R.string.copy_logs))
+                                }
+                                Button(onClick = { showLogDialog = false }) {
+                                    Text(stringResource(R.string.action_close))
+                                }
+                            }
+                        }
+                    )
                 }
             }
         },

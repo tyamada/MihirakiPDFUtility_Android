@@ -126,4 +126,9 @@
     <string name="results_copied">テスト結果をクリップボードにコピーしました</string>
     <string name="device_info_format">端末: %1$s %2$s (Android %3$s)</string>
     <string name="test_timestamp_format">日時: %1$s</string>
+    <string name="view_app_logs">アプリログを表示</string>
+    <string name="logs_dialog_title">アプリ監査ログ</string>
+    <string name="logs_privacy">※ログは端末内のみに保存され、外部に送信する機能はありません。</string>
+    <string name="copy_logs">ログをクリップボードにコピー</string>
+    <string name="logs_copied">ログをクリップボードにコピーしました</string>
 </resources>
