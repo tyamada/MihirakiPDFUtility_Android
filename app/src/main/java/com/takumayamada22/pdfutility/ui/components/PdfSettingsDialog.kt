@@ -1,12 +1,9 @@
 package com.takumayamada22.pdfutility.ui.components
 
 import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -261,7 +258,6 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
         context.packageManager.getPackageInfo(context.packageName, 0)
     }
     var testResults by remember { mutableStateOf<String?>(null) }
-    val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
 
     AlertDialog(
         onDismissRequest = { viewModel.closeSettingsDialog() },
@@ -431,10 +427,15 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Button(onClick = {
-                                    clipboardManager?.setPrimaryClip(ClipData.newPlainText("App Logs", logsText))
-                                    Toast.makeText(context, context.getString(R.string.logs_copied), Toast.LENGTH_SHORT).show()
+                                    val sendIntent = Intent().apply {
+                                        action = Intent.ACTION_SEND
+                                        putExtra(Intent.EXTRA_TEXT, logsText)
+                                        type = "text/plain"
+                                    }
+                                    val shareIntent = Intent.createChooser(sendIntent, null)
+                                    context.startActivity(shareIntent)
                                 }) {
-                                    Text(stringResource(R.string.copy_logs))
+                                    Text(stringResource(R.string.share_logs))
                                 }
                                 Button(onClick = { showLogDialog = false }) {
                                     Text(stringResource(R.string.action_close))

@@ -131,4 +131,5 @@
     <string name="logs_privacy">※ログは端末内のみに保存され、外部に送信する機能はありません。</string>
     <string name="copy_logs">ログをクリップボードにコピー</string>
     <string name="logs_copied">ログをクリップボードにコピーしました</string>
+    <string name="share_logs">ログを共有</string>
 </resources>
