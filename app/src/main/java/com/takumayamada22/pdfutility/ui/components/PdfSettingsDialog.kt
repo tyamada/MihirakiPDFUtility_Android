@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -377,10 +378,15 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                                 color = MaterialTheme.colorScheme.error
                             )
                             Button(onClick = {
-                                clipboardManager?.setPrimaryClip(ClipData.newPlainText("Diagnostic Results", results))
-                                Toast.makeText(context, context.getString(R.string.results_copied), Toast.LENGTH_SHORT).show()
+                                val sendIntent = Intent().apply {
+                                    action = Intent.ACTION_SEND
+                                    putExtra(Intent.EXTRA_TEXT, results)
+                                    type = "text/plain"
+                                }
+                                val shareIntent = Intent.createChooser(sendIntent, null)
+                                context.startActivity(shareIntent)
                             }) {
-                                Text(stringResource(R.string.copy_results))
+                                Text(stringResource(R.string.share_results))
                             }
                         }
                     }

@@ -122,7 +122,7 @@
     <string name="run_diagnostics">Run Diagnostic Tests</string>
     <string name="diagnostics_title">Diagnostic Test Results</string>
     <string name="diagnostics_privacy">Note: Test results are displayed locally only. There is no feature to transmit test results externally.</string>
-    <string name="copy_results">Copy Results to Clipboard</string>
+    <string name="share_results">Share Results</string>
     <string name="results_copied">Results copied to clipboard</string>
     <string name="device_info_format">Device: %1$s %2$s (Android %3$s)</string>
     <string name="test_timestamp_format">Timestamp: %1$s</string>
