@@ -44,7 +44,13 @@ fun PdfPageGrid(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = modifier.fillMaxSize()
         ) {
-            val pairs = uiState.pages.chunked(2)
+            val pairs = if (uiState.showCover && uiState.pages.isNotEmpty()) {
+                val firstPage = uiState.pages.take(1)
+                val remainingPages = uiState.pages.drop(1)
+                listOf(firstPage) + remainingPages.chunked(2)
+            } else {
+                uiState.pages.chunked(2)
+            }
             items(pairs.size) { pairIndex ->
                 val pair = pairs[pairIndex]
                 val rowPages = if (uiState.isRtl) pair.reversed() else pair
@@ -57,7 +63,7 @@ fun PdfPageGrid(
                     }
                     
                     rowPages.forEach { page ->
-                        val index = uiState.pages.indexOf(page)
+                        val index = uiState.pages.indexOfFirst { it.id == page.id }
                         Box(modifier = Modifier.weight(1f).padding(horizontal = 4.dp)) {
                             PageThumbnail(
                                 page = page,
