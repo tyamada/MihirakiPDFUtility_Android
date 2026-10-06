@@ -79,7 +79,7 @@
     <string name="version_app_name">见開き PDF 工具</string>
     <string name="version_number">版本: %1$s</string>
     <string name="version_build">构建: %1$s</string>
-    <string name="version_copyright">© 2026 Mihiraki Project</string>
+    <string name="version_copyright">© 2026 Takuma Yamada</string>
 
     <string name="split_title">页面分割</string>
     <string name="split_desc">选择分割方向。</string>

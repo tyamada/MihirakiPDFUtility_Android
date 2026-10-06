@@ -79,7 +79,7 @@
     <string name="version_app_name">Tiện ích Mihiraki PDF</string>
     <string name="version_number">Phiên bản: %1$s</string>
     <string name="version_build">Build: %1$s</string>
-    <string name="version_copyright">© 2026 Mihiraki Project</string>
+    <string name="version_copyright">© 2026 Takuma Yamada</string>
 
     <string name="split_title">Chia trang</string>
     <string name="split_desc">Chọn hướng chia.</string>

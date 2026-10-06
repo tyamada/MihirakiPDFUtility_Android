@@ -79,7 +79,7 @@
     <string name="version_app_name">Mihiraki PDF Utility</string>
     <string name="version_number">संस्करण: %1$s</string>
     <string name="version_build">बिल्ड: %1$s</string>
-    <string name="version_copyright">© 2026 Mihiraki Project</string>
+    <string name="version_copyright">© 2026 Takuma Yamada</string>
 
     <string name="split_title">पृष्ठहरू विभाजन गर्नुहोस्</string>
     <string name="split_desc">विभाजन दिशा चयन गर्नुहोस्।</string>

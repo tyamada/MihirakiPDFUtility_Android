@@ -79,7 +79,7 @@
     <string name="version_app_name">미히라키 PDF 유틸리티</string>
     <string name="version_number">버전: %1$s</string>
     <string name="version_build">빌드: %1$s</string>
-    <string name="version_copyright">© 2026 Mihiraki Project</string>
+    <string name="version_copyright">© 2026 Takuma Yamada</string>
 
     <string name="split_title">페이지 분할</string>
     <string name="split_desc">분할 방향을 선택하십시오.</string>
