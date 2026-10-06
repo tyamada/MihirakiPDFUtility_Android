@@ -79,7 +79,7 @@
     <string name="version_app_name">Utilitas PDF Mihiraki</string>
     <string name="version_number">Versi: %1$s</string>
     <string name="version_build">Build: %1$s</string>
-    <string name="version_copyright">© 2026 Mihiraki Project</string>
+    <string name="version_copyright">© 2026 Takuma Yamada</string>
 
     <string name="split_title">Pisahkan Halaman</string>
     <string name="split_desc">Pilih arah pemisahan.</string>
