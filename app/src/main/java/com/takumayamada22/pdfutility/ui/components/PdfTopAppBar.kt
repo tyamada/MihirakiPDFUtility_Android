@@ -141,6 +141,10 @@ fun PdfTopAppBar(
                                 enabled = uiState.pages.isNotEmpty()
                             )
                             DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_options)) },
+                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.OPTIONS) }
+                            )
+                            DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_version)) },
                                 onClick = { viewModel.openSettingsDialog(SettingsDialogType.VERSION) }
                             )

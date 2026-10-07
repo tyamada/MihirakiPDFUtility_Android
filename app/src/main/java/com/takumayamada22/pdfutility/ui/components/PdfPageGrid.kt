@@ -20,6 +20,7 @@ import androidx.compose.ui.zIndex
 import com.takumayamada22.pdfutility.ui.PageState
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
+import com.takumayamada22.pdfutility.ui.ThumbnailSize
 import kotlin.math.roundToInt
 
 @Composable
@@ -36,6 +37,17 @@ fun PdfPageGrid(
 
     val currentUiState by rememberUpdatedState(uiState)
     val currentViewModel by rememberUpdatedState(viewModel)
+
+    val minSize = when (uiState.thumbnailSize) {
+        ThumbnailSize.S -> 75.dp
+        ThumbnailSize.M -> 150.dp
+        ThumbnailSize.L -> 300.dp
+    }
+    val mihirakiHeight = when (uiState.thumbnailSize) {
+        ThumbnailSize.S -> 125.dp
+        ThumbnailSize.M -> 250.dp
+        ThumbnailSize.L -> 500.dp
+    }
 
     if (uiState.isMihirakiView) {
         LazyVerticalGrid(
@@ -55,7 +67,7 @@ fun PdfPageGrid(
                 val pair = pairs[pairIndex]
                 val rowPages = if (uiState.isRtl) pair.reversed() else pair
                 Row(
-                    modifier = Modifier.fillMaxWidth().height(250.dp),
+                    modifier = Modifier.fillMaxWidth().height(mihirakiHeight),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     if (uiState.isRtl && pair.size == 1) {
@@ -84,7 +96,7 @@ fun PdfPageGrid(
     } else {
         LazyVerticalGrid(
             state = gridState,
-            columns = GridCells.Adaptive(minSize = 150.dp),
+            columns = GridCells.Adaptive(minSize = minSize),
             contentPadding = PaddingValues(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
