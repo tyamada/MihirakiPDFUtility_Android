@@ -39,8 +39,10 @@ data class PageState(
     val cropMargin: Float = 0f // 0.0 to 0.45 (percent from each side)
 )
 
+enum class ThumbnailSize { S, M, L }
+
 enum class SettingsDialogType {
-    PROPERTY, PASSWORD, VERSION, SUPPORT, HELP
+    PROPERTY, PASSWORD, OPTIONS, VERSION, SUPPORT, HELP
 }
 
 data class PdfUiState(
@@ -69,7 +71,8 @@ data class PdfUiState(
     val pdfVersion: String = "",
     val pageLayout: String = "SinglePage",
     val scrollDirection: String = "L2R",
-    val showCover: Boolean = false
+    val showCover: Boolean = false,
+    val thumbnailSize: ThumbnailSize = ThumbnailSize.M
 )
 
 class PdfViewModel(application: Application) : AndroidViewModel(application) {
@@ -77,11 +80,42 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     private val thumbnailProvider = ThumbnailProvider(application)
     val billing = BillingManager(application)
     
-    private val _uiState = MutableStateFlow(PdfUiState())
+    private val metrics = application.resources.displayMetrics
+    private val minDimensionPx = minOf(metrics.widthPixels, metrics.heightPixels)
+    private val defaultThumbnailSize = if (minDimensionPx < 1280) ThumbnailSize.S else ThumbnailSize.M
+
+    private val _uiState = MutableStateFlow(PdfUiState(thumbnailSize = defaultThumbnailSize))
     val uiState: StateFlow<PdfUiState> = _uiState
 
     init {
         loadSamplePdf()
+    }
+
+    private fun getThumbnailWidth(size: ThumbnailSize): Int {
+        return when (size) {
+            ThumbnailSize.S -> 100
+            ThumbnailSize.M -> 200
+            ThumbnailSize.L -> 400
+        }
+    }
+
+    fun setThumbnailSize(size: ThumbnailSize) {
+        if (_uiState.value.thumbnailSize == size) return
+        _uiState.value = _uiState.value.copy(thumbnailSize = size)
+        val width = getThumbnailWidth(size)
+        viewModelScope.launch {
+            val currentPages = _uiState.value.pages
+            val updatedPages = withContext(Dispatchers.IO) {
+                currentPages.map { page ->
+                    val uri = page.sourceUri
+                    val thumb = if (uri != null) {
+                        thumbnailProvider.getThumbnail(uri, page.originalIndex, width)
+                    } else page.thumbnail
+                    page.copy(thumbnail = thumb)
+                }
+            }
+            _uiState.value = _uiState.value.copy(pages = updatedPages)
+        }
     }
 
     private fun loadSamplePdf() {
@@ -111,7 +145,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                 val pages = (0 until count).map { index ->
                     PageState(
                         originalIndex = index,
-                        thumbnail = thumbnailProvider.getThumbnail(uri, index, 200),
+                        thumbnail = thumbnailProvider.getThumbnail(uri, index, getThumbnailWidth(_uiState.value.thumbnailSize)),
                         sourceUri = uri
                     )
                 }
@@ -209,7 +243,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         val pageCount = thumbnailProvider.getPageCount(uri)
                         val pages = (0 until pageCount).map { index ->
                             PageState(
-                                thumbnail = thumbnailProvider.getThumbnail(uri, index, 288),
+                                thumbnail = thumbnailProvider.getThumbnail(uri, index, getThumbnailWidth(_uiState.value.thumbnailSize)),
                                 originalIndex = index,
                                 sourceUri = uri
                             )
@@ -278,7 +312,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                         val pageCount = thumbnailProvider.getPageCount(uri)
                         val newPages = (0 until pageCount).map { index ->
                             PageState(
-                                thumbnail = thumbnailProvider.getThumbnail(uri, index, 288),
+                                thumbnail = thumbnailProvider.getThumbnail(uri, index, getThumbnailWidth(_uiState.value.thumbnailSize)),
                                 originalIndex = startIndex + index,
                                 sourceUri = uri
                             )

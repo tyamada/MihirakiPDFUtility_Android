@@ -41,9 +41,16 @@
     <string name="settings_title">PDF Settings</string>
     <string name="settings_property">Property</string>
     <string name="settings_password">Password</string>
+    <string name="settings_options">Options</string>
     <string name="settings_version">Version</string>
     <string name="settings_help">Help</string>
     <string name="support">Support</string>
+
+    <string name="options_title">Thumbnail Image Size</string>
+    <string name="options_size_s">Small (S)</string>
+    <string name="options_size_m">Medium (M)</string>
+    <string name="options_size_l">Large (L)</string>
+    <string name="options_desc">Select thumbnail image size (S/M/L).</string>
 
     <string name="help_title">App Guide &amp; Help</string>
     <string name="help_overview_title">1. Overview</string>

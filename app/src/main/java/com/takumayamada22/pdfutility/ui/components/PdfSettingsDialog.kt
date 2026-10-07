@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -24,6 +25,7 @@ import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
+import com.takumayamada22.pdfutility.ui.ThumbnailSize
 import com.takumayamada22.pdfutility.util.AppLogger
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -34,6 +36,7 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
     when (uiState.activeSettingsDialog) {
         SettingsDialogType.PROPERTY -> PdfPropertyDialog(viewModel, uiState)
         SettingsDialogType.PASSWORD -> PdfPasswordDialog(viewModel, uiState)
+        SettingsDialogType.OPTIONS -> PdfOptionsDialog(viewModel, uiState)
         SettingsDialogType.VERSION -> PdfVersionDialog(viewModel)
         SettingsDialogType.SUPPORT -> PdfSupportDialog(viewModel)
         SettingsDialogType.HELP -> PdfHelpDialog(viewModel)
@@ -239,6 +242,61 @@ private fun PdfPasswordDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                 }) {
                     Text(stringResource(R.string.action_set))
                 }
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = { viewModel.closeSettingsDialog() }) {
+                Text(stringResource(R.string.action_cancel))
+            }
+        }
+    )
+}
+
+@Composable
+private fun PdfOptionsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
+    var selectedSize by remember { mutableStateOf(uiState.thumbnailSize) }
+
+    AlertDialog(
+        onDismissRequest = { viewModel.closeSettingsDialog() },
+        title = { Text(stringResource(R.string.settings_options)) },
+        text = {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Text(stringResource(R.string.options_desc), style = MaterialTheme.typography.bodyMedium)
+                
+                ThumbnailSize.entries.forEach { size ->
+                    val label = when (size) {
+                        ThumbnailSize.S -> stringResource(R.string.options_size_s)
+                        ThumbnailSize.M -> stringResource(R.string.options_size_m)
+                        ThumbnailSize.L -> stringResource(R.string.options_size_l)
+                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { selectedSize = size }
+                            .padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = selectedSize == size,
+                            onClick = { selectedSize = size }
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(label, style = MaterialTheme.typography.bodyLarge)
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            Button(onClick = {
+                viewModel.setThumbnailSize(selectedSize)
+                viewModel.closeSettingsDialog()
+            }) {
+                Text(stringResource(R.string.action_apply))
             }
         },
         dismissButton = {

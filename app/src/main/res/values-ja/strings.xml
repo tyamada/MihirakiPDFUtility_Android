@@ -41,9 +41,16 @@
     <string name="settings_title">PDF設定</string>
     <string name="settings_property">プロパティ</string>
     <string name="settings_password">パスワード</string>
+    <string name="settings_options">オプション</string>
     <string name="settings_version">バージョン</string>
     <string name="settings_help">ヘルプ</string>
     <string name="support">応援</string>
+
+    <string name="options_title">サムネイル画像サイズ</string>
+    <string name="options_size_s">小 (S)</string>
+    <string name="options_size_m">中 (M)</string>
+    <string name="options_size_l">大 (L)</string>
+    <string name="options_desc">サムネイル画像のサイズを3段階(S/M/L)から選択してください。</string>
 
     <string name="help_title">使い方ガイド</string>
     <string name="help_overview_title">1. 概要</string>
