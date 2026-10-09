@@ -40,14 +40,31 @@ Explore how the application functions across different device types:
 
 You can download and test sample PDFs (Manga) to try out Mihiraki PDF Utility:
 
-- [THE TRY-IT CLUB EPISODE 1: THE BREAK-TIME MAP (English)](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_en.pdf)
-- [THE TRY-IT CLUB EPISODE 2: ROOM TO GROW (English)](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_en.pdf)
-- [ためし部 第１話 ひと息マップ (Japanese)](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_ja.pdf)
-- [ためし部 第２話 机、ひろがる。 (Japanese)](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_ja.pdf)
-- [해봄부 제1화 한숨 돌림 지도 (Korean)](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_ko.pdf)
-- [해봄부제2화 책상이 넓어지다 (Korean)](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_ko.pdf)
-- [试试社 第1话 歇口气地图 (Chinese (Simplified))](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_zh_cn.pdf)
-- [试试社 第2话 桌子变大了 (Chinese (Simplified))](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_zh_cn.pdf)
+- [THE TRY-IT CLUB EPISODE 1: THE BREAK-TIME MAP (English) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_2_en.pdf)
+- [THE TRY-IT CLUB EPISODE 2: ROOM TO GROW (English) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_2_en.pdf)
+- [ためし部 第１話 ひと息マップ (Japanese) - こまいろ日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_2_ja.pdf)
+- [ためし部 第２話 机、ひろがる。 (Japanese) - こまいろ日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_2_ja.pdf)
+- [해봄부 제1화 한숨 돌림 지도 (Korean) - 코마이로 히요리](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_2_ko.pdf)
+- [해봄부제2화 책상이 넓어지다 (Korean) - 코마이로 히요리](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_2_ko.pdf)
+- [试试社 第1话 歇口气地图 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_2_zh_cn.pdf)
+- [试试社 第2话 桌子变大了 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_2_zh_cn.pdf)
+- [試試社 第1話 (Chinese (Traditional)) - 小舞樓日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_2_zh_tw.pdf)
+- [試試社 第2話 (Chinese (Traditional)) - 小舞樓日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_2_zh_tw.pdf)
+- [DER PROBIERCLUB FOLGE 1 (German) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_2_de.pdf)
+- [DER PROBIERCLUB FOLGE 2 (German) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_2_de.pdf)
+- [LE CLUB DES ESSAIS EPISODE 1 (French) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode1_2_fr.pdf)
+- [LE CLUB DES ESSAIS EPISODE 2 (French) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/testdata/tameshibu_episode2_2_fr.pdf)
+
+### Sample PDF License (CC BY 4.0)
+
+"The Try-It Club" Episodes 1 & 2
+© 2026 Komairo Hiyori
+
+Parts of this work for which the publisher holds copyright and other licensing rights are provided under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+
+When reusing this work, please display the work title, author name "Komairo Hiyori", the source of the original work, and a link to the license, and clearly indicate if any changes were made.
+
+Generative AI was used in the production of text and images, as well as the translation of this work. Materials with rights held by third parties, such as fonts, are subject to their respective licenses. Nothing in this license constitutes a restriction on the use of material that is not protected by copyright or similar laws.
 
 ## Technical Stack
 
