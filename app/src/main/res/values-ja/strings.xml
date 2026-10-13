@@ -36,6 +36,7 @@
     <string name="error_load_failed">PDFの読み込みに失敗しました</string>
     <string name="error_append_failed">PDFの追加に失敗しました</string>
     <string name="error_export_failed">ページの書き出しに失敗しました</string>
+    <string name="error_save_failed">PDFの保存に失敗しました</string>
     <string name="error_incorrect_password">パスワードが正しくありません</string>
 
     <string name="settings_title">PDF設定</string>

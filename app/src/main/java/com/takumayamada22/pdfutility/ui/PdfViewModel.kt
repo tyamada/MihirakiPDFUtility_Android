@@ -10,6 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.tom_roush.pdfbox.pdmodel.encryption.InvalidPasswordException
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.BillingManager
+import com.takumayamada22.pdfutility.domain.ExportPdfUseCase
+import com.takumayamada22.pdfutility.domain.LoadPdfUseCase
 import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.domain.ThumbnailProvider
 import com.takumayamada22.pdfutility.util.AppLogger
@@ -77,6 +79,8 @@ data class PdfUiState(
 
 class PdfViewModel(application: Application) : AndroidViewModel(application) {
     private val processor = PdfProcessor()
+    private val loadPdfUseCase = LoadPdfUseCase(processor)
+    private val exportPdfUseCase = ExportPdfUseCase(processor)
     private val thumbnailProvider = ThumbnailProvider(application)
     val billing = BillingManager(application)
     
@@ -124,7 +128,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
             val count = withContext(Dispatchers.IO) {
                 try {
                     val inputStream = getApplication<Application>().assets.open("sample.pdf")
-                    processor.load(inputStream)
+                    loadPdfUseCase.load(inputStream)
                 } catch (e: Exception) {
                     0
                 }
@@ -160,8 +164,20 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    private data class PageSnapshot(
+        val id: String,
+        val originalIndex: Int,
+        val rotation: Int,
+        val isBlank: Boolean,
+        val sourceUri: Uri?,
+        val isSplit: Boolean,
+        val splitPart: Int,
+        val splitDirection: SplitDirection,
+        val cropMargin: Float
+    )
+
     private data class HistoryState(
-        val pages: List<PageState>,
+        val pageSnapshots: List<PageSnapshot>,
         val selectedIndices: Set<Int>
     )
 
@@ -170,12 +186,20 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     private val maxHistorySize = 20
 
     private fun saveToHistory() {
-        undoStack.add(
-            HistoryState(
-                _uiState.value.pages.toList(),
-                _uiState.value.selectedIndices.toSet()
+        val snapshots = _uiState.value.pages.map { page ->
+            PageSnapshot(
+                id = page.id,
+                originalIndex = page.originalIndex,
+                rotation = page.rotation,
+                isBlank = page.isBlank,
+                sourceUri = page.sourceUri,
+                isSplit = page.isSplit,
+                splitPart = page.splitPart,
+                splitDirection = page.splitDirection,
+                cropMargin = page.cropMargin
             )
-        )
+        }
+        undoStack.add(HistoryState(snapshots, _uiState.value.selectedIndices.toSet()))
         if (undoStack.size > maxHistorySize) {
             undoStack.removeAt(0)
         }
@@ -192,31 +216,81 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
 
     fun undo() {
         if (undoStack.isEmpty()) return
-        val currentState = HistoryState(
-            _uiState.value.pages.toList(),
-            _uiState.value.selectedIndices.toSet()
-        )
+        val currentSnapshots = _uiState.value.pages.map { page ->
+            PageSnapshot(
+                id = page.id,
+                originalIndex = page.originalIndex,
+                rotation = page.rotation,
+                isBlank = page.isBlank,
+                sourceUri = page.sourceUri,
+                isSplit = page.isSplit,
+                splitPart = page.splitPart,
+                splitDirection = page.splitDirection,
+                cropMargin = page.cropMargin
+            )
+        }
+        val currentState = HistoryState(currentSnapshots, _uiState.value.selectedIndices.toSet())
         redoStack.add(currentState)
         val previousState = undoStack.removeAt(undoStack.size - 1)
-        _uiState.value = _uiState.value.copy(
-            pages = previousState.pages,
-            selectedIndices = previousState.selectedIndices,
-            isDirty = true
-        )
-        updateHistoryFlags()
+        restoreState(previousState)
     }
 
     fun redo() {
         if (redoStack.isEmpty()) return
-        val currentState = HistoryState(
-            _uiState.value.pages.toList(),
-            _uiState.value.selectedIndices.toSet()
-        )
+        val currentSnapshots = _uiState.value.pages.map { page ->
+            PageSnapshot(
+                id = page.id,
+                originalIndex = page.originalIndex,
+                rotation = page.rotation,
+                isBlank = page.isBlank,
+                sourceUri = page.sourceUri,
+                isSplit = page.isSplit,
+                splitPart = page.splitPart,
+                splitDirection = page.splitDirection,
+                cropMargin = page.cropMargin
+            )
+        }
+        val currentState = HistoryState(currentSnapshots, _uiState.value.selectedIndices.toSet())
         undoStack.add(currentState)
         val nextState = redoStack.removeAt(redoStack.size - 1)
+        restoreState(nextState)
+    }
+
+    private fun restoreState(historyState: HistoryState) {
+        val currentPagesMap = _uiState.value.pages.associateBy { it.id }
+        val restoredPages = historyState.pageSnapshots.map { snapshot ->
+            val existing = currentPagesMap[snapshot.id]
+            if (existing != null) {
+                existing.copy(
+                    rotation = snapshot.rotation,
+                    originalIndex = snapshot.originalIndex,
+                    isBlank = snapshot.isBlank,
+                    sourceUri = snapshot.sourceUri,
+                    isSplit = snapshot.isSplit,
+                    splitPart = snapshot.splitPart,
+                    splitDirection = snapshot.splitDirection,
+                    cropMargin = snapshot.cropMargin
+                )
+            } else {
+                PageState(
+                    id = snapshot.id,
+                    thumbnail = snapshot.sourceUri?.let { uri ->
+                        thumbnailProvider.getThumbnail(uri, snapshot.originalIndex, getThumbnailWidth(_uiState.value.thumbnailSize))
+                    },
+                    rotation = snapshot.rotation,
+                    originalIndex = snapshot.originalIndex,
+                    isBlank = snapshot.isBlank,
+                    sourceUri = snapshot.sourceUri,
+                    isSplit = snapshot.isSplit,
+                    splitPart = snapshot.splitPart,
+                    splitDirection = snapshot.splitDirection,
+                    cropMargin = snapshot.cropMargin
+                )
+            }
+        }
         _uiState.value = _uiState.value.copy(
-            pages = nextState.pages,
-            selectedIndices = nextState.selectedIndices,
+            pages = restoredPages,
+            selectedIndices = historyState.selectedIndices,
             isDirty = true
         )
         updateHistoryFlags()
@@ -238,7 +312,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                 try {
                     val inputStream = getApplication<Application>().contentResolver.openInputStream(uri)
                     if (inputStream != null) {
-                        processor.load(inputStream, password)
+                        loadPdfUseCase.load(inputStream, password)
                         
                         val pageCount = thumbnailProvider.getPageCount(uri)
                         val pages = (0 until pageCount).map { index ->
@@ -249,7 +323,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                             )
                         }
                         
-                        val metadata = processor.getMetadata()
+                        val metadata = loadPdfUseCase.getMetadata()
                         
                         _uiState.value = _uiState.value.copy(
                             pages = pages,
@@ -307,7 +381,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                     val inputStream = getApplication<Application>().contentResolver.openInputStream(uri)
                     if (inputStream != null) {
                         saveToHistory()
-                        val startIndex = processor.append(inputStream, password) - thumbnailProvider.getPageCount(uri)
+                        val startIndex = loadPdfUseCase.append(inputStream, password) - thumbnailProvider.getPageCount(uri)
                         
                         val pageCount = thumbnailProvider.getPageCount(uri)
                         val newPages = (0 until pageCount).map { index ->
@@ -759,13 +833,13 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                     val savePassword = password ?: currentState.savePassword.takeIf { it.isNotEmpty() }
                     
                     getApplication<Application>().contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        processor.save(outputStream, currentState.pages, savePassword, metadata)
+                        exportPdfUseCase.save(outputStream, currentState.pages, savePassword, metadata)
                     }
                     AppLogger.log(getApplication(), "INFO", "PDF saved successfully")
                     _uiState.value = _uiState.value.copy(isDirty = false)
                 } catch (e: Exception) {
                     AppLogger.log(getApplication(), "ERROR", "PDF save failed: ${e.message}")
-                    // Handle error
+                    _uiState.value = _uiState.value.copy(errorResId = R.string.error_save_failed)
                 } finally {
                     _uiState.value = _uiState.value.copy(isLoading = false)
                 }
@@ -792,7 +866,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
                     val savePassword = password ?: currentState.savePassword.takeIf { it.isNotEmpty() }
 
                     getApplication<Application>().contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        processor.save(outputStream, selectedPages, savePassword, metadata)
+                        exportPdfUseCase.save(outputStream, selectedPages, savePassword, metadata)
                     }
                     AppLogger.log(getApplication(), "INFO", "PDF export successfully")
                 } catch (e: Exception) {
