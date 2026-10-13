@@ -6,13 +6,23 @@ import android.graphics.Color
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.ParcelFileDescriptor
-import java.io.File
+import android.util.LruCache
 
 class ThumbnailProvider(private val context: Context) {
     private val renderers = mutableMapOf<Uri, PdfRenderer>()
     private val pfds = mutableMapOf<Uri, ParcelFileDescriptor>()
+    
+    private val cacheSize = 50 // max 50 thumbnails in memory cache
+    private val memoryCache = object : LruCache<String, Bitmap>(cacheSize) {
+        override fun entryRemoved(expired: Boolean, key: String, oldValue: Bitmap, newValue: Bitmap?) {
+            // Bitmaps are managed by cache eviction or GC
+        }
+    }
 
     fun getThumbnail(uri: Uri, pageIndex: Int, width: Int): Bitmap? {
+        val cacheKey = "$uri-$pageIndex-$width"
+        memoryCache.get(cacheKey)?.let { return it }
+
         val renderer = getRenderer(uri) ?: return null
         if (pageIndex !in 0 until renderer.pageCount) return null
 
@@ -23,6 +33,8 @@ class ThumbnailProvider(private val context: Context) {
         bitmap.eraseColor(Color.WHITE)
         page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
         page.close()
+
+        memoryCache.put(cacheKey, bitmap)
         return bitmap
     }
 
@@ -45,6 +57,7 @@ class ThumbnailProvider(private val context: Context) {
     }
 
     fun close() {
+        memoryCache.evictAll()
         renderers.values.forEach { it.close() }
         pfds.values.forEach { it.close() }
         renderers.clear()
