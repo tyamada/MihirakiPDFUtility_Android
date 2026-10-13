@@ -47,35 +47,164 @@ enum class SettingsDialogType {
     PROPERTY, PASSWORD, OPTIONS, VERSION, SUPPORT, HELP
 }
 
-data class PdfUiState(
+data class PdfDocumentState(
     val pages: List<PageState> = emptyList(),
     val isLoading: Boolean = false,
     val fileName: String? = null,
     val isDirty: Boolean = false,
-    val selectedIndices: Set<Int> = emptySet(),
-    val isMihirakiView: Boolean = false,
-    val isRtl: Boolean = false,
-    val errorMessage: String? = null,
-    val errorResId: Int? = null,
-    val showPasswordDialog: Boolean = false,
-    val pendingUri: Uri? = null,
     val isAppending: Boolean = false,
-    val canUndo: Boolean = false,
-    val canRedo: Boolean = false,
+    val pdfVersion: String = "",
+    val pageLayout: String = "SinglePage",
+    val scrollDirection: String = "L2R",
+    val showCover: Boolean = false
+)
+
+data class PdfSelectionState(
+    val selectedIndices: Set<Int> = emptySet(),
+    val previewPageIndex: Int? = null
+)
+
+data class PdfMetadataState(
     val title: String = "",
     val author: String = "",
     val subject: String = "",
     val keywords: String = "",
-    val savePassword: String = "",
+    val savePassword: String = ""
+)
+
+data class PdfDialogState(
+    val errorMessage: String? = null,
+    val errorResId: Int? = null,
+    val showPasswordDialog: Boolean = false,
+    val pendingUri: Uri? = null,
     val showSettingsMenu: Boolean = false,
-    val activeSettingsDialog: SettingsDialogType? = null,
-    val previewPageIndex: Int? = null,
-    val pdfVersion: String = "",
-    val pageLayout: String = "SinglePage",
-    val scrollDirection: String = "L2R",
-    val showCover: Boolean = false,
+    val activeSettingsDialog: SettingsDialogType? = null
+)
+
+data class PdfHistoryState(
+    val canUndo: Boolean = false,
+    val canRedo: Boolean = false
+)
+
+data class PdfPreferenceState(
+    val isMihirakiView: Boolean = false,
+    val isRtl: Boolean = false,
     val thumbnailSize: ThumbnailSize = ThumbnailSize.M
 )
+
+data class PdfUiState(
+    val document: PdfDocumentState = PdfDocumentState(),
+    val selection: PdfSelectionState = PdfSelectionState(),
+    val metadata: PdfMetadataState = PdfMetadataState(),
+    val dialog: PdfDialogState = PdfDialogState(),
+    val history: PdfHistoryState = PdfHistoryState(),
+    val preference: PdfPreferenceState = PdfPreferenceState()
+) {
+    val pages: List<PageState> get() = document.pages
+    val isLoading: Boolean get() = document.isLoading
+    val fileName: String? get() = document.fileName
+    val isDirty: Boolean get() = document.isDirty
+    val isAppending: Boolean get() = document.isAppending
+    val pdfVersion: String get() = document.pdfVersion
+    val pageLayout: String get() = document.pageLayout
+    val scrollDirection: String get() = document.scrollDirection
+    val showCover: Boolean get() = document.showCover
+
+    val selectedIndices: Set<Int> get() = selection.selectedIndices
+    val previewPageIndex: Int? get() = selection.previewPageIndex
+
+    val title: String get() = metadata.title
+    val author: String get() = metadata.author
+    val subject: String get() = metadata.subject
+    val keywords: String get() = metadata.keywords
+    val savePassword: String get() = metadata.savePassword
+
+    val errorMessage: String? get() = dialog.errorMessage
+    val errorResId: Int? get() = dialog.errorResId
+    val showPasswordDialog: Boolean get() = dialog.showPasswordDialog
+    val pendingUri: Uri? get() = dialog.pendingUri
+    val showSettingsMenu: Boolean get() = dialog.showSettingsMenu
+    val activeSettingsDialog: SettingsDialogType? get() = dialog.activeSettingsDialog
+
+    val canUndo: Boolean get() = history.canUndo
+    val canRedo: Boolean get() = history.canRedo
+
+    val isMihirakiView: Boolean get() = preference.isMihirakiView
+    val isRtl: Boolean get() = preference.isRtl
+    val thumbnailSize: ThumbnailSize get() = preference.thumbnailSize
+
+    fun copy(
+        pages: List<PageState>? = null,
+        isLoading: Boolean? = null,
+        fileName: String? = null,
+        isDirty: Boolean? = null,
+        isAppending: Boolean? = null,
+        pdfVersion: String? = null,
+        pageLayout: String? = null,
+        scrollDirection: String? = null,
+        showCover: Boolean? = null,
+        selectedIndices: Set<Int>? = null,
+        previewPageIndex: Int? = null,
+        title: String? = null,
+        author: String? = null,
+        subject: String? = null,
+        keywords: String? = null,
+        savePassword: String? = null,
+        errorMessage: String? = null,
+        errorResId: Int? = null,
+        showPasswordDialog: Boolean? = null,
+        pendingUri: Uri? = null,
+        showSettingsMenu: Boolean? = null,
+        activeSettingsDialog: SettingsDialogType? = null,
+        canUndo: Boolean? = null,
+        canRedo: Boolean? = null,
+        isMihirakiView: Boolean? = null,
+        isRtl: Boolean? = null,
+        thumbnailSize: ThumbnailSize? = null
+    ): PdfUiState {
+        return PdfUiState(
+            document = document.copy(
+                pages = pages ?: document.pages,
+                isLoading = isLoading ?: document.isLoading,
+                fileName = fileName ?: document.fileName,
+                isDirty = isDirty ?: document.isDirty,
+                isAppending = isAppending ?: document.isAppending,
+                pdfVersion = pdfVersion ?: document.pdfVersion,
+                pageLayout = pageLayout ?: document.pageLayout,
+                scrollDirection = scrollDirection ?: document.scrollDirection,
+                showCover = showCover ?: document.showCover
+            ),
+            selection = selection.copy(
+                selectedIndices = selectedIndices ?: selection.selectedIndices,
+                previewPageIndex = previewPageIndex ?: selection.previewPageIndex
+            ),
+            metadata = metadata.copy(
+                title = title ?: metadata.title,
+                author = author ?: metadata.author,
+                subject = subject ?: metadata.subject,
+                keywords = keywords ?: metadata.keywords,
+                savePassword = savePassword ?: metadata.savePassword
+            ),
+            dialog = dialog.copy(
+                errorMessage = errorMessage ?: dialog.errorMessage,
+                errorResId = errorResId ?: dialog.errorResId,
+                showPasswordDialog = showPasswordDialog ?: dialog.showPasswordDialog,
+                pendingUri = pendingUri ?: dialog.pendingUri,
+                showSettingsMenu = showSettingsMenu ?: dialog.showSettingsMenu,
+                activeSettingsDialog = activeSettingsDialog ?: dialog.activeSettingsDialog
+            ),
+            history = history.copy(
+                canUndo = canUndo ?: history.canUndo,
+                canRedo = canRedo ?: history.canRedo
+            ),
+            preference = preference.copy(
+                isMihirakiView = isMihirakiView ?: preference.isMihirakiView,
+                isRtl = isRtl ?: preference.isRtl,
+                thumbnailSize = thumbnailSize ?: preference.thumbnailSize
+            )
+        )
+    }
+}
 
 class PdfViewModel(application: Application) : AndroidViewModel(application) {
     private val processor = PdfProcessor()
@@ -88,7 +217,7 @@ class PdfViewModel(application: Application) : AndroidViewModel(application) {
     private val minDimensionPx = minOf(metrics.widthPixels, metrics.heightPixels)
     private val defaultThumbnailSize = if (minDimensionPx < 1280) ThumbnailSize.S else ThumbnailSize.M
 
-    private val _uiState = MutableStateFlow(PdfUiState(thumbnailSize = defaultThumbnailSize))
+    private val _uiState = MutableStateFlow(PdfUiState(preference = PdfPreferenceState(thumbnailSize = defaultThumbnailSize)))
     val uiState: StateFlow<PdfUiState> = _uiState
 
     init {
