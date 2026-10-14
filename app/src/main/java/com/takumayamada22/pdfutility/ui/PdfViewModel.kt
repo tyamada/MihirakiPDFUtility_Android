@@ -15,6 +15,7 @@ import com.takumayamada22.pdfutility.domain.LoadPdfUseCase
 import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.domain.ThumbnailProvider
 import com.takumayamada22.pdfutility.util.AppLogger
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -206,10 +207,13 @@ data class PdfUiState(
     }
 }
 
-class PdfViewModel(application: Application) : AndroidViewModel(application) {
+class PdfViewModel(
+    application: Application,
+    ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+) : AndroidViewModel(application) {
     private val processor = PdfProcessor()
-    private val loadPdfUseCase = LoadPdfUseCase(processor)
-    private val exportPdfUseCase = ExportPdfUseCase(processor)
+    private val loadPdfUseCase = LoadPdfUseCase(processor, ioDispatcher)
+    private val exportPdfUseCase = ExportPdfUseCase(processor, ioDispatcher)
     private val thumbnailProvider = ThumbnailProvider(application)
     val billing = BillingManager(application)
     
