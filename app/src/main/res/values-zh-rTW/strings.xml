@@ -36,6 +36,7 @@
     <string name="error_load_failed">載入 PDF 失敗</string>
     <string name="error_append_failed">附加 PDF 失敗</string>
     <string name="error_export_failed">導出頁面失敗</string>
+    <string name="error_save_failed">儲存PDF失敗</string>
     <string name="error_incorrect_password">密碼錯誤</string>
 
     <string name="settings_title">PDF 設置</string>

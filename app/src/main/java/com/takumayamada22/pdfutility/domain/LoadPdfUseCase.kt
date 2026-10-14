@@ -2,22 +2,22 @@ package com.takumayamada22.pdfutility.domain
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runBlocking
 import java.io.InputStream
 
 class LoadPdfUseCase(
     private val processor: PdfProcessor,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    suspend fun load(inputStream: InputStream, password: String? = null): Int = withContext(ioDispatcher) {
+    fun load(inputStream: InputStream, password: String? = null): Int = runBlocking(ioDispatcher) {
         processor.load(inputStream, password)
     }
 
-    suspend fun append(inputStream: InputStream, password: String? = null): Int = withContext(ioDispatcher) {
+    fun append(inputStream: InputStream, password: String? = null): Int = runBlocking(ioDispatcher) {
         processor.append(inputStream, password)
     }
 
-    suspend fun getMetadata(): Map<String, String> = withContext(ioDispatcher) {
+    fun getMetadata(): Map<String, String> = runBlocking(ioDispatcher) {
         processor.getMetadata()
     }
 }

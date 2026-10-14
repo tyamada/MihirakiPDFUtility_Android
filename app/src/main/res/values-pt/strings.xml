@@ -36,6 +36,7 @@
     <string name="error_load_failed">Falha ao carregar o PDF</string>
     <string name="error_append_failed">Falha ao adicionar o PDF</string>
     <string name="error_export_failed">Falha ao exportar páginas</string>
+    <string name="error_save_failed">Falha ao salvar o PDF</string>
     <string name="error_incorrect_password">Senha incorreta</string>
 
     <string name="settings_title">Configurações de PDF</string>

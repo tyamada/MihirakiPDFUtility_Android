@@ -36,6 +36,7 @@
     <string name="error_load_failed">PDF konnte nicht geladen werden</string>
     <string name="error_append_failed">PDF konnte nicht hinzugefügt werden</string>
     <string name="error_export_failed">Seiten konnten nicht exportiert werden</string>
+    <string name="error_save_failed">Fehler beim Speichern der PDF</string>
     <string name="error_incorrect_password">Falsches Passwort</string>
 
     <string name="settings_title">PDF-Einstellungen</string>
