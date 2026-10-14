@@ -209,13 +209,35 @@ data class PdfUiState(
 
 class PdfViewModel(
     application: Application,
-    ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val loadPdfUseCase: LoadPdfUseCase = LoadPdfUseCase(PdfProcessor()),
+    private val exportPdfUseCase: ExportPdfUseCase = ExportPdfUseCase(PdfProcessor()),
+    private val thumbnailProvider: ThumbnailProvider = ThumbnailProvider(application),
+    val billing: BillingManager = BillingManager(application)
 ) : AndroidViewModel(application) {
-    private val processor = PdfProcessor()
-    private val loadPdfUseCase = LoadPdfUseCase(processor, ioDispatcher)
-    private val exportPdfUseCase = ExportPdfUseCase(processor, ioDispatcher)
-    private val thumbnailProvider = ThumbnailProvider(application)
-    val billing = BillingManager(application)
+    companion object {
+        fun provideFactory(
+            application: Application,
+            loadPdfUseCase: LoadPdfUseCase = LoadPdfUseCase(PdfProcessor()),
+            exportPdfUseCase: ExportPdfUseCase = ExportPdfUseCase(PdfProcessor()),
+            thumbnailProvider: ThumbnailProvider = ThumbnailProvider(application),
+            billing: BillingManager = BillingManager(application)
+        ): androidx.lifecycle.ViewModelProvider.Factory = object : androidx.lifecycle.ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
+                if (modelClass.isAssignableFrom(PdfViewModel::class.java)) {
+                    return PdfViewModel(
+                        application,
+                        loadPdfUseCase,
+                        exportPdfUseCase,
+                        thumbnailProvider,
+                        billing
+                    ) as T
+                }
+                throw IllegalArgumentException("Unknown ViewModel class")
+            }
+        }
+    }
+
     
     private val metrics = application.resources.displayMetrics
     private val minDimensionPx = minOf(metrics.widthPixels, metrics.heightPixels)
@@ -1043,7 +1065,6 @@ class PdfViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        processor.close()
         thumbnailProvider.close()
         billing.close()
     }
