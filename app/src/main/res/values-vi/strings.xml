@@ -36,6 +36,7 @@
     <string name="error_load_failed">Không thể tải PDF</string>
     <string name="error_append_failed">Không thể thêm PDF</string>
     <string name="error_export_failed">Không thể lưu các trang</string>
+    <string name="error_save_failed">Không thể lưu PDF</string>
     <string name="error_incorrect_password">Mật khẩu không đúng</string>
 
     <string name="settings_title">Cài đặt PDF</string>

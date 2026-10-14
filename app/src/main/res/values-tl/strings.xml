@@ -36,6 +36,7 @@
     <string name="error_load_failed">Bigo sa pag-load ng PDF</string>
     <string name="error_append_failed">Bigo sa pagdagdag ng PDF</string>
     <string name="error_export_failed">Bigo sa pag-export ng mga pahina</string>
+    <string name="error_save_failed">Nabigong i-save ang PDF</string>
     <string name="error_incorrect_password">Maling password</string>
 
     <string name="settings_title">Mga Setting ng PDF</string>

@@ -36,6 +36,7 @@
     <string name="error_load_failed">Gagal memuat PDF</string>
     <string name="error_append_failed">Gagal menambah PDF</string>
     <string name="error_export_failed">Gagal mengekspor halaman</string>
+    <string name="error_save_failed">Gagal menyimpan PDF</string>
     <string name="error_incorrect_password">Sandi salah</string>
 
     <string name="settings_title">Pengaturan PDF</string>

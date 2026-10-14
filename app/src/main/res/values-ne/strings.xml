@@ -36,6 +36,7 @@
     <string name="error_load_failed">PDF लोड गर्न असफल</string>
     <string name="error_append_failed">PDF थप्न असफल</string>
     <string name="error_export_failed">पृष्ठहरू निर्यात गर्न असफल</string>
+    <string name="error_save_failed">PDF बचत गर्न असफल भयो</string>
     <string name="error_incorrect_password">गलत पासवर्ड</string>
 
     <string name="settings_title">PDF सेटिङहरू</string>

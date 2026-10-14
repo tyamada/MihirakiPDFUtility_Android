@@ -36,6 +36,7 @@
     <string name="error_load_failed">PDF 로드 실패</string>
     <string name="error_append_failed">PDF 추가 실패</string>
     <string name="error_export_failed">페이지 내보내기 실패</string>
+    <string name="error_save_failed">PDF 저장 실패</string>
     <string name="error_incorrect_password">비밀번호가 틀렸습니다</string>
 
     <string name="settings_title">PDF 설정</string>
