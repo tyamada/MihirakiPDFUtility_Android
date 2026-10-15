@@ -57,7 +57,9 @@ data class PdfDocumentState(
     val pdfVersion: String = "",
     val pageLayout: String = "SinglePage",
     val scrollDirection: String = "L2R",
-    val showCover: Boolean = false
+    val showCover: Boolean = false,
+    val isSamplePdf: Boolean = false,
+    val ccByAcknowledged: Boolean = false
 )
 
 data class PdfSelectionState(
@@ -79,7 +81,8 @@ data class PdfDialogState(
     val showPasswordDialog: Boolean = false,
     val pendingUri: Uri? = null,
     val showSettingsMenu: Boolean = false,
-    val activeSettingsDialog: SettingsDialogType? = null
+    val activeSettingsDialog: SettingsDialogType? = null,
+    val showCcByDialog: Boolean = false
 )
 
 data class PdfHistoryState(
@@ -110,6 +113,8 @@ data class PdfUiState(
     val pageLayout: String get() = document.pageLayout
     val scrollDirection: String get() = document.scrollDirection
     val showCover: Boolean get() = document.showCover
+    val isSamplePdf: Boolean get() = document.isSamplePdf
+    val ccByAcknowledged: Boolean get() = document.ccByAcknowledged
 
     val selectedIndices: Set<Int> get() = selection.selectedIndices
     val previewPageIndex: Int? get() = selection.previewPageIndex
@@ -126,6 +131,7 @@ data class PdfUiState(
     val pendingUri: Uri? get() = dialog.pendingUri
     val showSettingsMenu: Boolean get() = dialog.showSettingsMenu
     val activeSettingsDialog: SettingsDialogType? get() = dialog.activeSettingsDialog
+    val showCcByDialog: Boolean get() = dialog.showCcByDialog
 
     val canUndo: Boolean get() = history.canUndo
     val canRedo: Boolean get() = history.canRedo
@@ -146,6 +152,8 @@ data class PdfUiState(
         pageLayout: String? = null,
         scrollDirection: String? = null,
         showCover: Boolean? = null,
+        isSamplePdf: Boolean? = null,
+        ccByAcknowledged: Boolean? = null,
         selectedIndices: Set<Int>? = null,
         previewPageIndex: Any? = Unspecified,
         title: String? = null,
@@ -159,6 +167,7 @@ data class PdfUiState(
         pendingUri: Any? = Unspecified,
         showSettingsMenu: Boolean? = null,
         activeSettingsDialog: Any? = Unspecified,
+        showCcByDialog: Boolean? = null,
         canUndo: Boolean? = null,
         canRedo: Boolean? = null,
         isMihirakiView: Boolean? = null,
@@ -175,7 +184,9 @@ data class PdfUiState(
                 pdfVersion = pdfVersion ?: document.pdfVersion,
                 pageLayout = pageLayout ?: document.pageLayout,
                 scrollDirection = scrollDirection ?: document.scrollDirection,
-                showCover = showCover ?: document.showCover
+                showCover = showCover ?: document.showCover,
+                isSamplePdf = isSamplePdf ?: document.isSamplePdf,
+                ccByAcknowledged = ccByAcknowledged ?: document.ccByAcknowledged
             ),
             selection = selection.copy(
                 selectedIndices = selectedIndices ?: selection.selectedIndices,
@@ -194,7 +205,8 @@ data class PdfUiState(
                 showPasswordDialog = showPasswordDialog ?: dialog.showPasswordDialog,
                 pendingUri = if (pendingUri === Unspecified) dialog.pendingUri else pendingUri as Uri?,
                 showSettingsMenu = showSettingsMenu ?: dialog.showSettingsMenu,
-                activeSettingsDialog = if (activeSettingsDialog === Unspecified) dialog.activeSettingsDialog else activeSettingsDialog as SettingsDialogType?
+                activeSettingsDialog = if (activeSettingsDialog === Unspecified) dialog.activeSettingsDialog else activeSettingsDialog as SettingsDialogType?,
+                showCcByDialog = showCcByDialog ?: dialog.showCcByDialog
             ),
             history = history.copy(
                 canUndo = canUndo ?: history.canUndo,
@@ -279,9 +291,36 @@ class PdfViewModel(
         }
     }
 
+    private var pendingAction: (() -> Unit)? = null
+
+    fun openSamplePdf() {
+        loadSamplePdf()
+    }
+
+    fun dismissCcByDialog() {
+        pendingAction = null
+        _uiState.value = _uiState.value.copy(showCcByDialog = false)
+    }
+
+    fun confirmCcByDialog() {
+        _uiState.value = _uiState.value.copy(showCcByDialog = false, ccByAcknowledged = true)
+        val action = pendingAction
+        pendingAction = null
+        action?.invoke()
+    }
+
+    private fun withSampleCheck(action: () -> Unit) {
+        if (_uiState.value.isSamplePdf && !_uiState.value.ccByAcknowledged) {
+            pendingAction = action
+            _uiState.value = _uiState.value.copy(showCcByDialog = true)
+        } else {
+            action()
+        }
+    }
+
     private fun loadSamplePdf() {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true, fileName = "sample.pdf")
+            _uiState.value = _uiState.value.copy(isLoading = true, fileName = "sample.pdf", isSamplePdf = true, ccByAcknowledged = false)
             val count = withContext(Dispatchers.IO) {
                 try {
                     val inputStream = getApplication<Application>().assets.open("sample.pdf")
@@ -313,7 +352,9 @@ class PdfViewModel(
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     pages = pages,
-                    fileName = "sample.pdf"
+                    fileName = "sample.pdf",
+                    isSamplePdf = true,
+                    ccByAcknowledged = false
                 )
             } else {
                 _uiState.value = _uiState.value.copy(isLoading = false)
@@ -495,7 +536,9 @@ class PdfViewModel(
                             pageLayout = metadata["layout"] ?: "SinglePage",
                             scrollDirection = metadata["direction"] ?: "L2R",
                             showCover = metadata["layout"]?.let { it == "TwoColumnRight" || it == "TwoPageRight" } ?: false,
-                            savePassword = ""
+                            savePassword = "",
+                            isSamplePdf = false,
+                            ccByAcknowledged = false
                         )
                         AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: ${pageCount}")
                         // Clear history on new load
@@ -634,23 +677,25 @@ class PdfViewModel(
         scrollDirection: String,
         showCover: Boolean
     ) {
-        val verNum = pdfVersion.toFloatOrNull() ?: 1.4f
-        val adjustedVersion = if ((pageLayout == "TwoPageLeft" || pageLayout == "TwoPageRight") && verNum < 1.5f) {
-            "1.5"
-        } else {
-            pdfVersion
+        withSampleCheck {
+            val verNum = pdfVersion.toFloatOrNull() ?: 1.4f
+            val adjustedVersion = if ((pageLayout == "TwoPageLeft" || pageLayout == "TwoPageRight") && verNum < 1.5f) {
+                "1.5"
+            } else {
+                pdfVersion
+            }
+            _uiState.value = _uiState.value.copy(
+                title = title,
+                author = author,
+                subject = subject,
+                keywords = keywords,
+                pdfVersion = adjustedVersion,
+                pageLayout = pageLayout,
+                scrollDirection = scrollDirection,
+                showCover = showCover,
+                isDirty = true
+            )
         }
-        _uiState.value = _uiState.value.copy(
-            title = title,
-            author = author,
-            subject = subject,
-            keywords = keywords,
-            pdfVersion = adjustedVersion,
-            pageLayout = pageLayout,
-            scrollDirection = scrollDirection,
-            showCover = showCover,
-            isDirty = true
-        )
     }
 
     fun setRightBinding() {
@@ -686,85 +731,93 @@ class PdfViewModel(
     }
 
     fun rotateSelected(degrees: Int) {
-        saveToHistory()
-        AppLogger.log(getApplication(), "INFO", "Rotated selected pages by $degrees degrees")
-        val currentPages = _uiState.value.pages.toMutableList()
-        val selected = _uiState.value.selectedIndices
-        
-        selected.forEach { index ->
-            if (index in currentPages.indices) {
-                val page = currentPages[index]
-                val newRotation = (page.rotation + degrees) % 360
-                val rotatedBitmap = page.thumbnail?.let { rotateBitmap(it, degrees.toFloat()) }
-                currentPages[index] = page.copy(rotation = newRotation, thumbnail = rotatedBitmap)
+        withSampleCheck {
+            saveToHistory()
+            AppLogger.log(getApplication(), "INFO", "Rotated selected pages by $degrees degrees")
+            val currentPages = _uiState.value.pages.toMutableList()
+            val selected = _uiState.value.selectedIndices
+            
+            selected.forEach { index ->
+                if (index in currentPages.indices) {
+                    val page = currentPages[index]
+                    val newRotation = (page.rotation + degrees) % 360
+                    val rotatedBitmap = page.thumbnail?.let { rotateBitmap(it, degrees.toFloat()) }
+                    currentPages[index] = page.copy(rotation = newRotation, thumbnail = rotatedBitmap)
+                }
             }
+            
+            _uiState.value = _uiState.value.copy(pages = currentPages, isDirty = true)
         }
-        
-        _uiState.value = _uiState.value.copy(pages = currentPages, isDirty = true)
     }
 
     fun deleteSelected() {
-        saveToHistory()
-        AppLogger.log(getApplication(), "INFO", "Deleted selected pages")
-        val currentPages = _uiState.value.pages.toMutableList()
-        val selected = _uiState.value.selectedIndices.sortedDescending()
-        
-        selected.forEach { index ->
-            if (index in currentPages.indices) {
-                currentPages.removeAt(index)
+        withSampleCheck {
+            saveToHistory()
+            AppLogger.log(getApplication(), "INFO", "Deleted selected pages")
+            val currentPages = _uiState.value.pages.toMutableList()
+            val selected = _uiState.value.selectedIndices.sortedDescending()
+            
+            selected.forEach { index ->
+                if (index in currentPages.indices) {
+                    currentPages.removeAt(index)
+                }
             }
+            
+            _uiState.value = _uiState.value.copy(
+                pages = currentPages, 
+                isDirty = true, 
+                selectedIndices = emptySet()
+            )
         }
-        
-        _uiState.value = _uiState.value.copy(
-            pages = currentPages, 
-            isDirty = true, 
-            selectedIndices = emptySet()
-        )
     }
 
     fun moveSelected(direction: Int) {
-        saveToHistory()
-        val currentPages = _uiState.value.pages.toMutableList()
-        val selected = _uiState.value.selectedIndices.toSet()
-        val newSelected = mutableSetOf<Int>()
+        withSampleCheck {
+            saveToHistory()
+            val currentPages = _uiState.value.pages.toMutableList()
+            val selected = _uiState.value.selectedIndices.toSet()
+            val newSelected = mutableSetOf<Int>()
 
-        val indices = if (direction > 0) currentPages.indices.reversed() else currentPages.indices
-        
-        for (i in indices) {
-            val target = i + direction
-            if (selected.contains(i) && target in currentPages.indices && !selected.contains(target)) {
-                val temp = currentPages[i]
-                currentPages[i] = currentPages[target]
-                currentPages[target] = temp
-                newSelected.add(target)
-            } else if (selected.contains(i)) {
-                newSelected.add(i)
+            val indices = if (direction > 0) currentPages.indices.reversed() else currentPages.indices
+            
+            for (i in indices) {
+                val target = i + direction
+                if (selected.contains(i) && target in currentPages.indices && !selected.contains(target)) {
+                    val temp = currentPages[i]
+                    currentPages[i] = currentPages[target]
+                    currentPages[target] = temp
+                    newSelected.add(target)
+                } else if (selected.contains(i)) {
+                    newSelected.add(i)
+                }
             }
+            
+            _uiState.value = _uiState.value.copy(
+                pages = currentPages,
+                isDirty = true,
+                selectedIndices = newSelected
+            )
         }
-        
-        _uiState.value = _uiState.value.copy(
-            pages = currentPages,
-            isDirty = true,
-            selectedIndices = newSelected
-        )
     }
 
     fun insertBlankAfterSelected() {
-        saveToHistory()
-        val currentPages = _uiState.value.pages.toMutableList()
-        val selected = _uiState.value.selectedIndices.sortedDescending()
-        
-        selected.forEach { index ->
-            if (index in currentPages.indices) {
-                currentPages.add(index + 1, PageState(
-                    thumbnail = null,
-                    originalIndex = -1,
-                    isBlank = true
-                ))
+        withSampleCheck {
+            saveToHistory()
+            val currentPages = _uiState.value.pages.toMutableList()
+            val selected = _uiState.value.selectedIndices.sortedDescending()
+            
+            selected.forEach { index ->
+                if (index in currentPages.indices) {
+                    currentPages.add(index + 1, PageState(
+                        thumbnail = null,
+                        originalIndex = -1,
+                        isBlank = true
+                    ))
+                }
             }
+            
+            _uiState.value = _uiState.value.copy(pages = currentPages, isDirty = true)
         }
-        
-        _uiState.value = _uiState.value.copy(pages = currentPages, isDirty = true)
     }
 
     fun toggleSelection(index: Int) {
@@ -798,77 +851,81 @@ class PdfViewModel(
     }
 
     fun cropSelectedPages(percent: Float) {
-        saveToHistory()
-        AppLogger.log(getApplication(), "INFO", "Cropped selected pages with margin: $percent")
-        val currentPages = _uiState.value.pages.toMutableList()
-        val selected = _uiState.value.selectedIndices
-        
-        selected.forEach { index ->
-            if (index in currentPages.indices) {
-                currentPages[index] = currentPages[index].copy(cropMargin = percent)
+        withSampleCheck {
+            saveToHistory()
+            AppLogger.log(getApplication(), "INFO", "Cropped selected pages with margin: $percent")
+            val currentPages = _uiState.value.pages.toMutableList()
+            val selected = _uiState.value.selectedIndices
+            
+            selected.forEach { index ->
+                if (index in currentPages.indices) {
+                    currentPages[index] = currentPages[index].copy(cropMargin = percent)
+                }
             }
+            
+            _uiState.value = _uiState.value.copy(pages = currentPages, isDirty = true)
         }
-        
-        _uiState.value = _uiState.value.copy(pages = currentPages, isDirty = true)
     }
 
     fun splitSelectedPages(direction: SplitDirection = SplitDirection.VERTICAL) {
-        saveToHistory()
-        AppLogger.log(getApplication(), "INFO", "Split selected pages with direction: $direction")
-        val currentPages = _uiState.value.pages.toMutableList()
-        val selected = _uiState.value.selectedIndices.sortedDescending()
-        val isRtl = _uiState.value.isRtl
-        
-        selected.forEach { index ->
-            if (index in currentPages.indices) {
-                val page = currentPages[index]
-                if (!page.isBlank && !page.isSplit) {
-                    val thumb = page.thumbnail
-                    if (thumb != null) {
-                        val w = thumb.width
-                        val h = thumb.height
-                        
-                        val (part1Thumb, part2Thumb) = if (direction == SplitDirection.VERTICAL) {
-                            Bitmap.createBitmap(thumb, 0, 0, w / 2, h) to
-                            Bitmap.createBitmap(thumb, w / 2, 0, w / 2, h)
-                        } else {
-                            Bitmap.createBitmap(thumb, 0, 0, w, h / 2) to
-                            Bitmap.createBitmap(thumb, 0, h / 2, w, h / 2)
-                        }
-                        
-                        val page1 = page.copy(
-                            id = UUID.randomUUID().toString(),
-                            thumbnail = part1Thumb,
-                            isSplit = true,
-                            splitPart = 0,
-                            splitDirection = direction
-                        )
-                        val page2 = page.copy(
-                            id = UUID.randomUUID().toString(),
-                            thumbnail = part2Thumb,
-                            isSplit = true,
-                            splitPart = 1,
-                            splitDirection = direction
-                        )
-                        
-                        currentPages.removeAt(index)
-                        if (direction == SplitDirection.VERTICAL && isRtl) {
-                            currentPages.add(index, page2)
-                            currentPages.add(index + 1, page1)
-                        } else {
-                            currentPages.add(index, page1)
-                            currentPages.add(index + 1, page2)
+        withSampleCheck {
+            saveToHistory()
+            AppLogger.log(getApplication(), "INFO", "Split selected pages with direction: $direction")
+            val currentPages = _uiState.value.pages.toMutableList()
+            val selected = _uiState.value.selectedIndices.sortedDescending()
+            val isRtl = _uiState.value.isRtl
+            
+            selected.forEach { index ->
+                if (index in currentPages.indices) {
+                    val page = currentPages[index]
+                    if (!page.isBlank && !page.isSplit) {
+                        val thumb = page.thumbnail
+                        if (thumb != null) {
+                            val w = thumb.width
+                            val h = thumb.height
+                            
+                            val (part1Thumb, part2Thumb) = if (direction == SplitDirection.VERTICAL) {
+                                Bitmap.createBitmap(thumb, 0, 0, w / 2, h) to
+                                Bitmap.createBitmap(thumb, w / 2, 0, w / 2, h)
+                            } else {
+                                Bitmap.createBitmap(thumb, 0, 0, w, h / 2) to
+                                Bitmap.createBitmap(thumb, 0, h / 2, w, h / 2)
+                            }
+                            
+                            val page1 = page.copy(
+                                id = UUID.randomUUID().toString(),
+                                thumbnail = part1Thumb,
+                                isSplit = true,
+                                splitPart = 0,
+                                splitDirection = direction
+                            )
+                            val page2 = page.copy(
+                                id = UUID.randomUUID().toString(),
+                                thumbnail = part2Thumb,
+                                isSplit = true,
+                                splitPart = 1,
+                                splitDirection = direction
+                            )
+                            
+                            currentPages.removeAt(index)
+                            if (direction == SplitDirection.VERTICAL && isRtl) {
+                                currentPages.add(index, page2)
+                                currentPages.add(index + 1, page1)
+                            } else {
+                                currentPages.add(index, page1)
+                                currentPages.add(index + 1, page2)
+                            }
                         }
                     }
                 }
             }
+            
+            _uiState.value = _uiState.value.copy(
+                pages = currentPages,
+                isDirty = true,
+                selectedIndices = emptySet()
+            )
         }
-        
-        _uiState.value = _uiState.value.copy(
-            pages = currentPages,
-            isDirty = true,
-            selectedIndices = emptySet()
-        )
     }
 
     fun toggleRtl() {
@@ -876,29 +933,31 @@ class PdfViewModel(
     }
 
     fun movePage(fromIndex: Int, toIndex: Int) {
-        if (fromIndex !in _uiState.value.pages.indices || toIndex !in _uiState.value.pages.indices) return
-        if (fromIndex == toIndex) return
+        withSampleCheck {
+            if (fromIndex !in _uiState.value.pages.indices || toIndex !in _uiState.value.pages.indices) return@withSampleCheck
+            if (fromIndex == toIndex) return@withSampleCheck
 
-        saveToHistory()
-        val currentPages = _uiState.value.pages.toMutableList()
-        val page = currentPages.removeAt(fromIndex)
-        currentPages.add(toIndex, page)
-        
-        val newSelected = mutableSetOf<Int>()
-        val selectedIds = _uiState.value.selectedIndices.mapNotNull { i -> 
-            _uiState.value.pages.getOrNull(i)?.id 
-        }.toSet()
-        
-        currentPages.forEachIndexed { index, p ->
-            if (selectedIds.contains(p.id)) newSelected.add(index)
+            saveToHistory()
+            val currentPages = _uiState.value.pages.toMutableList()
+            val page = currentPages.removeAt(fromIndex)
+            currentPages.add(toIndex, page)
+            
+            val newSelected = mutableSetOf<Int>()
+            val selectedIds = _uiState.value.selectedIndices.mapNotNull { i -> 
+                _uiState.value.pages.getOrNull(i)?.id 
+            }.toSet()
+            
+            currentPages.forEachIndexed { index, p ->
+                if (selectedIds.contains(p.id)) newSelected.add(index)
+            }
+
+            _uiState.value = _uiState.value.copy(
+                pages = currentPages,
+                isDirty = true,
+                selectedIndices = newSelected
+            )
+            updateHistoryFlags()
         }
-
-        _uiState.value = _uiState.value.copy(
-            pages = currentPages,
-            isDirty = true,
-            selectedIndices = newSelected
-        )
-        updateHistoryFlags()
     }
 
     internal fun setPagesForTest(pages: List<PageState>, selected: Set<Int> = emptySet()) {
@@ -906,77 +965,85 @@ class PdfViewModel(
     }
 
     fun moveSelectedPages(fromIndex: Int, toIndex: Int) {
-        val currentState = _uiState.value
-        val selectedIndices = currentState.selectedIndices.sorted()
-        if (selectedIndices.isEmpty() || fromIndex !in currentState.pages.indices || toIndex !in currentState.pages.indices) {
-            movePage(fromIndex, toIndex)
-            return
-        }
-
-        if (!selectedIndices.contains(fromIndex) || selectedIndices.size <= 1) {
-            movePage(fromIndex, toIndex)
-            return
-        }
-
-        saveToHistory()
-        val oldPages = currentState.pages
-        val selectedItems = selectedIndices.map { oldPages[it] }
-        val selectedIds = selectedItems.map { it.id }.toSet()
-
-        val remainingPages = oldPages.filterNot { selectedIds.contains(it.id) }.toMutableList()
-
-        val targetPage = oldPages.getOrNull(toIndex)
-        var insertPos = 0
-        if (targetPage != null && !selectedIds.contains(targetPage.id)) {
-            val foundIdx = remainingPages.indexOfFirst { it.id == targetPage.id }
-            if (foundIdx != -1) {
-                insertPos = if (toIndex > fromIndex) foundIdx + 1 else foundIdx
-            } else {
-                insertPos = remainingPages.size
+        withSampleCheck {
+            val currentState = _uiState.value
+            val selectedIndices = currentState.selectedIndices.sorted()
+            if (selectedIndices.isEmpty() || fromIndex !in currentState.pages.indices || toIndex !in currentState.pages.indices) {
+                movePage(fromIndex, toIndex)
+                return@withSampleCheck
             }
-        } else {
-            var foundIdx = -1
-            for (i in toIndex until oldPages.size) {
-                val p = oldPages[i]
-                if (!selectedIds.contains(p.id)) {
-                    foundIdx = remainingPages.indexOfFirst { it.id == p.id }
-                    if (foundIdx != -1) break
+
+            if (!selectedIndices.contains(fromIndex) || selectedIndices.size <= 1) {
+                movePage(fromIndex, toIndex)
+                return@withSampleCheck
+            }
+
+            saveToHistory()
+            val oldPages = currentState.pages
+            val selectedItems = selectedIndices.map { oldPages[it] }
+            val selectedIds = selectedItems.map { it.id }.toSet()
+
+            val remainingPages = oldPages.filterNot { selectedIds.contains(it.id) }.toMutableList()
+
+            val targetPage = oldPages.getOrNull(toIndex)
+            var insertPos = 0
+            if (targetPage != null && !selectedIds.contains(targetPage.id)) {
+                val foundIdx = remainingPages.indexOfFirst { it.id == targetPage.id }
+                if (foundIdx != -1) {
+                    insertPos = if (toIndex > fromIndex) foundIdx + 1 else foundIdx
+                } else {
+                    insertPos = remainingPages.size
                 }
-            }
-            if (foundIdx == -1) {
-                for (i in toIndex downTo 0) {
+            } else {
+                var foundIdx = -1
+                for (i in toIndex until oldPages.size) {
                     val p = oldPages[i]
                     if (!selectedIds.contains(p.id)) {
                         foundIdx = remainingPages.indexOfFirst { it.id == p.id }
                         if (foundIdx != -1) break
                     }
                 }
+                if (foundIdx == -1) {
+                    for (i in toIndex downTo 0) {
+                        val p = oldPages[i]
+                        if (!selectedIds.contains(p.id)) {
+                            foundIdx = remainingPages.indexOfFirst { it.id == p.id }
+                            if (foundIdx != -1) break
+                        }
+                    }
+                }
+                insertPos = if (foundIdx != -1) {
+                    if (toIndex > fromIndex) foundIdx + 1 else foundIdx
+                } else {
+                    remainingPages.size
+                }
             }
-            insertPos = if (foundIdx != -1) {
-                if (toIndex > fromIndex) foundIdx + 1 else foundIdx
-            } else {
-                remainingPages.size
+
+            remainingPages.addAll(insertPos.coerceIn(0, remainingPages.size), selectedItems)
+
+            val newSelected = mutableSetOf<Int>()
+            remainingPages.forEachIndexed { index, page ->
+                if (selectedIds.contains(page.id)) {
+                    newSelected.add(index)
+                }
             }
+
+            _uiState.value = currentState.copy(
+                pages = remainingPages,
+                isDirty = true,
+                selectedIndices = newSelected
+            )
+            updateHistoryFlags()
         }
-
-        remainingPages.addAll(insertPos.coerceIn(0, remainingPages.size), selectedItems)
-
-        val newSelected = mutableSetOf<Int>()
-        remainingPages.forEachIndexed { index, page ->
-            if (selectedIds.contains(page.id)) {
-                newSelected.add(index)
-            }
-        }
-
-        _uiState.value = currentState.copy(
-            pages = remainingPages,
-            isDirty = true,
-            selectedIndices = newSelected
-        )
-        updateHistoryFlags()
     }
 
     fun savePdf(uri: Uri, password: String? = null) {
+        withSampleCheck {
+            savePdfInternal(uri, password)
+        }
+    }
+
+    private fun savePdfInternal(uri: Uri, password: String? = null) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
             withContext(Dispatchers.IO) {
@@ -1009,6 +1076,12 @@ class PdfViewModel(
     }
 
     fun exportSelected(uri: Uri, password: String? = null) {
+        withSampleCheck {
+            exportSelectedInternal(uri, password)
+        }
+    }
+
+    private fun exportSelectedInternal(uri: Uri, password: String? = null) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
             withContext(Dispatchers.IO) {

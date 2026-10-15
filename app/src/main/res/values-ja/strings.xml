@@ -149,4 +149,8 @@
     <string name="promo_code_help_title">プロモーションコードの利用方法</string>
     <string name="promo_code_help_message">プロモーションコードは、「応援」画面を開きいずれかの購入ボタンをタップ後、Google Play決済画面のお支払い方法メニューから「コードの利用」を選択して入力してください。</string>
     <string name="go_to_support">応援画面へ移動</string>
+    <string name="sample_pdf">サンプルPDF</string>
+    <string name="cc_by_dialog_title">サンプルPDFのライセンス (CC BY 4.0)</string>
+    <string name="cc_by_dialog_text">本作品のサンプルPDFを変更・保存する前に、Creative Commons 表示 4.0 国際（CC BY 4.0）のご確認をお願いします。\n\n• 作者名: こまいろ日和\n• ライセンス: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• 条件: 再利用・変更・保存時は、作品名、作者名、ライセンスへのリンクを表示し、変更した場合はその旨を明示してください。\n\n※ サンプルPDFの変更（編集）や保存に制限はありません。自由に編集・保存していただけます。</string>
+    <string name="cc_by_dialog_confirm">同意して進める</string>
 </resources>

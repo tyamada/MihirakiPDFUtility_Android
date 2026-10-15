@@ -12,6 +12,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.ui.components.DeleteConfirmationDialog
 import com.takumayamada22.pdfutility.ui.components.PasswordDialog
+import com.takumayamada22.pdfutility.ui.components.CcByExplanationDialog
 import com.takumayamada22.pdfutility.ui.components.PdfPageGrid
 import com.takumayamada22.pdfutility.ui.components.PdfPagePreview
 import com.takumayamada22.pdfutility.ui.components.PdfSettingsDialog
@@ -120,6 +121,7 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                 uiState = uiState,
                 viewModel = viewModel,
                 onOpen = { openLauncher.launch("application/pdf") },
+                onOpenSamplePdf = { viewModel.openSamplePdf() },
                 onAppend = { appendLauncher.launch("application/pdf") },
                 onSave = { saveLauncher.launch("edited_${uiState.fileName ?: "document"}.pdf") },
                 onExport = { exportLauncher.launch("selected_pages.pdf") },
@@ -144,6 +146,12 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
     PasswordDialog(viewModel = viewModel, uiState = uiState)
     
     PdfSettingsDialog(viewModel = viewModel, uiState = uiState)
+
+    CcByExplanationDialog(
+        show = uiState.showCcByDialog,
+        onDismiss = { viewModel.dismissCcByDialog() },
+        onConfirm = { viewModel.confirmCcByDialog() }
+    )
 
     SplitDialog(
         show = showSplitDialog,
