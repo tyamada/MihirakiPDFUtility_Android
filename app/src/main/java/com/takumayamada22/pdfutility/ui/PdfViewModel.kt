@@ -45,7 +45,7 @@ data class PageState(
 enum class ThumbnailSize { S, M, L }
 
 enum class SettingsDialogType {
-    PROPERTY, PASSWORD, OPTIONS, VERSION, SUPPORT, HELP
+    PROPERTY, PASSWORD, OPTIONS, VERSION, SUPPORT, HELP, DIAGNOSTICS
 }
 
 data class PdfDocumentState(
@@ -687,6 +687,7 @@ class PdfViewModel(
 
     fun rotateSelected(degrees: Int) {
         saveToHistory()
+        AppLogger.log(getApplication(), "INFO", "Rotated selected pages by $degrees degrees")
         val currentPages = _uiState.value.pages.toMutableList()
         val selected = _uiState.value.selectedIndices
         
@@ -704,6 +705,7 @@ class PdfViewModel(
 
     fun deleteSelected() {
         saveToHistory()
+        AppLogger.log(getApplication(), "INFO", "Deleted selected pages")
         val currentPages = _uiState.value.pages.toMutableList()
         val selected = _uiState.value.selectedIndices.sortedDescending()
         
@@ -797,6 +799,7 @@ class PdfViewModel(
 
     fun cropSelectedPages(percent: Float) {
         saveToHistory()
+        AppLogger.log(getApplication(), "INFO", "Cropped selected pages with margin: $percent")
         val currentPages = _uiState.value.pages.toMutableList()
         val selected = _uiState.value.selectedIndices
         
@@ -811,6 +814,7 @@ class PdfViewModel(
 
     fun splitSelectedPages(direction: SplitDirection = SplitDirection.VERTICAL) {
         saveToHistory()
+        AppLogger.log(getApplication(), "INFO", "Split selected pages with direction: $direction")
         val currentPages = _uiState.value.pages.toMutableList()
         val selected = _uiState.value.selectedIndices.sortedDescending()
         val isRtl = _uiState.value.isRtl

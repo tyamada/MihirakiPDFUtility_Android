@@ -40,6 +40,7 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         SettingsDialogType.VERSION -> PdfVersionDialog(viewModel)
         SettingsDialogType.SUPPORT -> PdfSupportDialog(viewModel)
         SettingsDialogType.HELP -> PdfHelpDialog(viewModel)
+        SettingsDialogType.DIAGNOSTICS -> PdfDiagnosticsDialog(viewModel)
         null -> {}
     }
 }
@@ -405,158 +406,228 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
     val packageInfo = remember {
         context.packageManager.getPackageInfo(context.packageName, 0)
     }
-    var testResults by remember { mutableStateOf<String?>(null) }
 
-    AlertDialog(
-        onDismissRequest = { viewModel.closeSettingsDialog() },
-        title = { Text(stringResource(R.string.settings_version)) },
-        text = {
+    androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .imePadding(),
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = AlertDialogDefaults.TonalElevation
+        ) {
             Column(
                 modifier = Modifier
-                    .verticalScroll(rememberScrollState())
-                    .heightIn(max = 450.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .padding(24.dp)
+                    .fillMaxWidth()
             ) {
-                Text(stringResource(R.string.version_app_name), style = MaterialTheme.typography.headlineSmall)
-                Spacer(Modifier.height(8.dp))
-                Text(stringResource(R.string.version_number, packageInfo.versionName ?: "1.0.0"))
-                Text(stringResource(R.string.version_build, if (Build.VERSION.SDK_INT >= 28) packageInfo.longVersionCode.toString() else packageInfo.versionCode.toString()))
-                Spacer(Modifier.height(16.dp))
-                Text(stringResource(R.string.version_copyright), style = MaterialTheme.typography.bodySmall)
-
-                if (purchasedTiers.isNotEmpty()) {
-                    Spacer(Modifier.height(8.dp))
-                    HorizontalDivider(modifier = Modifier.fillMaxWidth())
-                    Spacer(Modifier.height(4.dp))
-                    Text(
-                        stringResource(R.string.help_purchased_items),
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(Modifier.height(4.dp))
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        purchasedTiers.forEach { tier ->
-                            val iconRes = when (tier) {
-                                TipTier.BRONZE -> R.drawable.tip_bronze
-                                TipTier.SILVER -> R.drawable.tip_silver
-                                TipTier.GOLD -> R.drawable.tip_gold
-                            }
-                            Image(
-                                painter = painterResource(iconRes),
-                                contentDescription = tier.name,
-                                modifier = Modifier.size(120.dp)
-                            )
-                        }
-                    }
-                    Spacer(Modifier.height(8.dp))
-                    HorizontalDivider(modifier = Modifier.fillMaxWidth())
-                    Spacer(Modifier.height(4.dp))
-                }
-
-                Spacer(Modifier.height(8.dp))
-                Text(stringResource(R.string.version_license_title), style = MaterialTheme.typography.labelMedium)
                 Text(
-                    text = stringResource(R.string.version_license_text),
-                    style = MaterialTheme.typography.bodySmall,
-                    textAlign = TextAlign.Center
+                    text = stringResource(R.string.settings_version),
+                    style = MaterialTheme.typography.headlineSmall
                 )
-
                 Spacer(Modifier.height(16.dp))
-                Button(onClick = {
-                    val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
-                    val manufacturer = Build.MANUFACTURER
-                    val model = Build.MODEL
-                    val osVersion = Build.VERSION.RELEASE
-                    val sdkInt = Build.VERSION.SDK_INT
 
-                    val resultsBuilder = StringBuilder()
-                    resultsBuilder.append("=== MihirakiPDF Utility Diagnostics ===\n")
-                    resultsBuilder.append(context.getString(R.string.test_timestamp_format, timestamp)).append("\n")
-                    resultsBuilder.append(context.getString(R.string.device_info_format, manufacturer, model, osVersion)).append(" (SDK $sdkInt)\n")
+                Column(
+                    modifier = Modifier
+                        .weight(1f, false)
+                        .verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(stringResource(R.string.version_app_name), style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.version_number, packageInfo.versionName ?: "1.0.0"))
+                    Text(stringResource(R.string.version_build, if (Build.VERSION.SDK_INT >= 28) packageInfo.longVersionCode.toString() else packageInfo.versionCode.toString()))
+                    Spacer(Modifier.height(8.dp))
+                    Text(stringResource(R.string.version_copyright), style = MaterialTheme.typography.bodySmall)
 
-                    try {
-                        val processor = PdfProcessor()
-                        processor.close()
-                        resultsBuilder.append("1. PdfProcessor Init Test: PASSED\n")
-                    } catch (e: Exception) {
-                        resultsBuilder.append("1. PdfProcessor Init Test: FAILED (${e.message})\n")
+                    if (purchasedTiers.isNotEmpty()) {
+                        Spacer(Modifier.height(8.dp))
+                        HorizontalDivider(modifier = Modifier.fillMaxWidth())
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            stringResource(R.string.help_purchased_items),
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(Modifier.height(4.dp))
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            purchasedTiers.forEach { tier ->
+                                val iconRes = when (tier) {
+                                    TipTier.BRONZE -> R.drawable.tip_bronze
+                                    TipTier.SILVER -> R.drawable.tip_silver
+                                    TipTier.GOLD -> R.drawable.tip_gold
+                                }
+                                Image(
+                                    painter = painterResource(iconRes),
+                                    contentDescription = tier.name,
+                                    modifier = Modifier.size(80.dp)
+                                )
+                            }
+                        }
+                        Spacer(Modifier.height(8.dp))
+                        HorizontalDivider(modifier = Modifier.fillMaxWidth())
+                        Spacer(Modifier.height(4.dp))
                     }
 
-                    val runtime = Runtime.getRuntime()
-                    val usedMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
-                    val maxMb = runtime.maxMemory() / (1024 * 1024)
-                    resultsBuilder.append("2. Memory Usage: ${usedMb}MB / max ${maxMb}MB: PASSED\n")
-
-                    val hasSample = try {
-                        context.assets.open("sample.pdf").use { true }
-                    } catch (e: Exception) {
-                        false
-                    }
-                    resultsBuilder.append("3. Sample Asset Check: ${if (hasSample) "PASSED" else "N/A"}\n")
-                    resultsBuilder.append("All diagnostic checks completed successfully.")
-
-                    testResults = resultsBuilder.toString()
-                }) {
-                    Text(stringResource(R.string.run_diagnostics))
+                    Spacer(Modifier.height(8.dp))
+                    Text(stringResource(R.string.version_license_title), style = MaterialTheme.typography.labelMedium)
+                    Text(
+                        text = stringResource(R.string.version_license_text),
+                        style = MaterialTheme.typography.bodySmall,
+                        textAlign = TextAlign.Center
+                    )
                 }
 
-                testResults?.let { results ->
-                    Spacer(Modifier.height(8.dp))
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                Spacer(Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Button(onClick = { viewModel.closeSettingsDialog() }) {
+                        Text(stringResource(R.string.action_close))
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
+    val context = LocalContext.current
+    var testResults by remember { mutableStateOf<String?>(null) }
+    var showLogs by remember { mutableStateOf(false) }
+    var logsText by remember { mutableStateOf("") }
+
+    androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .imePadding(),
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = AlertDialogDefaults.TonalElevation
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(24.dp)
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(R.string.diagnostics_screen_title),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = stringResource(R.string.diagnostics_screen_desc),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(Modifier.height(16.dp))
+
+                Column(
+                    modifier = Modifier
+                        .weight(1f, false)
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Button(
+                        onClick = {
+                            val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+                            val manufacturer = Build.MANUFACTURER
+                            val model = Build.MODEL
+                            val osVersion = Build.VERSION.RELEASE
+                            val sdkInt = Build.VERSION.SDK_INT
+
+                            val resultsBuilder = StringBuilder()
+                            resultsBuilder.append("=== MihirakiPDF Utility Diagnostics ===\n")
+                            resultsBuilder.append(context.getString(R.string.test_timestamp_format, timestamp)).append("\n")
+                            resultsBuilder.append(context.getString(R.string.device_info_format, manufacturer, model, osVersion)).append(" (SDK $sdkInt)\n")
+
+                            try {
+                                val processor = PdfProcessor()
+                                processor.close()
+                                resultsBuilder.append("1. PdfProcessor Init Test: PASSED\n")
+                            } catch (e: Exception) {
+                                resultsBuilder.append("1. PdfProcessor Init Test: FAILED (${e.message})\n")
+                            }
+
+                            val runtime = Runtime.getRuntime()
+                            val usedMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
+                            val maxMb = runtime.maxMemory() / (1024 * 1024)
+                            resultsBuilder.append("2. Memory Usage: ${usedMb}MB / max ${maxMb}MB: PASSED\n")
+
+                            val hasSample = try {
+                                context.assets.open("sample.pdf").use { true }
+                            } catch (e: Exception) {
+                                false
+                            }
+                            resultsBuilder.append("3. Sample Asset Check: ${if (hasSample) "PASSED" else "N/A"}\n")
+                            resultsBuilder.append("All diagnostic checks completed successfully.")
+
+                            testResults = resultsBuilder.toString()
+                            AppLogger.log(context, "INFO", "Diagnostic tests executed successfully.")
+                        },
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Column(
-                            modifier = Modifier.padding(12.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        Text(stringResource(R.string.run_diagnostics))
+                    }
+
+                    testResults?.let { results ->
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
                         ) {
-                            Text(stringResource(R.string.diagnostics_title), style = MaterialTheme.typography.titleSmall)
-                            Text(results, style = MaterialTheme.typography.bodySmall)
-                            Text(
-                                stringResource(R.string.diagnostics_privacy),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.error
-                            )
-                            Button(onClick = {
-                                val sendIntent = Intent().apply {
-                                    action = Intent.ACTION_SEND
-                                    putExtra(Intent.EXTRA_TEXT, results)
-                                    type = "text/plain"
+                            Column(
+                                modifier = Modifier.padding(12.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(results, style = MaterialTheme.typography.bodySmall)
+                                Button(
+                                    onClick = {
+                                        val sendIntent = Intent().apply {
+                                            action = Intent.ACTION_SEND
+                                            putExtra(Intent.EXTRA_TEXT, results)
+                                            type = "text/plain"
+                                        }
+                                        val shareIntent = Intent.createChooser(sendIntent, null)
+                                        context.startActivity(shareIntent)
+                                    },
+                                    modifier = Modifier.align(Alignment.End)
+                                ) {
+                                    Text(stringResource(R.string.share_results))
                                 }
-                                val shareIntent = Intent.createChooser(sendIntent, null)
-                                context.startActivity(shareIntent)
-                            }) {
-                                Text(stringResource(R.string.share_results))
                             }
                         }
                     }
-                }
 
-                Spacer(Modifier.height(8.dp))
-                var showLogDialog by remember { mutableStateOf(false) }
-                Button(onClick = { showLogDialog = true }) {
-                    Text(stringResource(R.string.view_app_logs))
-                }
+                    Spacer(Modifier.height(4.dp))
 
-                if (showLogDialog) {
-                    val logsText = remember(showLogDialog) { AppLogger.getLogs(context) }
-                    AlertDialog(
-                        onDismissRequest = { showLogDialog = false },
-                        title = { Text(stringResource(R.string.logs_dialog_title)) },
-                        text = {
+                    Button(
+                        onClick = {
+                            logsText = AppLogger.getLogs(context)
+                            showLogs = true
+                            AppLogger.log(context, "INFO", "Viewed operation audit logs.")
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.view_app_logs))
+                    }
+
+                    if (showLogs) {
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                        ) {
                             Column(
-                                modifier = Modifier
-                                    .verticalScroll(rememberScrollState())
-                                    .fillMaxWidth(),
+                                modifier = Modifier.padding(12.dp),
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Text(
-                                    stringResource(R.string.logs_privacy),
+                                    stringResource(R.string.diagnostics_screen_privacy),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.error
                                 )
@@ -566,41 +637,55 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                                     style = MaterialTheme.typography.bodySmall,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .heightIn(max = 300.dp)
+                                        .heightIn(max = 250.dp)
+                                        .verticalScroll(rememberScrollState())
                                 )
-                            }
-                        },
-                        confirmButton = {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Button(onClick = {
-                                    val sendIntent = Intent().apply {
-                                        action = Intent.ACTION_SEND
-                                        putExtra(Intent.EXTRA_TEXT, logsText)
-                                        type = "text/plain"
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.End,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Button(onClick = {
+                                        val sendIntent = Intent().apply {
+                                            action = Intent.ACTION_SEND
+                                            putExtra(Intent.EXTRA_TEXT, logsText)
+                                            type = "text/plain"
+                                        }
+                                        val shareIntent = Intent.createChooser(sendIntent, null)
+                                        context.startActivity(shareIntent)
+                                    }) {
+                                        Text(stringResource(R.string.share_logs))
                                     }
-                                    val shareIntent = Intent.createChooser(sendIntent, null)
-                                    context.startActivity(shareIntent)
-                                }) {
-                                    Text(stringResource(R.string.share_logs))
-                                }
-                                Button(onClick = { showLogDialog = false }) {
-                                    Text(stringResource(R.string.action_close))
                                 }
                             }
                         }
-                    )
+                    }
+
+                    Spacer(Modifier.height(4.dp))
+
+                    OutlinedButton(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://github.com/tyamada/MihirakiPDFUtility_Android/issues/new"))
+                            context.startActivity(intent)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.report_github))
+                    }
+                }
+
+                Spacer(Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Button(onClick = { viewModel.closeSettingsDialog() }) {
+                        Text(stringResource(R.string.action_close))
+                    }
                 }
             }
-        },
-        confirmButton = {
-            Button(onClick = { viewModel.closeSettingsDialog() }) {
-                Text(stringResource(R.string.action_close))
-            }
         }
-    )
+    }
 }
 
 @Composable

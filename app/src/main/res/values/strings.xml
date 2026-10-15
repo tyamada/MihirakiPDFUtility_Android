@@ -45,7 +45,13 @@
     <string name="settings_options">Options</string>
     <string name="settings_version">Version</string>
     <string name="settings_help">Help</string>
+    <string name="settings_diagnostics">Diagnostics</string>
     <string name="support">Support</string>
+
+    <string name="diagnostics_screen_title">App Diagnostics &amp; Audit Logs</string>
+    <string name="diagnostics_screen_desc">Run diagnostic tests, review privacy-protected local audit logs (automatically retained for 24 hours, strictly excluding personal data), share reports, and report issues on GitHub.</string>
+    <string name="report_github">Report Issue on GitHub</string>
+    <string name="diagnostics_screen_privacy">Logs contain technical troubleshooting hints (device specs, memory usage, operation history) and strictly exclude any personal data.</string>
 
     <string name="options_title">Thumbnail Image Size</string>
     <string name="options_size_s">Small (S)</string>

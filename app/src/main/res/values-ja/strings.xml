@@ -45,7 +45,13 @@
     <string name="settings_options">オプション</string>
     <string name="settings_version">バージョン</string>
     <string name="settings_help">ヘルプ</string>
+    <string name="settings_diagnostics">診断</string>
     <string name="support">応援</string>
+
+    <string name="diagnostics_screen_title">アプリ診断・動作ログ</string>
+    <string name="diagnostics_screen_desc">実機診断テストの実行、プライバシー保護されたローカル監査ログ（24時間自動保持・個人情報不含）の確認、レポート共有、GitHubへの問題報告を行います。</string>
+    <string name="report_github">GitHub Issuesに問題を報告する</string>
+    <string name="diagnostics_screen_privacy">ログには個人情報は一切含まれません。問題特定のための技術的ヒント（デバイス情報、メモリ使用量、操作履歴）のみが記録されます。</string>
 
     <string name="options_title">サムネイル画像サイズ</string>
     <string name="options_size_s">小 (S)</string>
