@@ -164,4 +164,8 @@
     <string name="cc_by_dialog_title">Sample PDF License (CC BY 4.0)</string>
     <string name="cc_by_dialog_text">Before modifying or saving the sample PDF, please review the Creative Commons Attribution 4.0 International (CC BY 4.0) terms:\n\n• Author: Komairo Hiyori\n• License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• When reusing, modifying, or saving, please display the title, author name, license link, and indicate any modifications made.\n\nNote: You have full freedom to modify and save the sample PDF without restriction.</string>
     <string name="cc_by_dialog_confirm">Agree &amp; Proceed</string>
+    <string name="options_button_display_title">Button Display Type</string>
+    <string name="button_display_icon_and_text">Icon + Text (Default)</string>
+    <string name="button_display_icon_only">Icon Only</string>
+    <string name="button_display_text_only">Text Only</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.compose.material.icons.automirrored.filled.*
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -16,9 +17,54 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.TipTier
+import com.takumayamada22.pdfutility.ui.ButtonDisplayType
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
+
+@Composable
+private fun ActionButton(
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    icon: @Composable () -> Unit,
+    text: String,
+    displayType: ButtonDisplayType,
+    tint: Color = LocalContentColor.current
+) {
+    when (displayType) {
+        ButtonDisplayType.ICON_ONLY -> {
+            IconButton(onClick = onClick, enabled = enabled) {
+                CompositionLocalProvider(LocalContentColor provides tint) {
+                    icon()
+                }
+            }
+        }
+        ButtonDisplayType.TEXT_ONLY -> {
+            TextButton(onClick = onClick, enabled = enabled) {
+                Text(text)
+            }
+        }
+        ButtonDisplayType.ICON_AND_TEXT -> {
+            Button(
+                onClick = onClick,
+                enabled = enabled,
+                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+                modifier = Modifier.padding(2.dp),
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = tint
+                )
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    icon()
+                    Text(text)
+                }
+            }
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -34,6 +80,8 @@ fun PdfTopAppBar(
     onCropClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
+    val displayType = uiState.buttonDisplayType
+
     Surface(
         modifier = Modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.surface,
@@ -65,50 +113,89 @@ fun PdfTopAppBar(
                 horizontalArrangement = Arrangement.End,
                 verticalArrangement = Arrangement.spacedBy(0.dp)
             ) {
-                IconButton(onClick = { viewModel.undo() }, enabled = uiState.canUndo) {
-                    Icon(Icons.AutoMirrored.Filled.Undo, contentDescription = stringResource(R.string.action_undo))
-                }
-                IconButton(onClick = { viewModel.redo() }, enabled = uiState.canRedo) {
-                    Icon(Icons.AutoMirrored.Filled.Redo, contentDescription = stringResource(R.string.action_redo))
-                }
+                ActionButton(
+                    onClick = { viewModel.undo() },
+                    enabled = uiState.canUndo,
+                    icon = { Icon(Icons.AutoMirrored.Filled.Undo, contentDescription = stringResource(R.string.action_undo)) },
+                    text = stringResource(R.string.action_undo),
+                    displayType = displayType
+                )
+                ActionButton(
+                    onClick = { viewModel.redo() },
+                    enabled = uiState.canRedo,
+                    icon = { Icon(Icons.AutoMirrored.Filled.Redo, contentDescription = stringResource(R.string.action_redo)) },
+                    text = stringResource(R.string.action_redo),
+                    displayType = displayType
+                )
 
                 if (uiState.selectedIndices.isEmpty()) {
-                    IconButton(onClick = onOpen) {
-                        Icon(Icons.Default.FileOpen, contentDescription = stringResource(R.string.action_open))
-                    }
-                    IconButton(onClick = onOpenSamplePdf) {
-                        Icon(Icons.Default.Description, contentDescription = stringResource(R.string.sample_pdf))
-                    }
+                    ActionButton(
+                        onClick = onOpen,
+                        icon = { Icon(Icons.Default.FileOpen, contentDescription = stringResource(R.string.action_open)) },
+                        text = stringResource(R.string.action_open),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onOpenSamplePdf,
+                        icon = { Icon(Icons.Default.Description, contentDescription = stringResource(R.string.sample_pdf)) },
+                        text = stringResource(R.string.sample_pdf),
+                        displayType = displayType
+                    )
                     if (uiState.pages.isNotEmpty()) {
-                        IconButton(onClick = onAppend) {
-                            Icon(Icons.Default.Add, contentDescription = stringResource(R.string.action_add_pdf))
-                        }
-                        IconButton(onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) }) {
-                            Icon(Icons.Default.Description, contentDescription = stringResource(R.string.action_property))
-                        }
-                        IconButton(onClick = { viewModel.setRightBinding() }) {
-                            Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = stringResource(R.string.action_right_binding))
-                        }
-                        IconButton(onClick = { viewModel.setRightBindingWithCover() }) {
-                            Icon(Icons.Default.AutoStories, contentDescription = stringResource(R.string.action_right_binding_cover))
-                        }
+                        ActionButton(
+                            onClick = onAppend,
+                            icon = { Icon(Icons.Default.Add, contentDescription = stringResource(R.string.action_add_pdf)) },
+                            text = stringResource(R.string.action_add_pdf),
+                            displayType = displayType
+                        )
+                        ActionButton(
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) },
+                            icon = { Icon(Icons.Default.Description, contentDescription = stringResource(R.string.action_property)) },
+                            text = stringResource(R.string.action_property),
+                            displayType = displayType
+                        )
+                        ActionButton(
+                            onClick = { viewModel.setRightBinding() },
+                            icon = { Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = stringResource(R.string.action_right_binding)) },
+                            text = stringResource(R.string.action_right_binding),
+                            displayType = displayType
+                        )
+                        ActionButton(
+                            onClick = { viewModel.setRightBindingWithCover() },
+                            icon = { Icon(Icons.Default.AutoStories, contentDescription = stringResource(R.string.action_right_binding_cover)) },
+                            text = stringResource(R.string.action_right_binding_cover),
+                            displayType = displayType
+                        )
                         if (uiState.isMihirakiView) {
-                            IconButton(onClick = { viewModel.toggleRtl() }) {
-                                Icon(
-                                    if (uiState.isRtl) Icons.AutoMirrored.Filled.ArrowBack else Icons.AutoMirrored.Filled.ArrowForward,
-                                    contentDescription = stringResource(R.string.action_toggle_rtl)
-                                )
-                            }
-                        }
-                        IconButton(onClick = { viewModel.toggleMihirakiView() }) {
-                            Icon(
-                                if (uiState.isMihirakiView) Icons.Default.GridView else Icons.AutoMirrored.Filled.MenuBook,
-                                contentDescription = stringResource(R.string.action_toggle_view)
+                            ActionButton(
+                                onClick = { viewModel.toggleRtl() },
+                                icon = {
+                                    Icon(
+                                        if (uiState.isRtl) Icons.AutoMirrored.Filled.ArrowBack else Icons.AutoMirrored.Filled.ArrowForward,
+                                        contentDescription = stringResource(R.string.action_toggle_rtl)
+                                    )
+                                },
+                                text = stringResource(R.string.action_toggle_rtl),
+                                displayType = displayType
                             )
                         }
-                        IconButton(onClick = onSave) {
-                            Icon(Icons.Default.Save, contentDescription = stringResource(R.string.action_save))
-                        }
+                        ActionButton(
+                            onClick = { viewModel.toggleMihirakiView() },
+                            icon = {
+                                Icon(
+                                    if (uiState.isMihirakiView) Icons.Default.GridView else Icons.AutoMirrored.Filled.MenuBook,
+                                    contentDescription = stringResource(R.string.action_toggle_view)
+                                )
+                            },
+                            text = stringResource(R.string.action_toggle_view),
+                            displayType = displayType
+                        )
+                        ActionButton(
+                            onClick = onSave,
+                            icon = { Icon(Icons.Default.Save, contentDescription = stringResource(R.string.action_save)) },
+                            text = stringResource(R.string.action_save),
+                            displayType = displayType
+                        )
                     }
 
                     val purchasedTiers by viewModel.billing.purchasedTiers.collectAsState()
@@ -116,20 +203,29 @@ fun PdfTopAppBar(
                         purchasedTiers.contains(TipTier.GOLD) -> Color(0xFFFFD700)
                         purchasedTiers.contains(TipTier.SILVER) -> Color(0xFFC0C0C0)
                         purchasedTiers.contains(TipTier.BRONZE) -> Color(0xFFCD7F32)
-                        else -> Color.Black
+                        else -> MaterialTheme.colorScheme.onSurface
                     }
-                    IconButton(onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }) {
-                        Icon(
-                            imageVector = Icons.Default.Favorite,
-                            contentDescription = stringResource(R.string.support),
-                            tint = heartColor
-                        )
-                    }
+                    ActionButton(
+                        onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Favorite,
+                                contentDescription = stringResource(R.string.support),
+                                tint = heartColor
+                            )
+                        },
+                        text = stringResource(R.string.support),
+                        displayType = displayType,
+                        tint = heartColor
+                    )
 
                     Box {
-                        IconButton(onClick = { viewModel.toggleSettingsMenu() }) {
-                            Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_title))
-                        }
+                        ActionButton(
+                            onClick = { viewModel.toggleSettingsMenu() },
+                            icon = { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_title)) },
+                            text = stringResource(R.string.settings_title),
+                            displayType = displayType
+                        )
                         DropdownMenu(
                             expanded = uiState.showSettingsMenu,
                             onDismissRequest = { viewModel.toggleSettingsMenu() }
@@ -167,39 +263,72 @@ fun PdfTopAppBar(
                         }
                     }
                 } else {
-                    IconButton(onClick = { viewModel.selectAll() }) {
-                        Icon(Icons.Default.SelectAll, contentDescription = stringResource(R.string.action_select_all))
-                    }
-                    IconButton(onClick = { viewModel.invertSelection() }) {
-                        Icon(Icons.Default.Flip, contentDescription = stringResource(R.string.action_invert_selection))
-                    }
-                    IconButton(onClick = onExport) {
-                        Icon(Icons.Default.Output, contentDescription = stringResource(R.string.action_export_selected))
-                    }
-                    IconButton(onClick = onSplitClick) {
-                        Icon(Icons.Default.ContentCut, contentDescription = stringResource(R.string.action_split_pages))
-                    }
-                    IconButton(onClick = onCropClick) {
-                        Icon(Icons.Default.Crop, contentDescription = stringResource(R.string.crop_title))
-                    }
-                    IconButton(onClick = { viewModel.rotateSelected(90) }) {
-                        Icon(Icons.Default.RotateRight, contentDescription = stringResource(R.string.action_rotate_right))
-                    }
-                    IconButton(onClick = { viewModel.insertBlankAfterSelected() }) {
-                        Icon(Icons.Default.AddBox, contentDescription = stringResource(R.string.action_insert_blank))
-                    }
-                    IconButton(onClick = { viewModel.moveSelected(-1) }) {
-                        Icon(Icons.Default.ArrowUpward, contentDescription = stringResource(R.string.action_move_up))
-                    }
-                    IconButton(onClick = { viewModel.moveSelected(1) }) {
-                        Icon(Icons.Default.ArrowDownward, contentDescription = stringResource(R.string.action_move_down))
-                    }
-                    IconButton(onClick = onDeleteClick) {
-                        Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.action_delete))
-                    }
-                    IconButton(onClick = { viewModel.clearSelection() }) {
-                        Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_clear_selection))
-                    }
+                    ActionButton(
+                        onClick = { viewModel.selectAll() },
+                        icon = { Icon(Icons.Default.SelectAll, contentDescription = stringResource(R.string.action_select_all)) },
+                        text = stringResource(R.string.action_select_all),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.invertSelection() },
+                        icon = { Icon(Icons.Default.Flip, contentDescription = stringResource(R.string.action_invert_selection)) },
+                        text = stringResource(R.string.action_invert_selection),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onExport,
+                        icon = { Icon(Icons.Default.Output, contentDescription = stringResource(R.string.action_export_selected)) },
+                        text = stringResource(R.string.action_export_selected),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onSplitClick,
+                        icon = { Icon(Icons.Default.ContentCut, contentDescription = stringResource(R.string.action_split_pages)) },
+                        text = stringResource(R.string.action_split_pages),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onCropClick,
+                        icon = { Icon(Icons.Default.Crop, contentDescription = stringResource(R.string.crop_title)) },
+                        text = stringResource(R.string.crop_title),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.rotateSelected(90) },
+                        icon = { Icon(Icons.Default.RotateRight, contentDescription = stringResource(R.string.action_rotate_right)) },
+                        text = stringResource(R.string.action_rotate_right),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.insertBlankAfterSelected() },
+                        icon = { Icon(Icons.Default.AddBox, contentDescription = stringResource(R.string.action_insert_blank)) },
+                        text = stringResource(R.string.action_insert_blank),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.moveSelected(-1) },
+                        icon = { Icon(Icons.Default.ArrowUpward, contentDescription = stringResource(R.string.action_move_up)) },
+                        text = stringResource(R.string.action_move_up),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.moveSelected(1) },
+                        icon = { Icon(Icons.Default.ArrowDownward, contentDescription = stringResource(R.string.action_move_down)) },
+                        text = stringResource(R.string.action_move_down),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onDeleteClick,
+                        icon = { Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.action_delete)) },
+                        text = stringResource(R.string.action_delete),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.clearSelection() },
+                        icon = { Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_clear_selection)) },
+                        text = stringResource(R.string.action_clear_selection),
+                        displayType = displayType
+                    )
                 }
             }
         }
