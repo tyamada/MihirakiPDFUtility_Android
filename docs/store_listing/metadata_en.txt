@@ -23,11 +23,17 @@ Cut off unnecessary margins from scanned documents by specifying a percentage fo
 ■ Security & Metadata
 Support for password-protected PDFs. Edit document properties like Title, Author, Subject, and Keywords.
 
+■ Diagnostics & Audit Logs
+Run quick in-app diagnostic tests and inspect local audit logs (24-hour retention, privacy-protected with no external transmission, shareable).
+
 ■ Desktop Ready (ChromeOS)
 Enhanced for large screens and Chromebooks with keyboard shortcuts and mouse context menus.
 
 ■ Full-screen Preview
 Inspect pages in high resolution with smooth pinch-to-zoom and swipe navigation.
+
+■ Multi-Language Support
+Supports 13 languages including English, Japanese, Korean, Chinese, German, French, Spanish, Portuguese, and more.
 
 ■ Privacy Focused
 All PDF processing is done locally on your device. Your files are never uploaded to any external servers.

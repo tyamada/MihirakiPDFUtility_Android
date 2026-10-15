@@ -76,3 +76,7 @@ Android向けの強力で直感的なPDFユーティリティアプリです。*
 ## ライセンス
 
 Apache License 2.0
+
+## リリースおよびドキュメント更新ルール
+
+App Bundle ビルド前に、最新の仕様に合わせて `README.md`、`LICENSE`、`docs/*.html`、`store_listing/metadata*.txt` を更新するルールが設定されています。詳細は [RELEASE_RULES.md](RELEASE_RULES.md) を参照してください。Gradle (`preBundleDocumentationCheck`) によりビルド前の自動検証が行われます。

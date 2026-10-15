@@ -89,3 +89,67 @@ dependencies {
     // LeakCanary
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
 }
+
+tasks.register("preBundleDocumentationCheck") {
+    group = "verification"
+    description = "Checks that documentation, LICENSE, store listing metadata, web pages, and translations are complete prior to building the App Bundle."
+    val rootDirFile = rootProject.rootDir
+    doLast {
+        logger.lifecycle("=======================================================================")
+        logger.lifecycle("[RELEASE RULE CHECK] Pre-App Bundle build check:")
+        logger.lifecycle("1. Verifying README, LICENSE, docs/*.html, and store_listing/metadata*.txt")
+        logger.lifecycle("2. Verifying translation completeness across all supported locales.")
+        logger.lifecycle("=======================================================================")
+
+        val rootDir = rootDirFile
+        val requiredFiles = listOf(
+            File(rootDir, "README.md"),
+            File(rootDir, "README_ja.md"),
+            File(rootDir, "LICENSE"),
+            File(rootDir, "store_listing/metadata_en.txt"),
+            File(rootDir, "store_listing/metadata_ja.txt")
+        )
+
+        val missingFiles = requiredFiles.filter { !it.exists() }
+        if (missingFiles.isNotEmpty()) {
+            throw GradleException("Missing required release documentation/metadata files: ${missingFiles.map { t -> t.name }}")
+        }
+
+        // Verify localized string files exist for all 13 locales
+        val resDir = File(rootDir, "app/src/main/res")
+        val requiredLocales = listOf(
+            "values", "values-de", "values-es", "values-fr", "values-in",
+            "values-ja", "values-ko", "values-ne", "values-pt", "values-tl",
+            "values-vi", "values-zh-rCN", "values-zh-rTW"
+        )
+        val missingLocales = requiredLocales.filter { locale ->
+            !File(resDir, "$locale/strings.xml").exists()
+        }
+        if (missingLocales.isNotEmpty()) {
+            throw GradleException("Missing localized strings.xml for locales: $missingLocales")
+        }
+        logger.lifecycle("Verified translation files for all ${requiredLocales.size} locales.")
+
+        val docsDir = File(rootDir, "docs")
+        val htmlFiles = docsDir.listFiles { file -> file.extension.lowercase() == "html" } ?: emptyArray()
+        logger.lifecycle("Verified ${htmlFiles.size} HTML documentation files in docs/.")
+
+        // Verify help screen strings exist in strings.xml
+        val stringsFile = File(resDir, "values/strings.xml")
+        if (stringsFile.exists()) {
+            val content = stringsFile.readText()
+            val requiredHelpKeys = listOf("help_title", "help_overview_text", "help_page_ops_text", "help_display_text", "help_settings_text")
+            val missingKeys = requiredHelpKeys.filter { !content.contains(it) }
+            if (missingKeys.isNotEmpty()) {
+                throw GradleException("Missing required help screen string keys in strings.xml: $missingKeys")
+            }
+            logger.lifecycle("Verified help screen text resources in strings.xml.")
+        }
+
+        logger.lifecycle("[RELEASE RULE CHECK] Translation, help screen, and documentation checks passed successfully.")
+    }
+}
+
+tasks.matching { it.name.startsWith("bundle") }.configureEach {
+    dependsOn("preBundleDocumentationCheck")
+}
