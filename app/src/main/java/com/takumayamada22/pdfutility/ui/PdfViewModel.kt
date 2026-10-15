@@ -44,6 +44,8 @@ data class PageState(
 
 enum class ThumbnailSize { S, M, L }
 
+enum class ButtonDisplayType { ICON_AND_TEXT, ICON_ONLY, TEXT_ONLY }
+
 enum class SettingsDialogType {
     PROPERTY, PASSWORD, OPTIONS, VERSION, SUPPORT, HELP, DIAGNOSTICS
 }
@@ -94,7 +96,8 @@ data class PdfHistoryState(
 data class PdfPreferenceState(
     val isMihirakiView: Boolean = false,
     val isRtl: Boolean = false,
-    val thumbnailSize: ThumbnailSize = ThumbnailSize.M
+    val thumbnailSize: ThumbnailSize = ThumbnailSize.M,
+    val buttonDisplayType: ButtonDisplayType = ButtonDisplayType.ICON_AND_TEXT
 )
 
 data class PdfUiState(
@@ -141,6 +144,7 @@ data class PdfUiState(
     val isMihirakiView: Boolean get() = preference.isMihirakiView
     val isRtl: Boolean get() = preference.isRtl
     val thumbnailSize: ThumbnailSize get() = preference.thumbnailSize
+    val buttonDisplayType: ButtonDisplayType get() = preference.buttonDisplayType
 
     private object Unspecified
 
@@ -175,7 +179,8 @@ data class PdfUiState(
         canRedo: Boolean? = null,
         isMihirakiView: Boolean? = null,
         isRtl: Boolean? = null,
-        thumbnailSize: ThumbnailSize? = null
+        thumbnailSize: ThumbnailSize? = null,
+        buttonDisplayType: ButtonDisplayType? = null
     ): PdfUiState {
         return PdfUiState(
             document = document.copy(
@@ -219,7 +224,8 @@ data class PdfUiState(
             preference = preference.copy(
                 isMihirakiView = isMihirakiView ?: preference.isMihirakiView,
                 isRtl = isRtl ?: preference.isRtl,
-                thumbnailSize = thumbnailSize ?: preference.thumbnailSize
+                thumbnailSize = thumbnailSize ?: preference.thumbnailSize,
+                buttonDisplayType = buttonDisplayType ?: preference.buttonDisplayType
             )
         )
     }
@@ -293,6 +299,11 @@ class PdfViewModel(
             }
             _uiState.value = _uiState.value.copy(pages = updatedPages)
         }
+    }
+
+    fun setButtonDisplayType(type: ButtonDisplayType) {
+        if (_uiState.value.buttonDisplayType == type) return
+        _uiState.value = _uiState.value.copy(buttonDisplayType = type)
     }
 
     private var pendingAction: (() -> Unit)? = null

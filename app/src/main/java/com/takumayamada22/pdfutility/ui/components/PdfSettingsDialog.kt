@@ -22,6 +22,7 @@ import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.PurchaseState
 import com.takumayamada22.pdfutility.billing.TipTier
 import com.takumayamada22.pdfutility.domain.PdfProcessor
+import com.takumayamada22.pdfutility.ui.ButtonDisplayType
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
@@ -345,6 +346,7 @@ private fun PdfPasswordDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
 @Composable
 private fun PdfOptionsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
     var selectedSize by remember { mutableStateOf(uiState.thumbnailSize) }
+    var selectedButtonDisplayType by remember { mutableStateOf(uiState.buttonDisplayType) }
 
     AlertDialog(
         onDismissRequest = { viewModel.closeSettingsDialog() },
@@ -380,11 +382,38 @@ private fun PdfOptionsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                         Text(label, style = MaterialTheme.typography.bodyLarge)
                     }
                 }
+
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+                Text(stringResource(R.string.options_button_display_title), style = MaterialTheme.typography.titleSmall)
+
+                ButtonDisplayType.entries.forEach { type ->
+                    val label = when (type) {
+                        ButtonDisplayType.ICON_AND_TEXT -> stringResource(R.string.button_display_icon_and_text)
+                        ButtonDisplayType.ICON_ONLY -> stringResource(R.string.button_display_icon_only)
+                        ButtonDisplayType.TEXT_ONLY -> stringResource(R.string.button_display_text_only)
+                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { selectedButtonDisplayType = type }
+                            .padding(vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = selectedButtonDisplayType == type,
+                            onClick = { selectedButtonDisplayType = type }
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(label, style = MaterialTheme.typography.bodyLarge)
+                    }
+                }
             }
         },
         confirmButton = {
             Button(onClick = {
                 viewModel.setThumbnailSize(selectedSize)
+                viewModel.setButtonDisplayType(selectedButtonDisplayType)
                 viewModel.closeSettingsDialog()
             }) {
                 Text(stringResource(R.string.action_apply))
