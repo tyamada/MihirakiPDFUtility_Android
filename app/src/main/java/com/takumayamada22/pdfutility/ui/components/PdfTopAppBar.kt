@@ -182,7 +182,7 @@ fun PdfTopAppBar(
                             onClick = { viewModel.toggleMihirakiView() },
                             icon = {
                                 Icon(
-                                    if (uiState.isMihirakiView) Icons.Default.GridView else Icons.AutoMirrored.Filled.MenuBook,
+                                    Icons.Default.GridView,
                                     contentDescription = stringResource(R.string.action_toggle_view)
                                 )
                             },
