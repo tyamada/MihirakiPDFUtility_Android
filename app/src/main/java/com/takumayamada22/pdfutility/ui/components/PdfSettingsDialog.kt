@@ -69,103 +69,123 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         else -> ""
     }
 
-    AlertDialog(
-        onDismissRequest = { viewModel.closeSettingsDialog() },
-        title = { Text(stringResource(R.string.settings_property)) },
-        text = {
+    androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .imePadding(),
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = AlertDialogDefaults.TonalElevation
+        ) {
             Column(
                 modifier = Modifier
-                    .verticalScroll(rememberScrollState())
-                    .heightIn(max = 450.dp)
-                    .padding(vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                    .padding(24.dp)
+                    .fillMaxWidth()
             ) {
-                OutlinedTextField(value = uiState.fileName ?: "", onValueChange = {}, label = { Text(stringResource(R.string.prop_filename)) }, readOnly = true)
-                OutlinedTextField(value = title, onValueChange = { title = it }, label = { Text(stringResource(R.string.prop_title)) })
-                OutlinedTextField(value = author, onValueChange = { author = it }, label = { Text(stringResource(R.string.prop_author)) })
-                OutlinedTextField(value = subject, onValueChange = { subject = it }, label = { Text(stringResource(R.string.prop_subtitle)) })
-                OutlinedTextField(value = keywords, onValueChange = { keywords = it }, label = { Text(stringResource(R.string.prop_keywords)) })
+                Text(
+                    text = stringResource(R.string.settings_property),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+                Spacer(Modifier.height(16.dp))
                 
-                OutlinedCard(
-                    onClick = { showVersionDialog = true },
-                    modifier = Modifier.fillMaxWidth()
+                Column(
+                    modifier = Modifier
+                        .weight(1f, false)
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Column(modifier = Modifier.padding(12.dp)) {
-                        Text(stringResource(R.string.prop_pdf_version_label), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-                        Spacer(Modifier.height(4.dp))
-                        Text(pdfVersion, style = MaterialTheme.typography.bodyLarge)
+                    OutlinedTextField(value = uiState.fileName ?: "", onValueChange = {}, label = { Text(stringResource(R.string.prop_filename)) }, readOnly = true, modifier = Modifier.fillMaxWidth())
+                    OutlinedTextField(value = title, onValueChange = { title = it }, label = { Text(stringResource(R.string.prop_title)) }, modifier = Modifier.fillMaxWidth())
+                    OutlinedTextField(value = author, onValueChange = { author = it }, label = { Text(stringResource(R.string.prop_author)) }, modifier = Modifier.fillMaxWidth())
+                    OutlinedTextField(value = subject, onValueChange = { subject = it }, label = { Text(stringResource(R.string.prop_subtitle)) }, modifier = Modifier.fillMaxWidth())
+                    OutlinedTextField(value = keywords, onValueChange = { keywords = it }, label = { Text(stringResource(R.string.prop_keywords)) }, modifier = Modifier.fillMaxWidth())
+                    
+                    OutlinedCard(
+                        onClick = { showVersionDialog = true },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Text(stringResource(R.string.prop_pdf_version_label), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+                            Spacer(Modifier.height(4.dp))
+                            Text(pdfVersion, style = MaterialTheme.typography.bodyLarge)
+                        }
                     }
-                }
 
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-                
-                Text(stringResource(R.string.prop_display_settings), style = MaterialTheme.typography.titleSmall)
-                
-                OutlinedCard(
-                    onClick = { showLayoutDialog = true },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(modifier = Modifier.padding(12.dp)) {
-                        Text(stringResource(R.string.prop_page_layout), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-                        Spacer(Modifier.height(4.dp))
-                        Text(
-                            when(pageLayout) {
-                                "SinglePage" -> stringResource(R.string.layout_single)
-                                "OneColumn" -> stringResource(R.string.layout_one_column)
-                                "TwoColumnLeft" -> stringResource(R.string.layout_two_column_left)
-                                "TwoColumnRight" -> stringResource(R.string.layout_two_column_right)
-                                "TwoPageLeft" -> stringResource(R.string.layout_two_page_left)
-                                "TwoPageRight" -> stringResource(R.string.layout_two_page_right)
-                                else -> pageLayout
-                            },
-                            style = MaterialTheme.typography.bodyLarge
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+                    
+                    Text(stringResource(R.string.prop_display_settings), style = MaterialTheme.typography.titleSmall)
+                    
+                    OutlinedCard(
+                        onClick = { showLayoutDialog = true },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Text(stringResource(R.string.prop_page_layout), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+                            Spacer(Modifier.height(4.dp))
+                            Text(
+                                when(pageLayout) {
+                                    "SinglePage" -> stringResource(R.string.layout_single)
+                                    "OneColumn" -> stringResource(R.string.layout_one_column)
+                                    "TwoColumnLeft" -> stringResource(R.string.layout_two_column_left)
+                                    "TwoColumnRight" -> stringResource(R.string.layout_two_column_right)
+                                    "TwoPageLeft" -> stringResource(R.string.layout_two_page_left)
+                                    "TwoPageRight" -> stringResource(R.string.layout_two_page_right)
+                                    else -> pageLayout
+                                },
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                    }
+
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+                        Text(stringResource(R.string.prop_show_cover), modifier = Modifier.weight(1f))
+                        Switch(
+                            checked = showCover,
+                            onCheckedChange = { isChecked ->
+                                showCover = isChecked
+                                if (isChecked) {
+                                    if (pageLayout == "TwoColumnLeft") pageLayout = "TwoColumnRight"
+                                    if (pageLayout == "TwoPageLeft") pageLayout = "TwoPageRight"
+                                } else {
+                                    if (pageLayout == "TwoColumnRight") pageLayout = "TwoColumnLeft"
+                                    if (pageLayout == "TwoPageRight") pageLayout = "TwoPageLeft"
+                                }
+                            }
                         )
                     }
+
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+                        Text(stringResource(R.string.prop_scroll_direction), modifier = Modifier.weight(1f))
+                        SegmentedButton(selected = scrollDirection == "L2R", onClick = { scrollDirection = "L2R" }, label = "L2R")
+                        SegmentedButton(selected = scrollDirection == "R2L", onClick = { scrollDirection = "R2L" }, label = "R2L")
+                    }
+
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+                        Text(stringResource(R.string.prop_page_display) + ": ", style = MaterialTheme.typography.bodySmall)
+                        Text(pageDisplayString, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+                    }
                 }
 
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(stringResource(R.string.prop_show_cover), modifier = Modifier.weight(1f))
-                    Switch(
-                        checked = showCover,
-                        onCheckedChange = { isChecked ->
-                            showCover = isChecked
-                            if (isChecked) {
-                                if (pageLayout == "TwoColumnLeft") pageLayout = "TwoColumnRight"
-                                if (pageLayout == "TwoPageLeft") pageLayout = "TwoPageRight"
-                            } else {
-                                if (pageLayout == "TwoColumnRight") pageLayout = "TwoColumnLeft"
-                                if (pageLayout == "TwoPageRight") pageLayout = "TwoPageLeft"
-                            }
-                        }
-                    )
+                Spacer(Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    TextButton(onClick = { viewModel.closeSettingsDialog() }) {
+                        Text(stringResource(R.string.action_cancel))
+                    }
+                    Spacer(Modifier.width(8.dp))
+                    Button(onClick = {
+                        viewModel.updateMetadata(title, author, subject, keywords, pdfVersion, pageLayout, scrollDirection, showCover)
+                        viewModel.closeSettingsDialog()
+                    }) {
+                        Text(stringResource(R.string.action_apply))
+                    }
                 }
-
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(stringResource(R.string.prop_scroll_direction), modifier = Modifier.weight(1f))
-                    SegmentedButton(selected = scrollDirection == "L2R", onClick = { scrollDirection = "L2R" }, label = "L2R")
-                    SegmentedButton(selected = scrollDirection == "R2L", onClick = { scrollDirection = "R2L" }, label = "R2L")
-                }
-
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(stringResource(R.string.prop_page_display) + ": ", style = MaterialTheme.typography.bodySmall)
-                    Text(pageDisplayString, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
-                }
-            }
-        },
-        confirmButton = {
-            Button(onClick = {
-                viewModel.updateMetadata(title, author, subject, keywords, pdfVersion, pageLayout, scrollDirection, showCover)
-                viewModel.closeSettingsDialog()
-            }) {
-                Text(stringResource(R.string.action_apply))
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = { viewModel.closeSettingsDialog() }) {
-                Text(stringResource(R.string.action_cancel))
             }
         }
-    )
+    }
 
     if (showVersionDialog) {
         AlertDialog(
