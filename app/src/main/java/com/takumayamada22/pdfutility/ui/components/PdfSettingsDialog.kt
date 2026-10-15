@@ -44,7 +44,6 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
     var title by remember { mutableStateOf(uiState.title) }
@@ -56,6 +55,9 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
     var pageLayout by remember { mutableStateOf(uiState.pageLayout) }
     var scrollDirection by remember { mutableStateOf(uiState.scrollDirection) }
     var showCover by remember { mutableStateOf(uiState.showCover) }
+
+    var showVersionDialog by remember { mutableStateOf(false) }
+    var showLayoutDialog by remember { mutableStateOf(false) }
 
     val pageDisplayString = when (pageLayout) {
         "SinglePage" -> stringResource(R.string.display_single)
@@ -84,32 +86,14 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                 OutlinedTextField(value = subject, onValueChange = { subject = it }, label = { Text(stringResource(R.string.prop_subtitle)) })
                 OutlinedTextField(value = keywords, onValueChange = { keywords = it }, label = { Text(stringResource(R.string.prop_keywords)) })
                 
-                var versionExpanded by remember { mutableStateOf(false) }
-                ExposedDropdownMenuBox(
-                    expanded = versionExpanded,
-                    onExpandedChange = { versionExpanded = it }
+                OutlinedCard(
+                    onClick = { showVersionDialog = true },
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    OutlinedTextField(
-                        value = pdfVersion,
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text(stringResource(R.string.prop_pdf_version_label)) },
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = versionExpanded) },
-                        modifier = Modifier.menuAnchor().fillMaxWidth()
-                    )
-                    ExposedDropdownMenu(
-                        expanded = versionExpanded,
-                        onDismissRequest = { versionExpanded = false }
-                    ) {
-                        listOf("1.3", "1.4", "1.5", "1.6", "1.7").forEach { ver ->
-                            DropdownMenuItem(
-                                text = { Text(ver) },
-                                onClick = {
-                                    pdfVersion = ver
-                                    versionExpanded = false
-                                }
-                            )
-                        }
+                    Column(modifier = Modifier.padding(12.dp)) {
+                        Text(stringResource(R.string.prop_pdf_version_label), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+                        Spacer(Modifier.height(4.dp))
+                        Text(pdfVersion, style = MaterialTheme.typography.bodyLarge)
                     }
                 }
 
@@ -117,52 +101,25 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                 
                 Text(stringResource(R.string.prop_display_settings), style = MaterialTheme.typography.titleSmall)
                 
-                var layoutExpanded by remember { mutableStateOf(false) }
-                ExposedDropdownMenuBox(
-                    expanded = layoutExpanded,
-                    onExpandedChange = { layoutExpanded = it }
+                OutlinedCard(
+                    onClick = { showLayoutDialog = true },
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    OutlinedTextField(
-                        value = pageLayout,
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text(stringResource(R.string.prop_page_layout)) },
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = layoutExpanded) },
-                        modifier = Modifier.menuAnchor().fillMaxWidth()
-                    )
-                    ExposedDropdownMenu(
-                        expanded = layoutExpanded,
-                        onDismissRequest = { layoutExpanded = false }
-                    ) {
-                        listOf("SinglePage", "OneColumn", "TwoColumnLeft", "TwoColumnRight", "TwoPageLeft", "TwoPageRight").forEach { layout ->
-                            val label = when(layout) {
+                    Column(modifier = Modifier.padding(12.dp)) {
+                        Text(stringResource(R.string.prop_page_layout), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            when(pageLayout) {
                                 "SinglePage" -> stringResource(R.string.layout_single)
                                 "OneColumn" -> stringResource(R.string.layout_one_column)
                                 "TwoColumnLeft" -> stringResource(R.string.layout_two_column_left)
                                 "TwoColumnRight" -> stringResource(R.string.layout_two_column_right)
                                 "TwoPageLeft" -> stringResource(R.string.layout_two_page_left)
                                 "TwoPageRight" -> stringResource(R.string.layout_two_page_right)
-                                else -> layout
-                            }
-                            DropdownMenuItem(
-                                text = { Text(label) },
-                                onClick = {
-                                    pageLayout = layout
-                                    if (layout == "TwoColumnRight" || layout == "TwoPageRight") {
-                                        showCover = true
-                                    } else if (layout == "TwoColumnLeft" || layout == "TwoPageLeft") {
-                                        showCover = false
-                                    }
-                                    if (layout == "TwoPageLeft" || layout == "TwoPageRight") {
-                                        val verNum = pdfVersion.toFloatOrNull() ?: 1.4f
-                                        if (verNum < 1.5f) {
-                                            pdfVersion = "1.5"
-                                        }
-                                    }
-                                    layoutExpanded = false
-                                }
-                            )
-                        }
+                                else -> pageLayout
+                            },
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                 }
 
@@ -209,6 +166,117 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
             }
         }
     )
+
+    if (showVersionDialog) {
+        AlertDialog(
+            onDismissRequest = { showVersionDialog = false },
+            title = { Text(stringResource(R.string.prop_pdf_version_label)) },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf("1.3", "1.4", "1.5", "1.6", "1.7").forEach { ver ->
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    pdfVersion = ver
+                                    showVersionDialog = false
+                                }
+                                .padding(vertical = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = pdfVersion == ver,
+                                onClick = {
+                                    pdfVersion = ver
+                                    showVersionDialog = false
+                                }
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Text(ver, style = MaterialTheme.typography.bodyLarge)
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showVersionDialog = false }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
+            }
+        )
+    }
+
+    if (showLayoutDialog) {
+        AlertDialog(
+            onDismissRequest = { showLayoutDialog = false },
+            title = { Text(stringResource(R.string.prop_page_layout)) },
+            text = {
+                Column(
+                    modifier = Modifier
+                        .verticalScroll(rememberScrollState())
+                        .heightIn(max = 350.dp)
+                ) {
+                    listOf("SinglePage", "OneColumn", "TwoColumnLeft", "TwoColumnRight", "TwoPageLeft", "TwoPageRight").forEach { layout ->
+                        val label = when(layout) {
+                            "SinglePage" -> stringResource(R.string.layout_single)
+                            "OneColumn" -> stringResource(R.string.layout_one_column)
+                            "TwoColumnLeft" -> stringResource(R.string.layout_two_column_left)
+                            "TwoColumnRight" -> stringResource(R.string.layout_two_column_right)
+                            "TwoPageLeft" -> stringResource(R.string.layout_two_page_left)
+                            "TwoPageRight" -> stringResource(R.string.layout_two_page_right)
+                            else -> layout
+                        }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    pageLayout = layout
+                                    if (layout == "TwoColumnRight" || layout == "TwoPageRight") {
+                                        showCover = true
+                                    } else if (layout == "TwoColumnLeft" || layout == "TwoPageLeft") {
+                                        showCover = false
+                                    }
+                                    if (layout == "TwoPageLeft" || layout == "TwoPageRight") {
+                                        val verNum = pdfVersion.toFloatOrNull() ?: 1.4f
+                                        if (verNum < 1.5f) {
+                                            pdfVersion = "1.5"
+                                        }
+                                    }
+                                    showLayoutDialog = false
+                                }
+                                .padding(vertical = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = pageLayout == layout,
+                                onClick = {
+                                    pageLayout = layout
+                                    if (layout == "TwoColumnRight" || layout == "TwoPageRight") {
+                                        showCover = true
+                                    } else if (layout == "TwoColumnLeft" || layout == "TwoPageLeft") {
+                                        showCover = false
+                                    }
+                                    if (layout == "TwoPageLeft" || layout == "TwoPageRight") {
+                                        val verNum = pdfVersion.toFloatOrNull() ?: 1.4f
+                                        if (verNum < 1.5f) {
+                                            pdfVersion = "1.5"
+                                        }
+                                    }
+                                    showLayoutDialog = false
+                                }
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Text(label, style = MaterialTheme.typography.bodyLarge)
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showLayoutDialog = false }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
+            }
+        )
+    }
 }
 
 @Composable
