@@ -76,3 +76,7 @@ Generative AI was used in the production of text and images, as well as the tran
 ## License
 
 Apache License 2.0
+
+## Release & Documentation Rules
+
+Before building the App Bundle, ensure that `README.md`, `LICENSE`, `docs/*.html`, and `store_listing/metadata*.txt` are updated in accordance with the latest specifications. See [RELEASE_RULES.md](RELEASE_RULES.md) for details. Automated pre-bundle checks are enforced via Gradle (`preBundleDocumentationCheck`).
