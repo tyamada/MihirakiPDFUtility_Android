@@ -16,3 +16,4 @@ captures/
 .cxx
 local.properties
 release-key.jks
+.kotlin/
