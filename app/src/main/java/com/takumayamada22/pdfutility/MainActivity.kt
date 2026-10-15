@@ -1,9 +1,11 @@
 package com.takumayamada22.pdfutility
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.takumayamada22.pdfutility.ui.MainScreen
 import com.takumayamada22.pdfutility.ui.PdfViewModel
@@ -15,7 +17,9 @@ class MainActivity : ComponentActivity() {
         val initialUri = intent?.data
         setContent {
             MihirakiPDFUtilityTheme {
-                val viewModel: PdfViewModel = viewModel()
+                val context = LocalContext.current
+                val application = context.applicationContext as Application
+                val viewModel: PdfViewModel = viewModel(factory = PdfViewModel.provideFactory(application))
                 LaunchedEffect(initialUri) {
                     initialUri?.let { viewModel.loadPdf(it) }
                 }
