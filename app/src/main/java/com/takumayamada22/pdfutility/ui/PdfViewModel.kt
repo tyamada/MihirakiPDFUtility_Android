@@ -82,7 +82,8 @@ data class PdfDialogState(
     val pendingUri: Uri? = null,
     val showSettingsMenu: Boolean = false,
     val activeSettingsDialog: SettingsDialogType? = null,
-    val showCcByDialog: Boolean = false
+    val showCcByDialog: Boolean = false,
+    val showSamplePdfScreen: Boolean = false
 )
 
 data class PdfHistoryState(
@@ -132,6 +133,7 @@ data class PdfUiState(
     val showSettingsMenu: Boolean get() = dialog.showSettingsMenu
     val activeSettingsDialog: SettingsDialogType? get() = dialog.activeSettingsDialog
     val showCcByDialog: Boolean get() = dialog.showCcByDialog
+    val showSamplePdfScreen: Boolean get() = dialog.showSamplePdfScreen
 
     val canUndo: Boolean get() = history.canUndo
     val canRedo: Boolean get() = history.canRedo
@@ -168,6 +170,7 @@ data class PdfUiState(
         showSettingsMenu: Boolean? = null,
         activeSettingsDialog: Any? = Unspecified,
         showCcByDialog: Boolean? = null,
+        showSamplePdfScreen: Boolean? = null,
         canUndo: Boolean? = null,
         canRedo: Boolean? = null,
         isMihirakiView: Boolean? = null,
@@ -206,7 +209,8 @@ data class PdfUiState(
                 pendingUri = if (pendingUri === Unspecified) dialog.pendingUri else pendingUri as Uri?,
                 showSettingsMenu = showSettingsMenu ?: dialog.showSettingsMenu,
                 activeSettingsDialog = if (activeSettingsDialog === Unspecified) dialog.activeSettingsDialog else activeSettingsDialog as SettingsDialogType?,
-                showCcByDialog = showCcByDialog ?: dialog.showCcByDialog
+                showCcByDialog = showCcByDialog ?: dialog.showCcByDialog,
+                showSamplePdfScreen = showSamplePdfScreen ?: dialog.showSamplePdfScreen
             ),
             history = history.copy(
                 canUndo = canUndo ?: history.canUndo,
@@ -294,7 +298,21 @@ class PdfViewModel(
     private var pendingAction: (() -> Unit)? = null
 
     fun openSamplePdf() {
-        loadSamplePdf()
+        openSamplePdfScreen()
+    }
+
+    fun openSamplePdfScreen() {
+        _uiState.value = _uiState.value.copy(showSamplePdfScreen = true)
+    }
+
+    fun closeSamplePdfScreen() {
+        _uiState.value = _uiState.value.copy(showSamplePdfScreen = false)
+    }
+
+    fun openSamplePdfUri(uri: Uri) {
+        closeSamplePdfScreen()
+        loadPdf(uri)
+        _uiState.value = _uiState.value.copy(isSamplePdf = true, ccByAcknowledged = false)
     }
 
     fun dismissCcByDialog() {
