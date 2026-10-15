@@ -7,8 +7,6 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.takumayamada22.pdfutility.R
-import com.takumayamada22.pdfutility.billing.TipTier
 import com.takumayamada22.pdfutility.ui.ButtonDisplayType
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
@@ -122,11 +119,17 @@ fun PdfTopAppBar(
                     )
                     ActionButton(
                         onClick = onOpenSamplePdf,
-                        icon = { Icon(Icons.Default.Description, contentDescription = stringResource(R.string.sample_pdf)) },
+                        icon = { Icon(Icons.Default.Download, contentDescription = stringResource(R.string.sample_pdf)) },
                         text = stringResource(R.string.sample_pdf),
                         displayType = displayType
                     )
                     if (uiState.pages.isNotEmpty()) {
+                        ActionButton(
+                            onClick = onSave,
+                            icon = { Icon(Icons.Default.Save, contentDescription = stringResource(R.string.action_save)) },
+                            text = stringResource(R.string.action_save),
+                            displayType = displayType
+                        )
                         ActionButton(
                             onClick = onAppend,
                             icon = { Icon(Icons.Default.Add, contentDescription = stringResource(R.string.action_add_pdf)) },
@@ -145,6 +148,17 @@ fun PdfTopAppBar(
                             enabled = uiState.canRedo,
                             icon = { Icon(Icons.AutoMirrored.Filled.Redo, contentDescription = stringResource(R.string.action_redo)) },
                             text = stringResource(R.string.action_redo),
+                            displayType = displayType
+                        )
+                        ActionButton(
+                            onClick = { viewModel.toggleMihirakiView() },
+                            icon = {
+                                Icon(
+                                    Icons.Default.GridView,
+                                    contentDescription = stringResource(R.string.action_toggle_view)
+                                )
+                            },
+                            text = stringResource(R.string.action_toggle_view),
                             displayType = displayType
                         )
                         ActionButton(
@@ -178,45 +192,7 @@ fun PdfTopAppBar(
                                 displayType = displayType
                             )
                         }
-                        ActionButton(
-                            onClick = { viewModel.toggleMihirakiView() },
-                            icon = {
-                                Icon(
-                                    Icons.Default.GridView,
-                                    contentDescription = stringResource(R.string.action_toggle_view)
-                                )
-                            },
-                            text = stringResource(R.string.action_toggle_view),
-                            displayType = displayType
-                        )
-                        ActionButton(
-                            onClick = onSave,
-                            icon = { Icon(Icons.Default.Save, contentDescription = stringResource(R.string.action_save)) },
-                            text = stringResource(R.string.action_save),
-                            displayType = displayType
-                        )
                     }
-
-                    val purchasedTiers by viewModel.billing.purchasedTiers.collectAsState()
-                    val heartColor = when {
-                        purchasedTiers.contains(TipTier.GOLD) -> Color(0xFFFFD700)
-                        purchasedTiers.contains(TipTier.SILVER) -> Color(0xFFC0C0C0)
-                        purchasedTiers.contains(TipTier.BRONZE) -> Color(0xFFCD7F32)
-                        else -> MaterialTheme.colorScheme.onSurface
-                    }
-                    ActionButton(
-                        onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) },
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Default.Favorite,
-                                contentDescription = stringResource(R.string.support),
-                                tint = heartColor
-                            )
-                        },
-                        text = stringResource(R.string.support),
-                        displayType = displayType,
-                        tint = heartColor
-                    )
 
                     Box {
                         ActionButton(
