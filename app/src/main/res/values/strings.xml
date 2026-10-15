@@ -149,4 +149,8 @@
     <string name="promo_code_help_title">How to Redeem Promo Code</string>
     <string name="promo_code_help_message">To redeem a promotion code, open the Support screen, tap the purchase button, and select "Redeem" from the Google Play payment methods menu.</string>
     <string name="go_to_support">Go to Support</string>
+    <string name="sample_pdf">Sample PDF</string>
+    <string name="cc_by_dialog_title">Sample PDF License (CC BY 4.0)</string>
+    <string name="cc_by_dialog_text">Before modifying or saving the sample PDF, please review the Creative Commons Attribution 4.0 International (CC BY 4.0) terms:\n\n• Author: Komairo Hiyori\n• License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• When reusing, modifying, or saving, please display the title, author name, license link, and indicate any modifications made.\n\nNote: You have full freedom to modify and save the sample PDF without restriction.</string>
+    <string name="cc_by_dialog_confirm">Agree &amp; Proceed</string>
 </resources>

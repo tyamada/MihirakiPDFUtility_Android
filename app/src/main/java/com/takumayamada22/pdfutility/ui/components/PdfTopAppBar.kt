@@ -26,6 +26,7 @@ fun PdfTopAppBar(
     uiState: PdfUiState,
     viewModel: PdfViewModel,
     onOpen: () -> Unit,
+    onOpenSamplePdf: () -> Unit,
     onAppend: () -> Unit,
     onSave: () -> Unit,
     onExport: () -> Unit,
@@ -74,6 +75,9 @@ fun PdfTopAppBar(
                 if (uiState.selectedIndices.isEmpty()) {
                     IconButton(onClick = onOpen) {
                         Icon(Icons.Default.FileOpen, contentDescription = stringResource(R.string.action_open))
+                    }
+                    IconButton(onClick = onOpenSamplePdf) {
+                        Icon(Icons.Default.Description, contentDescription = stringResource(R.string.sample_pdf))
                     }
                     if (uiState.pages.isNotEmpty()) {
                         IconButton(onClick = onAppend) {
