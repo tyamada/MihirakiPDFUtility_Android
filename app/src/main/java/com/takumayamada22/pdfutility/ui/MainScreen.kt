@@ -19,10 +19,13 @@ import com.takumayamada22.pdfutility.ui.components.PdfSettingsDialog
 import com.takumayamada22.pdfutility.ui.components.PdfTopAppBar
 import com.takumayamada22.pdfutility.ui.components.SplitDialog
 import com.takumayamada22.pdfutility.ui.components.CropDialog
+import com.takumayamada22.pdfutility.ui.components.SamplePdfScreen
+import com.takumayamada22.pdfutility.ui.SamplePdfViewModel
 
 @Composable
 fun MainScreen(viewModel: PdfViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
+    val sampleViewModel: SamplePdfViewModel = viewModel()
     val snackbarHostState = remember { SnackbarHostState() }
     var showDeleteConfirmation by remember { mutableStateOf(false) }
     var showSplitDialog by remember { mutableStateOf(false) }
@@ -152,6 +155,14 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
         onDismiss = { viewModel.dismissCcByDialog() },
         onConfirm = { viewModel.confirmCcByDialog() }
     )
+
+    if (uiState.showSamplePdfScreen) {
+        SamplePdfScreen(
+            viewModel = sampleViewModel,
+            back = { viewModel.closeSamplePdfScreen() },
+            onOpenPdf = { uri -> viewModel.openSamplePdfUri(uri) }
+        )
+    }
 
     SplitDialog(
         show = showSplitDialog,
