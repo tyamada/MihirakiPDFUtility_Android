@@ -11,6 +11,7 @@
     <string name="action_invert_selection">選択を反転</string>
     <string name="action_export_selected">選択ページを保存</string>
     <string name="action_split_pages">ページ分割</string>
+    <string name="action_rotate_left">左回転</string>
     <string name="action_rotate_right">右回転</string>
     <string name="action_insert_blank">空白を挿入</string>
     <string name="action_move_up">前へ移動</string>

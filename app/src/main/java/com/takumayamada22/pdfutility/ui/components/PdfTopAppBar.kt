@@ -299,6 +299,12 @@ fun PdfTopAppBar(
                         displayType = displayType
                     )
                     ActionButton(
+                        onClick = { viewModel.rotateSelected(-90) },
+                        icon = { Icon(Icons.AutoMirrored.Filled.RotateLeft, contentDescription = stringResource(R.string.action_rotate_left)) },
+                        text = stringResource(R.string.action_rotate_left),
+                        displayType = displayType
+                    )
+                    ActionButton(
                         onClick = { viewModel.rotateSelected(90) },
                         icon = { Icon(Icons.Default.RotateRight, contentDescription = stringResource(R.string.action_rotate_right)) },
                         text = stringResource(R.string.action_rotate_right),
