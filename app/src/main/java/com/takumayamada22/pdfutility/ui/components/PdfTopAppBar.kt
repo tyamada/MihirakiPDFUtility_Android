@@ -113,21 +113,6 @@ fun PdfTopAppBar(
                 horizontalArrangement = Arrangement.End,
                 verticalArrangement = Arrangement.spacedBy(0.dp)
             ) {
-                ActionButton(
-                    onClick = { viewModel.undo() },
-                    enabled = uiState.canUndo,
-                    icon = { Icon(Icons.AutoMirrored.Filled.Undo, contentDescription = stringResource(R.string.action_undo)) },
-                    text = stringResource(R.string.action_undo),
-                    displayType = displayType
-                )
-                ActionButton(
-                    onClick = { viewModel.redo() },
-                    enabled = uiState.canRedo,
-                    icon = { Icon(Icons.AutoMirrored.Filled.Redo, contentDescription = stringResource(R.string.action_redo)) },
-                    text = stringResource(R.string.action_redo),
-                    displayType = displayType
-                )
-
                 if (uiState.selectedIndices.isEmpty()) {
                     ActionButton(
                         onClick = onOpen,
@@ -146,6 +131,20 @@ fun PdfTopAppBar(
                             onClick = onAppend,
                             icon = { Icon(Icons.Default.Add, contentDescription = stringResource(R.string.action_add_pdf)) },
                             text = stringResource(R.string.action_add_pdf),
+                            displayType = displayType
+                        )
+                        ActionButton(
+                            onClick = { viewModel.undo() },
+                            enabled = uiState.canUndo,
+                            icon = { Icon(Icons.AutoMirrored.Filled.Undo, contentDescription = stringResource(R.string.action_undo)) },
+                            text = stringResource(R.string.action_undo),
+                            displayType = displayType
+                        )
+                        ActionButton(
+                            onClick = { viewModel.redo() },
+                            enabled = uiState.canRedo,
+                            icon = { Icon(Icons.AutoMirrored.Filled.Redo, contentDescription = stringResource(R.string.action_redo)) },
+                            text = stringResource(R.string.action_redo),
                             displayType = displayType
                         )
                         ActionButton(
@@ -307,13 +306,13 @@ fun PdfTopAppBar(
                     )
                     ActionButton(
                         onClick = { viewModel.moveSelected(-1) },
-                        icon = { Icon(Icons.Default.ArrowUpward, contentDescription = stringResource(R.string.action_move_up)) },
+                        icon = { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_move_up)) },
                         text = stringResource(R.string.action_move_up),
                         displayType = displayType
                     )
                     ActionButton(
                         onClick = { viewModel.moveSelected(1) },
-                        icon = { Icon(Icons.Default.ArrowDownward, contentDescription = stringResource(R.string.action_move_down)) },
+                        icon = { Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = stringResource(R.string.action_move_down)) },
                         text = stringResource(R.string.action_move_down),
                         displayType = displayType
                     )
