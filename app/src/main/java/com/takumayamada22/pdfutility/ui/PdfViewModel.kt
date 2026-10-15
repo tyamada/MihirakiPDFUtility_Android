@@ -134,10 +134,12 @@ data class PdfUiState(
     val isRtl: Boolean get() = preference.isRtl
     val thumbnailSize: ThumbnailSize get() = preference.thumbnailSize
 
+    private object Unspecified
+
     fun copy(
         pages: List<PageState>? = null,
         isLoading: Boolean? = null,
-        fileName: String? = null,
+        fileName: Any? = Unspecified,
         isDirty: Boolean? = null,
         isAppending: Boolean? = null,
         pdfVersion: String? = null,
@@ -145,18 +147,18 @@ data class PdfUiState(
         scrollDirection: String? = null,
         showCover: Boolean? = null,
         selectedIndices: Set<Int>? = null,
-        previewPageIndex: Int? = null,
+        previewPageIndex: Any? = Unspecified,
         title: String? = null,
         author: String? = null,
         subject: String? = null,
         keywords: String? = null,
         savePassword: String? = null,
-        errorMessage: String? = null,
-        errorResId: Int? = null,
+        errorMessage: Any? = Unspecified,
+        errorResId: Any? = Unspecified,
         showPasswordDialog: Boolean? = null,
-        pendingUri: Uri? = null,
+        pendingUri: Any? = Unspecified,
         showSettingsMenu: Boolean? = null,
-        activeSettingsDialog: SettingsDialogType? = null,
+        activeSettingsDialog: Any? = Unspecified,
         canUndo: Boolean? = null,
         canRedo: Boolean? = null,
         isMihirakiView: Boolean? = null,
@@ -167,7 +169,7 @@ data class PdfUiState(
             document = document.copy(
                 pages = pages ?: document.pages,
                 isLoading = isLoading ?: document.isLoading,
-                fileName = fileName ?: document.fileName,
+                fileName = if (fileName === Unspecified) document.fileName else fileName as String?,
                 isDirty = isDirty ?: document.isDirty,
                 isAppending = isAppending ?: document.isAppending,
                 pdfVersion = pdfVersion ?: document.pdfVersion,
@@ -177,7 +179,7 @@ data class PdfUiState(
             ),
             selection = selection.copy(
                 selectedIndices = selectedIndices ?: selection.selectedIndices,
-                previewPageIndex = previewPageIndex ?: selection.previewPageIndex
+                previewPageIndex = if (previewPageIndex === Unspecified) selection.previewPageIndex else previewPageIndex as Int?
             ),
             metadata = metadata.copy(
                 title = title ?: metadata.title,
@@ -187,12 +189,12 @@ data class PdfUiState(
                 savePassword = savePassword ?: metadata.savePassword
             ),
             dialog = dialog.copy(
-                errorMessage = errorMessage ?: dialog.errorMessage,
-                errorResId = errorResId ?: dialog.errorResId,
+                errorMessage = if (errorMessage === Unspecified) dialog.errorMessage else errorMessage as String?,
+                errorResId = if (errorResId === Unspecified) dialog.errorResId else errorResId as Int?,
                 showPasswordDialog = showPasswordDialog ?: dialog.showPasswordDialog,
-                pendingUri = pendingUri ?: dialog.pendingUri,
+                pendingUri = if (pendingUri === Unspecified) dialog.pendingUri else pendingUri as Uri?,
                 showSettingsMenu = showSettingsMenu ?: dialog.showSettingsMenu,
-                activeSettingsDialog = activeSettingsDialog ?: dialog.activeSettingsDialog
+                activeSettingsDialog = if (activeSettingsDialog === Unspecified) dialog.activeSettingsDialog else activeSettingsDialog as SettingsDialogType?
             ),
             history = history.copy(
                 canUndo = canUndo ?: history.canUndo,
