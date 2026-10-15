@@ -74,6 +74,7 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
+                    .heightIn(max = 450.dp)
                     .padding(vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -263,6 +264,7 @@ private fun PdfOptionsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
+                    .heightIn(max = 450.dp)
                     .padding(vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
@@ -324,6 +326,7 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
+                    .heightIn(max = 450.dp)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -526,7 +529,13 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
         onDismissRequest = { viewModel.closeSettingsDialog() },
         title = { Text(stringResource(R.string.support)) },
         text = {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .heightIn(max = 450.dp)
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
                 Text(stringResource(R.string.tip_message))
                 Text(stringResource(R.string.free_use_message), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.secondary)
                 
@@ -610,6 +619,7 @@ private fun PdfHelpDialog(viewModel: PdfViewModel) {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
+                    .heightIn(max = 450.dp)
                     .padding(vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
