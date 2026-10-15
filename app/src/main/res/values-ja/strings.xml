@@ -69,7 +69,7 @@
     <string name="help_display_title">4. 表示切り替え・デバイス対応</string>
     <string name="help_display_text">「表示切替」アイコンで一覧（グリッド）表示と見開き表示を切り替えられます。「右開き切替」で右開き（マンガ・和本向け）と左開きを切り替え可能。スマートフォン、タブレット、ChromeOS（デスクトップ）に対応しています。</string>
     <string name="help_settings_title">5. 設定・診断・サポート</string>
-    <string name="help_settings_text">右上の設定ボタン（またはハートの応援ボタン）から表示されるメニューで、以下の各項目を利用できます：\n\n　• プロパティ: タイトル、作成者、サブタイトル、キーワード、PDFバージョン、ページレイアウトなどを設定します。\n　• パスワード: 保存やエクスポート時に適用する暗号化パスワードを設定・クリアします。\n　• オプション: サムネイル画像サイズ（小/中/大）を設定します。\n　• バージョン: アプリのバージョン、ビルド番号、ライセンス、購入した応援バッジを表示します。\n　• ヘルプ: アプリの使い方ガイド（この画面）を表示します。\n　• 診断: 実機診断テストの実行、プライバシー保護されたローカルの操作および実行時エラー監査ログ（24時間自動保持・個人情報不含）の確認、レポート共有、GitHubへの問題報告を行います。\n　• サポート: アプリの開発を応援するための1回限りの応援アイテム（ブロンズ・シルバー・ゴールド）を購入できます。</string>
+    <string name="help_settings_text">右上の設定ボタン（またはハートの応援ボタン）から表示されるメニューで、以下の各項目を利用できます：\n\n　• プロパティ: タイトル、作成者、サブタイトル、キーワード、PDFバージョン、ページレイアウトなどを設定します。\n　• パスワード: 保存やエクスポート時に適用する暗号化パスワードを設定・クリアします。\n　• オプション: サムネイル画像サイズ（小/中/大）を設定します。\n　• バージョン: アプリのバージョン、ビルド番号、ライセンス、購入した応援バッジを表示し、プロモーションコードの利用方法を確認できます。\n　• ヘルプ: アプリの使い方ガイド（この画面）を表示します。\n　• 診断: 実機診断テストの実行、プライバシー保護されたローカルの操作および実行時エラー監査ログ（24時間自動保持・個人情報不含）の確認、レポート共有、GitHubへの問題報告を行います。\n　• サポート: アプリの開発を応援するための1回限りの応援アイテム（ブロンズ・シルバー・ゴールド）の購入やGoogle Playプロモーションコードの利用を行います。</string>
     <string name="help_purchased_items">購入した応援バッジ</string>
     <string name="help_no_purchased_items">購入した応援アイテムはまだありません。</string>
 
@@ -129,7 +129,7 @@
     <string name="purchase_badge_shown">バージョン画面に応援バッジを表示しました。</string>
     <string name="purchase_cancelled">購入をキャンセルしました。</string>
     <string name="purchase_failed">購入に失敗しました。もう一度お試しください。</string>
-    <string name="free_use_message">購入しなくてもすべての機能を利用できます。</string>
+    <string name="free_use_message">本アプリは完全に無料でご利用いただけます。PDFの編集、保存などのすべての機能は、購入の有無にかかわらず制限なくお使いいただけます。</string>
     <string name="action_property">プロパティ</string>
     <string name="action_right_binding">右綴じ</string>
     <string name="action_right_binding_cover">右綴じ・表紙</string>
@@ -146,4 +146,7 @@
     <string name="copy_logs">ログをクリップボードにコピー</string>
     <string name="logs_copied">ログをクリップボードにコピーしました</string>
     <string name="share_logs">ログを共有</string>
+    <string name="promo_code_help_title">プロモーションコードの利用方法</string>
+    <string name="promo_code_help_message">プロモーションコードは、「応援」画面を開きいずれかの購入ボタンをタップ後、Google Play決済画面のお支払い方法メニューから「コードの利用」を選択して入力してください。</string>
+    <string name="go_to_support">応援画面へ移動</string>
 </resources>
