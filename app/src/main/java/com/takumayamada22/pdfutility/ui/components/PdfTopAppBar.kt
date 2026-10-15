@@ -153,6 +153,10 @@ fun PdfTopAppBar(
                                 onClick = { viewModel.openSettingsDialog(SettingsDialogType.HELP) }
                             )
                             DropdownMenuItem(
+                                text = { Text(stringResource(R.string.settings_diagnostics)) },
+                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.DIAGNOSTICS) }
+                            )
+                            DropdownMenuItem(
                                 text = { Text(stringResource(R.string.support)) },
                                 onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }
                             )
