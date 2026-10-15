@@ -221,8 +221,8 @@ fun PdfTopAppBar(
                     Box {
                         ActionButton(
                             onClick = { viewModel.toggleSettingsMenu() },
-                            icon = { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_title)) },
-                            text = stringResource(R.string.settings_title),
+                            icon = { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.action_settings)) },
+                            text = stringResource(R.string.action_settings),
                             displayType = displayType
                         )
                         DropdownMenu(
@@ -269,6 +269,12 @@ fun PdfTopAppBar(
                         displayType = displayType
                     )
                     ActionButton(
+                        onClick = { viewModel.clearSelection() },
+                        icon = { Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_clear_selection)) },
+                        text = stringResource(R.string.action_clear_selection),
+                        displayType = displayType
+                    )
+                    ActionButton(
                         onClick = { viewModel.invertSelection() },
                         icon = { Icon(Icons.Default.Flip, contentDescription = stringResource(R.string.action_invert_selection)) },
                         text = stringResource(R.string.action_invert_selection),
@@ -278,6 +284,18 @@ fun PdfTopAppBar(
                         onClick = onExport,
                         icon = { Icon(Icons.Default.Output, contentDescription = stringResource(R.string.action_export_selected)) },
                         text = stringResource(R.string.action_export_selected),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onDeleteClick,
+                        icon = { Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.action_delete)) },
+                        text = stringResource(R.string.action_delete),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.insertBlankAfterSelected() },
+                        icon = { Icon(Icons.Default.AddBox, contentDescription = stringResource(R.string.action_insert_blank)) },
+                        text = stringResource(R.string.action_insert_blank),
                         displayType = displayType
                     )
                     ActionButton(
@@ -293,18 +311,6 @@ fun PdfTopAppBar(
                         displayType = displayType
                     )
                     ActionButton(
-                        onClick = { viewModel.rotateSelected(90) },
-                        icon = { Icon(Icons.Default.RotateRight, contentDescription = stringResource(R.string.action_rotate_right)) },
-                        text = stringResource(R.string.action_rotate_right),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = { viewModel.insertBlankAfterSelected() },
-                        icon = { Icon(Icons.Default.AddBox, contentDescription = stringResource(R.string.action_insert_blank)) },
-                        text = stringResource(R.string.action_insert_blank),
-                        displayType = displayType
-                    )
-                    ActionButton(
                         onClick = { viewModel.moveSelected(-1) },
                         icon = { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_move_up)) },
                         text = stringResource(R.string.action_move_up),
@@ -317,15 +323,9 @@ fun PdfTopAppBar(
                         displayType = displayType
                     )
                     ActionButton(
-                        onClick = onDeleteClick,
-                        icon = { Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.action_delete)) },
-                        text = stringResource(R.string.action_delete),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = { viewModel.clearSelection() },
-                        icon = { Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_clear_selection)) },
-                        text = stringResource(R.string.action_clear_selection),
+                        onClick = { viewModel.rotateSelected(90) },
+                        icon = { Icon(Icons.Default.RotateRight, contentDescription = stringResource(R.string.action_rotate_right)) },
+                        text = stringResource(R.string.action_rotate_right),
                         displayType = displayType
                     )
                 }

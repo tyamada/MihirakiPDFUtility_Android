@@ -18,6 +18,7 @@
     <string name="action_delete">削除</string>
     <string name="action_clear_selection">選択解除</string>
     <string name="action_close">閉じる</string>
+    <string name="action_settings">設定</string>
     <string name="action_apply">適用</string>
     <string name="action_cancel">キャンセル</string>
     <string name="action_unlock">解除</string>
