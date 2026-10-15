@@ -11,6 +11,7 @@
     <string name="action_invert_selection">Invert Selection</string>
     <string name="action_export_selected">Export Selected</string>
     <string name="action_split_pages">Split Pages</string>
+    <string name="action_rotate_left">Rotate Left</string>
     <string name="action_rotate_right">Rotate Right</string>
     <string name="action_insert_blank">Insert Blank</string>
     <string name="action_move_up">Move Backward</string>
