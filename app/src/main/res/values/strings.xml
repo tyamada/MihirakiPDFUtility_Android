@@ -69,7 +69,7 @@
     <string name="help_display_title">4. Display Modes &amp; Devices</string>
     <string name="help_display_text">Toggle between Grid and Spread views. Use Toggle RTL for right-to-left reading mode (manga/books). Optimized for smartphones, tablets, and ChromeOS.</string>
     <string name="help_settings_title">5. Settings, Diagnostics &amp; Support</string>
-    <string name="help_settings_text">From the settings menu (gear icon or support heart button), you can configure and view the following items:\n\n    • Properties: Configure document title, author, subject, keywords, PDF version, and page layout.\n    • Password: Set or clear the encryption password for saving and exporting.\n    • Options: Select thumbnail image size (Small/Medium/Large).\n    • Version: View app version, build number, licenses, and purchased badges.\n    • Help: Display this app guide.\n    • Diagnostics: Run system diagnostic tests, review privacy-protected local operation and runtime error audit logs (automatically retained for 24 hours, strictly excluding personal data), share reports, and report issues on GitHub.\n    • Support: Purchase one-time support items (Bronze, Silver, Gold) to support app development.</string>
+    <string name="help_settings_text">From the settings menu (gear icon or support heart button), you can configure and view the following items:\n\n    • Properties: Configure document title, author, subject, keywords, PDF version, and page layout.\n    • Password: Set or clear the encryption password for saving and exporting.\n    • Options: Select thumbnail image size (Small/Medium/Large).\n    • Version: View app version, build number, licenses, purchased badges, and redeem promo codes.\n    • Help: Display this app guide.\n    • Diagnostics: Run system diagnostic tests, review privacy-protected local operation and runtime error audit logs (automatically retained for 24 hours, strictly excluding personal data), share reports, and report issues on GitHub.\n    • Support: Purchase one-time support items (Bronze, Silver, Gold) or redeem Google Play promotion codes to support app development.</string>
     <string name="help_purchased_items">Purchased Support Badges</string>
     <string name="help_no_purchased_items">No support items purchased yet.</string>
 
@@ -125,7 +125,7 @@
     <string name="preview_page_counter">Page %1$d / %2$d</string>
 
     <string name="tip_message">If you enjoy the app, you can support its development.</string>
-    <string name="free_use_message">All features can be used without purchase.</string>
+    <string name="free_use_message">This app is completely free to use. All features, such as editing and saving PDFs, are available without restriction regardless of purchase.</string>
     <string name="purchase_thanks">Thank you! %1$s support received.</string>
     <string name="purchase_badge_shown">Support badge displayed on the version screen.</string>
     <string name="purchase_cancelled">Purchase cancelled.</string>
@@ -146,4 +146,7 @@
     <string name="copy_logs">Copy Logs to Clipboard</string>
     <string name="logs_copied">Logs copied to clipboard</string>
     <string name="share_logs">Share Logs</string>
+    <string name="promo_code_help_title">How to Redeem Promo Code</string>
+    <string name="promo_code_help_message">To redeem a promotion code, open the Support screen, tap the purchase button, and select "Redeem" from the Google Play payment methods menu.</string>
+    <string name="go_to_support">Go to Support</string>
 </resources>

@@ -472,6 +472,44 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                         Spacer(Modifier.height(4.dp))
                     }
 
+                    var showPromoDialog by remember { mutableStateOf(false) }
+
+                    Spacer(Modifier.height(8.dp))
+                    TextButton(
+                        onClick = { showPromoDialog = true },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
+                            Text(stringResource(R.string.promo_code_help_title))
+                        }
+                    }
+
+                    if (showPromoDialog) {
+                        AlertDialog(
+                            onDismissRequest = { showPromoDialog = false },
+                            title = { Text(stringResource(R.string.promo_code_help_title)) },
+                            text = {
+                                Text(stringResource(R.string.promo_code_help_message), style = MaterialTheme.typography.bodyMedium)
+                            },
+                            confirmButton = {
+                                Button(
+                                    onClick = {
+                                        showPromoDialog = false
+                                        viewModel.closeSettingsDialog()
+                                        viewModel.openSettingsDialog(SettingsDialogType.SUPPORT)
+                                    }
+                                ) {
+                                    Text(stringResource(R.string.go_to_support))
+                                }
+                            },
+                            dismissButton = {
+                                TextButton(onClick = { showPromoDialog = false }) {
+                                    Text(stringResource(R.string.action_cancel))
+                                }
+                            }
+                        )
+                    }
+
                     Spacer(Modifier.height(8.dp))
                     Text(stringResource(R.string.version_license_title), style = MaterialTheme.typography.labelMedium)
                     Text(
