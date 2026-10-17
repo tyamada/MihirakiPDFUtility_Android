@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.takumayamada22.pdfutility.R
@@ -20,12 +21,14 @@ import com.takumayamada22.pdfutility.ui.components.PdfTopAppBar
 import com.takumayamada22.pdfutility.ui.components.SplitDialog
 import com.takumayamada22.pdfutility.ui.components.CropDialog
 import com.takumayamada22.pdfutility.ui.components.SamplePdfScreen
+import com.takumayamada22.pdfutility.ui.components.FolderImageSortDialog
 import com.takumayamada22.pdfutility.ui.SamplePdfViewModel
 
 @Composable
 fun MainScreen(viewModel: PdfViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     val sampleViewModel: SamplePdfViewModel = viewModel()
+    val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
     var showDeleteConfirmation by remember { mutableStateOf(false) }
     var showSplitDialog by remember { mutableStateOf(false) }
@@ -33,6 +36,9 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
 
     val openLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let { viewModel.loadPdf(it) }
+    }
+    val openFolderLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+        uri?.let { viewModel.loadImagesFromFolder(it, context) }
     }
     val appendLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let { viewModel.appendPdf(it) }
@@ -124,6 +130,7 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                 uiState = uiState,
                 viewModel = viewModel,
                 onOpen = { openLauncher.launch("application/pdf") },
+                onOpenFolder = { openFolderLauncher.launch(null) },
                 onOpenSamplePdf = { viewModel.openSamplePdf() },
                 onAppend = { appendLauncher.launch("application/pdf") },
                 onSave = { saveLauncher.launch("edited_${uiState.fileName ?: "document"}.pdf") },
@@ -140,6 +147,17 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                 viewModel = viewModel
             )
         }
+    }
+
+    if (uiState.folderImageState.showFolderImageDialog) {
+        FolderImageSortDialog(
+            images = uiState.folderImageState.images,
+            sortField = uiState.folderImageState.sortField,
+            sortOrder = uiState.folderImageState.sortOrder,
+            onSortChanged = { field, order -> viewModel.setImageSortOptions(field, order) },
+            onConfirm = { viewModel.createPdfFromFolderImages(context) },
+            onDismiss = { viewModel.dismissFolderImageDialog() }
+        )
     }
 
     if (uiState.previewPageIndex != null) {

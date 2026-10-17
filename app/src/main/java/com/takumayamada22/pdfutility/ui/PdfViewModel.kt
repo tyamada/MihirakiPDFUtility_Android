@@ -11,10 +11,14 @@ import com.tom_roush.pdfbox.pdmodel.encryption.InvalidPasswordException
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.BillingManager
 import com.takumayamada22.pdfutility.domain.ExportPdfUseCase
+import com.takumayamada22.pdfutility.domain.ImageFileItem
+import com.takumayamada22.pdfutility.domain.ImageSortField
+import com.takumayamada22.pdfutility.domain.ImageSortOrder
 import com.takumayamada22.pdfutility.domain.LoadPdfUseCase
 import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.domain.ThumbnailProvider
 import com.takumayamada22.pdfutility.util.AppLogger
+import androidx.documentfile.provider.DocumentFile
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -100,13 +104,23 @@ data class PdfPreferenceState(
     val buttonDisplayType: ButtonDisplayType = ButtonDisplayType.ICON_AND_TEXT
 )
 
+data class FolderImageState(
+    val folderUri: Uri? = null,
+    val images: List<ImageFileItem> = emptyList(),
+    val sortField: ImageSortField = ImageSortField.NAME,
+    val sortOrder: ImageSortOrder = ImageSortOrder.ASCENDING,
+    val showFolderImageDialog: Boolean = false,
+    val isLoadingFolder: Boolean = false
+)
+
 data class PdfUiState(
     val document: PdfDocumentState = PdfDocumentState(),
     val selection: PdfSelectionState = PdfSelectionState(),
     val metadata: PdfMetadataState = PdfMetadataState(),
     val dialog: PdfDialogState = PdfDialogState(),
     val history: PdfHistoryState = PdfHistoryState(),
-    val preference: PdfPreferenceState = PdfPreferenceState()
+    val preference: PdfPreferenceState = PdfPreferenceState(),
+    val folderImageState: FolderImageState = FolderImageState()
 ) {
     val pages: List<PageState> get() = document.pages
     val isLoading: Boolean get() = document.isLoading
@@ -1139,6 +1153,151 @@ class PdfViewModel(
                     _uiState.value = _uiState.value.copy(isLoading = false)
                 }
             }
+        }
+    }
+
+    fun loadImagesFromFolder(folderUri: Uri, context: android.content.Context) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _uiState.value = _uiState.value.copy(
+                folderImageState = _uiState.value.folderImageState.copy(
+                    folderUri = folderUri,
+                    isLoadingFolder = true
+                )
+            )
+            val images = mutableListOf<ImageFileItem>()
+            try {
+                val docFile = DocumentFile.fromTreeUri(context, folderUri)
+                docFile?.listFiles()?.forEach { file ->
+                    if (file.isFile && file.canRead()) {
+                        val name = file.name ?: ""
+                        val mimeType = file.type ?: ""
+                        val isImage = mimeType.startsWith("image/") ||
+                            name.endsWith(".jpg", true) ||
+                            name.endsWith(".jpeg", true) ||
+                            name.endsWith(".png", true) ||
+                            name.endsWith(".webp", true) ||
+                            name.endsWith(".bmp", true)
+                        if (isImage) {
+                            val uri = file.uri
+                            val size = file.length()
+                            val lastModified = file.lastModified()
+                            val creationTime = lastModified
+
+                            images.add(
+                                ImageFileItem(
+                                    uri = uri,
+                                    name = name,
+                                    size = size,
+                                    creationTime = creationTime,
+                                    lastModifiedTime = lastModified
+                                )
+                            )
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                AppLogger.log(context, "ERROR", "Failed to load images from folder: ${e.message}")
+            }
+
+            val sortedImages = sortImages(images, ImageSortField.NAME, ImageSortOrder.ASCENDING)
+            withContext(Dispatchers.Main) {
+                _uiState.value = _uiState.value.copy(
+                    folderImageState = _uiState.value.folderImageState.copy(
+                        images = sortedImages,
+                        sortField = ImageSortField.NAME,
+                        sortOrder = ImageSortOrder.ASCENDING,
+                        showFolderImageDialog = true,
+                        isLoadingFolder = false
+                    )
+                )
+            }
+        }
+    }
+
+    fun setImageSortOptions(field: ImageSortField, order: ImageSortOrder) {
+        val current = _uiState.value.folderImageState
+        val sorted = sortImages(current.images, field, order)
+        _uiState.value = _uiState.value.copy(
+            folderImageState = current.copy(
+                images = sorted,
+                sortField = field,
+                sortOrder = order
+            )
+        )
+    }
+
+    fun dismissFolderImageDialog() {
+        _uiState.value = _uiState.value.copy(
+            folderImageState = _uiState.value.folderImageState.copy(showFolderImageDialog = false)
+        )
+    }
+
+    fun createPdfFromFolderImages(context: android.content.Context) {
+        val imageUris = _uiState.value.folderImageState.images.map { it.uri }
+        if (imageUris.isEmpty()) {
+            dismissFolderImageDialog()
+            return
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            _uiState.value = _uiState.value.copy(
+                document = _uiState.value.document.copy(isLoading = true),
+                folderImageState = _uiState.value.folderImageState.copy(showFolderImageDialog = false)
+            )
+            try {
+                loadPdfUseCase.createPdfFromImages(imageUris, context)
+                
+                val tempFile = File(context.cacheDir, "folder_images_${System.currentTimeMillis()}.pdf")
+                FileOutputStream(tempFile).use { fos ->
+                    loadPdfUseCase.save(fos)
+                }
+                val tempUri = Uri.fromFile(tempFile)
+
+                val pageCount = thumbnailProvider.getPageCount(tempUri)
+                val pages = (0 until pageCount).map { index ->
+                    PageState(
+                        thumbnail = thumbnailProvider.getThumbnail(tempUri, index, getThumbnailWidth(_uiState.value.thumbnailSize)),
+                        originalIndex = index,
+                        sourceUri = tempUri
+                    )
+                }
+
+                withContext(Dispatchers.Main) {
+                    _uiState.value = _uiState.value.copy(
+                        document = PdfDocumentState(
+                            pages = pages,
+                            isLoading = false,
+                            fileName = "FolderImages.pdf",
+                            isDirty = true
+                        )
+                    )
+                    AppLogger.log(context, "INFO", "Successfully created PDF from folder images, pages: $pageCount")
+                    undoStack.clear()
+                    redoStack.clear()
+                    updateHistoryFlags()
+                }
+            } catch (e: Exception) {
+                AppLogger.log(context, "ERROR", "Failed to create PDF from folder images: ${e.message}")
+                withContext(Dispatchers.Main) {
+                    _uiState.value = _uiState.value.copy(
+                        document = _uiState.value.document.copy(isLoading = false),
+                        dialog = _uiState.value.dialog.copy(errorMessage = "Failed to create PDF from images: ${e.message}")
+                    )
+                }
+            }
+        }
+    }
+
+    private fun sortImages(images: List<ImageFileItem>, field: ImageSortField, order: ImageSortOrder): List<ImageFileItem> {
+        val comparator = when (field) {
+            ImageSortField.NAME -> compareBy<ImageFileItem> { it.name.lowercase() }
+            ImageSortField.CREATION_DATE -> compareBy { it.creationTime }
+            ImageSortField.MODIFIED_DATE -> compareBy { it.lastModifiedTime }
+        }
+        return if (order == ImageSortOrder.ASCENDING) {
+            images.sortedWith(comparator)
+        } else {
+            images.sortedWith(comparator.reversed())
         }
     }
 

@@ -69,6 +69,7 @@ fun PdfTopAppBar(
     uiState: PdfUiState,
     viewModel: PdfViewModel,
     onOpen: () -> Unit,
+    onOpenFolder: () -> Unit,
     onOpenSamplePdf: () -> Unit,
     onAppend: () -> Unit,
     onSave: () -> Unit,
@@ -115,6 +116,12 @@ fun PdfTopAppBar(
                         onClick = onOpen,
                         icon = { Icon(Icons.Default.FileOpen, contentDescription = stringResource(R.string.action_open)) },
                         text = stringResource(R.string.action_open),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onOpenFolder,
+                        icon = { Icon(Icons.Default.FolderOpen, contentDescription = stringResource(R.string.menu_open_folder)) },
+                        text = stringResource(R.string.menu_open_folder),
                         displayType = displayType
                     )
                     ActionButton(
