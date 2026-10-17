@@ -9,6 +9,7 @@ import com.tom_roush.pdfbox.pdmodel.interactive.viewerpreferences.PDViewerPrefer
 import com.tom_roush.pdfbox.pdmodel.common.PDRectangle
 import com.tom_roush.pdfbox.pdmodel.encryption.AccessPermission
 import com.tom_roush.pdfbox.pdmodel.encryption.StandardProtectionPolicy
+import android.net.Uri
 import com.takumayamada22.pdfutility.ui.SplitDirection
 import java.io.InputStream
 import java.io.OutputStream
@@ -27,6 +28,33 @@ class PdfProcessor {
         } catch (e: Exception) {
             null
         }
+        return document?.numberOfPages ?: 0
+    }
+
+    fun createPdfFromImages(imageUris: List<Uri>, context: android.content.Context): Int {
+        document?.close()
+        val newDoc = PDDocument()
+        for (uri in imageUris) {
+            try {
+                val inputStream = context.contentResolver.openInputStream(uri) ?: continue
+                val bytes = inputStream.readBytes()
+                inputStream.close()
+
+                val pdImage = com.tom_roush.pdfbox.pdmodel.graphics.image.PDImageXObject.createFromByteArray(newDoc, bytes, uri.toString())
+                val imageWidth = pdImage.width.toFloat()
+                val imageHeight = pdImage.height.toFloat()
+
+                val page = PDPage(PDRectangle(imageWidth, imageHeight))
+                newDoc.addPage(page)
+
+                val contentStream = com.tom_roush.pdfbox.pdmodel.PDPageContentStream(newDoc, page)
+                contentStream.drawImage(pdImage, 0f, 0f, imageWidth, imageHeight)
+                contentStream.close()
+            } catch (e: Exception) {
+                // Ignore failed images
+            }
+        }
+        document = newDoc
         return document?.numberOfPages ?: 0
     }
 
@@ -228,5 +256,9 @@ class PdfProcessor {
         
         newDoc.save(outputStream)
         newDoc.close()
+    }
+
+    fun save(outputStream: OutputStream) {
+        document?.save(outputStream)
     }
 }

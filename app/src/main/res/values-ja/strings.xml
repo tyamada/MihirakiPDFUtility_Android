@@ -170,4 +170,14 @@
     <string name="button_display_icon_and_text">アイコン＋テキスト (デフォルト)</string>
     <string name="button_display_icon_only">アイコンのみ</string>
     <string name="button_display_text_only">テキストのみ</string>
+    <string name="folder_images_title">フォルダ内の画像</string>
+    <string name="sort_options_label">並べ替え</string>
+    <string name="sort_by_name">名前</string>
+    <string name="sort_by_creation">作成日時</string>
+    <string name="sort_by_modified">更新日時</string>
+    <string name="sort_ascending">昇順</string>
+    <string name="sort_descending">降順</string>
+    <string name="image_count_label">画像数</string>
+    <string name="btn_create_pdf_from_images">PDFを作成</string>
+    <string name="menu_open_folder">フォルダを開く</string>
 </resources>

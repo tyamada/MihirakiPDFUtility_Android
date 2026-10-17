@@ -170,4 +170,14 @@
     <string name="button_display_icon_and_text">Icon + Text (Default)</string>
     <string name="button_display_icon_only">Icon Only</string>
     <string name="button_display_text_only">Text Only</string>
+    <string name="folder_images_title">Images in Folder</string>
+    <string name="sort_options_label">Sort By</string>
+    <string name="sort_by_name">Name</string>
+    <string name="sort_by_creation">Creation Date</string>
+    <string name="sort_by_modified">Last Modified Date</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
+    <string name="image_count_label">Images count</string>
+    <string name="btn_create_pdf_from_images">Create PDF</string>
+    <string name="menu_open_folder">Open Folder</string>
 </resources>
