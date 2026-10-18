@@ -593,7 +593,13 @@ class PdfViewModel(
                         }
                         
                         val currentPages = _uiState.value.pages.toMutableList()
-                        currentPages.addAll(newPages)
+                        val selectedIndices = _uiState.value.selectedIndices
+                        val insertIndex = if (selectedIndices.isNotEmpty()) {
+                            (selectedIndices.maxOrNull()!! + 1).coerceIn(0, currentPages.size)
+                        } else {
+                            currentPages.size
+                        }
+                        currentPages.addAll(insertIndex, newPages)
                         
                         _uiState.value = _uiState.value.copy(
                             pages = currentPages,

@@ -270,6 +270,12 @@ fun PdfTopAppBar(
                         displayType = displayType
                     )
                     ActionButton(
+                        onClick = onAppend,
+                        icon = { Icon(Icons.Default.Add, contentDescription = stringResource(R.string.action_add_pdf)) },
+                        text = stringResource(R.string.action_add_pdf),
+                        displayType = displayType
+                    )
+                    ActionButton(
                         onClick = onDeleteClick,
                         icon = { Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.action_delete)) },
                         text = stringResource(R.string.action_delete),
