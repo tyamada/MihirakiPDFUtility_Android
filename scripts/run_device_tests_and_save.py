@@ -5,7 +5,7 @@ Connects to an attached physical device or emulator via ADB,
 executes comprehensive checks including:
 1. App deployment (clean uninstall & re-installation of debug APK) and startup log check (App started.)
 2. JVM Unit Tests (DomainLogicTest.kt via app:testDebug)
-3. Connected Instrumentation Test Suites (app:connectedDebugAndroidTest)
+3. Connected Instrumentation Test Suites (app:connectedDebugAndroidTest including AllEditingButtonsTest, StoreScreenshotTest, etc.)
 4. Python QA and regression test suites (test_capture_store_screenshots.py & test_review_store_screenshots.py)
 5. Verification list (VERIFICATION_LIST.md) update and version verification:
    - Automatically updates corresponding Device Name row in VERIFICATION_LIST.md with current OS Version and App Version (Format: VersionName(VersionCode)), and sets Result to "No issues" (or error count on failure).
@@ -244,7 +244,7 @@ Device Serial: {device_serial}
    - app:testDebug: {'PASSED (Build finished successfully)' if unit_test_success else 'COMPLETED / CLI Daemon Notice'}
 
 3. Connected Instrumentation Test Suites (app:connectedDebugAndroidTest):
-   - Load & Performance Tests, Accessibility, Metadata, Navigation, Store Screenshots
+   - AllEditingButtonsTest, StoreScreenshotTest, Load & Performance Tests, Accessibility, Metadata, Navigation
    Status: {'PASSED' if inst_test_success else 'COMPLETED / Test Reports Saved'}
 
 4. Python QA & Regression Tests:
