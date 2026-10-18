@@ -1,0 +1,6 @@
+Mihiraki PDF Utility v1.1.0 (Build 8) release:
+- Optimized and localized the "Owned" button state on the Support screen.
+- Added automatic purchase info re-querying when opening the support/version dialogs for instant promo code reflection.
+- Improved stability for in-app diagnostics and local audit logs.
+- Refined translation quality across all 14 supported languages.
+- Enhanced quality assurance with pre-bundle automated translation and documentation checks.
