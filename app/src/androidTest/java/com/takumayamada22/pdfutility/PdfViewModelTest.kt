@@ -73,4 +73,32 @@ class PdfViewModelTest {
         assertEquals(true, state.isRtl)
         assertEquals(true, state.isDirty)
     }
+
+    @Test
+    fun testMoveAndReselect() {
+        val app = ApplicationProvider.getApplicationContext<Application>()
+        val viewModel = PdfViewModel(app)
+
+        val initialPages = listOf(
+            PageState(originalIndex = 0, id = "p0", thumbnail = null),
+            PageState(originalIndex = 1, id = "p1", thumbnail = null),
+            PageState(originalIndex = 2, id = "p2", thumbnail = null)
+        )
+        viewModel.setPagesForTest(initialPages, setOf(1))
+
+        // Move page at index 1 to index 2
+        viewModel.movePage(1, 2)
+        assertEquals("p2", viewModel.uiState.value.pages[1].id)
+        assertEquals("p1", viewModel.uiState.value.pages[2].id)
+        assertEquals(setOf(2), viewModel.uiState.value.selectedIndices)
+
+        // Clear selection
+        viewModel.clearSelection()
+        assertTrue(viewModel.uiState.value.selectedIndices.isEmpty())
+
+        // Select again at new index 2 (where p1 now is)
+        viewModel.toggleSelection(2)
+        assertEquals(setOf(2), viewModel.uiState.value.selectedIndices)
+        assertEquals("p1", viewModel.uiState.value.pages[viewModel.uiState.value.selectedIndices.first()].id)
+    }
 }

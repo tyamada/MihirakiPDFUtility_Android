@@ -63,8 +63,10 @@ fun PdfPageGrid(
             } else {
                 uiState.pages.chunked(2)
             }
-            items(pairs.size) { pairIndex ->
-                val pair = pairs[pairIndex]
+            items(
+                items = pairs,
+                key = { pair -> pair.joinToString("_") { it.id } }
+            ) { pair ->
                 val rowPages = if (uiState.isRtl) pair.reversed() else pair
                 Row(
                     modifier = Modifier.fillMaxWidth().height(mihirakiHeight),
@@ -82,8 +84,14 @@ fun PdfPageGrid(
                                 pageNumber = index + 1,
                                 isSelected = uiState.selectedIndices.contains(index),
                                 isDropTarget = false,
-                                onClick = { viewModel.toggleSelection(index) },
-                                onDoubleTap = { viewModel.openPreview(index) }
+                                onClick = { 
+                                    val idx = uiState.pages.indexOfFirst { it.id == page.id }
+                                    if (idx != -1) viewModel.toggleSelection(idx)
+                                },
+                                onDoubleTap = { 
+                                    val idx = uiState.pages.indexOfFirst { it.id == page.id }
+                                    if (idx != -1) viewModel.openPreview(idx)
+                                }
                             )
                         }
                     }
@@ -112,10 +120,16 @@ fun PdfPageGrid(
                     pageNumber = currentIndex + 1,
                     isSelected = uiState.selectedIndices.contains(currentIndex),
                     isDropTarget = isDropTarget,
-                    onClick = { viewModel.toggleSelection(currentIndex) },
-                    onDoubleTap = { viewModel.openPreview(currentIndex) },
+                    onClick = { 
+                        val idx = uiState.pages.indexOfFirst { it.id == page.id }
+                        if (idx != -1) viewModel.toggleSelection(idx)
+                    },
+                    onDoubleTap = { 
+                        val idx = uiState.pages.indexOfFirst { it.id == page.id }
+                        if (idx != -1) viewModel.openPreview(idx)
+                    },
                     modifier = Modifier
-                        .pointerInput(Unit) {
+                        .pointerInput(page.id) {
                             detectDragGesturesAfterLongPress(
                                 onDragStart = { 
                                     val start = currentUiState.pages.indexOfFirst { it.id == page.id }
@@ -214,6 +228,9 @@ fun PageThumbnail(
     onDoubleTap: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val currentOnClick by rememberUpdatedState(onClick)
+    val currentOnDoubleTap by rememberUpdatedState(onDoubleTap)
+
     Box(
         modifier = modifier
             .aspectRatio(0.7f)
@@ -221,10 +238,10 @@ fun PageThumbnail(
                 width = if (isDropTarget) 6.dp else if (isSelected) 4.dp else 1.dp,
                 color = if (isDropTarget) MaterialTheme.colorScheme.tertiary else if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
             )
-            .pointerInput(Unit) {
+            .pointerInput(page.id) {
                 detectTapGestures(
-                    onTap = { onClick() },
-                    onDoubleTap = { onDoubleTap() }
+                    onTap = { currentOnClick() },
+                    onDoubleTap = { currentOnDoubleTap() }
                 )
             }
     ) {
