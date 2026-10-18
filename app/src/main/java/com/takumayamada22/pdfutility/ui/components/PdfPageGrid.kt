@@ -79,6 +79,7 @@ fun PdfPageGrid(
                         Box(modifier = Modifier.weight(1f).padding(horizontal = 4.dp)) {
                             PageThumbnail(
                                 page = page,
+                                pageNumber = index + 1,
                                 isSelected = uiState.selectedIndices.contains(index),
                                 isDropTarget = false,
                                 onClick = { viewModel.toggleSelection(index) },
@@ -108,6 +109,7 @@ fun PdfPageGrid(
                 val isDropTarget = dragTargetIndex == currentIndex
                 PageThumbnail(
                     page = page,
+                    pageNumber = currentIndex + 1,
                     isSelected = uiState.selectedIndices.contains(currentIndex),
                     isDropTarget = isDropTarget,
                     onClick = { viewModel.toggleSelection(currentIndex) },
@@ -205,6 +207,7 @@ fun PdfPageGrid(
 @Composable
 fun PageThumbnail(
     page: PageState, 
+    pageNumber: Int,
     isSelected: Boolean, 
     isDropTarget: Boolean,
     onClick: () -> Unit,
@@ -235,7 +238,7 @@ fun PageThumbnail(
         } ?: Box(modifier = Modifier.fillMaxSize().background(Color.White))
         
         Text(
-            text = "${page.originalIndex + 1}",
+            text = "$pageNumber",
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(4.dp)
