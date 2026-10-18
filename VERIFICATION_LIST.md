@@ -16,7 +16,6 @@ This is a list of verification results compiled from developer and user informat
 ## Notes
 1. Window mode and tablet (full-screen) mode ready.
 
-## Testing & Diagnostics (Branch: `testing`)
+## Testing & Diagnostics
 - **Diagnostic Logger (`AppLogger`)**: Records rendering times, memory usage, and application events in an in-memory rolling buffer.
 - **Testing & Diagnostics Screen**: Accessible via Settings → Diagnostics, displaying real-time memory usage and recent application logs.
-- **Enhanced Performance Tests**: Instrumented tests verifying memory consumption, rapid page navigation stress, and multi-document switching stability.
