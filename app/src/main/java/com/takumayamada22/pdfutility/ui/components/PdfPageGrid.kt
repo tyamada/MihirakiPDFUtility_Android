@@ -238,7 +238,7 @@ fun PageThumbnail(
         } ?: Box(modifier = Modifier.fillMaxSize().background(Color.White))
         
         Text(
-            text = "$pageNumber",
+            text = pageNumber.toString(),
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(4.dp)

@@ -10,7 +10,6 @@ import androidx.compose.ui.input.key.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.ui.components.DeleteConfirmationDialog
 import com.takumayamada22.pdfutility.ui.components.PasswordDialog
 import com.takumayamada22.pdfutility.ui.components.CcByExplanationDialog
