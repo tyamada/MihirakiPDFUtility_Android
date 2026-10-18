@@ -164,4 +164,7 @@
     <string name="claim_free_badge">Réclamer le badge gratuit</string>
     <string name="badge_claimed_success">Badge Koyomi réclamé avec succès !</string>
     <string name="action_owned">Acheté</string>
+    <string name="help_item_display_modes"><b>Modes d\'affichage:</b> Basculez entre la vue grille et double page. Prend en charge le basculement entre les sens de lecture de droite à gauche (RTL) et de gauche à droite (LTR).</string>
+    <string name="help_item_device_optimization"><b>Prise en charge des appareils:</b> Entièrement optimisé pour les smartphones, tablettes, appareils pliables et ordinateurs de bureau (ChromeOS, etc. avec raccourcis clavier &amp; clic droit).</string>
+    <string name="help_item_button_reference"><b>Référence des boutons de la barre d\'outils:</b><br/>• <b>Ouvrir / Enregistrer / Ajouter:</b> Charger des PDF, enregistrer toutes les pages, fusionner des PDF.<br/>• <b>Sélection:</b> Tout sélectionner, effacer ou inverser la sélection.<br/>• <b>Édition de pages:</b> Pivoter, déplacer (haut/bas), diviser, insérer une page blanche, supprimer ou exporter la sélection.<br/>• <b>Affichage &amp; Paramètres:</b> Basculer la vue (grille/double), sens RTL/LTR, disposition de couverture, propriétés et sécurité par mot de passe.</string>
 </resources>

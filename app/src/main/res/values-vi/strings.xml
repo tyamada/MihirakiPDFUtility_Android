@@ -97,4 +97,7 @@
     <string name="purchase_thanks">Cảm ơn bạn! Đã nhận được %1$s sự ủng hộ.</string>
     <string name="purchase_cancelled">Đã hủy mua hàng.</string>
     <string name="purchase_failed">Mua hàng thất bại. Vui lòng thử lại.</string>
+    <string name="help_item_display_modes"><b>Chế độ hiển thị:</b> Chuyển đổi giữa chế độ xem lưới và trang kép. Hỗ trợ chuyển đổi giữa hướng đọc Phải sang Trái (RTL) và Trái sang Phải (LTR).</string>
+    <string name="help_item_device_optimization"><b>Hỗ trợ thiết bị:</b> Được tối ưu hóa hoàn toàn cho điện thoại thông minh, máy tính bảng, thiết bị gập và máy tính để bàn (ChromeOS, v.v. với phím tắt bàn phím &amp; nhấp chuột phải).</string>
+    <string name="help_item_button_reference"><b>Tham khảo nút thanh công cụ:</b><br/>• <b>Mở / Lưu / Thêm:</b> Tải PDF, lưu tất cả các trang, gộp PDF.<br/>• <b>Chọn:</b> Chọn tất cả, xóa chọn hoặc đảo ngược chọn.<br/>• <b>Chỉnh sửa trang:</b> Xoay, di chuyển (lên/xuống), chia tách, chèn trang trắng, xóa hoặc xuất các trang đã chọn.<br/>• <b>Hiển thị &amp; Cài đặt:</b> Chuyển đổi chế độ xem (lưới/trang kép), hướng đọc RTL/LTR, bố cục bìa, thuộc tính và bảo mật mật khẩu.</string>
 </resources>

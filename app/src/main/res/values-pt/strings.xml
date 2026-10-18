@@ -97,4 +97,7 @@
     <string name="purchase_thanks">Obrigado! Apoio %1$s recebido.</string>
     <string name="purchase_cancelled">Compra cancelada.</string>
     <string name="purchase_failed">Falha na compra. Por favor, tente novamente.</string>
+    <string name="help_item_display_modes"><b>Modos de Exibição:</b> Alterna entre visualizações em grade e página dupla. Suporta alternar entre as direções de leitura da direita para a esquerda (RTL) e da esquerda para a direita (LTR).</string>
+    <string name="help_item_device_optimization"><b>Suporte a Dispositivos:</b> Totalmente otimizado para smartphones, tablets, dispositivos dobráveis e desktop (ChromeOS, etc. com atalhos de teclado e clique direito).</string>
+    <string name="help_item_button_reference"><b>Referência dos Botões da Barra de Ferramentas:</b><br/>• <b>Abrir / Salvar / Adicionar:</b> Carregar PDFs, salvar todas as páginas, mesclar PDFs.<br/>• <b>Seleção:</b> Selecionar tudo, limpar ou inverter seleção.<br/>• <b>Edição de Páginas:</b> Rotacionar, mover (cima/baixo), dividir, inserir página em branco, excluir ou exportar selecionadas.<br/>• <b>Visualização &amp; Configurações:</b> Alternar exibição (grade/dupla), direção RTL/LTR, capa, propriedades e segurança por senha.</string>
 </resources>

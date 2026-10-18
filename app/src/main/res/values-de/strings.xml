@@ -164,4 +164,7 @@
     <string name="claim_free_badge">Kostenloses Badge anfordern</string>
     <string name="badge_claimed_success">Koyomi-Badge erfolgreich beansprucht!</string>
     <string name="action_owned">Bereits gekauft</string>
+    <string name="help_item_display_modes"><b>Anzeigemodi:</b> Umschalten zwischen Raster- und Doppelseitenansicht. Unterstützt das Umschalten zwischen Rechts-nach-Links (RTL) und Links-nach-Rechts (LTR) Leserichtung.</string>
+    <string name="help_item_device_optimization"><b>Geräteunterstützung:</b> Vollständig optimiert für Smartphones, Tablets, Faltgeräte und Desktops (ChromeOS etc. mit Tastenkombinationen &amp; Rechtsklick).</string>
+    <string name="help_item_button_reference"><b>Übersicht der Symbolleisten-Tasten:</b><br/>• <b>Öffnen / Speichern / Hinzufügen:</b> PDFs laden, alle Seiten speichern, PDFs anhängen/zusammenführen.<br/>• <b>Auswahl:</b> Alle auswählen, aufheben oder umkehren.<br/>• <b>Seitenbearbeitung:</b> Drehen, verschieben (nach oben/unten), teilen, Leerseite einfügen, löschen oder Auswahl exportieren.<br/>• <b>Ansicht &amp; Einstellungen:</b> Ansicht umschalten (Raster/Doppelseite), RTL/LTR-Leserichtung, Cover-Layout, Eigenschaften und Passwortsicherheit.</string>
 </resources>

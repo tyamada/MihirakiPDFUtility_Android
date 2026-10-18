@@ -182,4 +182,7 @@
     <string name="free_use_message">Esta aplicación es completamente gratuita y todas las funciones están disponibles sin restricciones.</string>
     <string name="purchase_badge_shown">Insignia de apoyo mostrada en la pantalla de versión.</string>
     <string name="action_owned">Comprado</string>
+    <string name="help_item_display_modes"><b>Modos de visualización:</b> Cambia entre vistas de cuadrícula y doble página. Soporta alternar entre direcciones de lectura De derecha a izquierda (RTL) y De izquierda a derecha (LTR).</string>
+    <string name="help_item_device_optimization"><b>Soporte de dispositivos:</b> Totalmente optimizado para smartphones, tablets, dispositivos plegables y escritorio (ChromeOS, etc. with atajos de teclado y clic derecho).</string>
+    <string name="help_item_button_reference"><b>Referencia de botones de la barra:</b><br/>• <b>Abrir / Guardar / Agregar:</b> Cargar PDFs, guardar todas las páginas, añadir/fusionar PDFs.<br/>• <b>Selección:</b> Seleccionar todo, limpiar o invertir selección.<br/>• <b>Edición de páginas:</b> Girar, mover (arriba/abajo), dividir, insertar página en blanco, eliminar o exportar seleccionadas.<br/>• <b>Vista y Ajustes:</b> Cambiar vista (cuadrícula/doble), dirección RTL/LTR, portada, propiedades y seguridad de contraseña.</string>
 </resources>
