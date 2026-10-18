@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "versionCode": 7,
+  "pageCount": 8,
+  "languages": {
+    "ja": "ja-JP",
+    "en": "en-US",
+    "ko": "ko-KR",
+    "zh_tw": "zh-TW"
+  },
+  "devices": {
+    "Smartphone_6.3": {
+      "size": [
+        1080,
+        1920
+      ],
+      "density": 320,
+      "override": false,
+      "desktop": false,
+      "scenes": {
+        "01_page_grid": "portrait",
+        "02_spread": "landscape",
+        "03_page_edit": "portrait",
+        "04_split": "portrait",
+        "05_insert_pdf": "portrait",
+        "06_properties": "portrait",
+        "07_security": "portrait"
+      }
+    },
+    "Tablet_7": {
+      "size": [
+        1080,
+        1920
+      ],
+      "density": 240,
+      "override": true,
+      "desktop": false,
+      "scenes": {
+        "01_page_grid": "landscape",
+        "02_spread": "landscape",
+        "03_page_edit": "landscape",
+        "04_split": "landscape",
+        "05_insert_pdf": "landscape",
+        "06_properties": "landscape",
+        "07_security": "landscape"
+      }
+    },
+    "Tablet_10": {
+      "size": [
+        2560,
+        1440
+      ],
+      "density": 320,
+      "override": false,
+      "desktop": false,
+      "scenes": {
+        "01_page_grid": "landscape",
+        "02_spread": "landscape",
+        "03_page_edit": "landscape",
+        "04_split": "landscape",
+        "05_insert_pdf": "landscape",
+        "06_properties": "landscape",
+        "07_security": "landscape"
+      }
+    },
+    "Chromebook_FHD": {
+      "size": [
+        1920,
+        1080
+      ],
+      "density": 160,
+      "override": false,
+      "desktop": true,
+      "scenes": {
+        "01_page_grid": "landscape",
+        "02_spread": "landscape",
+        "03_page_edit": "landscape",
+        "04_split": "landscape",
+        "05_insert_pdf": "landscape",
+        "06_properties": "landscape",
+        "07_security": "landscape"
+      }
+    }
+  }
+}

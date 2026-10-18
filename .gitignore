@@ -18,3 +18,7 @@ local.properties
 release-key.jks
 .kotlin/
 testdata/
+
+# Reproducible capture intermediates and Python caches
+scripts/__pycache__/
+.artifacts/store-capture/
