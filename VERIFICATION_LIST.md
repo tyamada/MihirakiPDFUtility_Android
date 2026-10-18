@@ -11,7 +11,7 @@ This is a list of verification results compiled from developer and user informat
 | Smartphone | Sony         | Xperia 10VIII XQ-GH44 |     16     |  1.1.0(7)   | No issues | -     |
 | Tablet     | Samsung      | Galaxy Tab A SM-T510  |     9      |  1.1.0(7)   | No issues | -     |
 | Tablet     | aiwa         | tab AG10(JA3-TBA1003) |     13     |  1.1.0(7)   | No issues | -     |
-| Desktop    | ASUS         | Chromebook CM30       |     13     |  1.0.3(4)   | No issues | 1     |
+| Desktop    | ASUS         | Chromebook CM30       |     13     |  1.1.0(7)   | No issues | 1     |
 
 ## Notes
 1. Window mode and tablet (full-screen) mode ready.
