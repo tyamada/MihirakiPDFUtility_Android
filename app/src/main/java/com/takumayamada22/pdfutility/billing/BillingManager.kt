@@ -22,7 +22,7 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
     val products = _products.asStateFlow()
     private val _purchase = MutableStateFlow<PurchaseState>(PurchaseState.Idle)
     val purchase = _purchase.asStateFlow()
-    private val _purchasedTiers = MutableStateFlow<Set<TipTier>>(loadPurchasedTiers())
+    private val _purchasedTiers = MutableStateFlow(loadPurchasedTiers())
     val purchasedTiers = _purchasedTiers.asStateFlow()
     
     private val client = BillingClient.newBuilder(context)
@@ -32,7 +32,7 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
 
     private fun loadPurchasedTiers(): Set<TipTier> {
         val savedNames = prefs.getStringSet("purchased_tiers", emptySet()) ?: emptySet()
-        return savedNames.mapNotNull { name ->
+        return savedNames.asSequence().mapNotNull { name ->
             TipTier.entries.firstOrNull { it.name == name }
         }.toSet()
     }
