@@ -781,9 +781,6 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
     val products by manager.products.collectAsState()
     val purchaseState by manager.purchase.collectAsState()
     val purchasedTiers by manager.purchasedTiers.collectAsState()
-    
-    // In a real app, you might use BuildConfig.DEBUG, but here we'll assume simulation is okay for dev
-    val isDebug = true 
 
     androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
         Surface(
@@ -821,15 +818,7 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
 
                     TipTier.entries.forEach { tier ->
                         val product = products.firstOrNull { it.productId == tier.productId }
-                        val priceText = product?.oneTimePurchaseOfferDetails?.formattedPrice
-                            ?: if (isDebug) {
-                                when (tier) {
-                                    TipTier.BRONZE -> "¥100 (Mock)"
-                                    TipTier.SILVER -> "¥500 (Mock)"
-                                    TipTier.GOLD -> "¥1000 (Mock)"
-                                    TipTier.KOYOMI -> "¥200 (Mock)"
-                                }
-                            } else tier.productId
+                        val priceText = product?.oneTimePurchaseOfferDetails?.formattedPrice ?: tier.productId
 
                         val isOwned = purchasedTiers.contains(tier)
 
@@ -859,13 +848,9 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                                 }
                                 Button(
                                     onClick = {
-                                        if (isDebug && product == null) {
-                                            manager.simulateSuccess(tier)
-                                        } else {
-                                            product?.let { manager.purchase(context as Activity, it) }
-                                        }
+                                        product?.let { manager.purchase(context as Activity, it) }
                                     },
-                                    enabled = !isOwned && (isDebug || product != null),
+                                    enabled = !isOwned && product != null,
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                                 ) {
                                     Text(
