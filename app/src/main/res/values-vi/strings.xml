@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tiện ích Mihiraki PDF</string>
+    <string name="app_name">MihirakiPDFUtility</string>
     <string name="action_open">Mở</string>
     <string name="action_save">Lưu</string>
     <string name="action_undo">Hoàn tác</string>
@@ -77,7 +77,7 @@
     <string name="security_not_set">Chưa thiết lập</string>
     <string name="security_leave_empty">Để trống nếu không dùng mật khẩu</string>
 
-    <string name="version_app_name">Tiện ích Mihiraki PDF</string>
+    <string name="version_app_name">MihirakiPDFUtility</string>
     <string name="version_number">Phiên bản: %1$s</string>
     <string name="version_build">Build: %1$s</string>
     <string name="version_copyright">© 2026 Takuma Yamada</string>

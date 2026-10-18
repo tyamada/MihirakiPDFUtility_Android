@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Utilitas PDF Mihiraki</string>
+    <string name="app_name">MihirakiPDFUtility</string>
     <string name="action_open">Buka</string>
     <string name="action_save">Simpan</string>
     <string name="action_undo">Urungkan</string>
@@ -77,7 +77,7 @@
     <string name="security_not_set">Belum disetel</string>
     <string name="security_leave_empty">Kosongkan jika tanpa sandi</string>
 
-    <string name="version_app_name">Utilitas PDF Mihiraki</string>
+    <string name="version_app_name">MihirakiPDFUtility</string>
     <string name="version_number">Versi: %1$s</string>
     <string name="version_build">Build: %1$s</string>
     <string name="version_copyright">© 2026 Takuma Yamada</string>

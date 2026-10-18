@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">Mihiraki PDF Utility</string>
+    <string name="app_name">MihirakiPDFUtility</string>
     <string name="action_open">Open</string>
     <string name="action_save">Save</string>
     <string name="action_undo">Undo</string>
@@ -63,7 +63,7 @@
 
     <string name="help_title">App Guide &amp; Help</string>
     <string name="help_overview_title">1. Overview</string>
-    <string name="help_overview_text">Mihiraki PDF Utility supports 13 languages, page reordering, spread view (RTL/LTR), deleting, rotating, splitting, margin cropping, metadata/password settings, diagnostics, and local audit logs.</string>
+    <string name="help_overview_text">Mihiraki PDF Utility supports 14 languages, page reordering, spread view (RTL/LTR), deleting, rotating, splitting, margin cropping, metadata/password settings, diagnostics, and local audit logs.</string>
     <string name="help_open_title">2. Opening &amp; Saving PDFs</string>
     <string name="help_open_text">Tap the Open icon (or Ctrl+O) to load a PDF. Use Save (Ctrl+S) to save all pages, or Export Selected (Ctrl+E) to save selected pages.</string>
     <string name="help_page_ops_title">3. Page Operations</string>
@@ -71,7 +71,18 @@
     <string name="help_display_title">4. Display Modes &amp; Devices</string>
     <string name="help_display_text">Toggle between Grid and Spread views. Use Toggle RTL for right-to-left reading mode (manga/books). Optimized for smartphones, tablets, and ChromeOS.</string>
     <string name="help_settings_title">5. Settings, Diagnostics &amp; Support</string>
-    <string name="help_settings_text">From the settings menu (gear icon or support heart button), you can configure and view the following items:\n\n    • Properties: Configure document title, author, subject, keywords, PDF version, and page layout.\n    • Password: Set or clear the encryption password for saving and exporting.\n    • Options: Select thumbnail image size (Small/Medium/Large).\n    • Version: View app version, build number, licenses, purchased badges, and redeem promo codes.\n    • Help: Display this app guide.\n    • Diagnostics: Run system diagnostic tests, review privacy-protected local operation and runtime error audit logs (automatically retained for 24 hours, strictly excluding personal data), share reports, and report issues on GitHub.\n    • Support: Purchase one-time support items (Bronze, Silver, Gold) or redeem Google Play promotion codes to support app development.</string>
+    <string name="help_settings_text">From the settings menu (gear icon or support heart button), you can configure and view properties, password, options, version, help, diagnostics, and support items.</string>
+    <string name="help_item_overview"><b>Overview:</b> Mihiraki PDF Utility supports 14 languages, double-page spread views (RTL/LTR), and is specially optimized for scanned books and manga.</string>
+    <string name="help_item_open_save"><b>Opening &amp; Saving:</b> Tap the Open icon (or Ctrl+O) to load a PDF. Use Save (Ctrl+S) to save all pages, or Export Selected (Ctrl+E) to export selected pages.</string>
+    <string name="help_item_page_ops"><b>Page Operations:</b> Reorder pages via drag &amp; drop, rotate, delete, insert blank pages, split double pages (vertical/horizontal), and cut margins (margin cropping).</string>
+    <string name="help_item_devices"><b>Display &amp; Devices:</b> Toggle between Grid and Spread views. Supports Right-to-Left (RTL) reading mode. Fully optimized for smartphones, tablets, foldable devices, and desktop (ChromeOS, etc. with keyboard shortcuts &amp; right-click).</string>
+    <string name="help_item_properties"><b>Properties &amp; Metadata:</b> Configure document title, author, subject, keywords, PDF version, and page layout.</string>
+    <string name="help_item_security"><b>Security &amp; Password:</b> Set or clear encryption passwords for saving and exporting protected PDFs.</string>
+    <string name="help_item_options"><b>Options &amp; Display:</b> Customize thumbnail image sizes (Small/Medium/Large) and button display types (Icon + Text / Icon Only / Text Only).</string>
+    <string name="help_item_support"><b>Support Development:</b> Purchase one-time support items (Bronze, Silver, Gold) or redeem Google Play promo codes to support app development.</string>
+    <string name="help_item_diagnostics"><b>Diagnostics:</b> Run system diagnostic tests to verify PDF processor functionality, memory usage, and sample asset accessibility.</string>
+    <string name="help_item_audit_logs"><b>Audit Logs:</b> Review privacy-protected local operation and runtime error audit logs (automatically retained for 24 hours, strictly excluding personal data).</string>
+    <string name="help_item_report_issues"><b>Report Issues:</b> Use the "Problems Reported" screen to bulk copy diagnostic reports and app logs for easy troubleshooting and reporting via email or GitHub Issues.</string>
     <string name="help_purchased_items">Purchased Support Badges</string>
     <string name="help_no_purchased_items">No support items purchased yet.</string>
 
@@ -108,7 +119,7 @@
     <string name="security_not_set">Not set</string>
     <string name="security_leave_empty">Leave empty for no password</string>
 
-    <string name="version_app_name">Mihiraki PDF Utility</string>
+    <string name="version_app_name">MihirakiPDFUtility</string>
     <string name="version_number">Version: %1$s</string>
     <string name="version_build">Build: %1$s</string>
     <string name="version_copyright">© 2026 Takuma Yamada</string>
@@ -139,6 +150,20 @@
     <string name="diagnostics_title">Diagnostic Test Results</string>
     <string name="diagnostics_privacy">Note: Test results are displayed locally only. There is no feature to transmit test results externally.</string>
     <string name="share_results">Share Results</string>
+    <string name="bulk_copy">Bulk Copy (Diagnostics &amp; Logs)</string>
+    <string name="bulk_copy_success">Diagnostic report and logs copied to clipboard.</string>
+    <string name="report_issue">Report Issue</string>
+    <string name="report_include_title">Include in your report</string>
+    <string name="report_step_1">1. Brief summary of the issue</string>
+    <string name="report_step_2">2. Steps to reproduce</string>
+    <string name="report_step_3">3. Expected and actual behavior</string>
+    <string name="report_step_4">4. Frequency of occurrence</string>
+    <string name="report_step_5">5. App version, OS version, device, and display settings</string>
+    <string name="report_step_6">6. Screenshots, app logs, or diagnostic results</string>
+    <string name="copy_all_diagnostics">Copy All Diagnostics &amp; Logs</string>
+    <string name="privacy_protection">Protect your privacy</string>
+    <string name="privacy_note_1">• Do not include personal info such as actual PDF files, document content, file names, or names.</string>
+    <string name="privacy_note_2">• Please review screenshots and diagnostic info before sharing. Data is not sent automatically.</string>
     <string name="results_copied">Results copied to clipboard</string>
     <string name="device_info_format">Device: %1$s %2$s (Android %3$s)</string>
     <string name="test_timestamp_format">Timestamp: %1$s</string>
@@ -180,4 +205,8 @@
     <string name="image_count_label">Images count</string>
     <string name="btn_create_pdf_from_images">Create PDF</string>
     <string name="menu_open_folder">Open Folder</string>
+    <string name="commemorative_badge_title">Release Commemorative Koyomi Badge</string>
+    <string name="commemorative_badge_desc">Claim the official \"Tameshibu\" Koyomi badge for free to celebrate the commercial release!</string>
+    <string name="claim_free_badge">Claim Free Badge</string>
+    <string name="badge_claimed_success">Koyomi badge claimed successfully!</string>
 </resources>

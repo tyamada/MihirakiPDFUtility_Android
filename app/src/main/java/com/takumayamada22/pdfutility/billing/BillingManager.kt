@@ -120,6 +120,13 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
         savePurchasedTiers(newTiers)
     }
 
+    fun claimKoyomiBadge() {
+        val newTiers = _purchasedTiers.value + TipTier.KOYOMI
+        _purchasedTiers.value = newTiers
+        savePurchasedTiers(newTiers)
+        _purchase.value = PurchaseState.Success(TipTier.KOYOMI)
+    }
+
     override fun onPurchasesUpdated(result: BillingResult, purchases: MutableList<Purchase>?) {
         if (result.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
             _purchase.value = PurchaseState.Cancelled

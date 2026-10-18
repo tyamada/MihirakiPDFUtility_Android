@@ -1,5 +1,5 @@
 【App Name】
-Mihiraki PDF Utility
+MihirakiPDFUtility
 
 【Short description】 (Max 80 chars)
 Intuitive PDF spread view, splitting, and merging. Perfect for e-books and manga.
@@ -33,7 +33,7 @@ Enhanced for large screens and Chromebooks with keyboard shortcuts and mouse con
 Inspect pages in high resolution with smooth pinch-to-zoom and swipe navigation.
 
 ■ Multi-Language Support
-Supports 13 languages including English, Japanese, Korean, Chinese, German, French, Spanish, Portuguese, and more.
+Supports 14 languages including English, Italian, Japanese, Korean, Chinese, German, French, Spanish, Portuguese, and more.
 
 ■ Privacy Focused
 All PDF processing is done locally on your device. Your files are never uploaded to any external servers.

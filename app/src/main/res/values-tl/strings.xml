@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mihiraki PDF Utility</string>
+    <string name="app_name">MihirakiPDFUtility</string>
     <string name="action_open">Buksan</string>
     <string name="action_save">I-save</string>
     <string name="action_undo">I-undo</string>
@@ -77,7 +77,7 @@
     <string name="security_not_set">Hindi naka-set</string>
     <string name="security_leave_empty">Iwanang bakante kung walang password</string>
 
-    <string name="version_app_name">Mihiraki PDF Utility</string>
+    <string name="version_app_name">MihirakiPDFUtility</string>
     <string name="version_number">Bersyon: %1$s</string>
     <string name="version_build">Build: %1$s</string>
     <string name="version_copyright">© 2026 Takuma Yamada</string>

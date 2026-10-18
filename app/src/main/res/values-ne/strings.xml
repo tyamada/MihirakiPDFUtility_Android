@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mihiraki PDF Utility</string>
+    <string name="app_name">MihirakiPDFUtility</string>
     <string name="action_open">खोल्नुहोस्</string>
     <string name="action_save">बचत गर्नुहोस्</string>
     <string name="action_undo">पछाडि फर्कनुहोस्</string>
@@ -77,7 +77,7 @@
     <string name="security_not_set">सेट गरिएको छैन</string>
     <string name="security_leave_empty">पासवर्ड नचाहिने भए खाली छोड्नुहोस्</string>
 
-    <string name="version_app_name">Mihiraki PDF Utility</string>
+    <string name="version_app_name">MihirakiPDFUtility</string>
     <string name="version_number">संस्करण: %1$s</string>
     <string name="version_build">बिल्ड: %1$s</string>
     <string name="version_copyright">© 2026 Takuma Yamada</string>
