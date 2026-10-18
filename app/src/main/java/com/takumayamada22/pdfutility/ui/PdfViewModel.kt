@@ -51,7 +51,7 @@ enum class ThumbnailSize { S, M, L }
 enum class ButtonDisplayType { ICON_AND_TEXT, ICON_ONLY, TEXT_ONLY }
 
 enum class SettingsDialogType {
-    PROPERTY, PASSWORD, OPTIONS, VERSION, SUPPORT, HELP, DIAGNOSTICS
+    PROPERTY, PASSWORD, OPTIONS, VERSION, SUPPORT, HELP, DIAGNOSTICS, REPORT_ISSUE
 }
 
 data class PdfDocumentState(

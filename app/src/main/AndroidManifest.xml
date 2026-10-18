@@ -19,7 +19,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:resizeableActivity="true"
-            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden"
+            android:configChanges="smallestScreenSize|screenLayout|keyboard|keyboardHidden"
             android:theme="@style/Theme.MihirakiPDFUtility">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

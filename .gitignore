@@ -17,3 +17,4 @@ captures/
 local.properties
 release-key.jks
 .kotlin/
+testdata/

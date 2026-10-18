@@ -20,7 +20,7 @@ App Bundle (`bundleRelease` 等) をビルドする前に、アプリケーシ�
    - `docs/store_listing/metadata_ja.txt` / `docs/store_listing/metadata_en.txt`
 
 4. **🌐 未翻訳項目の確認ルール (Translation Completeness Check)**
-   - App Bundle ビルド前に、全対応言語（13言語）において、以下の未翻訳項目・プレースホルダーがないことを確認してください。
+   - App Bundle ビルド前に、全対応言語（14言語）において、以下の未翻訳項目・プレースホルダーがないことを確認してください。
      - **アプリ内文字列リソース**: `app/src/main/res/values-*/strings.xml` に不足しているキーがないこと、`TODO` や未翻訳の項目がないこと。
      - **ストア説明文**: メタデータファイル（`metadata_*.txt`）の全言語版が最新機能に対応していること。
      - **Webページ**: `docs/*.html` の各言語版が正しく同期されていること。
@@ -28,11 +28,17 @@ App Bundle (`bundleRelease` 等) をビルドする前に、アプリケーシ�
 5. **📖 ヘルプ画面・使い方ガイドの更新ルール (Help Screen Update Rule)**
    - App Bundle ビルド前に、アプリ内ヘルプ画面（`PdfHelpDialog` / `res/values/strings.xml` の `help_*` 文字列リソース）が、新しい機能（余白カット、オプション設定、診断機能、ローカル監査ログ、複数デバイス対応等）を含めた最新の仕様を正確に反映していることを確認・更新してください。
 
+6. **🌐 翻訳漏れ・未翻訳項目の確認ルール (Translation Leak & Missing Key Verification)**
+   - App Bundle ビルド前に、全14言語の `strings.xml` を走査し、英語のデフォルト文字列がそのまま残留していないか、あるいは `TODO` などのプレースホルダーが残っていないかを検証してください。
+
+7. **♿ アクセシビリティ診断ルール (Accessibility Audit Rule)**
+   - App Bundle ビルド前に、すべてのインタラクティブ要素（IconButton、Switch、Button等）に適切な `contentDescription` が設定されていること、およびアクセシビリティ要件（タッチターゲットサイズ 48dp 以上、コントラスト要件等）を満たしているかを Android Lint (`./gradlew lintDebug`) を用いて検証してください。
+
 ---
 
 ## ⚙️ 自動検証ルール (Gradle Task)
 
 Gradleビルドシステムには、App Bundleのビルド前（`bundle` タスク実行時）に自動的に実行される検証タスク `preBundleDocumentationCheck` が組み込まれています。
 
-- 必須ドキュメント、メタデータファイル、全13言語の翻訳リソース（`strings.xml`）、およびアプリ内ヘルプ画面の定義キーの存在と整合性を検証します。
+- 必須ドキュメント、メタデータファイル、全14言語の翻訳リソース（`strings.xml`）、およびアプリ内ヘルプ画面の定義キーの存在と整合性を検証します。
 - 更新漏れを防ぐためのビルド前チェックとして機能します。

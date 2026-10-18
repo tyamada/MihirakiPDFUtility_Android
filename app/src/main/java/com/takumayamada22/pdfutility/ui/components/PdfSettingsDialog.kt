@@ -4,6 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.widget.TextView
+import androidx.core.text.HtmlCompat
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,6 +19,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -28,6 +35,8 @@ import com.takumayamada22.pdfutility.ui.PdfViewModel
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
 import com.takumayamada22.pdfutility.ui.ThumbnailSize
 import com.takumayamada22.pdfutility.util.AppLogger
+import com.takumayamada22.pdfutility.util.DeviceTestRunner
+import com.takumayamada22.pdfutility.util.PersistentLogManager
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -42,6 +51,7 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         SettingsDialogType.SUPPORT -> PdfSupportDialog(viewModel)
         SettingsDialogType.HELP -> PdfHelpDialog(viewModel)
         SettingsDialogType.DIAGNOSTICS -> PdfDiagnosticsDialog(viewModel)
+        SettingsDialogType.REPORT_ISSUE -> PdfReportIssueDialog(viewModel)
         null -> {}
     }
 }
@@ -93,8 +103,9 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                 
                 Column(
                     modifier = Modifier
-                        .weight(1f, false)
-                        .verticalScroll(rememberScrollState()),
+                        .heightIn(max = 450.dp)
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     OutlinedTextField(value = uiState.fileName ?: "", onValueChange = {}, label = { Text(stringResource(R.string.prop_filename)) }, readOnly = true, modifier = Modifier.fillMaxWidth())
@@ -348,83 +359,104 @@ private fun PdfOptionsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
     var selectedSize by remember { mutableStateOf(uiState.thumbnailSize) }
     var selectedButtonDisplayType by remember { mutableStateOf(uiState.buttonDisplayType) }
 
-    AlertDialog(
-        onDismissRequest = { viewModel.closeSettingsDialog() },
-        title = { Text(stringResource(R.string.settings_options)) },
-        text = {
+    androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .imePadding(),
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = AlertDialogDefaults.TonalElevation
+        ) {
             Column(
                 modifier = Modifier
-                    .verticalScroll(rememberScrollState())
-                    .heightIn(max = 450.dp)
-                    .padding(vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                    .padding(24.dp)
+                    .fillMaxWidth()
             ) {
-                Text(stringResource(R.string.options_desc), style = MaterialTheme.typography.bodyMedium)
-                
-                ThumbnailSize.entries.forEach { size ->
-                    val label = when (size) {
-                        ThumbnailSize.S -> stringResource(R.string.options_size_s)
-                        ThumbnailSize.M -> stringResource(R.string.options_size_m)
-                        ThumbnailSize.L -> stringResource(R.string.options_size_l)
+                Text(
+                    text = stringResource(R.string.settings_options),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+                Spacer(Modifier.height(16.dp))
+
+                Column(
+                    modifier = Modifier
+                        .weight(1f, false)
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(stringResource(R.string.options_desc), style = MaterialTheme.typography.bodyMedium)
+                    
+                    ThumbnailSize.entries.forEach { size ->
+                        val label = when (size) {
+                            ThumbnailSize.S -> stringResource(R.string.options_size_s)
+                            ThumbnailSize.M -> stringResource(R.string.options_size_m)
+                            ThumbnailSize.L -> stringResource(R.string.options_size_l)
+                        }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { selectedSize = size }
+                                .padding(vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = selectedSize == size,
+                                onClick = { selectedSize = size }
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(label, style = MaterialTheme.typography.bodyLarge)
+                        }
                     }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { selectedSize = size }
-                            .padding(vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RadioButton(
-                            selected = selectedSize == size,
-                            onClick = { selectedSize = size }
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(label, style = MaterialTheme.typography.bodyLarge)
+
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+                    Text(stringResource(R.string.options_button_display_title), style = MaterialTheme.typography.titleSmall)
+
+                    ButtonDisplayType.entries.forEach { type ->
+                        val label = when (type) {
+                            ButtonDisplayType.ICON_AND_TEXT -> stringResource(R.string.button_display_icon_and_text)
+                            ButtonDisplayType.ICON_ONLY -> stringResource(R.string.button_display_icon_only)
+                            ButtonDisplayType.TEXT_ONLY -> stringResource(R.string.button_display_text_only)
+                        }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { selectedButtonDisplayType = type }
+                                .padding(vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = selectedButtonDisplayType == type,
+                                onClick = { selectedButtonDisplayType = type }
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(label, style = MaterialTheme.typography.bodyLarge)
+                        }
                     }
                 }
 
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-
-                Text(stringResource(R.string.options_button_display_title), style = MaterialTheme.typography.titleSmall)
-
-                ButtonDisplayType.entries.forEach { type ->
-                    val label = when (type) {
-                        ButtonDisplayType.ICON_AND_TEXT -> stringResource(R.string.button_display_icon_and_text)
-                        ButtonDisplayType.ICON_ONLY -> stringResource(R.string.button_display_icon_only)
-                        ButtonDisplayType.TEXT_ONLY -> stringResource(R.string.button_display_text_only)
+                Spacer(Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    TextButton(onClick = { viewModel.closeSettingsDialog() }) {
+                        Text(stringResource(R.string.action_cancel))
                     }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { selectedButtonDisplayType = type }
-                            .padding(vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RadioButton(
-                            selected = selectedButtonDisplayType == type,
-                            onClick = { selectedButtonDisplayType = type }
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(label, style = MaterialTheme.typography.bodyLarge)
+                    Spacer(Modifier.width(8.dp))
+                    Button(onClick = {
+                        viewModel.setThumbnailSize(selectedSize)
+                        viewModel.setButtonDisplayType(selectedButtonDisplayType)
+                        viewModel.closeSettingsDialog()
+                    }) {
+                        Text(stringResource(R.string.action_apply))
                     }
                 }
-            }
-        },
-        confirmButton = {
-            Button(onClick = {
-                viewModel.setThumbnailSize(selectedSize)
-                viewModel.setButtonDisplayType(selectedButtonDisplayType)
-                viewModel.closeSettingsDialog()
-            }) {
-                Text(stringResource(R.string.action_apply))
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = { viewModel.closeSettingsDialog() }) {
-                Text(stringResource(R.string.action_cancel))
             }
         }
-    )
+    }
 }
 
 @Composable
@@ -488,6 +520,7 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                                     TipTier.BRONZE -> R.drawable.tip_bronze
                                     TipTier.SILVER -> R.drawable.tip_silver
                                     TipTier.GOLD -> R.drawable.tip_gold
+                                    TipTier.KOYOMI -> R.drawable.tameshibu_badge_koyomi
                                 }
                                 Image(
                                     painter = painterResource(iconRes),
@@ -597,10 +630,12 @@ private fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
 
                 Column(
                     modifier = Modifier
-                        .weight(1f, false)
-                        .verticalScroll(rememberScrollState()),
+                        .heightIn(max = 450.dp)
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    // 1. 診断テストを実行
                     Button(
                         onClick = {
                             val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
@@ -643,6 +678,29 @@ private fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                         Text(stringResource(R.string.run_diagnostics))
                     }
 
+                    // 2. アプリログを表示
+                    Button(
+                        onClick = {
+                            logsText = AppLogger.getLogs(context)
+                            showLogs = true
+                            AppLogger.log(context, "INFO", "Viewed operation audit logs.")
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.view_app_logs))
+                    }
+
+                    // 3. 不具合を報告
+                    Button(
+                        onClick = {
+                            viewModel.openSettingsDialog(SettingsDialogType.REPORT_ISSUE)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.report_issue))
+                    }
+
+                    // 診断テストを実行した結果には「診断結果を共有」ボタンを表示
                     testResults?.let { results ->
                         Card(
                             modifier = Modifier.fillMaxWidth(),
@@ -653,35 +711,8 @@ private fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 Text(results, style = MaterialTheme.typography.bodySmall)
-                                Button(
-                                    onClick = {
-                                        val sendIntent = Intent().apply {
-                                            action = Intent.ACTION_SEND
-                                            putExtra(Intent.EXTRA_TEXT, results)
-                                            type = "text/plain"
-                                        }
-                                        val shareIntent = Intent.createChooser(sendIntent, null)
-                                        context.startActivity(shareIntent)
-                                    },
-                                    modifier = Modifier.align(Alignment.End)
-                                ) {
-                                    Text(stringResource(R.string.share_results))
-                                }
                             }
                         }
-                    }
-
-                    Spacer(Modifier.height(4.dp))
-
-                    Button(
-                        onClick = {
-                            logsText = AppLogger.getLogs(context)
-                            showLogs = true
-                            AppLogger.log(context, "INFO", "Viewed operation audit logs.")
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(stringResource(R.string.view_app_logs))
                     }
 
                     if (showLogs) {
@@ -727,18 +758,6 @@ private fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                             }
                         }
                     }
-
-                    Spacer(Modifier.height(4.dp))
-
-                    OutlinedButton(
-                        onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://github.com/tyamada/MihirakiPDFUtility_Android/issues/new"))
-                            context.startActivity(intent)
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(stringResource(R.string.report_github))
-                    }
                 }
 
                 Spacer(Modifier.height(16.dp))
@@ -761,6 +780,7 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
     val manager = viewModel.billing
     val products by manager.products.collectAsState()
     val purchaseState by manager.purchase.collectAsState()
+    val purchasedTiers by manager.purchasedTiers.collectAsState()
     
     // In a real app, you might use BuildConfig.DEBUG, but here we'll assume simulation is okay for dev
     val isDebug = true 
@@ -787,8 +807,9 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
 
                 Column(
                     modifier = Modifier
-                        .weight(1f, false)
-                        .verticalScroll(rememberScrollState()),
+                        .heightIn(max = 450.dp)
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Text(stringResource(R.string.tip_message))
@@ -797,8 +818,38 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurface
                     )
+
+                    // Free Commemorative Koyomi Badge Card
+                    val isKoyomiClaimed = purchasedTiers.contains(TipTier.KOYOMI)
+                    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+                        Row(
+                            modifier = Modifier.padding(12.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.tameshibu_badge_koyomi),
+                                contentDescription = null,
+                                modifier = Modifier.size(48.dp)
+                            )
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(stringResource(R.string.commemorative_badge_title), style = MaterialTheme.typography.labelLarge)
+                                Text(stringResource(R.string.commemorative_badge_desc), style = MaterialTheme.typography.bodySmall)
+                            }
+                            Button(
+                                onClick = { manager.claimKoyomiBadge() },
+                                enabled = !isKoyomiClaimed,
+                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
+                            ) {
+                                Text(
+                                    text = if (isKoyomiClaimed) "Claimed" else stringResource(R.string.claim_free_badge),
+                                    style = MaterialTheme.typography.labelSmall
+                                )
+                            }
+                        }
+                    }
                     
-                    TipTier.entries.forEach { tier ->
+                    TipTier.entries.filter { it != TipTier.KOYOMI }.forEach { tier ->
                         val product = products.firstOrNull { it.productId == tier.productId }
                         val priceText = product?.oneTimePurchaseOfferDetails?.formattedPrice
                             ?: if (isDebug) {
@@ -806,6 +857,7 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                                     TipTier.BRONZE -> "¥100 (Mock)"
                                     TipTier.SILVER -> "¥500 (Mock)"
                                     TipTier.GOLD -> "¥1000 (Mock)"
+                                    else -> ""
                                 }
                             } else tier.productId
 
@@ -819,6 +871,7 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                                     TipTier.BRONZE -> R.drawable.tip_bronze
                                     TipTier.SILVER -> R.drawable.tip_silver
                                     TipTier.GOLD -> R.drawable.tip_gold
+                                    else -> R.drawable.tip_bronze
                                 }
                                 Image(
                                     painter = painterResource(iconRes),
@@ -848,7 +901,12 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                     
                     when (val s = purchaseState) {
                         is PurchaseState.Success -> Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(stringResource(R.string.purchase_thanks, s.tier.name), color = MaterialTheme.colorScheme.primary)
+                            val thanksText = if (s.tier == TipTier.KOYOMI) {
+                                stringResource(R.string.badge_claimed_success)
+                            } else {
+                                stringResource(R.string.purchase_thanks, s.tier.name)
+                            }
+                            Text(thanksText, color = MaterialTheme.colorScheme.primary)
                             Text(stringResource(R.string.purchase_badge_shown), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
                         }
                         is PurchaseState.Cancelled -> Text(stringResource(R.string.purchase_cancelled), style = MaterialTheme.typography.bodySmall)
@@ -875,8 +933,45 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
     }
 }
 
+data class HelpCategorySpec(val title: String, val items: List<String>)
+
 @Composable
 private fun PdfHelpDialog(viewModel: PdfViewModel) {
+    val onSurfaceColor = MaterialTheme.colorScheme.onSurface.toArgb()
+    val categories = listOf(
+        HelpCategorySpec(
+            title = "はじめての使い方 / Getting Started",
+            items = listOf(
+                stringResource(R.string.help_item_overview),
+                stringResource(R.string.help_item_open_save)
+            )
+        ),
+        HelpCategorySpec(
+            title = "編集を快適にする機能 / Editing Features",
+            items = listOf(
+                stringResource(R.string.help_item_page_ops),
+                stringResource(R.string.help_item_devices)
+            )
+        ),
+        HelpCategorySpec(
+            title = "設定とカスタマイズ / Settings Guide",
+            items = listOf(
+                stringResource(R.string.help_item_properties),
+                stringResource(R.string.help_item_security),
+                stringResource(R.string.help_item_options),
+                stringResource(R.string.help_item_support)
+            )
+        ),
+        HelpCategorySpec(
+            title = "診断 / Diagnostics",
+            items = listOf(
+                stringResource(R.string.help_item_diagnostics),
+                stringResource(R.string.help_item_audit_logs),
+                stringResource(R.string.help_item_report_issues)
+            )
+        )
+    )
+
     androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
         Surface(
             modifier = Modifier
@@ -899,30 +994,55 @@ private fun PdfHelpDialog(viewModel: PdfViewModel) {
 
                 Column(
                     modifier = Modifier
-                        .weight(1f, false)
-                        .verticalScroll(rememberScrollState()),
+                        .heightIn(max = 500.dp)
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    HelpSection(
-                        title = stringResource(R.string.help_overview_title),
-                        text = stringResource(R.string.help_overview_text)
-                    )
-                    HelpSection(
-                        title = stringResource(R.string.help_open_title),
-                        text = stringResource(R.string.help_open_text)
-                    )
-                    HelpSection(
-                        title = stringResource(R.string.help_page_ops_title),
-                        text = stringResource(R.string.help_page_ops_text)
-                    )
-                    HelpSection(
-                        title = stringResource(R.string.help_display_title),
-                        text = stringResource(R.string.help_display_text)
-                    )
-                    HelpSection(
-                        title = stringResource(R.string.help_settings_title),
-                        text = stringResource(R.string.help_settings_text)
-                    )
+                    categories.forEach { category ->
+                        var expanded by remember { mutableStateOf(false) }
+                        ElevatedCard(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Column(Modifier.fillMaxWidth()) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable { expanded = !expanded }
+                                        .padding(16.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(category.title, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+                                    IconButton(onClick = { expanded = !expanded }) {
+                                        Icon(
+                                            imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                                            contentDescription = if (expanded) "Collapse" else "Expand"
+                                        )
+                                    }
+                                }
+                                if (expanded) {
+                                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                                    Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                        category.items.forEach { htmlText ->
+                                            AndroidView(
+                                                factory = { context ->
+                                                    TextView(context).apply {
+                                                        textSize = 14f
+                                                    }
+                                                },
+                                                update = { view ->
+                                                    view.text = HtmlCompat.fromHtml(htmlText, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                                                    view.setTextColor(onSurfaceColor)
+                                                },
+                                                modifier = Modifier.fillMaxWidth()
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
                 Spacer(Modifier.height(16.dp))
@@ -939,13 +1059,7 @@ private fun PdfHelpDialog(viewModel: PdfViewModel) {
     }
 }
 
-@Composable
-private fun HelpSection(title: String, text: String) {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text(title, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary)
-        Text(text, style = MaterialTheme.typography.bodyMedium)
-    }
-}
+
 
 @Composable
 private fun SegmentedButton(selected: Boolean, onClick: () -> Unit, label: String) {
@@ -979,4 +1093,114 @@ private fun OutlinedTextField(
         modifier = modifier,
         singleLine = true
     )
+}
+
+@Composable
+private fun PdfReportIssueDialog(viewModel: PdfViewModel) {
+    val context = LocalContext.current
+    val clipboardManager = androidx.compose.ui.platform.LocalClipboardManager.current
+
+    androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .imePadding(),
+            shape = MaterialTheme.shapes.extraLarge,
+            tonalElevation = AlertDialogDefaults.TonalElevation
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(24.dp)
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(R.string.report_issue),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    text = "不具合が発生した場合は、以下の情報をまとめてご確認ください。",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(Modifier.height(16.dp))
+
+                Column(
+                    modifier = Modifier
+                        .heightIn(max = 450.dp)
+                        .verticalScroll(rememberScrollState())
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(stringResource(R.string.report_include_title), style = MaterialTheme.typography.titleSmall)
+                    Text(stringResource(R.string.report_step_1), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(start = 8.dp))
+                    Text(stringResource(R.string.report_step_2), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(start = 8.dp))
+                    Text(stringResource(R.string.report_step_3), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(start = 8.dp))
+                    Text(stringResource(R.string.report_step_4), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(start = 8.dp))
+                    Text(stringResource(R.string.report_step_5), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(start = 8.dp))
+                    Text(stringResource(R.string.report_step_6), style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(start = 8.dp))
+
+                    Spacer(Modifier.height(4.dp))
+                    Button(
+                        onClick = {
+                            val result = DeviceTestRunner.runTest(context)
+                            val testReport = DeviceTestRunner.formatResultString(result)
+                            val logs = PersistentLogManager.getAllLogs().joinToString("\n")
+                            val combined = "$testReport\n\n--- App Logs (${PersistentLogManager.getAllLogs().size} lines) ---\n$logs"
+                            clipboardManager.setText(androidx.compose.ui.text.AnnotatedString(combined))
+                            android.widget.Toast.makeText(context, context.getString(R.string.bulk_copy_success), android.widget.Toast.LENGTH_SHORT).show()
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.copy_all_diagnostics))
+                    }
+
+                    Spacer(Modifier.height(4.dp))
+                    Text(stringResource(R.string.privacy_protection), style = MaterialTheme.typography.titleSmall)
+                    Card(
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.3f)),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                            Text(stringResource(R.string.privacy_note_1), style = MaterialTheme.typography.bodySmall)
+                            Text(stringResource(R.string.privacy_note_2), style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
+
+                    Spacer(Modifier.height(8.dp))
+                    Button(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://github.com/tyamada/MihirakiPDFUtility_Android/issues/new?template=bug_report.md"))
+                            context.startActivity(intent)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.report_github))
+                    }
+                    Text(
+                        "※ GitHubアカウントが必要です。送信した情報は公開される場合があります。",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                Spacer(Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Button(onClick = {
+                        viewModel.openSettingsDialog(SettingsDialogType.DIAGNOSTICS)
+                    }) {
+                        Text(stringResource(R.string.action_back))
+                    }
+                    Spacer(Modifier.width(8.dp))
+                    Button(onClick = { viewModel.closeSettingsDialog() }) {
+                        Text(stringResource(R.string.action_close))
+                    }
+                }
+            }
+        }
+    }
 }

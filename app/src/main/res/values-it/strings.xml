@@ -1,0 +1,183 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name">MihirakiPDFUtility</string>
+    <string name="action_open">Apri</string>
+    <string name="action_save">Salva</string>
+    <string name="action_undo">Annulla</string>
+    <string name="action_redo">Ripeti</string>
+    <string name="action_add_pdf">Aggiungi PDF</string>
+    <string name="action_toggle_rtl">Attiva/disattiva RTL</string>
+    <string name="action_toggle_view">Cambia visualizzazione</string>
+    <string name="action_select_all">Seleziona tutto</string>
+    <string name="action_invert_selection">Inverti selezione</string>
+    <string name="action_export_selected">Esporta selezionate</string>
+    <string name="action_split_pages">Dividi pagine</string>
+    <string name="action_rotate_left">Ruota a sinistra</string>
+    <string name="action_rotate_right">Ruota a destra</string>
+    <string name="action_insert_blank">Inserisci pagina vuota</string>
+    <string name="action_move_up">Sposta indietro</string>
+    <string name="action_move_down">Sposta avanti</string>
+    <string name="action_delete">Elimina</string>
+    <string name="action_clear_selection">Cancella selezione</string>
+    <string name="action_close">Chiudi</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="action_apply">Applica</string>
+    <string name="action_cancel">Annulla</string>
+    <string name="action_unlock">Sblocca</string>
+    <string name="action_run">Esegui</string>
+    <string name="action_clear">Cancella</string>
+    <string name="action_set">Imposta</string>
+    <string name="action_back">Indietro</string>
+    <string name="action_purchase">Acquista</string>
+
+    <string name="dialog_password_title">Password richiesta</string>
+    <string name="dialog_password_desc">Questo PDF è protetto da password.</string>
+    <string name="dialog_password_label">Password</string>
+    <string name="dialog_delete_title">Elimina pagine</string>
+    <string name="dialog_delete_desc">Sei sicuro di voler eliminare le %1$d pagine selezionate?</string>
+
+    <string name="error_load_failed">Impossibile caricare il PDF</string>
+    <string name="error_append_failed">Impossibile aggiungere il PDF</string>
+    <string name="error_export_failed">Impossibile esportare le pagine</string>
+    <string name="error_save_failed">Impossibile salvare il PDF</string>
+    <string name="error_incorrect_password">Password errata</string>
+
+    <string name="settings_title">Impostazioni PDF</string>
+    <string name="settings_property">Proprietà</string>
+    <string name="settings_password">Password</string>
+    <string name="settings_options">Opzioni</string>
+    <string name="settings_version">Versione</string>
+    <string name="settings_help">Aiuto</string>
+    <string name="settings_diagnostics">Diagnostica</string>
+    <string name="support">Supporto</string>
+
+    <string name="diagnostics_screen_title">Diagnostica app e log di audit</string>
+    <string name="diagnostics_screen_desc">Esegui test diagnostici, rivedi i log di audit operativi locali e di errore di runtime protetti da privacy (automaticamente conservati per 24 ore, escludendo rigorosamente i dati personali), condividi report e segnala problemi su GitHub.</string>
+    <string name="report_github">Segnala problema su GitHub</string>
+    <string name="diagnostics_screen_privacy">I log contengono suggerimenti tecnici per la risoluzione dei problemi (specifiche del dispositivo, utilizzo della memoria, cronologia delle operazioni e dettagli sugli errori di runtime) ed escludono rigorosamente qualsiasi dato personale.</string>
+
+    <string name="options_title">Dimensione immagine miniatura</string>
+    <string name="options_size_s">Piccola (S)</string>
+    <string name="options_size_m">Media (M)</string>
+    <string name="options_size_l">Grande (L)</string>
+    <string name="options_desc">Seleziona la dimensione dell\'immagine miniatura (S/M/L).</string>
+
+    <string name="help_title">Guida e aiuto dell\'app</string>
+    <string name="help_overview_title">1. Panoramica</string>
+    <string name="help_overview_text">Mihiraki PDF Utility supporta 14 lingue, riordinamento delle pagine, vista affiancata (RTL/LTR), eliminazione, rotazione, divisione, ritaglio dei margini, impostazioni di metadati/password, diagnostica e log di audit locali.</string>
+    <string name="help_open_title">2. Apertura e salvataggio di PDF</string>
+    <string name="help_open_text">Tocca l\'icona Apri (o Ctrl+O) per caricare un PDF. Usa Salva (Ctrl+S) per salvare tutte le pagine, o Esporta selezionate (Ctrl+E) per salvare le pagine selezionate.</string>
+    <string name="help_page_ops_title">3. Operazioni sulle pagine</string>
+    <string name="help_page_ops_text">Tocca le pagine per selezionarle. Le pagine selezionate possono essere ruotate, eliminate, spostate, inserite con pagine vuote, divise (verticalmente/orizzontalmente) o ritagliate (ritaglio dei margini).</string>
+    <string name="help_display_title">4. Modalità di visualizzazione e dispositivi</string>
+    <string name="help_display_text">Passa dalla vista Griglia alla vista Affiancata. Usa Attiva/disattiva RTL per la modalità di lettura da destra a sinistra (manga/libri). Ottimizzato per smartphone, tablet e ChromeOS.</string>
+    <string name="help_settings_title">5. Impostazioni, diagnostica e supporto</string>
+    <string name="help_settings_text">Dal menu delle impostazioni (icona a forma di ingranaggio o pulsante cuore di supporto), puoi configurare e visualizzare i seguenti elementi:\n\n    • Proprietà: Configura titolo del documento, autore, oggetto, parole chiave, versione PDF e layout di pagina.\n    • Password: Imposta o cancella la password di crittografia per il salvataggio e l\'esportazione.\n    • Opzioni: Seleziona la dimensione della miniatura (Piccola/Media/Grande).\n    • Versione: Visualizza la versione dell\'app, il numero di build, le licenze, i badge acquistati e riscatta i codici promozionali.\n    • Aiuto: Mostra questa guida dell\'app.\n    • Diagnostica: Esegui test diagnostici di sistema, rivedi i log di audit operativi locali e di errore di runtime protetti da privacy (conservati automaticamente per 24 ore, escludendo rigorosamente i dati personali), condividi report e segnala problemi su GitHub.\n    • Supporto: Acquista elementi di supporto una tantum (Bronzo, Argento, Oro) o riscatta i codici promozionali di Google Play per sostenere lo sviluppo dell\'app.</string>
+    <string name="help_purchased_items">Badge di supporto acquistati</string>
+    <string name="help_no_purchased_items">Nessun elemento di supporto ancora acquistato.</string>
+
+    <string name="prop_filename">Nome file</string>
+    <string name="prop_title">Titolo</string>
+    <string name="prop_author">Autore</string>
+    <string name="prop_subtitle">Sottotitolo</string>
+    <string name="prop_keywords">Parole chiave</string>
+    <string name="prop_pdf_version">Versione PDF: %1$s</string>
+    <string name="prop_pdf_version_label">Versione PDF</string>
+    <string name="prop_display_settings">Impostazioni di visualizzazione</string>
+    <string name="prop_page_layout">Layout pagina</string>
+    <string name="prop_show_cover">Mostra copertina</string>
+    <string name="prop_scroll_direction">Direzione di scorrimento</string>
+    <string name="prop_page_display">Visualizzazione pagina</string>
+
+    <string name="layout_single">Pagina singola</string>
+    <string name="layout_one_column">Una colonna</string>
+    <string name="layout_two_column_left">Due colonne a sinistra</string>
+    <string name="layout_two_column_right">Due colonne a destra</string>
+    <string name="layout_two_page_left">Due pagine a sinistra</string>
+    <string name="layout_two_page_right">Due pagine a destra</string>
+
+    <string name="display_single">Visualizzazione pagina singola</string>
+    <string name="display_one_column">Visualizzazione pagina singola, scorrimento abilitato</string>
+    <string name="display_two_column_left">Vista affiancata, scorrimento abilitato</string>
+    <string name="display_two_column_right">Vista affiancata, mostra copertina, scorrimento abilitato</string>
+    <string name="display_two_page_left">Vista affiancata</string>
+    <string name="display_two_page_right">Vista affiancata, mostra copertina</string>
+
+    <string name="security_title">Sicurezza</string>
+    <string name="security_desc">Imposta una password per il salvataggio/esportazione.</string>
+    <string name="security_password_label">Password di crittografia</string>
+    <string name="security_not_set">Non impostata</string>
+    <string name="security_leave_empty">Lascia vuoto per nessuna password</string>
+
+    <string name="version_app_name">MihirakiPDFUtility</string>
+    <string name="version_number">Versione: %1$s</string>
+    <string name="version_build">Build: %1$s</string>
+    <string name="version_copyright">© 2026 Takuma Yamada</string>
+    <string name="version_license_title">Licenza e Open Source</string>
+    <string name="version_license_text">Distribuito sotto Licenza Apache 2.0.\n\nSoftware di terze parti:\n• Apache PDFBox-Android (Copyright The Apache Software Foundation, Apache License 2.0)\n• AndroidX &amp; Jetpack Compose (Google LLC, Apache License 2.0)</string>
+
+    <string name="split_title">Dividi pagine</string>
+    <string name="split_desc">Seleziona la direzione di divisione.</string>
+    <string name="split_vertical">Divisione verticale (Sinistra/Destra)</string>
+    <string name="split_horizontal">Divisione orizzontale (Superiore/Inferiore)</string>
+
+    <string name="crop_title">Ritaglia margini</string>
+    <string name="crop_desc">Specifica la percentuale da tagliare da ciascun lato.</string>
+    <string name="crop_percent">%1$d%% Ritagliato</string>
+
+    <string name="preview_page_counter">Pagina %1$d / %2$d</string>
+
+    <string name="tip_message">Se ti piace l\'app, puoi supportarne lo sviluppo.</string>
+    <string name="free_use_message">Questa app è completamente gratuita. Tutte le funzionalità, come la modifica e il salvataggio dei PDF, sono disponibili senza restrizioni indipendentemente dagli acquisti.</string>
+    <string name="purchase_thanks">Grazie! Ricevuto supporto %1$s.</string>
+    <string name="purchase_badge_shown">Badge di supporto visualizzato nella schermata della versione.</string>
+    <string name="purchase_cancelled">Acquisto annullato.</string>
+    <string name="purchase_failed">Acquisto non riuscito. Riprova.</string>
+    <string name="action_property">Proprietà</string>
+    <string name="action_right_binding">Rilegatura a destra</string>
+    <string name="action_right_binding_cover">Rilegatura a destra e copertina</string>
+    <string name="run_diagnostics">Esegui test diagnostici</string>
+    <string name="diagnostics_title">Risultati dei test diagnostici</string>
+    <string name="diagnostics_privacy">Nota: I risultati dei test vengono visualizzati solo localmente. Non vi è alcuna funzione per trasmettere i risultati dei test esternamente.</string>
+    <string name="share_results">Condividi risultati</string>
+    <string name="results_copied">Risultati copiati negli appunti</string>
+    <string name="device_info_format">Dispositivo: %1$s %2$s (Android %3$s)</string>
+    <string name="test_timestamp_format">Timestamp: %1$s</string>
+    <string name="view_app_logs">Visualizza log dell\'app</string>
+    <string name="logs_dialog_title">Log di audit dell\'app</string>
+    <string name="logs_privacy">Nota: I log sono memorizzati solo localmente sul dispositivo. Non vi è alcuna funzione per trasmettere i log esternamente.</string>
+    <string name="copy_logs">Copia log negli appunti</string>
+    <string name="logs_copied">Log copiati negli appunti</string>
+    <string name="share_logs">Condividi log</string>
+    <string name="promo_code_help_title">Come riscattare il codice promozionale</string>
+    <string name="promo_code_help_message">Per riscattare un codice promozionale, apri la schermata Supporto, tocca il pulsante di acquisto e seleziona "Riscatta" dal menu dei metodi di pagamento di Google Play.</string>
+    <string name="go_to_support">Vai al supporto</string>
+    <string name="sample_pdf">PDF di esempio</string>
+    <string name="sample_pdfs" translatable="false">Sample PDFs</string>
+    <string name="language_filter" translatable="false">Language Filter</string>
+    <string name="all_languages" translatable="false">All</string>
+    <string name="sample_pdf_download" translatable="false">Download</string>
+    <string name="sample_pdf_downloading" translatable="false">Downloading...</string>
+    <string name="sample_pdf_downloading_progress" translatable="false">Downloading... %d%%</string>
+    <string name="sample_pdf_open" translatable="false">Open</string>
+    <string name="sample_pdf_delete" translatable="false">Delete</string>
+    <string name="cellular_data_warning" translatable="false">Cellular Data Warning</string>
+    <string name="cellular_data_message" translatable="false">You are currently on a cellular network. Downloading \"%1$s\" (%2$s) may consume a significant amount of mobile data. Do you want to proceed?</string>
+    <string name="error_prefix" translatable="false">Error: %s</string>
+    <string name="cc_by_dialog_title">Licenza PDF di esempio (CC BY 4.0)</string>
+    <string name="cc_by_dialog_text">Prima di modificare o salvare il PDF di esempio, rivedi i termini della licenza Creative Commons Attribution 4.0 International (CC BY 4.0):\n\n• Autore: Komairo Hiyori\n• Licenza: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• Quando riutilizzi, modifichi o salvi, mostra il titolo, il nome dell\'autore, il link della licenza e indica eventuali modifiche apportate.\n\nNota: Hai la totale libertà di modificare e salvare il PDF di esempio senza restrizioni.</string>
+    <string name="cc_by_dialog_confirm">Accetta e procedi</string>
+    <string name="options_button_display_title">Tipo di visualizzazione pulsanti</string>
+    <string name="button_display_icon_and_text">Icona + Testo (Predefinito)</string>
+    <string name="button_display_icon_only">Solo icona</string>
+    <string name="button_display_text_only">Solo testo</string>
+    <string name="folder_images_title">Immagini nella cartella</string>
+    <string name="sort_options_label">Ordina per</string>
+    <string name="sort_by_name">Nome</string>
+    <string name="sort_by_creation">Data di creazione</string>
+    <string name="sort_by_modified">Data ultima modifica</string>
+    <string name="sort_ascending">Crescente</string>
+    <string name="sort_descending">Decrescente</string>
+    <string name="image_count_label">Conteggio immagini</string>
+    <string name="btn_create_pdf_from_images">Crea PDF</string>
+    <string name="menu_open_folder">Apri cartella</string>
+</resources>

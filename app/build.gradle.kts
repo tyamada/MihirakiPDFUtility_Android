@@ -14,8 +14,8 @@ android {
         applicationId = "com.takumayamada22.pdfutility"
         minSdk = 26
         targetSdk = 36
-        versionCode = 4
-        versionName = "1.0.3"
+        versionCode = 7
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -108,7 +108,13 @@ tasks.register("preBundleDocumentationCheck") {
             File(rootDir, "README_ja.md"),
             File(rootDir, "LICENSE"),
             File(rootDir, "store_listing/metadata_en.txt"),
-            File(rootDir, "store_listing/metadata_ja.txt")
+            File(rootDir, "store_listing/metadata_ja.txt"),
+            File(rootDir, "store_listing/metadata_it.txt"),
+            File(rootDir, "docs/store_listing/metadata_it.txt"),
+            File(rootDir, "store_listing/metadata_ko.txt"),
+            File(rootDir, "docs/store_listing/metadata_ko.txt"),
+            File(rootDir, "store_listing/metadata_zh-CN.txt"),
+            File(rootDir, "docs/store_listing/metadata_zh-CN.txt")
         )
 
         val missingFiles = requiredFiles.filter { !it.exists() }
@@ -116,12 +122,12 @@ tasks.register("preBundleDocumentationCheck") {
             throw GradleException("Missing required release documentation/metadata files: ${missingFiles.map { t -> t.name }}")
         }
 
-        // Verify localized string files exist for all 13 locales
+        // Verify localized string files exist for all 14 locales
         val resDir = File(rootDir, "app/src/main/res")
         val requiredLocales = listOf(
             "values", "values-de", "values-es", "values-fr", "values-in",
-            "values-ja", "values-ko", "values-ne", "values-pt", "values-tl",
-            "values-vi", "values-zh-rCN", "values-zh-rTW"
+            "values-it", "values-ja", "values-ko", "values-ne", "values-pt",
+            "values-tl", "values-vi", "values-zh-rCN", "values-zh-rTW"
         )
         val missingLocales = requiredLocales.filter { locale ->
             !File(resDir, "$locale/strings.xml").exists()
@@ -148,6 +154,34 @@ tasks.register("preBundleDocumentationCheck") {
         }
 
         logger.lifecycle("[RELEASE RULE CHECK] Translation, help screen, and documentation checks passed successfully.")
+    }
+}
+
+tasks.register("updateDocs") {
+    group = "documentation"
+    description = "Updates HTML files in docs/ to include Italian language option."
+    val rootDirFile = rootProject.rootDir
+    doLast {
+        val docsDir = File(rootDirFile, "docs")
+        docsDir.listFiles { file -> file.extension.lowercase() == "html" }?.forEach { file ->
+            val text = file.readText()
+            if (!text.contains("_it.html")) {
+                val prefix = when {
+                    file.name.startsWith("index") -> "index"
+                    file.name.startsWith("privacy") -> "privacy"
+                    file.name.startsWith("support") -> "support"
+                    else -> null
+                }
+                if (prefix != null) {
+                    val target = "<option value=\"${prefix}_in.html\">Bahasa Indonesia</option>"
+                    val replacement = "$target\n            <option value=\"${prefix}_it.html\">Italiano (Italian)</option>"
+                    if (text.contains(target)) {
+                        file.writeText(text.replace(target, replacement))
+                        println("Updated ${file.name}")
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">見開き PDF 工具</string>
+    <string name="app_name">MihirakiPDFUtility</string>
     <string name="action_open">開啟</string>
     <string name="action_save">儲存</string>
     <string name="action_undo">還原</string>
@@ -77,7 +77,7 @@
     <string name="security_not_set">未設置</string>
     <string name="security_leave_empty">如不設密碼請留空</string>
 
-    <string name="version_app_name">見開き PDF 工具</string>
+    <string name="version_app_name">MihirakiPDFUtility</string>
     <string name="version_number">版本: %1$s</string>
     <string name="version_build">構建: %1$s</string>
     <string name="version_copyright">© 2026 Takuma Yamada</string>

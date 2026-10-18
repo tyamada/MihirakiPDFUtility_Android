@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mihiraki PDF Utility</string>
+    <string name="app_name">MihirakiPDFUtility</string>
     <string name="action_open">Abrir</string>
     <string name="action_save">Salvar</string>
     <string name="action_undo">Desfazer</string>
@@ -77,7 +77,7 @@
     <string name="security_not_set">Não definida</string>
     <string name="security_leave_empty">Deixe em branco para não usar senha</string>
 
-    <string name="version_app_name">Mihiraki PDF Utility</string>
+    <string name="version_app_name">MihirakiPDFUtility</string>
     <string name="version_number">Versão: %1$s</string>
     <string name="version_build">Compilação: %1$s</string>
     <string name="version_copyright">© 2026 Takuma Yamada</string>

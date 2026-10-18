@@ -34,7 +34,7 @@ Explore how the application functions across different device types:
 
 ## 🌐 Multi-language Support
 
-13 languages supported, including Japanese, English, Korean, Chinese, German, French, Spanish, Portuguese, Vietnamese, Filipino, Nepali, and Indonesian.
+14 languages supported, including Italian, Japanese, English, Korean, Chinese, German, French, Spanish, Portuguese, Vietnamese, Filipino, Nepali, and Indonesian.
 
 ## Sample PDFs
 
