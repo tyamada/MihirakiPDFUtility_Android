@@ -99,12 +99,12 @@
     <string name="prop_scroll_direction">スクロール方向</string>
     <string name="prop_page_display">ページを表示</string>
 
-    <string name="layout_single">Single Page</string>
-    <string name="layout_one_column">One Column</string>
-    <string name="layout_two_column_left">Two Column Left</string>
-    <string name="layout_two_column_right">Two Column Right</string>
-    <string name="layout_two_page_left">Two Page Left</string>
-    <string name="layout_two_page_right">Two Page Right</string>
+    <string name="layout_single">単一ページ</string>
+    <string name="layout_one_column">1カラム</string>
+    <string name="layout_two_column_left">見開き（左開き）</string>
+    <string name="layout_two_column_right">見開き（右開き）</string>
+    <string name="layout_two_page_left">見開きページ（左）</string>
+    <string name="layout_two_page_right">見開きページ（右）</string>
 
     <string name="display_single">単一ページ表示</string>
     <string name="display_one_column">単一ページ表示、スクロール有効</string>
@@ -209,4 +209,5 @@
     <string name="commemorative_badge_desc">製品版リリースを記念して、公式作品「ためし部」のこよみバッジを無料で受け取れます！</string>
     <string name="claim_free_badge">無料で受け取る</string>
     <string name="badge_claimed_success">こよみバッジを受け取りました！</string>
+    <string name="action_owned">購入済み</string>
 </resources>

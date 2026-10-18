@@ -97,4 +97,89 @@
     <string name="purchase_thanks">¡Gracias! Se recibió el apoyo de %1$s.</string>
     <string name="purchase_cancelled">Compra cancelada.</string>
     <string name="purchase_failed">Error en la compra. Por favor, inténtalo de nuevo.</string>
+    <string name="action_property">Propiedad</string>
+    <string name="action_right_binding">Encuadernación derecha</string>
+    <string name="action_right_binding_cover">Encuadernación derecha y portada</string>
+    <string name="run_diagnostics">Ejecutar pruebas de diagnóstico</string>
+    <string name="diagnostics_title">Resultados de diagnóstico</string>
+    <string name="diagnostics_privacy">Nota: Los resultados de las pruebas se muestran solo localmente. No hay ninguna función para transmitir los resultados externamente.</string>
+    <string name="share_results">Compartir resultados</string>
+    <string name="bulk_copy">Copia masiva (Diagnóstico y registros)</string>
+    <string name="bulk_copy_success">Informe de diagnóstico y registros copiados al portapapeles.</string>
+    <string name="report_issue">Informar de un problema</string>
+    <string name="report_include_title">Incluir en tu informe</string>
+    <string name="report_step_1">1. Breve resumen del problema</string>
+    <string name="report_step_2">2. Pasos para reproducirlo</string>
+    <string name="report_step_3">3. Comportamiento esperado y real</string>
+    <string name="report_step_4">4. Frecuencia de aparición</string>
+    <string name="report_step_5">5. Versión de la aplicación, versión del SO, dispositivo y configuración de pantalla</string>
+    <string name="report_step_6">6. Capturas de pantalla, registros de la aplicación o resultados de diagnóstico</string>
+    <string name="copy_all_diagnostics">Copiar todo el diagnóstico y registros</string>
+    <string name="privacy_protection">Protege tu privacidad</string>
+    <string name="privacy_note_1">• No incluyas información personal como archivos PDF reales, contenido del documento, nombres de archivo o nombres.</string>
+    <string name="privacy_note_2">• Revisa las capturas de pantalla y la información de diagnóstico antes de compartir. Los datos no se envían automáticamente.</string>
+    <string name="results_copied">Resultados copiados al portapapeles</string>
+    <string name="device_info_format">Dispositivo: %1$s %2$s (Android %3$s)</string>
+    <string name="test_timestamp_format">Marca de tiempo: %1$s</string>
+    <string name="view_app_logs">Ver registros de la aplicación</string>
+    <string name="logs_dialog_title">Registros de auditoría de la aplicación</string>
+    <string name="logs_privacy">Nota: Los registros se almacenan solo localmente en el dispositivo. No hay ninguna función para transmitir los registros externamente.</string>
+    <string name="copy_logs">Copiar registros al portapapeles</string>
+    <string name="logs_copied">Registros copiados al portapapeles</string>
+    <string name="share_logs">Compartir registros</string>
+    <string name="promo_code_help_title">Cómo canjear el código promocional</string>
+    <string name="promo_code_help_message">Para canjear un código de promoción, abre la pantalla de Soporte, toca el botón de compra y selecciona "Canjear" en el menú de métodos de pago de Google Play.</string>
+    <string name="go_to_support">Ir a Soporte</string>
+    <string name="sample_pdf">PDF de ejemplo</string>
+    <string name="sample_pdfs" translatable="false">Sample PDFs</string>
+    <string name="language_filter" translatable="false">Language Filter</string>
+    <string name="all_languages" translatable="false">All</string>
+    <string name="sample_pdf_download" translatable="false">Download</string>
+    <string name="sample_pdf_downloading" translatable="false">Downloading...</string>
+    <string name="sample_pdf_downloading_progress" translatable="false">Downloading... %d%%</string>
+    <string name="sample_pdf_open" translatable="false">Open</string>
+    <string name="sample_pdf_delete" translatable="false">Delete</string>
+    <string name="cellular_data_warning" translatable="false">Cellular Data Warning</string>
+    <string name="cellular_data_message" translatable="false">You are currently on a cellular network. Downloading \"%1$s\" (%2$s) may consume a significant amount of mobile data. Do you want to proceed?</string>
+    <string name="error_prefix" translatable="false">Error: %s</string>
+    <string name="cc_by_dialog_title">Licencia de PDF de ejemplo (CC BY 4.0)</string>
+    <string name="cc_by_dialog_text">Antes de modificar o guardar el PDF de ejemplo, revisa los términos de Creative Commons Attribution 4.0 International (CC BY 4.0):\n\n• Autor: Komairo Hiyori\n• Licencia: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• Al reutilizar, modificar o guardar, muestra el título, el nombre del autor, el enlace de la licencia e indica las modificaciones realizadas.\n\nNota: Tienes total libertad para modificar y guardar el PDF de ejemplo sin restricciones.</string>
+    <string name="cc_by_dialog_confirm">Aceptar y continuar</string>
+    <string name="options_button_display_title">Tipo de visualización de botones</string>
+    <string name="button_display_icon_and_text">Icono + Texto (Predeterminado)</string>
+    <string name="button_display_icon_only">Solo icono</string>
+    <string name="button_display_text_only">Solo texto</string>
+    <string name="folder_images_title">Imágenes en la carpeta</string>
+    <string name="sort_options_label">Ordenar por</string>
+    <string name="sort_by_name">Nombre</string>
+    <string name="sort_by_creation">Fecha de creación</string>
+    <string name="sort_by_modified">Fecha de última modificación</string>
+    <string name="sort_ascending">Ascendente</string>
+    <string name="sort_descending">Descendente</string>
+    <string name="image_count_label">Cantidad de imágenes</string>
+    <string name="btn_create_pdf_from_images">Crear PDF</string>
+    <string name="menu_open_folder">Abrir carpeta</string>
+    <string name="commemorative_badge_title">Insignia Koyomi conmemorativa de lanzamiento</string>
+    <string name="commemorative_badge_desc">¡Reclama la insignia oficial de Koyomi "Tameshibu" gratis para celebrar el lanzamiento comercial!</string>
+    <string name="claim_free_badge">Reclamar insignia gratis</string>
+    <string name="badge_claimed_success">¡Insignia Koyomi reclamada con éxito!</string>
+    <string name="help_item_overview"><b>Resumen:</b> Soporta 14 idiomas, vistas de doble página (RTL/LTR) y está optimizado para libros escaneados y manga.</string>
+    <string name="help_item_open_save"><b>Abrir y guardar:</b> Toca Abrir (Ctrl+O) para cargar un PDF. Usa Guardar (Ctrl+S) para guardar todas las páginas o Exportar selección (Ctrl+E).</string>
+    <string name="help_item_page_ops"><b>Operaciones de página:</b> Reordena páginas, rota, elimina, inserta páginas en blanco, divide y recorta márgenes.</string>
+    <string name="help_item_devices"><b>Pantalla y dispositivos:</b> Cambia entre vistas de cuadrícula y doble página. Soporta modo de lectura de derecha a izquierda (RTL).</string>
+    <string name="help_item_properties"><b>Propiedades y metadatos:</b> Configura título, autor, asunto, palabras clave, versión de PDF y diseño de página.</string>
+    <string name="help_item_security"><b>Seguridad y contraseña:</b> Establece o borra contraseñas de cifrado para guardar PDFs protegidos.</string>
+    <string name="help_item_options"><b>Opciones y visualización:</b> Personaliza el tamaño de las miniaturas (Pequeño/Mediano/Grande) y tipo de botones.</string>
+    <string name="help_item_support"><b>Apoyar desarrollo:</b> Compra elementos de apoyo únicos (Bronce, Plata, Oro) o canjea códigos promocionales.</string>
+    <string name="help_item_diagnostics"><b>Diagnóstico:</b> Ejecuta pruebas de diagnóstico del sistema para verificar la funcionalidad.</string>
+    <string name="help_item_audit_logs"><b>Registros de auditoría:</b> Revisa los registros locales de operaciones y errores de runtime (retenidos 24 horas).</string>
+    <string name="help_item_report_issues"><b>Informar de problemas:</b> Usa la pantalla de informes para copiar registros y diagnósticos.</string>
+    <string name="help_purchased_items">Insignias de apoyo adquiridas</string>
+    <string name="help_no_purchased_items">Aún no se han adquirido elementos de apoyo.</string>
+    <string name="prop_pdf_version_label">Versión PDF</string>
+    <string name="version_license_title">Licencia y Código Abierto</string>
+    <string name="version_license_text">Distribuido bajo la Licencia Apache 2.0.</string>
+    <string name="free_use_message">Esta aplicación es completamente gratuita y todas las funciones están disponibles sin restricciones.</string>
+    <string name="purchase_badge_shown">Insignia de apoyo mostrada en la pantalla de versión.</string>
+    <string name="action_owned">Comprado</string>
 </resources>
