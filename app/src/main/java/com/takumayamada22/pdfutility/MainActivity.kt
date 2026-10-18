@@ -14,6 +14,8 @@ import com.takumayamada22.pdfutility.ui.theme.MihirakiPDFUtilityTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        androidx.core.view.WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars =
+            (resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) != android.content.res.Configuration.UI_MODE_NIGHT_YES
         val initialUri = intent?.data
         setContent {
             MihirakiPDFUtilityTheme {

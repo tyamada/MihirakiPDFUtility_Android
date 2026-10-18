@@ -76,7 +76,7 @@ def build_manifest():
                     issues.append(f'Missing screenshot or record: {png}')
                     continue
                 metadata = json.loads(record.read_text())
-                if metadata.get('versionCode') != 33:
+                if metadata.get('versionCode') != capture.CONFIG['versionCode']:
                     issues.append(f'Wrong versionCode: {record}')
                 if metadata.get('validation') != 'automated-pass; visual-reviewed':
                     issues.append(f'Screenshot is not fully reviewed: {record}')
@@ -118,7 +118,7 @@ def build_manifest():
     chromium_count = sum(len(capture.selected_scenes('Chromebook_FHD')) for _ in capture.LANGUAGES)
     return {
         'packageName': PACKAGE,
-        'versionCode': 33,
+        'versionCode': capture.CONFIG['versionCode'],
         'apiImageCount': len(entries),
         'chromebookManualImageCount': chromium_count,
         'entries': entries,
@@ -253,8 +253,8 @@ def finish_edit(args, manifest, *, commit):
         raise RuntimeError('Staged edit package does not match this app.')
     api = load_api(args.service_account)
     if commit:
-        if args.confirm_commit != f'{PACKAGE}:33':
-            raise RuntimeError(f'Commit requires --confirm-commit {PACKAGE}:33')
+        if args.confirm_commit != f'{PACKAGE}:{capture.CONFIG['versionCode']}':
+            raise RuntimeError(f'Commit requires --confirm-commit {PACKAGE}:{capture.CONFIG['versionCode']}')
         if state.get('status') != 'staged-uncommitted' or state.get('manifestSha256') != manifest_digest(manifest):
             raise RuntimeError('Staged edit is not complete or no longer matches the local manifest.')
         api.edits().commit(packageName=PACKAGE, editId=state['editId']).execute()

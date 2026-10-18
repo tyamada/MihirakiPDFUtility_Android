@@ -81,7 +81,7 @@ fun PdfTopAppBar(
     val displayType = uiState.buttonDisplayType
 
     Surface(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().statusBarsPadding(),
         color = MaterialTheme.colorScheme.surface,
         tonalElevation = 3.dp
     ) {

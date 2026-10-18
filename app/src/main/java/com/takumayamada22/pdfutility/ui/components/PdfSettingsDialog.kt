@@ -819,37 +819,7 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                         color = MaterialTheme.colorScheme.onSurface
                     )
 
-                    // Free Commemorative Koyomi Badge Card
-                    val isKoyomiClaimed = purchasedTiers.contains(TipTier.KOYOMI)
-                    ElevatedCard(modifier = Modifier.fillMaxWidth()) {
-                        Row(
-                            modifier = Modifier.padding(12.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.tameshibu_badge_koyomi),
-                                contentDescription = null,
-                                modifier = Modifier.size(48.dp)
-                            )
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(stringResource(R.string.commemorative_badge_title), style = MaterialTheme.typography.labelLarge)
-                                Text(stringResource(R.string.commemorative_badge_desc), style = MaterialTheme.typography.bodySmall)
-                            }
-                            Button(
-                                onClick = { manager.claimKoyomiBadge() },
-                                enabled = !isKoyomiClaimed,
-                                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
-                            ) {
-                                Text(
-                                    text = if (isKoyomiClaimed) "Claimed" else stringResource(R.string.claim_free_badge),
-                                    style = MaterialTheme.typography.labelSmall
-                                )
-                            }
-                        }
-                    }
-                    
-                    TipTier.entries.filter { it != TipTier.KOYOMI }.forEach { tier ->
+                    TipTier.entries.forEach { tier ->
                         val product = products.firstOrNull { it.productId == tier.productId }
                         val priceText = product?.oneTimePurchaseOfferDetails?.formattedPrice
                             ?: if (isDebug) {
@@ -857,9 +827,11 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                                     TipTier.BRONZE -> "¥100 (Mock)"
                                     TipTier.SILVER -> "¥500 (Mock)"
                                     TipTier.GOLD -> "¥1000 (Mock)"
-                                    else -> ""
+                                    TipTier.KOYOMI -> "¥200 (Mock)"
                                 }
                             } else tier.productId
+
+                        val isOwned = purchasedTiers.contains(tier)
 
                         ElevatedCard(modifier = Modifier.fillMaxWidth()) {
                             Row(
@@ -871,7 +843,7 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                                     TipTier.BRONZE -> R.drawable.tip_bronze
                                     TipTier.SILVER -> R.drawable.tip_silver
                                     TipTier.GOLD -> R.drawable.tip_gold
-                                    else -> R.drawable.tip_bronze
+                                    TipTier.KOYOMI -> R.drawable.tameshibu_badge_koyomi
                                 }
                                 Image(
                                     painter = painterResource(iconRes),
@@ -879,7 +851,10 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                                     modifier = Modifier.size(48.dp)
                                 )
                                 Column(modifier = Modifier.weight(1f)) {
-                                    Text(tier.name, style = MaterialTheme.typography.labelLarge)
+                                    Text(
+                                        text = if (tier == TipTier.KOYOMI) stringResource(R.string.commemorative_badge_title) else tier.name,
+                                        style = MaterialTheme.typography.labelLarge
+                                    )
                                     Text(priceText, style = MaterialTheme.typography.bodySmall)
                                 }
                                 Button(
@@ -890,10 +865,13 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                                             product?.let { manager.purchase(context as Activity, it) }
                                         }
                                     },
-                                    enabled = isDebug || product != null,
+                                    enabled = !isOwned && (isDebug || product != null),
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                                 ) {
-                                    Text(stringResource(R.string.action_purchase), style = MaterialTheme.typography.labelSmall)
+                                    Text(
+                                        text = if (isOwned) "Owned" else stringResource(R.string.action_purchase),
+                                        style = MaterialTheme.typography.labelSmall
+                                    )
                                 }
                             }
                         }
@@ -901,12 +879,7 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                     
                     when (val s = purchaseState) {
                         is PurchaseState.Success -> Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            val thanksText = if (s.tier == TipTier.KOYOMI) {
-                                stringResource(R.string.badge_claimed_success)
-                            } else {
-                                stringResource(R.string.purchase_thanks, s.tier.name)
-                            }
-                            Text(thanksText, color = MaterialTheme.colorScheme.primary)
+                            Text(stringResource(R.string.purchase_thanks, if (s.tier == TipTier.KOYOMI) "Koyomi" else s.tier.name), color = MaterialTheme.colorScheme.primary)
                             Text(stringResource(R.string.purchase_badge_shown), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
                         }
                         is PurchaseState.Cancelled -> Text(stringResource(R.string.purchase_cancelled), style = MaterialTheme.typography.bodySmall)
