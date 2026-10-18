@@ -11,14 +11,13 @@ import org.junit.runner.RunWith
 class BillingManagerTest {
 
     @Test
-    fun testSimulateSuccessAndPersistence() {
+    fun testClaimKoyomiBadgeAndPersistence() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         val billingManager = BillingManager(context)
 
-        val tier = TipTier.BRONZE
-        billingManager.simulateSuccess(tier)
+        billingManager.claimKoyomiBadge()
 
-        assertTrue(billingManager.purchasedTiers.value.contains(tier))
+        assertTrue(billingManager.purchasedTiers.value.contains(TipTier.KOYOMI))
 
         billingManager.close()
     }

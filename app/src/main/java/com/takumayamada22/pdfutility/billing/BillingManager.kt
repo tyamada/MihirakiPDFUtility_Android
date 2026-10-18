@@ -81,7 +81,7 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
         }
     }
 
-    private fun queryExistingPurchases() {
+    fun queryExistingPurchases() {
         client.queryPurchasesAsync(
             QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.INAPP).build()
         ) { billingResult, purchases ->
@@ -111,13 +111,6 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
         if (result.responseCode != BillingClient.BillingResponseCode.OK) {
             _purchase.value = PurchaseState.Error(result.debugMessage)
         }
-    }
-
-    fun simulateSuccess(tier: TipTier) {
-        _purchase.value = PurchaseState.Success(tier)
-        val newTiers = _purchasedTiers.value + tier
-        _purchasedTiers.value = newTiers
-        savePurchasedTiers(newTiers)
     }
 
     fun claimKoyomiBadge() {

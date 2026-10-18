@@ -688,6 +688,9 @@ class PdfViewModel(
     }
 
     fun openSettingsDialog(type: SettingsDialogType) {
+        if (type == SettingsDialogType.VERSION || type == SettingsDialogType.SUPPORT) {
+            billing.queryExistingPurchases()
+        }
         _uiState.value = _uiState.value.copy(activeSettingsDialog = type, showSettingsMenu = false)
     }
 
