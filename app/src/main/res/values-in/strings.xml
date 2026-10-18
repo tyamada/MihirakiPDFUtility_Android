@@ -97,4 +97,7 @@
     <string name="purchase_thanks">Terima kasih! Dukungan %1$s diterima.</string>
     <string name="purchase_cancelled">Pembelian dibatalkan.</string>
     <string name="purchase_failed">Pembelian gagal. Silakan coba lagi.</string>
+    <string name="help_item_display_modes"><b>Mode Tampilan:</b> Beralih antara tampilan kisi dan dua halaman. Mendukung pengalihan arah baca Kanan-ke-Kiri (RTL) dan Kiri-ke-Kanan (LTR).</string>
+    <string name="help_item_device_optimization"><b>Dukungan Perangkat:</b> Dioptimalkan sepenuhnya untuk ponsel cerdas, tablet, perangkat lipat, dan desktop (ChromeOS, dll. dengan pintasan keyboard &amp; klik kanan).</string>
+    <string name="help_item_button_reference"><b>Referensi Tombol Bilah Alat:</b><br/>• <b>Buka / Simpan / Tambah:</b> Memuat PDF, menyimpan semua halaman, menggabungkan PDF.<br/>• <b>Seleksi:</b> Pilih semua, bersihkan, atau balikkan seleksi.<br/>• <b>Edit Halaman:</b> Putar, pindahkan (atas/bawah), bagi, sisipkan halaman kosong, hapus, atau ekspor yang dipilih.<br/>• <b>Tampilan &amp; Pengaturan:</b> Beralih tampilan (kisi/dua halaman), arah baca RTL/LTR, tata letak sampul, properti, dan keamanan kata sandi.</string>
 </resources>

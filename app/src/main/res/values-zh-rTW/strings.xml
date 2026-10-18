@@ -163,4 +163,7 @@
     <string name="commemorative_badge_desc">免費領取官方「試閱部」Koyomi 徽章，以慶賀商業發售！</string>
     <string name="claim_free_badge">免費領取</string>
     <string name="badge_claimed_success">成功領取 Koyomi 徽章！</string>
+    <string name="help_item_display_modes"><b>顯示模式:</b> 在網格檢視和跨頁檢視之間切換。支援在由右至左 (RTL) 與由左至右 (LTR) 閱讀方向之間切換。</string>
+    <string name="help_item_device_optimization"><b>裝置支援:</b> 完全針對智慧型手機、平板電腦、摺疊式裝置以及桌面端（ChromeOS 等，支援鍵盤快速鍵與滑鼠右鍵點擊）進行最佳化。</string>
+    <string name="help_item_button_reference"><b>工具列按鈕參考:</b><br/>• <b>開啟 / 儲存 / 新增:</b> 載入 PDF、儲存所有頁面、合併 PDF。<br/>• <b>選取:</b> 全選、清除選取或反向選取。<br/>• <b>頁面編輯:</b> 旋轉、移動（上/下）、分割、插入空白頁、刪除或匯出所選頁面。<br/>• <b>檢視與設定:</b> 切換檢視（網格/跨頁）、RTL/LTR 閱讀方向、封面版面配置、屬性與密碼安全性。</string>
 </resources>

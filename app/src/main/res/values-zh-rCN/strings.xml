@@ -181,4 +181,7 @@
     <string name="version_license_text">在 Apache License 2.0 下分发。</string>
     <string name="free_use_message">本应用完全免费使用。所有功能均可无限制使用。</string>
     <string name="purchase_badge_shown">支持徽章已显示在版本画面上。</string>
+    <string name="help_item_display_modes"><b>显示模式:</b> 在网格视图和跨页视图之间切换。支持在从右到左（RTL）和从左到右（LTR）阅读方向之间切换。</string>
+    <string name="help_item_device_optimization"><b>设备支持:</b> 完全针对智能手机、平板电脑、折叠屏设备以及桌面端（ChromeOS等，支持键盘快捷键和右键点击）进行了优化。</string>
+    <string name="help_item_button_reference"><b>工具栏按钮参考:</b><br/>• <b>打开 / 保存 / 添加:</b> 加载PDF、保存所有页面、合并PDF。<br/>• <b>选择:</b> 全选、清除选择或反向选择。<br/>• <b>页面编辑:</b> 旋转、移动（上/下）、拆分、插入空白页、删除或导出所选页面。<br/>• <b>视图与设置:</b> 切换视图（网格/跨页）、RTL/LTR阅读方向、封面布局、属性和密码安全。</string>
 </resources>

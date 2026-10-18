@@ -209,4 +209,7 @@
     <string name="privacy_protection">Proteggi la tua privacy</string>
     <string name="privacy_note_1">• Non includere informazioni personali come file PDF effettivi, contenuto del documento, nomi di file o nomi.</string>
     <string name="privacy_note_2">• Si prega di verificare gli screenshot e le informazioni di diagnostica prima di condividerli. I dati non vengono inviati automaticamente.</string>
+    <string name="help_item_display_modes"><b>Modalità di visualizzazione:</b> Passa dalla vista a griglia alla vista affiancata. Supporta l\'alternanza tra direzioni di lettura da destra a sinistra (RTL) e da sinistra a destra (LTR).</string>
+    <string name="help_item_device_optimization"><b>Supporto dispositivi:</b> Completamente ottimizzato per smartphone, tablet, dispositivi pieghevoli e desktop (ChromeOS, ecc. con scorciatoie da tastiera e clic destro).</string>
+    <string name="help_item_button_reference"><b>Riferimento pulsanti della barra degli strumenti:</b><br/>• <b>Apri / Salva / Aggiungi:</b> Carica PDF, salva tutte le pagine, unisci PDF.<br/>• <b>Selezione:</b> Seleziona tutto, pulisci o inverti selezione.<br/>• <b>Modifica pagine:</b> Ruota, sposta (su/giù), dividi, inserisci pagina vuota, elimina o esporta selezionate.<br/>• <b>Visualizzazione &amp; Impostazioni:</b> Cambia vista (griglia/affiancata), direzione RTL/LTR, copertina, proprietà e protezione con password.</string>
 </resources>

@@ -97,4 +97,7 @@
     <string name="purchase_thanks">Salamat! Natanggap ang suportang %1$s.</string>
     <string name="purchase_cancelled">Kinansela ang pagbili.</string>
     <string name="purchase_failed">Bigo ang pagbili. Pakisubukang muli.</string>
+    <string name="help_item_display_modes"><b>Mga Mode ng Display:</b> Lumipat sa pagitan ng grid at spread views. Sinusuportahan ang pag-switch sa pagitan ng Kanan-puntong-Kaliwa (RTL) at Kaliwa-puntong-Kanan (LTR) na direksyon ng pagbasa.</string>
+    <string name="help_item_device_optimization"><b>Suporta sa Device:</b> Ganap na na-optimize para sa mga smartphone, tablet, foldable device, at desktop (ChromeOS, atbp. na may mga keyboard shortcut at right-click).</string>
+    <string name="help_item_button_reference"><b>Sanggunian ng mga Pindutan sa Toolbar:</b><br/>• <b>Buksan / I-save / Idagdag:</b> Mag-load ng mga PDF, i-save ang lahat ng pahina, pagsamahin ang mga PDF.<br/>• <b>Pampili:</b> Piliin ang lahat, i-clear, o i-invert ang pagpili.<br/>• <b>Pag-edit ng Pahina:</b> I-rotate, ilipat (itaas/baba), hatiin, magsingit ng blangkong pahina, tanggalin, o i-export ang napili.<br/>• <b>Display at Mga Setting:</b> I-toggle ang view (grid/spread), RTL/LTR na direksyon, layout ng pabalat, mga katangian, at seguridad ng password.</string>
 </resources>

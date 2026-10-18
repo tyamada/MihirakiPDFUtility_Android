@@ -164,4 +164,7 @@
     <string name="claim_free_badge">무료로 받기</string>
     <string name="badge_claimed_success">코요미 배지를 받았습니다!</string>
     <string name="action_owned">구매 완료</string>
+    <string name="help_item_display_modes"><b>보기 모드:</b> 격자 보기와 면보기(스프레드) 간에 전환합니다. 오른쪽에서 왼쪽으로(RTL) 및 왼쪽에서 오른쪽으로(LTR) 읽기 방향 전환을 지원합니다.</string>
+    <string name="help_item_device_optimization"><b>기기 지원:</b> 스마트폰, 태블릿, 폴더블 기기 및 데스크톱(키보드 단축키 및 마우스 우클릭을 지원하는 ChromeOS 등)에 최적화되어 있습니다.</string>
+    <string name="help_item_button_reference"><b>도구 모음 버튼 참조:</b><br/>• <b>열기 / 저장 / 추가:</b> PDF 로드, 모든 페이지 저장, PDF 병합.<br/>• <b>선택:</b> 모두 선택, 선택 취소, 선택 반전.<br/>• <b>페이지 편집:</b> 회전, 이동(위/아래), 분할, 빈 페이지 삽입, 삭제 또는 선택 항목 내보내기.<br/>• <b>보기 및 설정:</b> 보기 전환(격자/면보기), RTL/LTR 읽기 방향, 표지 레이아웃, 속성 및 비밀번호 보안.</string>
 </resources>
