@@ -1,12 +1,38 @@
 {
   "schema": 1,
-  "versionCode": 7,
+  "versionCode": 33,
   "pageCount": 8,
   "languages": {
     "ja": "ja-JP",
     "en": "en-US",
     "ko": "ko-KR",
-    "zh_tw": "zh-TW"
+    "zh_tw": "zh-TW",
+    "de": "de-DE",
+    "fr": "fr-FR",
+    "es": "es-ES",
+    "pt": "pt-BR",
+    "zh_cn": "zh-CN",
+    "vi": "vi-VN",
+    "fil": "fil-PH",
+    "ne": "ne-NP",
+    "id": "id-ID",
+    "it": "it-IT"
+  },
+  "outlineFirst": {
+    "ja": "表紙",
+    "en": "Cover",
+    "ko": "표지",
+    "zh_tw": "封面",
+    "de": "Cover",
+    "fr": "Couverture",
+    "es": "Portada",
+    "pt": "Capa",
+    "zh_cn": "封面",
+    "vi": "Bìa",
+    "fil": "Pabalat",
+    "ne": "आवरण",
+    "id": "Sampul",
+    "it": "Copertina"
   },
   "devices": {
     "Smartphone_6.3": {
@@ -15,16 +41,16 @@
         1920
       ],
       "density": 320,
-      "override": false,
       "desktop": false,
+      "override": false,
       "scenes": {
-        "01_page_grid": "portrait",
         "02_spread": "landscape",
-        "03_page_edit": "portrait",
-        "04_split": "portrait",
-        "05_insert_pdf": "portrait",
-        "06_properties": "portrait",
-        "07_security": "portrait"
+        "01_reader": "portrait",
+        "04_search": "portrait",
+        "07_outline": "portrait",
+        "03_reading_settings": "portrait",
+        "05_page_navigation": "portrait",
+        "06_display_settings": "portrait"
       }
     },
     "Tablet_7": {
@@ -32,17 +58,17 @@
         1080,
         1920
       ],
-      "density": 240,
-      "override": true,
+      "density": 360,
       "desktop": false,
+      "override": true,
       "scenes": {
-        "01_page_grid": "landscape",
         "02_spread": "landscape",
-        "03_page_edit": "landscape",
-        "04_split": "landscape",
-        "05_insert_pdf": "landscape",
-        "06_properties": "landscape",
-        "07_security": "landscape"
+        "01_reader": "portrait",
+        "04_search": "landscape",
+        "07_outline": "landscape",
+        "03_reading_settings": "landscape",
+        "05_page_navigation": "landscape",
+        "06_display_settings": "portrait"
       }
     },
     "Tablet_10": {
@@ -51,16 +77,16 @@
         1440
       ],
       "density": 320,
-      "override": false,
       "desktop": false,
+      "override": false,
       "scenes": {
-        "01_page_grid": "landscape",
         "02_spread": "landscape",
-        "03_page_edit": "landscape",
-        "04_split": "landscape",
-        "05_insert_pdf": "landscape",
-        "06_properties": "landscape",
-        "07_security": "landscape"
+        "01_reader": "portrait",
+        "04_search": "landscape",
+        "07_outline": "landscape",
+        "03_reading_settings": "landscape",
+        "05_page_navigation": "landscape",
+        "06_display_settings": "portrait"
       }
     },
     "Chromebook_FHD": {
@@ -69,16 +95,15 @@
         1080
       ],
       "density": 160,
-      "override": false,
       "desktop": true,
+      "override": false,
       "scenes": {
-        "01_page_grid": "landscape",
         "02_spread": "landscape",
-        "03_page_edit": "landscape",
-        "04_split": "landscape",
-        "05_insert_pdf": "landscape",
-        "06_properties": "landscape",
-        "07_security": "landscape"
+        "04_search": "landscape",
+        "07_outline": "landscape",
+        "03_reading_settings": "landscape",
+        "05_page_navigation": "landscape",
+        "06_display_settings": "landscape"
       }
     }
   }

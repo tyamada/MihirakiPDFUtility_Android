@@ -13,16 +13,16 @@ import time
 import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGE = 'com.takumayamada22.pdfutility'
+PACKAGE = 'com.github.tyamada.MihirakiPDFViewer_Android'
 RUNNER = PACKAGE + '.test/androidx.test.runner.AndroidJUnitRunner'
-TEST = 'com.takumayamada22.pdfutility.StoreScreenshotTest#captureStoreScreenshots'
+TEST = 'com.github.tyamada.mihirakipdfviewer_android.StoreScreenshotTest#captureStoreScreenshots'
 CONFIG_PATH = Path(__file__).with_name('store_capture_config.json')
 CONFIG = json.loads(CONFIG_PATH.read_text())
 PROFILES = CONFIG['devices']
 DEVICES = {name: name for name in PROFILES}
 LANGUAGES = CONFIG['languages']
 SCENES = list(dict.fromkeys(scene for profile in PROFILES.values() for scene in profile['scenes']))
-OUT = ROOT / 'store_listing/screenshots/v7'
+OUT = ROOT / 'store_listing/screenshots'
 WORK = ROOT / '.artifacts/store-capture'
 SDK = Path(os.environ.get('ANDROID_SDK_ROOT') or os.environ.get('ANDROID_HOME') or Path.home() / 'Library/Android/sdk')
 ADB = str(SDK / 'platform-tools/adb')
@@ -97,6 +97,12 @@ def can_resume(path, record, expected, compatible=()):
         if info.get('fingerprint') != expected['fingerprint'] and info.get('fingerprint') not in compatible:
             return False
         if any(info.get(k) != v for k, v in expected.items() if k != 'fingerprint') or info.get('imageSha256') != sha(path):
+            return False
+        if expected['scene'] == '07_outline' and not info.get('outlineVerified'):
+            return False
+        if PROFILES.get(expected.get('avd'), {}).get('desktop') and expected['scene'] == '05_page_navigation' and not info.get('desktopInputVerified'):
+            return False
+        if PROFILES.get(expected.get('avd'), {}).get('desktop') and not info.get('maximized'):
             return False
         validate_image(path, 'portrait' if expected['portrait'] else 'landscape', expected['scene'] == '04_search', expected.get('dimensions'))
         return True
@@ -200,7 +206,7 @@ class Device:
             self.adb('shell', 'setprop', 'persist.sys.locale', locale)
             self.adb('shell', 'CLASSPATH=/data/local/tmp/store-capture-tests.apk',
                      'app_process', '/system/bin',
-                     'com.takumayamada22.pdfutility.StoreLocaleSetter', locale)
+                     'com.github.tyamada.mihirakipdfviewer_android.StoreLocaleSetter', locale)
             self.cold_restart()
         # Root is only needed for locale configuration. Use the shell UID for
         # shared-storage transfers; Android 15 FUSE can reject root file creation.
@@ -257,6 +263,8 @@ class Device:
     def rotate(self, target):
         self.prepare_display()
         self.adb('shell', 'cmd', 'uimode', 'night', 'no')
+        if PROFILES[self.avd]['desktop']:
+            return
         self.adb('shell', 'am', 'force-stop', PACKAGE)
         size = self.text('shell', 'wm', 'size')
         w, h = map(int, re.findall(r'(\d+)x(\d+)', size)[-1])
@@ -267,7 +275,7 @@ class Device:
         self.adb('shell', 'wm', 'user-rotation', 'lock', rotation)
         self.adb('shell', 'cmd', 'uimode', 'night', 'no')
         # Actual app configuration and PNG dimensions are additionally asserted.
-        time.sleep(3)
+        time.sleep(1)
 
     def transfer(self, lang, path, digest):
         # Use app-private storage on every device. Desktop images can deny shell
@@ -290,7 +298,7 @@ def capture(device, lang, scene, digest, target, attempt):
     args = {'class': TEST, 'captureLanguage': lang, 'captureScene': scene,
             'captureDesktop': str(PROFILES[device.avd]['desktop']).lower(),
             'captureLocale': LANGUAGES[lang], 'capturePageCount': str(CONFIG['pageCount']),
-            'captureVersionCode': str(CONFIG['versionCode']),
+            'captureOutlineFirst': CONFIG['outlineFirst'][lang], 'captureVersionCode': str(CONFIG['versionCode']),
             'captureOrientation': target, 'capturePdfSha256': digest, 'captureId': token}
     command = ['shell', 'am', 'instrument', '-w', '-r']
     for key, value in args.items():
@@ -315,29 +323,18 @@ def capture(device, lang, scene, digest, target, attempt):
         rgb = raw.convert('RGB')
     rgb.save(temp)
 
-    validate_image(temp, target, False, expected_size(device.avd, target == 'portrait'))
+    validate_image(temp, target, scene == '04_search', expected_size(device.avd, target == 'portrait'))
+    if metadata.get('layout') != ('SINGLE' if target == 'portrait' else 'SPREAD'):
+        raise RuntimeError('Effective layout mismatch')
+    if PROFILES[device.avd]['desktop'] and scene == '05_page_navigation' and not metadata.get('desktopInputVerified'):
+        raise RuntimeError('Desktop input not verified')
     if metadata.get('versionCode') != CONFIG['versionCode']:
         raise RuntimeError('App version mismatch')
+    if scene == '07_outline' and not metadata.get('outlineVerified'):
+        raise RuntimeError('Outline not verified')
+    if PROFILES[device.avd]['desktop'] and not metadata.get('maximized'):
+        raise RuntimeError('Desktop window not maximized')
     return temp, metadata
-
-
-def prepare_inputs(languages):
-    import fitz
-    folder = WORK / 'inputs'
-    folder.mkdir(parents=True, exist_ok=True)
-    for lang in languages:
-        source = ROOT / f'testdata/tameshibu_episode1_2_{lang}.pdf'
-        with fitz.open(source) as original:
-            doc = fitz.open()
-            rect = original[1].rect
-            page = doc.new_page(width=rect.width * 2, height=rect.height)
-            # Manga original: page 2 on the right, page 3 on the left.
-            page.show_pdf_page(fitz.Rect(0, 0, rect.width, rect.height), original, 2)
-            page.show_pdf_page(fitz.Rect(rect.width, 0, rect.width * 2, rect.height), original, 1)
-            doc.set_metadata({k: original.metadata[k] for k in ('title', 'author', 'subject')})
-            doc.save(folder / f'{lang}_spread.pdf', no_new_id=True)
-            doc.close()
-        (folder / f'{lang}_spread.json').write_text(json.dumps(dict(source=str(source.relative_to(ROOT)), sourceSha256=sha(source), pagesOneBased=[3,2], modification='Pages 3 and 2 combined left-to-right into one spread; CC BY 4.0', sourceUrl='https://github.com/tyamada/MihirakiPDFUtility_Android/tree/main/testdata', license='https://creativecommons.org/licenses/by/4.0/'), ensure_ascii=False, indent=2))
 
 
 def main():
@@ -364,7 +361,6 @@ def main():
         profile = dict(line.split('=', 1) for line in (Path(ini['path']) / 'config.ini').read_text().splitlines() if '=' in line)
         if not (SDK / profile['image.sysdir.1']).is_dir():
             raise RuntimeError(f'System image missing: {avd}')
-    prepare_inputs(options.language)
     from PIL import Image  # fail before device operations when QA dependency is missing
     WORK.mkdir(parents=True, exist_ok=True)
     if options.retries < 1:
@@ -397,14 +393,9 @@ def main():
             for lang in options.language:
                 # Always verify even when all images are already complete.
                 device.locale(LANGUAGES[lang])
-                for apk in apks:
-                    device.adb('install', '-r', '-t', apk, timeout=180)
                 device.rotate(orientation(avd, selections[avd][0]))
                 digest = sha(pdfs[lang])
                 device.transfer(lang, pdfs[lang], digest)
-                for suffix in ('append', 'spread'):
-                    source = ROOT / (f'testdata/tameshibu_episode2_2_{lang}.pdf' if suffix == 'append' else f'.artifacts/store-capture/inputs/{lang}_spread.pdf')
-                    device.transfer(lang + '_' + suffix, source, sha(source))
                 folder = OUT / DEVICES[avd]
                 folder.mkdir(parents=True, exist_ok=True)
                 for scene in selections[avd]:
@@ -412,8 +403,6 @@ def main():
                     final = folder / f'{lang}_{scene}_{target}.png'
                     record = final.with_suffix('.json')
                     expected = dict(fingerprint=stamp, pdfSha256=digest, avd=avd,
-                                    appendPdfSha256=sha(ROOT / f'testdata/tameshibu_episode2_2_{lang}.pdf'),
-                                    spreadPdfSha256=sha(ROOT / f'.artifacts/store-capture/inputs/{lang}_spread.pdf'),
                                     language=lang, scene=scene, portrait=target == 'portrait',
                                     versionCode=CONFIG['versionCode'], dimensions=list(expected_size(avd, target == 'portrait')))
                     if options.resume and can_resume(final, record, expected, options.compatible_fingerprint):
@@ -431,11 +420,6 @@ def main():
                             temp, info = capture(device, lang, scene, digest, target, attempt)
                             info.update(expected)
                             info.update(serial=device.serial,
-                                        apkSha256={p.name: sha(p) for p in apks},
-                                        appendPdfSha256=sha(ROOT / f'testdata/tameshibu_episode2_2_{lang}.pdf'),
-                                        spreadPdfSha256=sha(ROOT / f'.artifacts/store-capture/inputs/{lang}_spread.pdf'),
-                                        gitCommit=run(['git', 'rev-parse', 'HEAD']).stdout.decode().strip(),
-                                        workingDiffSha256=hashlib.sha256(run(['git', 'diff', 'HEAD']).stdout).hexdigest(),
                                         imageSha256=sha(temp), checkedAt=time.strftime('%Y-%m-%dT%H:%M:%S%z'),
                                         validation='automated-pass; visual review pending')
                             if any(other != final and sha(other) == sha(temp) for other in folder.glob(f'{lang}_*.png')):

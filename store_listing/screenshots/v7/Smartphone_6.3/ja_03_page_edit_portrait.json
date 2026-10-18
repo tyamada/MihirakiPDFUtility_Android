@@ -1,0 +1,52 @@
+{
+  "captureId": "5ac57144db374fc3b9deece6a1b8b807",
+  "scene": "03_page_edit",
+  "language": "ja",
+  "locale": "ja-JP",
+  "package": "com.takumayamada22.pdfutility",
+  "versionCode": 7,
+  "versionName": "1.1.0",
+  "pdfSha256": "b84e714206e569318e31ee6255595649decdc57563933fb6d6453d96570de85a",
+  "portrait": true,
+  "pageCount": 8,
+  "selectedIndices": [
+    2,
+    3
+  ],
+  "pageOrder": [
+    1,
+    4,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8
+  ],
+  "api": 37,
+  "densityDpi": 320,
+  "screenWidthDp": 540,
+  "screenHeightDp": 960,
+  "checks": {
+    "reorderedAndVerified": true
+  },
+  "setup": "Real MainActivity; PDF loaded through production ViewModel API; toolbar/dialog actions through Compose input",
+  "fingerprint": "824464d325c94419fde6e37bb7b9c5bb74d0788d4c0e8d6c87364c85aeb5b461",
+  "avd": "Smartphone_6.3",
+  "appendPdfSha256": "758fc91d87acb3de9e1fd006f5cc4decf51a0d0c5136b736f4d598b963c0cf2d",
+  "spreadPdfSha256": "065227880fd5ea47040e489309a4961d09156a3b25f936281806122565085ec2",
+  "dimensions": [
+    1080,
+    1920
+  ],
+  "serial": "emulator-5580",
+  "apkSha256": {
+    "app-debug.apk": "599f634034d6ea6a9fbd99cd247a7be3fc239fdbb762df5b12cb00ec7ea984d5",
+    "app-debug-androidTest.apk": "3ac507402156e5351b925135dc899060d3f62135194ea70a1d45e9f30643f072"
+  },
+  "gitCommit": "7f5af634b5791c632431487e8099a83751953abe",
+  "workingDiffSha256": "64ed0f7a15c496b3e4d6f082a73765971141b325b56dab65539f7187141aa832",
+  "imageSha256": "77952367be18d4f5480f0654921ff025085f7c95e949e7e62a64023ef6280ad9",
+  "checkedAt": "2026-10-18T11:57:52+0900",
+  "validation": "automated-pass; visual-reviewed"
+}

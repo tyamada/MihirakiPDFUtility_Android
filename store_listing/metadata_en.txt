@@ -2,7 +2,7 @@
 MihirakiPDFUtility
 
 【Short description】 (Max 80 chars)
-Intuitive PDF spread view, splitting, and merging. Perfect for e-books and manga.
+Intuitive PDF spread view, splitting, and merging for e-books and manga.
 
 【Full description】 (Max 4000 chars)
 Mihiraki PDF Utility is a powerful tool designed to help you read and organize PDF files effortlessly on your Android device. It is specifically optimized for double-page spreads, manga, and professional document management.
