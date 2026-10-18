@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.tom_roush.pdfbox.pdmodel.encryption.InvalidPasswordException
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.BillingManager
+import com.takumayamada22.pdfutility.data.SamplePdfCatalog
 import com.takumayamada22.pdfutility.domain.ExportPdfUseCase
 import com.takumayamada22.pdfutility.domain.ImageFileItem
 import com.takumayamada22.pdfutility.domain.ImageSortField
@@ -284,10 +285,6 @@ class PdfViewModel(
     private val _uiState = MutableStateFlow(PdfUiState(preference = PdfPreferenceState(thumbnailSize = defaultThumbnailSize)))
     val uiState: StateFlow<PdfUiState> = _uiState
 
-    init {
-        loadSamplePdf()
-    }
-
     private fun getThumbnailWidth(size: ThumbnailSize): Int {
         return when (size) {
             ThumbnailSize.S -> 100
@@ -336,8 +333,7 @@ class PdfViewModel(
 
     fun openSamplePdfUri(uri: Uri) {
         closeSamplePdfScreen()
-        loadPdf(uri)
-        _uiState.value = _uiState.value.copy(isSamplePdf = true, ccByAcknowledged = false)
+        loadPdf(uri, isSamplePdf = true)
     }
 
     fun dismissCcByDialog() {
@@ -361,49 +357,7 @@ class PdfViewModel(
         }
     }
 
-    private fun loadSamplePdf() {
-        viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true, fileName = "sample.pdf", isSamplePdf = true, ccByAcknowledged = false)
-            val count = withContext(Dispatchers.IO) {
-                try {
-                    val inputStream = getApplication<Application>().assets.open("sample.pdf")
-                    loadPdfUseCase.load(inputStream)
-                } catch (e: Exception) {
-                    0
-                }
-            }
-            if (count > 0) {
-                AppLogger.log(getApplication(), "INFO", "Sample PDF loaded successfully, pages: $count")
-                val cacheFile = File(getApplication<Application>().cacheDir, "sample.pdf")
-                withContext(Dispatchers.IO) {
-                    try {
-                        getApplication<Application>().assets.open("sample.pdf").use { input ->
-                            FileOutputStream(cacheFile).use { output ->
-                                input.copyTo(output)
-                            }
-                        }
-                    } catch (e: Exception) {}
-                }
-                val uri = Uri.fromFile(cacheFile)
-                val pages = (0 until count).map { index ->
-                    PageState(
-                        originalIndex = index,
-                        thumbnail = thumbnailProvider.getThumbnail(uri, index, getThumbnailWidth(_uiState.value.thumbnailSize)),
-                        sourceUri = uri
-                    )
-                }
-                _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    pages = pages,
-                    fileName = "sample.pdf",
-                    isSamplePdf = true,
-                    ccByAcknowledged = false
-                )
-            } else {
-                _uiState.value = _uiState.value.copy(isLoading = false)
-            }
-        }
-    }
+
 
     private data class PageSnapshot(
         val id: String,
@@ -537,7 +491,7 @@ class PdfViewModel(
         updateHistoryFlags()
     }
 
-    fun loadPdf(uri: Uri, password: String? = null) {
+    fun loadPdf(uri: Uri, password: String? = null, isSamplePdf: Boolean? = null) {
         viewModelScope.launch {
             val fileName = getFileName(uri)
             _uiState.value = _uiState.value.copy(
@@ -564,6 +518,9 @@ class PdfViewModel(
                             )
                         }
                         
+                        val path = uri.path ?: ""
+                        val isSample = isSamplePdf ?: (path.contains("MihirakiSamplePdfs") || SamplePdfCatalog.items.any { path.endsWith(it.fileName) })
+
                         val metadata = loadPdfUseCase.getMetadata()
                         
                         _uiState.value = _uiState.value.copy(
@@ -580,8 +537,9 @@ class PdfViewModel(
                             scrollDirection = metadata["direction"] ?: "L2R",
                             showCover = metadata["layout"]?.let { it == "TwoColumnRight" || it == "TwoPageRight" } ?: false,
                             savePassword = "",
-                            isSamplePdf = false,
-                            ccByAcknowledged = false
+                            isSamplePdf = isSample,
+                            ccByAcknowledged = false,
+                            showCcByDialog = isSample
                         )
                         AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: ${pageCount}")
                         // Clear history on new load

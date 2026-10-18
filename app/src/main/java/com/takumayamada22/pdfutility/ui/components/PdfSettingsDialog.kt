@@ -661,13 +661,6 @@ private fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                             val usedMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
                             val maxMb = runtime.maxMemory() / (1024 * 1024)
                             resultsBuilder.append("2. Memory Usage: ${usedMb}MB / max ${maxMb}MB: PASSED\n")
-
-                            val hasSample = try {
-                                context.assets.open("sample.pdf").use { true }
-                            } catch (e: Exception) {
-                                false
-                            }
-                            resultsBuilder.append("3. Sample Asset Check: ${if (hasSample) "PASSED" else "N/A"}\n")
                             resultsBuilder.append("All diagnostic checks completed successfully.")
 
                             testResults = resultsBuilder.toString()
