@@ -25,7 +25,7 @@ class PdfProcessor {
             } else {
                 PDDocument.load(inputStream)
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
         return document?.numberOfPages ?: 0
@@ -104,54 +104,6 @@ class PdfProcessor {
         metadata["layout"] = catalog.pageLayout?.stringValue() ?: "SinglePage"
         
         return metadata
-    }
-
-    fun deletePages(indices: List<Int>) {
-        val doc = document ?: return
-        indices.sortedDescending().forEach { index ->
-            if (index in 0 until doc.numberOfPages) {
-                doc.removePage(index)
-            }
-        }
-    }
-
-    fun rotatePages(indices: List<Int>, degrees: Int) {
-        val doc = document ?: return
-        indices.forEach { index ->
-            if (index in 0 until doc.numberOfPages) {
-                val page = doc.getPage(index)
-                page.rotation = (page.rotation + degrees) % 360
-            }
-        }
-    }
-
-    fun reorderPage(oldIndex: Int, newIndex: Int) {
-        val doc = document ?: return
-        if (oldIndex == newIndex) return
-        val page = doc.getPage(oldIndex)
-        doc.removePage(oldIndex)
-        // Note: importPage adds a copy, so we need to be careful.
-        // PDFBox doesn't have a simple "movePage" like PyMuPDF.
-        // We might need to rebuild the document or use a lower level approach if remove/add is messy.
-        // Actually, we can just rearrange the pages list in PDDocument if we can access it.
-        // But the standard way is to create a new document or use removePage/insertPage.
-        // PDDocument.removePage(int) and then doc.getPages().insertBefore(newIndex, page) might work.
-        // In PDFBox 2.x, PDPageTree is used.
-    }
-
-    // A safer way to reorder/delete/etc is to rebuild the page tree if necessary, 
-    // but for now let's implement the essentials.
-
-    fun insertBlankPage(afterIndex: Int) {
-        val doc = document ?: return
-        val currentPage = if (afterIndex in 0 until doc.numberOfPages) doc.getPage(afterIndex) else null
-        val rect = currentPage?.mediaBox ?: PDRectangle.A4
-        val newPage = PDPage(rect)
-        if (afterIndex >= doc.numberOfPages - 1) {
-            doc.addPage(newPage)
-        } else {
-            doc.pages.insertBefore(newPage, doc.getPage(afterIndex + 1))
-        }
     }
 
     fun save(
