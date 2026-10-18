@@ -1,0 +1,6 @@
+Mihiraki PDF Utility v1.1.0 (versionCode 9) Release Notes:
+- Added a visual toolbar buttons & icons cheat sheet inside the Help guide.
+- Split Help categories into dedicated Display Modes and Device Support sections.
+- Enhanced Right-to-Left (RTL) and Left-to-Right (LTR) reading direction toggling.
+- Improved app stability and maintainability through dialog code refactoring.
+- General bug fixes and performance optimizations.
