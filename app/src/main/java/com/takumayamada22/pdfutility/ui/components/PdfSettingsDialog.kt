@@ -1,11 +1,11 @@
 package com.takumayamada22.pdfutility.ui.components
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
+import androidx.core.net.toUri
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
@@ -108,11 +108,11 @@ private fun PdfPropertyDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                         .fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    OutlinedTextField(value = uiState.fileName ?: "", onValueChange = {}, label = { Text(stringResource(R.string.prop_filename)) }, readOnly = true, modifier = Modifier.fillMaxWidth())
-                    OutlinedTextField(value = title, onValueChange = { title = it }, label = { Text(stringResource(R.string.prop_title)) }, modifier = Modifier.fillMaxWidth())
-                    OutlinedTextField(value = author, onValueChange = { author = it }, label = { Text(stringResource(R.string.prop_author)) }, modifier = Modifier.fillMaxWidth())
-                    OutlinedTextField(value = subject, onValueChange = { subject = it }, label = { Text(stringResource(R.string.prop_subtitle)) }, modifier = Modifier.fillMaxWidth())
-                    OutlinedTextField(value = keywords, onValueChange = { keywords = it }, label = { Text(stringResource(R.string.prop_keywords)) }, modifier = Modifier.fillMaxWidth())
+                    PdfSettingsTextField(value = uiState.fileName ?: "", onValueChange = {}, label = { Text(stringResource(R.string.prop_filename)) }, readOnly = true)
+                    PdfSettingsTextField(value = title, onValueChange = { title = it }, label = { Text(stringResource(R.string.prop_title)) })
+                    PdfSettingsTextField(value = author, onValueChange = { author = it }, label = { Text(stringResource(R.string.prop_author)) })
+                    PdfSettingsTextField(value = subject, onValueChange = { subject = it }, label = { Text(stringResource(R.string.prop_subtitle)) })
+                    PdfSettingsTextField(value = keywords, onValueChange = { keywords = it }, label = { Text(stringResource(R.string.prop_keywords)) })
                     
                     OutlinedCard(
                         onClick = { showVersionDialog = true },
@@ -322,7 +322,7 @@ private fun PdfPasswordDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(stringResource(R.string.security_desc))
-                OutlinedTextField(
+                PdfSettingsTextField(
                     value = password,
                     onValueChange = { password = it },
                     label = { Text(stringResource(R.string.security_password_label)) },
@@ -497,6 +497,7 @@ private fun PdfVersionDialog(viewModel: PdfViewModel) {
                 ) {
                     Text(stringResource(R.string.version_app_name), style = MaterialTheme.typography.titleMedium)
                     Text(stringResource(R.string.version_number, packageInfo.versionName ?: "1.0.0"))
+                    @Suppress("DEPRECATION")
                     Text(stringResource(R.string.version_build, if (Build.VERSION.SDK_INT >= 28) packageInfo.longVersionCode.toString() else packageInfo.versionCode.toString()))
                     Spacer(Modifier.height(8.dp))
                     Text(stringResource(R.string.version_copyright), style = MaterialTheme.typography.bodySmall)
@@ -1025,14 +1026,14 @@ private fun SegmentedButton(selected: Boolean, onClick: () -> Unit, label: Strin
 }
 
 @Composable
-private fun OutlinedTextField(
+private fun PdfSettingsTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
     placeholder: (@Composable () -> Unit)? = null,
     readOnly: Boolean = false,
     trailingIcon: @Composable (() -> Unit)? = null,
-    modifier: Modifier = Modifier.fillMaxWidth()
 ) {
     OutlinedTextField(
         value = value,
@@ -1041,7 +1042,7 @@ private fun OutlinedTextField(
         placeholder = placeholder,
         readOnly = readOnly,
         trailingIcon = trailingIcon,
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         singleLine = true
     )
 }
@@ -1122,7 +1123,7 @@ private fun PdfReportIssueDialog(viewModel: PdfViewModel) {
                     Spacer(Modifier.height(8.dp))
                     Button(
                         onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse("https://github.com/tyamada/MihirakiPDFUtility_Android/issues/new?template=bug_report.md"))
+                            val intent = Intent(Intent.ACTION_VIEW, "https://github.com/tyamada/MihirakiPDFUtility_Android/issues/new?template=bug_report.md".toUri())
                             context.startActivity(intent)
                         },
                         modifier = Modifier.fillMaxWidth()

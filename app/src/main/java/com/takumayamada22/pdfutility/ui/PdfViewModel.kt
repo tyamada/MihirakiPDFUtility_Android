@@ -20,7 +20,6 @@ import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.domain.ThumbnailProvider
 import com.takumayamada22.pdfutility.util.AppLogger
 import androidx.documentfile.provider.DocumentFile
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -541,13 +540,13 @@ class PdfViewModel(
                             ccByAcknowledged = false,
                             showCcByDialog = isSample
                         )
-                        AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: ${pageCount}")
+                        AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: $pageCount")
                         // Clear history on new load
                         undoStack.clear()
                         redoStack.clear()
                         updateHistoryFlags()
                     }
-                } catch (e: InvalidPasswordException) {
+                } catch (_: InvalidPasswordException) {
                     AppLogger.log(getApplication(), "WARN", "PDF load failed: Invalid password")
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
@@ -947,7 +946,7 @@ class PdfViewModel(
             currentPages.add(toIndex, page)
             
             val newSelected = mutableSetOf<Int>()
-            val selectedIds = _uiState.value.selectedIndices.mapNotNull { i -> 
+            val selectedIds = _uiState.value.selectedIndices.asSequence().mapNotNull { i -> 
                 _uiState.value.pages.getOrNull(i)?.id 
             }.toSet()
             
@@ -1133,11 +1132,11 @@ class PdfViewModel(
                         val name = file.name ?: ""
                         val mimeType = file.type ?: ""
                         val isImage = mimeType.startsWith("image/") ||
-                            name.endsWith(".jpg", true) ||
-                            name.endsWith(".jpeg", true) ||
-                            name.endsWith(".png", true) ||
-                            name.endsWith(".webp", true) ||
-                            name.endsWith(".bmp", true)
+                            name.endsWith(".jpg", ignoreCase = true) ||
+                            name.endsWith(".jpeg", ignoreCase = true) ||
+                            name.endsWith(".png", ignoreCase = true) ||
+                            name.endsWith(".webp", ignoreCase = true) ||
+                            name.endsWith(".bmp", ignoreCase = true)
                         if (isImage) {
                             val uri = file.uri
                             val size = file.length()
