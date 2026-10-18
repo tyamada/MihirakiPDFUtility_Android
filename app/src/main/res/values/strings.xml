@@ -209,4 +209,5 @@
     <string name="commemorative_badge_desc">Claim the official \"Tameshibu\" Koyomi badge for free to celebrate the commercial release!</string>
     <string name="claim_free_badge">Claim Free Badge</string>
     <string name="badge_claimed_success">Koyomi badge claimed successfully!</string>
+    <string name="action_owned">Owned</string>
 </resources>

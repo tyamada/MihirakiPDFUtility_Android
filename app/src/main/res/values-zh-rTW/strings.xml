@@ -97,4 +97,70 @@
     <string name="purchase_thanks">謝謝您！已收到 %1$s 的支持。</string>
     <string name="purchase_cancelled">購買已取消。</string>
     <string name="purchase_failed">購買失敗。請再試一次。</string>
+    <string name="action_property">屬性</string>
+    <string name="action_right_binding">右翻頁（右裝訂）</string>
+    <string name="action_right_binding_cover">右翻頁與封面</string>
+    <string name="run_diagnostics">執行診斷測試</string>
+    <string name="diagnostics_title">診斷測試結果</string>
+    <string name="diagnostics_privacy">注意：測試結果僅在本地顯示。沒有外部傳輸測試結果的功能。</string>
+    <string name="share_results">分享結果</string>
+    <string name="bulk_copy">批次複製（診斷與日誌）</string>
+    <string name="bulk_copy_success">診斷報告和日誌已複製到剪貼簿。</string>
+    <string name="report_issue">回報問題</string>
+    <string name="report_include_title">回報中包含的內容</string>
+    <string name="report_step_1">1. 問題簡要概述</string>
+    <string name="report_step_2">2. 重現步驟</string>
+    <string name="report_step_3">3. 預期行為與實際行為</string>
+    <string name="report_step_4">4. 發生頻率</string>
+    <string name="report_step_5">5. 應用程式版本、作業系統版本、裝置和顯示設定</string>
+    <string name="report_step_6">6. 截圖、應用程式日誌或診斷結果</string>
+    <string name="copy_all_diagnostics">複製所有診斷與日誌</string>
+    <string name="privacy_protection">保護您的隱私</string>
+    <string name="privacy_note_1">• 請勿包含實際PDF檔案、文件內容、檔名或姓名等個人資訊。</string>
+    <string name="privacy_note_2">• 分享前請檢查截圖和診斷資訊。資料不會自動傳送。</string>
+    <string name="results_copied">結果已複製到剪貼簿</string>
+    <string name="device_info_format">裝置: %1$s %2$s (Android %3$s)</string>
+    <string name="test_timestamp_format">時間戳記: %1$s</string>
+    <string name="view_app_logs">檢視應用程式日誌</string>
+    <string name="logs_dialog_title">應用程式稽核日誌</string>
+    <string name="logs_privacy">注意：日誌僅儲存在本地裝置上。沒有外部傳輸日誌的功能。</string>
+    <string name="copy_logs">複製日誌到剪貼簿</string>
+    <string name="logs_copied">日誌已複製到剪貼簿</string>
+    <string name="share_logs">分享日誌</string>
+    <string name="promo_code_help_title">如何兌換促銷代碼</string>
+    <string name="promo_code_help_message">要兌換促銷代碼，請開啟「支援」畫面，點擊購買按鈕，然後從 Google Play 付款方式選單中選擇「兌換」。</string>
+    <string name="go_to_support">前往支援</string>
+    <string name="sample_pdf">範例 PDF</string>
+    <string name="sample_pdfs" translatable="false">Sample PDFs</string>
+    <string name="language_filter" translatable="false">Language Filter</string>
+    <string name="all_languages" translatable="false">All</string>
+    <string name="sample_pdf_download" translatable="false">Download</string>
+    <string name="sample_pdf_downloading" translatable="false">Downloading...</string>
+    <string name="sample_pdf_downloading_progress" translatable="false">Downloading... %d%%</string>
+    <string name="sample_pdf_open" translatable="false">Open</string>
+    <string name="sample_pdf_delete" translatable="false">Delete</string>
+    <string name="cellular_data_warning" translatable="false">Cellular Data Warning</string>
+    <string name="cellular_data_message" translatable="false">You are currently on a cellular network. Downloading \"%1$s\" (%2$s) may consume a significant amount of mobile data. Do you want to proceed?</string>
+    <string name="error_prefix" translatable="false">Error: %s</string>
+    <string name="cc_by_dialog_title">範例 PDF 授權 (CC BY 4.0)</string>
+    <string name="cc_by_dialog_text">在修改或儲存範例 PDF 之前，請閱讀創用 CC 姓名標示 4.0 國際（CC BY 4.0）條款：\n\n• 作者：Komairo Hiyori\n• 授權：CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• 重複使用、修改或儲存時，請顯示標題、作者名稱、授權連結，並註明所做的任何修改。\n\n注意：您完全可以自由修改和儲存範例 PDF，不受限制。</string>
+    <string name="cc_by_dialog_confirm">同意並繼續</string>
+    <string name="options_button_display_title">按鈕顯示類型</string>
+    <string name="button_display_icon_and_text">圖示 + 文字（預設）</string>
+    <string name="button_display_icon_only">僅圖示</string>
+    <string name="button_display_text_only">僅文字</string>
+    <string name="folder_images_title">資料夾中的圖片</string>
+    <string name="sort_options_label">排序方式</string>
+    <string name="sort_by_name">名稱</string>
+    <string name="sort_by_creation">建立日期</string>
+    <string name="sort_by_modified">最後修改日期</string>
+    <string name="sort_ascending">升冪</string>
+    <string name="sort_descending">降冪</string>
+    <string name="image_count_label">圖片數量</string>
+    <string name="btn_create_pdf_from_images">建立 PDF</string>
+    <string name="menu_open_folder">開啟資料夾</string>
+    <string name="commemorative_badge_title">發售紀念 Koyomi 徽章</string>
+    <string name="commemorative_badge_desc">免費領取官方「試閱部」Koyomi 徽章，以慶賀商業發售！</string>
+    <string name="claim_free_badge">免費領取</string>
+    <string name="badge_claimed_success">成功領取 Koyomi 徽章！</string>
 </resources>

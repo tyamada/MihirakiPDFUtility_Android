@@ -97,4 +97,88 @@
     <string name="purchase_thanks">谢谢您！已收到 %1$s 的支持。</string>
     <string name="purchase_cancelled">购买已取消。</string>
     <string name="purchase_failed">购买失败。请再试一次。</string>
+    <string name="action_property">属性</string>
+    <string name="action_right_binding">右翻页（右绑定）</string>
+    <string name="action_right_binding_cover">右翻页与封面</string>
+    <string name="run_diagnostics">运行诊断测试</string>
+    <string name="diagnostics_title">诊断测试结果</string>
+    <string name="diagnostics_privacy">注意：测试结果仅在本地显示。没有外部传输测试结果的功能。</string>
+    <string name="share_results">分享结果</string>
+    <string name="bulk_copy">批量复制（诊断与日志）</string>
+    <string name="bulk_copy_success">诊断报告和日志已复制到剪贴板。</string>
+    <string name="report_issue">报告问题</string>
+    <string name="report_include_title">报告中包含的内容</string>
+    <string name="report_step_1">1. 问题简要概述</string>
+    <string name="report_step_2">2. 复现步骤</string>
+    <string name="report_step_3">3. 预期行为与实际行为</string>
+    <string name="report_step_4">4. 发生频率</string>
+    <string name="report_step_5">5. 应用版本、操作系统版本、设备和显示设置</string>
+    <string name="report_step_6">6. 截图、应用日志或诊断结果</string>
+    <string name="copy_all_diagnostics">复制所有诊断与日志</string>
+    <string name="privacy_protection">保护您的隐私</string>
+    <string name="privacy_note_1">• 请勿包含实际PDF文件、文档内容、文件名或姓名等个人信息。</string>
+    <string name="privacy_note_2">• 分享前请检查截图和诊断信息。数据不会自动发送。</string>
+    <string name="results_copied">结果已复制到剪贴板</string>
+    <string name="device_info_format">设备: %1$s %2$s (Android %3$s)</string>
+    <string name="test_timestamp_format">时间戳: %1$s</string>
+    <string name="view_app_logs">查看应用日志</string>
+    <string name="logs_dialog_title">应用审计日志</string>
+    <string name="logs_privacy">注意：日志仅存储在本地设备上。没有外部传输日志的功能。</string>
+    <string name="copy_logs">复制日志到剪贴板</string>
+    <string name="logs_copied">日志已复制到剪贴板</string>
+    <string name="share_logs">分享日志</string>
+    <string name="promo_code_help_title">如何兑换优惠码</string>
+    <string name="promo_code_help_message">要兑换优惠码，请打开“支持”画面，点击购买按钮，然后从Google Play付款方式菜单中选择“兑换”。</string>
+    <string name="go_to_support">前往支持</string>
+    <string name="sample_pdf">示例 PDF</string>
+    <string name="sample_pdfs" translatable="false">Sample PDFs</string>
+    <string name="language_filter" translatable="false">Language Filter</string>
+    <string name="all_languages" translatable="false">All</string>
+    <string name="sample_pdf_download" translatable="false">Download</string>
+    <string name="sample_pdf_downloading" translatable="false">Downloading...</string>
+    <string name="sample_pdf_downloading_progress" translatable="false">Downloading... %d%%</string>
+    <string name="sample_pdf_open" translatable="false">Open</string>
+    <string name="sample_pdf_delete" translatable="false">Delete</string>
+    <string name="cellular_data_warning" translatable="false">Cellular Data Warning</string>
+    <string name="cellular_data_message" translatable="false">You are currently on a cellular network. Downloading \"%1$s\" (%2$s) may consume a significant amount of mobile data. Do you want to proceed?</string>
+    <string name="error_prefix" translatable="false">Error: %s</string>
+    <string name="cc_by_dialog_title">示例 PDF 许可证 (CC BY 4.0)</string>
+    <string name="cc_by_dialog_text">在修改或保存示例 PDF 之前，请阅读知识共享署名 4.0 国际（CC BY 4.0）条款：\n\n• 作者：Komairo Hiyori\n• 许可证：CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• 重复使用、修改或保存时，请显示标题、作者名、许可证链接，并注明所做的任何修改。\n\n注意：您完全可以自由修改和保存示例 PDF，不受限制。</string>
+    <string name="cc_by_dialog_confirm">同意并继续</string>
+    <string name="options_button_display_title">按钮显示类型</string>
+    <string name="button_display_icon_and_text">图标 + 文本（默认）</string>
+    <string name="button_display_icon_only">仅图标</string>
+    <string name="button_display_text_only">仅文本</string>
+    <string name="folder_images_title">文件夹中的图片</string>
+    <string name="sort_options_label">排序方式</string>
+    <string name="sort_by_name">名称</string>
+    <string name="sort_by_creation">创建日期</string>
+    <string name="sort_by_modified">最后修改日期</string>
+    <string name="sort_ascending">升序</string>
+    <string name="sort_descending">降序</string>
+    <string name="image_count_label">图片数量</string>
+    <string name="btn_create_pdf_from_images">创建 PDF</string>
+    <string name="menu_open_folder">打开文件夹</string>
+    <string name="commemorative_badge_title">发售纪念 Koyomi 徽章</string>
+    <string name="commemorative_badge_desc">免费领取官方“试阅部”Koyomi 徽章，以庆祝商业发售！</string>
+    <string name="claim_free_badge">免费领取</string>
+    <string name="badge_claimed_success">成功领取 Koyomi 徽章！</string>
+    <string name="help_item_overview"><b>概述:</b> 支持14种语言，双页跨页视图（RTL/LTR），专为扫描书籍和漫画优化。</string>
+    <string name="help_item_open_save"><b>打开与保存:</b> 点击打开图标（或Ctrl+O）加载PDF。使用保存（Ctrl+S）保存所有页面。</string>
+    <string name="help_item_page_ops"><b>页面操作:</b> 拖放重排页面、旋转、删除、插入空白页、分割和裁剪边距。</string>
+    <string name="help_item_devices"><b>显示与设备:</b> 在网格视图和跨页视图之间切换。支持从右到左（RTL）阅读模式。</string>
+    <string name="help_item_properties"><b>属性与元数据:</b> 配置文档标题、作者、主题、关键词、PDF版本和页面布局。</string>
+    <string name="help_item_security"><b>安全与密码:</b> 设置或清除保存/导出受保护PDF的加密密码。</string>
+    <string name="help_item_options"><b>选项与显示:</b> 自定义缩略图大小（小/中/大）和按钮显示类型。</string>
+    <string name="help_item_support"><b>支持开发:</b> 购买一次性支持项目（青铜、白银、黄金）或兑换Google Play促销代码。</string>
+    <string name="help_item_diagnostics"><b>诊断:</b> 运行系统诊断测试以验证PDF处理器功能和内存使用情况。</string>
+    <string name="help_item_audit_logs"><b>审计日志:</b> 查看受隐私保护的本地操作和运行时错误审计日志（自动保留24小时）。</string>
+    <string name="help_item_report_issues"><b>报告问题:</b> 使用“报告问题”屏幕批量复制诊断报告和应用日志。</string>
+    <string name="help_purchased_items">已购支持徽章</string>
+    <string name="help_no_purchased_items">尚未购买任何支持项目。</string>
+    <string name="prop_pdf_version_label">PDF 版本</string>
+    <string name="version_license_title">许可证与开源</string>
+    <string name="version_license_text">在 Apache License 2.0 下分发。</string>
+    <string name="free_use_message">本应用完全免费使用。所有功能均可无限制使用。</string>
+    <string name="purchase_badge_shown">支持徽章已显示在版本画面上。</string>
 </resources>

@@ -97,4 +97,71 @@
     <string name="purchase_thanks">Vielen Dank! %1$s Unterstützung erhalten.</string>
     <string name="purchase_cancelled">Kauf abgebrochen.</string>
     <string name="purchase_failed">Kauf fehlgeschlagen. Bitte versuchen Sie es erneut.</string>
+    <string name="action_property">Eigenschaft</string>
+    <string name="action_right_binding">Rechtsbindung</string>
+    <string name="action_right_binding_cover">Rechtsbindung &amp; Cover</string>
+    <string name="run_diagnostics">Diagnosetests ausführen</string>
+    <string name="diagnostics_title">Diagnosetestergebnisse</string>
+    <string name="diagnostics_privacy">Hinweis: Testergebnisse werden nur lokal angezeigt. Es gibt keine Funktion zur externen Übertragung von Testergebnissen.</string>
+    <string name="share_results">Ergebnisse teilen</string>
+    <string name="bulk_copy">Massenkopie (Diagnose &amp; Protokolle)</string>
+    <string name="bulk_copy_success">Diagnosebericht und Protokolle in die Zwischenablage kopiert.</string>
+    <string name="report_issue">Problem melden</string>
+    <string name="report_include_title">In Ihrem Bericht enthalten</string>
+    <string name="report_step_1">1. Kurze Zusammenfassung des Problems</string>
+    <string name="report_step_2">2. Schritte zur Reproduktion</string>
+    <string name="report_step_3">3. Erwartetes und tatsächliches Verhalten</string>
+    <string name="report_step_4">4. Häufigkeit des Auftretens</string>
+    <string name="report_step_5">5. App-Version, OS-Version, Gerät und Anzeigeeinstellungen</string>
+    <string name="report_step_6">6. Screenshots, App-Protokolle oder Diagnoseergebnisse</string>
+    <string name="copy_all_diagnostics">Alle Diagnosen &amp; Protokolle kopieren</string>
+    <string name="privacy_protection">Datenschutz</string>
+    <string name="privacy_note_1">• Keine persönlichen Daten wie tatsächliche PDF-Dateien, Dokumentinhalte, Dateinamen oder Namen einschließen.</string>
+    <string name="privacy_note_2">• Bitte überprüfen Sie Screenshots und Diagnoseinformationen vor dem Teilen. Daten werden nicht automatisch gesendet.</string>
+    <string name="results_copied">Ergebnisse in die Zwischenablage kopiert</string>
+    <string name="device_info_format">Gerät: %1$s %2$s (Android %3$s)</string>
+    <string name="test_timestamp_format">Zeitstempel: %1$s</string>
+    <string name="view_app_logs">App-Protokolle anzeigen</string>
+    <string name="logs_dialog_title">App-Audit-Protokolle</string>
+    <string name="logs_privacy">Hinweis: Protokolle werden nur lokal auf dem Gerät gespeichert. Es gibt keine Funktion zur externen Übertragung von Protokollen.</string>
+    <string name="copy_logs">Protokolle in die Zwischenablage kopieren</string>
+    <string name="logs_copied">Protokolle in die Zwischenablage kopiert</string>
+    <string name="share_logs">Protokolle teilen</string>
+    <string name="promo_code_help_title">Wie man einen Promo-Code einlöst</string>
+    <string name="promo_code_help_message">Um einen Aktionscode einzulösen, öffnen Sie den Support-Bildschirm, tippen Sie auf die Kaufschaltfläche und wählen Sie im Google Play-Zahlungsmethodenmenü „Einlösen“ aus.</string>
+    <string name="go_to_support">Zum Support</string>
+    <string name="sample_pdf">Beispiel-PDF</string>
+    <string name="sample_pdfs" translatable="false">Sample PDFs</string>
+    <string name="language_filter" translatable="false">Language Filter</string>
+    <string name="all_languages" translatable="false">All</string>
+    <string name="sample_pdf_download" translatable="false">Download</string>
+    <string name="sample_pdf_downloading" translatable="false">Downloading...</string>
+    <string name="sample_pdf_downloading_progress" translatable="false">Downloading... %d%%</string>
+    <string name="sample_pdf_open" translatable="false">Open</string>
+    <string name="sample_pdf_delete" translatable="false">Delete</string>
+    <string name="cellular_data_warning" translatable="false">Cellular Data Warning</string>
+    <string name="cellular_data_message" translatable="false">You are currently on a cellular network. Downloading \"%1$s\" (%2$s) may consume a significant amount of mobile data. Do you want to proceed?</string>
+    <string name="error_prefix" translatable="false">Error: %s</string>
+    <string name="cc_by_dialog_title">Beispiel-PDF-Lizenz (CC BY 4.0)</string>
+    <string name="cc_by_dialog_text">Bevor Sie das Beispiel-PDF ändern oder speichern, lesen Sie bitte die Bedingungen von Creative Commons Attribution 4.0 International (CC BY 4.0):\n\n• Autor: Komairo Hiyori\n• Lizenz: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• Bei Wiederverwendung, Änderung oder Speicherung geben Sie bitte den Titel, den Namen des Autors, den Lizenzlink an und kennzeichnen Sie vorgenommene Änderungen.\n\nHinweis: Sie haben die volle Freiheit, das Beispiel-PDF uneingeschränkt zu ändern und zu speichern.</string>
+    <string name="cc_by_dialog_confirm">Akzeptieren &amp; Fortfahren</string>
+    <string name="options_button_display_title">Schaltflächen-Anzeigetyp</string>
+    <string name="button_display_icon_and_text">Symbol + Text (Standard)</string>
+    <string name="button_display_icon_only">Nur Symbol</string>
+    <string name="button_display_text_only">Nur Text</string>
+    <string name="folder_images_title">Bilder im Ordner</string>
+    <string name="sort_options_label">Sortieren nach</string>
+    <string name="sort_by_name">Name</string>
+    <string name="sort_by_creation">Erstellungsdatum</string>
+    <string name="sort_by_modified">Letzte Änderung</string>
+    <string name="sort_ascending">Aufsteigend</string>
+    <string name="sort_descending">Absteigend</string>
+    <string name="image_count_label">Anzahl der Bilder</string>
+    <string name="btn_create_pdf_from_images">PDF erstellen</string>
+    <string name="menu_open_folder">Ordner öffnen</string>
+    <string name="commemorative_badge_title">Veröffentlichungs-Gedenk-Koyomi-Badge</string>
+    <string name="commemorative_badge_desc">Fordern Sie das offizielle „Tameshibu“-Koyomi-Badge kostenlos an, um die kommerzielle Veröffentlichung zu feiern!</string>
+    <string name="claim_free_badge">Kostenloses Badge anfordern</string>
+    <string name="badge_claimed_success">Koyomi-Badge erfolgreich beansprucht!</string>
+    <string name="action_owned">Bereits gekauft</string>
 </resources>

@@ -869,7 +869,7 @@ private fun PdfSupportDialog(viewModel: PdfViewModel) {
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                                 ) {
                                     Text(
-                                        text = if (isOwned) "Owned" else stringResource(R.string.action_purchase),
+                                        text = if (isOwned) stringResource(R.string.action_owned) else stringResource(R.string.action_purchase),
                                         style = MaterialTheme.typography.labelSmall
                                     )
                                 }
