@@ -30,7 +30,8 @@ def main():
     version_name, version_code = parse_gradle_version(gradle_path)
 
     store_listing_dir = root_dir / 'store_listing'
-    store_listing_dir.mkdir(exist_ok=True)
+    changelog_dir = store_listing_dir / 'changelog'
+    changelog_dir.mkdir(parents=True, exist_ok=True)
 
     notes = {
         "ja": f"""見開きPDFユーティリティ v{version_name} (versionCode {version_code}) のリリースノート:
@@ -68,11 +69,11 @@ def main():
             print(f"WARNING: Release note for {lang} exceeds 500 characters ({len(text)} chars)!")
 
         filename = f"changelog_{version_name}_{version_code}_{lang}.txt"
-        filepath = store_listing_dir / filename
+        filepath = changelog_dir / filename
         filepath.write_text(text, encoding='utf-8')
         print(f"Saved: {filepath.relative_to(root_dir)} ({len(text)} chars)")
 
-    print("All release notes generated successfully under store_listing/")
+    print("All release notes generated successfully under store_listing/changelog/")
 
 if __name__ == '__main__':
     main()
