@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
+import java.util.Locale
 import java.io.File
 import java.io.FileOutputStream
 
@@ -508,6 +509,11 @@ class PdfViewModel(
                 try {
                     val inputStream = getApplication<Application>().contentResolver.openInputStream(uri)
                     if (inputStream != null) {
+                        val path = uri.path ?: ""
+                        val isSample = isSamplePdf ?: (path.contains("MihirakiSamplePdfs") || SamplePdfCatalog.items.any { path.endsWith(it.fileName) })
+                        val locationDesc = getFileLocationDescription(uri, isSample)
+                        AppLogger.log(getApplication(), "INFO", "Opening PDF from location: $locationDesc")
+
                         loadPdfUseCase.load(inputStream, password)
                         
                         val pageCount = thumbnailProvider.getPageCount(uri)
@@ -518,9 +524,6 @@ class PdfViewModel(
                                 sourceUri = uri
                             )
                         }
-                        
-                        val path = uri.path ?: ""
-                        val isSample = isSamplePdf ?: (path.contains("MihirakiSamplePdfs") || SamplePdfCatalog.items.any { path.endsWith(it.fileName) })
 
                         val metadata = loadPdfUseCase.getMetadata()
                         
@@ -542,7 +545,7 @@ class PdfViewModel(
                             ccByAcknowledged = false,
                             showCcByDialog = isSample
                         )
-                        AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: $pageCount")
+                        AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: $pageCount, location: $locationDesc")
                         // Clear history on new load
                         undoStack.clear()
                         redoStack.clear()
@@ -1296,6 +1299,69 @@ class PdfViewModel(
             }
         }
         return result
+    }
+
+    private fun getFileLocationDescription(uri: Uri, isSample: Boolean): String {
+        if (isSample) return "Sample PDFs"
+
+        val scheme = uri.scheme ?: ""
+        val authority = uri.authority ?: ""
+        val path = uri.path ?: ""
+        val lowerPath = path.lowercase(Locale.ROOT)
+        val lowerAuthority = authority.lowercase(Locale.ROOT)
+
+        // 1. Cloud / Other Services by authority or path keywords
+        when {
+            lowerAuthority.contains("docs.storage") || lowerAuthority.contains("google.android.apps.docs") -> return "Google Drive"
+            lowerAuthority.contains("dropbox") -> return "Dropbox"
+            lowerAuthority.contains("skydrive") || lowerAuthority.contains("onedrive") -> return "OneDrive"
+            lowerAuthority.contains("icloud") || lowerPath.contains("icloud") -> return "iCloud Drive"
+            lowerAuthority.contains("box.android") -> return "Box"
+            lowerAuthority.contains("cloud") || lowerAuthority.contains("provider") -> {
+                if (lowerAuthority.contains("download")) return "Local Device (Downloads)"
+                return "Other Service ($authority)"
+            }
+        }
+
+        // 2. SAF External Storage Provider
+        if (authority == "com.android.externalstorage.documents") {
+            val pathSegments = uri.pathSegments
+            val lastSegment = pathSegments.lastOrNull() ?: ""
+            if (lastSegment.contains(":")) {
+                val subPath = lastSegment.substringAfter(":").substringBeforeLast("/")
+                if (subPath.isNotEmpty()) {
+                    val folderName = subPath.substringAfterLast('/')
+                    if (folderName.isNotEmpty() && !folderName.contains("@") && !folderName.matches(Regex(".*[0-9]{5,}.*"))) {
+                        return "Local Device ($folderName)"
+                    }
+                }
+            }
+            return "Local Device (External Storage)"
+        }
+
+        // 3. File scheme or other local paths
+        if (scheme == "file") {
+            when {
+                lowerPath.contains("download") -> return "Local Device (Download)"
+                lowerPath.contains("document") -> return "Local Device (Documents)"
+                lowerPath.contains("dcim") || lowerPath.contains("picture") -> return "Local Device (Pictures)"
+                else -> {
+                    val parentFile = File(path).parentFile
+                    val folderName = parentFile?.name
+                    if (folderName != null && folderName.isNotEmpty() && folderName != "0" && folderName != "files" && folderName != "cache" && !folderName.matches(Regex(".*[0-9]{5,}.*"))) {
+                        return "Local Device ($folderName)"
+                    }
+                    return "Local Device"
+                }
+            }
+        }
+
+        // 4. Other content providers / services
+        if (scheme == "content" && authority.isNotEmpty()) {
+            return "Other Service ($authority)"
+        }
+
+        return "Local Device"
     }
 
     override fun onCleared() {
