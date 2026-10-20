@@ -8,6 +8,7 @@ import com.takumayamada22.pdfutility.data.SamplePdfCatalog
 import com.takumayamada22.pdfutility.data.SamplePdfItem
 import com.takumayamada22.pdfutility.data.SamplePdfItemState
 import com.takumayamada22.pdfutility.data.SamplePdfRepository
+import com.takumayamada22.pdfutility.util.AppLogger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -96,11 +97,20 @@ class SamplePdfViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun startDownload(item: SamplePdfItem) {
+        AppLogger.log(getApplication(), "INFO", "Started downloading sample PDF: ${item.title}")
         viewModelScope.launch {
             repository.downloadPdf(item).collect { state ->
                 _downloadStates.value = _downloadStates.value + (item.id to state)
-                if (state is DownloadState.Success || state is DownloadState.Error) {
-                    _refreshTrigger.value++
+                when (state) {
+                    is DownloadState.Success -> {
+                        AppLogger.log(getApplication(), "INFO", "Successfully downloaded sample PDF: ${item.title} (${item.fileName})")
+                        _refreshTrigger.value++
+                    }
+                    is DownloadState.Error -> {
+                        AppLogger.log(getApplication(), "ERROR", "Failed to download sample PDF ${item.title}: ${state.message}")
+                        _refreshTrigger.value++
+                    }
+                    else -> {}
                 }
             }
         }
@@ -109,6 +119,7 @@ class SamplePdfViewModel(application: Application) : AndroidViewModel(applicatio
     fun deletePdf(item: SamplePdfItem) {
         viewModelScope.launch {
             repository.deletePdf(item.fileName)
+            AppLogger.log(getApplication(), "INFO", "Deleted sample PDF: ${item.title} (${item.fileName})")
             _downloadStates.value = _downloadStates.value - item.id
             _refreshTrigger.value++
         }

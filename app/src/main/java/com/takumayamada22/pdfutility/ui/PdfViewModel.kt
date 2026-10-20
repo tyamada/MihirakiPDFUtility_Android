@@ -323,6 +323,7 @@ class PdfViewModel(
     }
 
     fun openSamplePdfScreen() {
+        AppLogger.log(getApplication(), "INFO", "Opened sample PDF catalog screen")
         _uiState.value = _uiState.value.copy(showSamplePdfScreen = true)
     }
 
@@ -331,6 +332,7 @@ class PdfViewModel(
     }
 
     fun openSamplePdfUri(uri: Uri) {
+        AppLogger.log(getApplication(), "INFO", "Opened sample PDF from catalog: ${uri.lastPathSegment}")
         closeSamplePdfScreen()
         loadPdf(uri, isSamplePdf = true)
     }
