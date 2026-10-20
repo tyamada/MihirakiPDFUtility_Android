@@ -17,6 +17,7 @@ import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.ui.PdfViewModel
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
 import com.takumayamada22.pdfutility.util.AppLogger
+import com.takumayamada22.pdfutility.util.DiagnosticTestManager
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -109,7 +110,20 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                         Text(stringResource(R.string.view_app_logs))
                     }
 
-                    // 3. 不具合を報告
+                    // 3. 負荷・性能テストベンチマークを実行
+                    Button(
+                        onClick = {
+                            val benchmarkResult = DiagnosticTestManager.runDiagnosticBenchmark(context)
+                            val resultsBuilder = StringBuilder()
+                            resultsBuilder.append(benchmarkResult.details)
+                            testResults = resultsBuilder.toString()
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("負荷・性能テスト実行 (Run Benchmarks)")
+                    }
+
+                    // 4. 不具合を報告
                     Button(
                         onClick = {
                             viewModel.openSettingsDialog(SettingsDialogType.REPORT_ISSUE)
