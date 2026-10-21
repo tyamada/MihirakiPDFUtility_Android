@@ -202,129 +202,58 @@ fun PdfTopAppBar(
                         }
                     }
 
-                    Box(modifier = Modifier.testTag("settingsButton")) {
-                        ActionButton(
-                            onClick = { viewModel.toggleSettingsMenu() },
-                            icon = { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.action_settings)) },
-                            text = stringResource(R.string.action_settings),
-                            displayType = displayType
-                        )
-                        DropdownMenu(
-                            expanded = uiState.showSettingsMenu,
-                            onDismissRequest = { viewModel.toggleSettingsMenu() }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_property)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) },
-                                enabled = uiState.pages.isNotEmpty()
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_password)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.PASSWORD) },
-                                enabled = uiState.pages.isNotEmpty()
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_options)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.OPTIONS) }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_version)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.VERSION) }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_help)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.HELP) }
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.settings_diagnostics)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.DIAGNOSTICS) },
-                                modifier = Modifier.testTag("diagnosticsMenuItem")
-                            )
-                            DropdownMenuItem(
-                                text = { Text(stringResource(R.string.support)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }
-                            )
-                        }
-                    }
-                } else {
-                    ActionButton(
-                        onClick = { viewModel.selectAll() },
-                        icon = { Icon(Icons.Default.SelectAll, contentDescription = stringResource(R.string.action_select_all)) },
-                        text = stringResource(R.string.action_select_all),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = { viewModel.clearSelection() },
-                        icon = { Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_clear_selection)) },
-                        text = stringResource(R.string.action_clear_selection),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = { viewModel.invertSelection() },
-                        icon = { Icon(Icons.Default.Flip, contentDescription = stringResource(R.string.action_invert_selection)) },
-                        text = stringResource(R.string.action_invert_selection),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = onExport,
-                        icon = { Icon(Icons.Default.Output, contentDescription = stringResource(R.string.action_export_selected)) },
-                        text = stringResource(R.string.action_export_selected),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = onAppend,
-                        icon = { Icon(Icons.Default.Add, contentDescription = stringResource(R.string.action_add_pdf)) },
-                        text = stringResource(R.string.action_add_pdf),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = onDeleteClick,
-                        icon = { Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.action_delete)) },
-                        text = stringResource(R.string.action_delete),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = { viewModel.insertBlankAfterSelected() },
-                        icon = { Icon(Icons.Default.AddBox, contentDescription = stringResource(R.string.action_insert_blank)) },
-                        text = stringResource(R.string.action_insert_blank),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = onSplitClick,
-                        icon = { Icon(Icons.Default.ContentCut, contentDescription = stringResource(R.string.action_split_pages)) },
-                        text = stringResource(R.string.action_split_pages),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = onCropClick,
-                        icon = { Icon(Icons.Default.Crop, contentDescription = stringResource(R.string.crop_title)) },
-                        text = stringResource(R.string.crop_title),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = { viewModel.moveSelected(-1) },
-                        icon = { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_move_up)) },
-                        text = stringResource(R.string.action_move_up),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = { viewModel.moveSelected(1) },
-                        icon = { Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = stringResource(R.string.action_move_down)) },
-                        text = stringResource(R.string.action_move_down),
-                        displayType = displayType
-                    )
-                    ActionButton(
-                        onClick = { viewModel.rotateSelected(-90) },
-                        icon = { Icon(Icons.AutoMirrored.Filled.RotateLeft, contentDescription = stringResource(R.string.action_rotate_left)) },
-                        text = stringResource(R.string.action_rotate_left),
-                        displayType = displayType
-                    )
                     ActionButton(
                         onClick = { viewModel.rotateSelected(90) },
                         icon = { Icon(Icons.Default.RotateRight, contentDescription = stringResource(R.string.action_rotate_right)) },
                         text = stringResource(R.string.action_rotate_right),
                         displayType = displayType
                     )
+                }
+
+                // Settings button is always visible in both selected and unselected states
+                Box(modifier = Modifier.testTag("settingsButton")) {
+                    ActionButton(
+                        onClick = { viewModel.toggleSettingsMenu() },
+                        icon = { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.action_settings)) },
+                        text = stringResource(R.string.action_settings),
+                        displayType = displayType
+                    )
+                    DropdownMenu(
+                        expanded = uiState.showSettingsMenu,
+                        onDismissRequest = { viewModel.toggleSettingsMenu() }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.settings_property)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) },
+                            enabled = uiState.pages.isNotEmpty()
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.settings_password)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.PASSWORD) },
+                            enabled = uiState.pages.isNotEmpty()
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.settings_options)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.OPTIONS) }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.settings_version)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.VERSION) }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.settings_help)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.HELP) }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.settings_diagnostics)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.DIAGNOSTICS) },
+                            modifier = Modifier.testTag("diagnosticsMenuItem")
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.support)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }
+                        )
+                    }
                 }
             }
         }
