@@ -10,6 +10,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -201,7 +202,7 @@ fun PdfTopAppBar(
                         }
                     }
 
-                    Box {
+                    Box(modifier = Modifier.testTag("settingsButton")) {
                         ActionButton(
                             onClick = { viewModel.toggleSettingsMenu() },
                             icon = { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.action_settings)) },
@@ -236,7 +237,8 @@ fun PdfTopAppBar(
                             )
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.settings_diagnostics)) },
-                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.DIAGNOSTICS) }
+                                onClick = { viewModel.openSettingsDialog(SettingsDialogType.DIAGNOSTICS) },
+                                modifier = Modifier.testTag("diagnosticsMenuItem")
                             )
                             DropdownMenuItem(
                                 text = { Text(stringResource(R.string.support)) },
