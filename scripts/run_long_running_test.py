@@ -5,6 +5,7 @@ MihirakiPDFViewer Long-Running Endurance & Stress Test Runner
 2. Verifies test files (load_test_1100_pages.pdf and testdata/ manga PDFs) and pushes missing files via ADB.
 3. Once preparation is ready, starts the test and precisely measures execution time.
 4. Captures continuous memory usage, logcat, and audit logs, saving reports into logs/.
+5. Explicitly logs user interruption (KeyboardInterrupt) if stopped early.
 """
 
 import os
@@ -92,7 +93,6 @@ def main():
         print(f"Found {len(local_files)} local test files under testdata/.")
         for f in local_files:
             if f.is_file():
-                # Push test file to device
                 run_cmd(['adb', '-s', device_serial, 'push', str(f), f"{device_test_dir}/{f.name}"])
         print("Test files pushed successfully to device storage.")
     else:
@@ -113,6 +113,7 @@ def main():
 
     print(f"\n[TIMED START] Running endurance monitoring for {args.duration} minutes ({duration_sec} seconds)...")
     start_time = time.time()
+    test_status = "COMPLETED"
 
     try:
         for i in range(iterations):
@@ -139,7 +140,8 @@ def main():
             print(f"[{ts}] Elapsed: {elapsed}s / {duration_sec}s | App PSS Memory: {mem_mb} MB")
             time.sleep(poll_interval)
     except KeyboardInterrupt:
-        print("\nEndurance test interrupted by user.")
+        test_status = "INTERRUPTED_BY_USER"
+        print("\n[INTERRUPT] Endurance test was interrupted by user (KeyboardInterrupt). Logging cancellation...")
 
     actual_duration = int(time.time() - start_time)
 
@@ -162,7 +164,7 @@ Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 Device Serial: {device_serial}
 Target Duration: {args.duration} minutes
 Actual Measured Duration: {actual_duration} seconds ({actual_duration / 60:.2f} minutes)
-Status: COMPLETED
+Status: {test_status}
 
 Generated Artifacts in {session_dir.name}/:
 - endurance_metrics.csv
@@ -171,7 +173,7 @@ Generated Artifacts in {session_dir.name}/:
 - endurance_summary.txt
 """
     summary_path.write_text(summary_content)
-    print(f"\n=== Endurance Test Session Completed ===")
+    print(f"\n=== Endurance Test Session Completed (Status: {test_status}) ===")
     print(f"All logs and reports saved to: {session_dir}")
     print(summary_content)
 
