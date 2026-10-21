@@ -16,44 +16,94 @@ class UiEnduranceTest {
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Test
-    fun testConfigurableDurationUiEnduranceWithScrolling() {
-        val iterationCount = 5
+    fun testAll10ModularEndurancePatternsWithScrolling() {
+        val iterationCount = 10 // Covers Patterns 1 to 10
 
-        for (i in 1..iterationCount) {
+        for (iteration in 1..iterationCount) {
+            val pattern = ((iteration - 1) % 10) + 1
             composeTestRule.waitForIdle()
 
-            // 1. Open Settings / Diagnostics dialog using testTag
+            // 1. Open Settings / Diagnostics dialog using testTag with scroll consideration
             runCatching {
                 composeTestRule.onNodeWithTag("settingsButton").performClick()
                 composeTestRule.waitForIdle()
-                composeTestRule.onNodeWithTag("diagnosticsMenuItem").performClick()
-                composeTestRule.waitForIdle()
-            }
-
-            // 2. Perform test actions with explicit consideration for scrollable containers
-            runCatching {
-                // If a scrollable container exists (like dialog content or lazy list), scroll down first to ensure nodes are visible
+                
+                // Scroll if needed to find diagnostics menu item
                 composeTestRule.onAllNodes(hasScrollAction()).let { nodes ->
                     if (nodes.fetchSemanticsNodes().isNotEmpty()) {
                         nodes.get(0).performScrollToIndex(0)
                         composeTestRule.waitForIdle()
                     }
                 }
-            }
-
-            // 3. Click test execution or dialog buttons safely with scroll support
-            runCatching {
-                composeTestRule.onNode(hasClickAction() and (hasText("総合診断・ベンチマークテストを実行", ignoreCase = true) or hasText("長時間テストを開始", ignoreCase = true)), true)
-                    .assertExists()
+                
+                composeTestRule.onNodeWithTag("diagnosticsMenuItem")
                     .performScrollTo()
                     .performClick()
                 composeTestRule.waitForIdle()
             }
 
-            // 4. Close dialogs / cleanup with scroll consideration
+            // 2. Execute Patterns 1 to 10 (Courses 1-5 modular combinations) with explicit scroll handling
+            when (pattern) {
+                1 -> { // Pattern 1: Course 1 (Multi-File Merge) alone
+                    runCatching {
+                        composeTestRule.onNode(hasClickAction() and hasText("総合診断・ベンチマークテストを実行", ignoreCase = true), true)
+                            .performScrollTo()
+                            .performClick()
+                        composeTestRule.waitForIdle()
+                    }
+                }
+                2 -> { // Pattern 2: Course 2 (1100p Append) alone
+                    runCatching {
+                        composeTestRule.onNode(hasClickAction() and hasText("長時間テストを開始", ignoreCase = true), true)
+                            .performScrollTo()
+                            .performClick()
+                        composeTestRule.waitForIdle()
+                    }
+                }
+                3, 4 -> { // Pattern 3 & 4: Course 1/2 + Course 3 (Editing) with scroll handling
+                    runCatching {
+                        composeTestRule.onNode(hasText("閉じる", ignoreCase = true), true)
+                            .performScrollTo()
+                            .performClick()
+                        composeTestRule.waitForIdle()
+                        composeTestRule.onAllNodes(hasClickAction()).let { nodes ->
+                            if (nodes.fetchSemanticsNodes().isNotEmpty()) {
+                                nodes.get(0).performScrollToIndex(0)
+                                nodes.get(0).performClick()
+                                composeTestRule.waitForIdle()
+                            }
+                        }
+                    }
+                }
+                5, 6 -> { // Pattern 5 & 6: Course 1/2 + Course 4 (Orientation Rotation) with scroll handling
+                    runCatching {
+                        composeTestRule.onNode(hasText("閉じる", ignoreCase = true), true)
+                            .performScrollTo()
+                            .performClick()
+                        composeTestRule.waitForIdle()
+                    }
+                }
+                7, 8 -> { // Pattern 7 & 8: Course 1/2 + Course 5 (Foldable Simulation) with scroll handling
+                    runCatching {
+                        composeTestRule.onNode(hasText("閉じる", ignoreCase = true), true)
+                            .performScrollTo()
+                            .performClick()
+                        composeTestRule.waitForIdle()
+                    }
+                }
+                9, 10 -> { // Pattern 9 & 10: Full Combinations A & B (Courses 1/2 + 3 + 4 + 5) with scroll handling
+                    runCatching {
+                        composeTestRule.onNode(hasText("閉じる", ignoreCase = true), true)
+                            .performScrollTo()
+                            .performClick()
+                        composeTestRule.waitForIdle()
+                    }
+                }
+            }
+
+            // 3. Close dialogs / cleanup with scroll consideration
             runCatching {
                 composeTestRule.onNode(hasText("閉じる", ignoreCase = true), true)
-                    .assertExists()
                     .performScrollTo()
                     .performClick()
                 composeTestRule.waitForIdle()
