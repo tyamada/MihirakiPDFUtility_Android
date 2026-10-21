@@ -1380,7 +1380,7 @@ class PdfViewModel(
         // Mark LongRunningTestManager as running
         LongRunningTestManager.startEnduranceTest(context, durationMinutes)
 
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             val targetMillis = durationMinutes * 60 * 1000L
             val startTime = System.currentTimeMillis()
             var iteration = 0
@@ -1405,111 +1405,115 @@ class PdfViewModel(
                         statusSummary = ""
                     )
 
-                    when (patternIndex) {
-                        0 -> {
-                            // Pattern 1: Course 1 (Merge) alone
-                            _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 1: Course 1 (Multi-File Merge) Alone", statusSummary = "Running Course 1")
-                            val f1 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
-                            val f2 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createSearchTestPdf(context)
-                            if (f1 != null && f2 != null) {
-                                loadPdf(Uri.fromFile(f1))
-                                appendPdf(Uri.fromFile(f2))
+                    // Generate test PDFs on IO thread to avoid blocking main thread
+                    val (f1, f2, loadFile) = withContext(Dispatchers.IO) {
+                        val fn1 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
+                        val fn2 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createSearchTestPdf(context)
+                        val ld = if (patternIndex % 2 == 1) com.takumayamada22.pdfutility.util.TestPdfGenerator.createLoadTestPdf(context, 50) else null
+                        Triple(fn1, fn2, ld)
+                    }
+
+                    // Execute UI actions on Main thread
+                    withContext(Dispatchers.Main) {
+                        if (!LongRunningTestManager.isTestRunning()) return@withContext
+
+                        when (patternIndex) {
+                            0 -> {
+                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 1: Course 1 (Multi-File Merge) Alone", statusSummary = "Running Course 1")
+                                if (f1 != null && f2 != null) {
+                                    loadPdf(Uri.fromFile(f1))
+                                    kotlinx.coroutines.delay(1000L)
+                                    appendPdf(Uri.fromFile(f2))
+                                }
                             }
-                        }
-                        1 -> {
-                            // Pattern 2: Course 2 (1100-Pages 9x Append) alone
-                            _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 2: Course 2 (1100p Append) Alone", statusSummary = "Running Course 2")
-                            val loadFile = com.takumayamada22.pdfutility.util.TestPdfGenerator.createLoadTestPdf(context, 100)
-                            if (loadFile != null) {
-                                loadPdf(Uri.fromFile(loadFile))
-                                repeat(3) { appendPdf(Uri.fromFile(loadFile)) }
+                            1 -> {
+                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 2: Course 2 (1100p Append) Alone", statusSummary = "Running Course 2")
+                                if (loadFile != null) {
+                                    loadPdf(Uri.fromFile(loadFile))
+                                    kotlinx.coroutines.delay(1000L)
+                                    repeat(2) { appendPdf(Uri.fromFile(loadFile)) }
+                                }
                             }
-                        }
-                        2 -> {
-                            // Pattern 3: Course 1 + Course 3 (Merge + Editing)
-                            _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 3: Course 1 + Course 3 (Merge + Editing)", statusSummary = "Running Course 1 & 3")
-                            val f1 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
-                            if (f1 != null) {
-                                loadPdf(Uri.fromFile(f1))
-                                selectAll()
-                                rotateSelected(90)
-                                cropSelectedPages(0.1f)
+                            2 -> {
+                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 3: Course 1 + Course 3 (Merge + Editing)", statusSummary = "Running Course 1 & 3")
+                                if (f1 != null) {
+                                    loadPdf(Uri.fromFile(f1))
+                                    kotlinx.coroutines.delay(800L)
+                                    selectAll()
+                                    kotlinx.coroutines.delay(800L)
+                                    rotateSelected(90)
+                                    kotlinx.coroutines.delay(800L)
+                                    cropSelectedPages(0.1f)
+                                }
                             }
-                        }
-                        3 -> {
-                            // Pattern 4: Course 2 + Course 3 (Append + Editing)
-                            _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 4: Course 2 + Course 3 (Append + Editing)", statusSummary = "Running Course 2 & 3")
-                            val loadFile = com.takumayamada22.pdfutility.util.TestPdfGenerator.createLoadTestPdf(context, 50)
-                            if (loadFile != null) {
-                                loadPdf(Uri.fromFile(loadFile))
-                                selectAll()
-                                rotateSelected(180)
+                            3 -> {
+                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 4: Course 2 + Course 3 (Append + Editing)", statusSummary = "Running Course 2 & 3")
+                                if (loadFile != null) {
+                                    loadPdf(Uri.fromFile(loadFile))
+                                    kotlinx.coroutines.delay(800L)
+                                    selectAll()
+                                    kotlinx.coroutines.delay(800L)
+                                    rotateSelected(180)
+                                }
                             }
-                        }
-                        4 -> {
-                            // Pattern 5: Course 1 + Course 4 (Merge + Orientation Rotation)
-                            _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 5: Course 1 + Course 4 (Merge + Orientation)", statusSummary = "Running Course 1 & 4")
-                            val f1 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
-                            if (f1 != null) {
-                                loadPdf(Uri.fromFile(f1))
-                                toggleMihirakiView()
-                                toggleRtl()
+                            4 -> {
+                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 5: Course 1 + Course 4 (Merge + Orientation)", statusSummary = "Running Course 1 & 4")
+                                if (f1 != null) {
+                                    loadPdf(Uri.fromFile(f1))
+                                    kotlinx.coroutines.delay(800L)
+                                    toggleMihirakiView()
+                                    kotlinx.coroutines.delay(800L)
+                                    toggleRtl()
+                                }
                             }
-                        }
-                        5 -> {
-                            // Pattern 6: Course 2 + Course 4 (Append + Orientation Rotation)
-                            _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 6: Course 2 + Course 4 (Append + Orientation)", statusSummary = "Running Course 2 & 4")
-                            val loadFile = com.takumayamada22.pdfutility.util.TestPdfGenerator.createLoadTestPdf(context, 50)
-                            if (loadFile != null) {
-                                loadPdf(Uri.fromFile(loadFile))
-                                toggleMihirakiView()
+                            5 -> {
+                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 6: Course 2 + Course 4 (Append + Orientation)", statusSummary = "Running Course 2 & 4")
+                                if (loadFile != null) {
+                                    loadPdf(Uri.fromFile(loadFile))
+                                    kotlinx.coroutines.delay(800L)
+                                    toggleMihirakiView()
+                                }
                             }
-                        }
-                        6 -> {
-                            // Pattern 7: Course 1 + Course 5 (Merge + Foldable Posture, if supported)
-                            _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 7: Course 1 + Course 5 (Merge + Foldable)", statusSummary = "Running Course 1 & 5 (Foldable)")
-                            val f1 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
-                            if (f1 != null) {
-                                loadPdf(Uri.fromFile(f1))
-                                AppLogger.log(context, "DEBUG", "Test Course 5: Foldable posture simulation active (Fold <-> Unfold)")
+                            6 -> {
+                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 7: Course 1 + Course 5 (Merge + Foldable)", statusSummary = "Running Course 1 & 5 (Foldable)")
+                                if (f1 != null) {
+                                    loadPdf(Uri.fromFile(f1))
+                                    AppLogger.log(context, "DEBUG", "Test Course 5: Foldable posture simulation active")
+                                }
                             }
-                        }
-                        7 -> {
-                            // Pattern 8: Course 2 + Course 5 (Append + Foldable Posture, if supported)
-                            _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 8: Course 2 + Course 5 (Append + Foldable)", statusSummary = "Running Course 2 & 5 (Foldable)")
-                            val loadFile = com.takumayamada22.pdfutility.util.TestPdfGenerator.createLoadTestPdf(context, 50)
-                            if (loadFile != null) {
-                                loadPdf(Uri.fromFile(loadFile))
-                                AppLogger.log(context, "DEBUG", "Test Course 5: Foldable posture simulation active (Fold <-> Unfold)")
+                            7 -> {
+                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 8: Course 2 + Course 5 (Append + Foldable)", statusSummary = "Running Course 2 & 5 (Foldable)")
+                                if (loadFile != null) {
+                                    loadPdf(Uri.fromFile(loadFile))
+                                    AppLogger.log(context, "DEBUG", "Test Course 5: Foldable posture simulation active")
+                                }
                             }
-                        }
-                        8 -> {
-                            // Pattern 9: Course 1 + Course 3 + Course 4 + Course 5 (Full Combination A)
-                            _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 9: Course 1 + 3 + 4 + 5 (Full Combo A)", statusSummary = "Running Full Combination A")
-                            val f1 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
-                            if (f1 != null) {
-                                loadPdf(Uri.fromFile(f1))
-                                selectAll()
-                                rotateSelected(90)
-                                toggleMihirakiView()
-                                AppLogger.log(context, "DEBUG", "Test Course 5: Foldable posture simulation active")
+                            8 -> {
+                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 9: Course 1 + 3 + 4 + 5 (Full Combo A)", statusSummary = "Running Full Combination A")
+                                if (f1 != null) {
+                                    loadPdf(Uri.fromFile(f1))
+                                    kotlinx.coroutines.delay(800L)
+                                    selectAll()
+                                    kotlinx.coroutines.delay(800L)
+                                    rotateSelected(90)
+                                    toggleMihirakiView()
+                                }
                             }
-                        }
-                        9 -> {
-                            // Pattern 10: Course 2 + Course 3 + Course 4 + Course 5 (Full Combination B)
-                            _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 10: Course 2 + 3 + 4 + 5 (Full Combo B)", statusSummary = "Running Full Combination B")
-                            val loadFile = com.takumayamada22.pdfutility.util.TestPdfGenerator.createLoadTestPdf(context, 50)
-                            if (loadFile != null) {
-                                loadPdf(Uri.fromFile(loadFile))
-                                selectAll()
-                                rotateSelected(180)
-                                toggleRtl()
-                                AppLogger.log(context, "DEBUG", "Test Course 5: Foldable posture simulation active")
+                            9 -> {
+                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 10: Course 2 + 3 + 4 + 5 (Full Combo B)", statusSummary = "Running Full Combination B")
+                                if (loadFile != null) {
+                                    loadPdf(Uri.fromFile(loadFile))
+                                    kotlinx.coroutines.delay(800L)
+                                    selectAll()
+                                    kotlinx.coroutines.delay(800L)
+                                    rotateSelected(180)
+                                    toggleRtl()
+                                }
                             }
                         }
                     }
 
-                    kotlinx.coroutines.delay(2000L)
+                    kotlinx.coroutines.delay(2500L)
                 }
 
                 val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
