@@ -29,7 +29,7 @@ import com.takumayamada22.pdfutility.util.LongRunningTestManager
 @Composable
 fun MainScreen(viewModel: PdfViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
-    val enduranceProgress by LongRunningTestManager.progressFlow.collectAsState()
+    val enduranceProgress by viewModel.enduranceProgress.collectAsState()
     val sampleViewModel: SamplePdfViewModel = viewModel()
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -150,18 +150,32 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(
-                                "⚡ [耐久テスト実行中] 経過: ${prog.elapsedMinutes}分 / 目標: ${prog.targetMinutes}分 (#${prog.currentIteration})",
-                                style = MaterialTheme.typography.bodySmall
-                            )
-                            Text(
-                                prog.currentCourse,
-                                style = MaterialTheme.typography.labelSmall
-                            )
+                            Column(modifier = Modifier.weight(1f)) {
+                                Text(
+                                    "⚡ [耐久テスト実行中] 経過: ${prog.elapsedMinutes}分 / 目標: ${prog.targetMinutes}分 (#${prog.currentIteration})",
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                                Text(
+                                    prog.currentCourse,
+                                    style = MaterialTheme.typography.labelSmall
+                                )
+                            }
+                            Spacer(Modifier.width(8.dp))
+                            Button(
+                                onClick = { viewModel.stopEnduranceTest() },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.error,
+                                    contentColor = MaterialTheme.colorScheme.onError
+                                ),
+                                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
+                                modifier = Modifier.heightIn(min = 36.dp)
+                            ) {
+                                Text("⏹ 中断 (Stop)", style = MaterialTheme.typography.labelMedium)
+                            }
                         }
                     }
                 }
