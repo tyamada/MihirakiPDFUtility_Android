@@ -1493,12 +1493,14 @@ class PdfViewModel(
                 AppLogger.log(context, "INFO", summary)
                 _enduranceProgress.value = null
                 _enduranceStatusMessage.value = summary
+                openSettingsDialog(SettingsDialogType.DIAGNOSTICS)
             } catch (e: Exception) {
                 val errorMsg = "FATAL ERROR: ${e.message}"
                 AppLogger.log(context, "FATAL", "$errorMsg\n${e.stackTraceToString()}")
                 _enduranceProgress.value = null
                 _enduranceStatusMessage.value = errorMsg
                 isEnduranceRunning.set(false)
+                openSettingsDialog(SettingsDialogType.DIAGNOSTICS)
             } finally {
                 isEnduranceRunning.set(false)
                 _enduranceProgress.value = null
