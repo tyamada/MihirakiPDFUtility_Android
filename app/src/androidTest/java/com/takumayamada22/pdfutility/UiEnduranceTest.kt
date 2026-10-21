@@ -4,10 +4,10 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -18,8 +18,13 @@ class UiEnduranceTest {
 
     @Test
     fun testConfigurableDurationUiEndurance() {
-        val args = InstrumentationRegistry.getArguments()
-        val durationMinutes = args.getString("duration")?.toIntOrNull() ?: 3
+        val durationFile = File("/sdcard/Download/test_duration.txt")
+        val durationMinutes = if (durationFile.exists()) {
+            durationFile.readText().trim().toIntOrNull() ?: 3
+        } else {
+            3
+        }
+
         val targetMillis = durationMinutes * 60 * 1000L
         val startTime = System.currentTimeMillis()
         var iteration = 0

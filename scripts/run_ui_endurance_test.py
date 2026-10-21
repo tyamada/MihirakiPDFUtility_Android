@@ -57,14 +57,19 @@ def main():
 
     print(f"=== MihirakiPDFUtility UI-Emulated Endurance Test ===")
     print(f"Target Device: {device_serial}")
+    print(f"Duration: {args.duration} minutes")
     print(f"Output Directory: {session_dir}")
+
+    # Push test duration file to device download folder
+    duration_file = root_dir / 'test_duration.txt'
+    duration_file.write_text(str(args.duration))
+    run_cmd(['adb', '-s', device_serial, 'push', str(duration_file), '/sdcard/Download/test_duration.txt'])
 
     gradlew = './gradlew.bat' if os.name == 'nt' else './gradlew'
     test_cmd = [
         gradlew,
         'app:connectedDebugAndroidTest',
         '-Pandroid.testInstrumentationRunnerArguments.class=com.takumayamada22.pdfutility.UiEnduranceTest',
-        f'-Pandroid.testInstrumentationRunnerArguments.duration={args.duration}',
         '--no-daemon',
         '--no-configuration-cache'
     ]
