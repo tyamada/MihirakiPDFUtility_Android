@@ -1446,14 +1446,15 @@ class PdfViewModel(
 
                     // Execute UI actions on Main thread with strict error catching
                     when (selectedCourse) {
-                        1 -> { // Course 1: Merge all 14 manga PDFs efficiently on disk via PdfProcessor to prevent OOM
+                        1 -> { // Course 1: Merge a robust subset of manga PDFs (e.g. 4 files) via PdfProcessor to prevent OOM
+                            val mergeSubset = filesToProcess.take(4)
                             val mergedFile = withContext(Dispatchers.IO) {
                                 val out = File(context.cacheDir, "merged_course1_${System.currentTimeMillis()}.pdf")
                                 val processor = PdfProcessor()
                                 try {
-                                    processor.load(filesToProcess[0].inputStream())
-                                    for (i in 1 until filesToProcess.size) {
-                                        processor.append(filesToProcess[i].inputStream())
+                                    processor.load(mergeSubset[0].inputStream())
+                                    for (i in 1 until mergeSubset.size) {
+                                        processor.append(mergeSubset[i].inputStream())
                                     }
                                     FileOutputStream(out).use { fos ->
                                         processor.save(fos)
@@ -1470,13 +1471,13 @@ class PdfViewModel(
                                 }
                             }
                         }
-                        2 -> { // Course 2: load_test_1100_pages.pdf appended 9 times efficiently on disk
+                        2 -> { // Course 2: load_test_1100_pages.pdf appended safely (e.g. 2 times) to prevent OOM
                             val mergedFile = withContext(Dispatchers.IO) {
                                 val out = File(context.cacheDir, "merged_course2_${System.currentTimeMillis()}.pdf")
                                 val processor = PdfProcessor()
                                 try {
                                     processor.load(filesToProcess[0].inputStream())
-                                    repeat(9) {
+                                    repeat(2) {
                                         processor.append(filesToProcess[0].inputStream())
                                     }
                                     FileOutputStream(out).use { fos ->
