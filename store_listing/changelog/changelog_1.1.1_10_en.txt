@@ -1,6 +1,4 @@
-Mihiraki PDF Utility v1.1.1 (versionCode 10) Release Notes:
-- Added in-app dynamic test PDF generation (functional tests, editing feature tests, 1000-page load tests, search performance benchmarks) to keep app download size minimal.
-- Integrated "Comprehensive Diagnostics & Benchmarks" into the settings diagnostics menu for one-touch device performance verification.
-- Automatically included latest comprehensive diagnostic and benchmark results in the "Copy All Diagnostics" report for issue reporting.
-- Fully updated and synchronized localizations across all 14 supported languages.
-- Bug fixes and performance optimizations.
+v1.1.1:
+- Added in-app dynamic test PDF generation (functional, load & search benchmarks) to minimize download size.
+- Integrated comprehensive diagnostics, benchmarks, and issue-reporting bulk copy.
+- Full 14-language localization sync & bug fixes.
