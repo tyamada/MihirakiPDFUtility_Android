@@ -20,10 +20,16 @@ class EnduranceTestExecutor(
         fun loadPdf(uri: Uri)
         fun appendPdf(uri: Uri)
         fun selectAll()
+        fun clearSelection()
+        fun invertSelection()
         fun rotateSelected(degrees: Int)
         fun cropSelectedPages(fraction: Float)
+        fun insertBlankAfterSelected()
+        fun moveSelected(offset: Int)
         fun toggleMihirakiView()
         fun toggleRtl()
+        fun undo()
+        fun redo()
         fun openSettingsDialog(type: SettingsDialogType)
         fun isProcessing(): Boolean
     }
@@ -97,7 +103,7 @@ class EnduranceTestExecutor(
                     if (!isEnduranceRunning.get()) break
 
                     when (selectedCourse) {
-                        1 -> { // Temporary reduced plan: merge 3 manga files for rapid early detection
+                        1 -> { // Temporary reduced plan: merge 3 manga files
                             val testSubset = filesToProcess.take(3)
                             val mergedFile = File(application.cacheDir, "merged_course1_${System.currentTimeMillis()}.pdf")
                             val processor = PdfProcessor()
@@ -136,6 +142,55 @@ class EnduranceTestExecutor(
                                 }
                             }
                         }
+                        3 -> { // Pattern 3: Base (Load -> SelectAll -> Crop) + 100 Random Edit Operations (>= 1.0s interval)
+                            withContext(Dispatchers.Main) {
+                                if (!isEnduranceRunning.get()) return@withContext
+                                AppLogger.log(application, "INFO", "Pattern 3: Starting base sequence (Load -> SelectAll -> Crop)")
+                                viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
+                            }
+                            while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                delay(100L)
+                            }
+                            delay(1000L)
+
+                            withContext(Dispatchers.Main) {
+                                if (!isEnduranceRunning.get()) return@withContext
+                                viewModelActions.selectAll()
+                                viewModelActions.cropSelectedPages(0.1f)
+                            }
+                            while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                delay(100L)
+                            }
+                            delay(1000L)
+
+                            val random = java.util.Random()
+                            for (opCount in 1..100) {
+                                if (!isEnduranceRunning.get()) break
+                                val actionChoice = random.nextInt(10)
+                                AppLogger.log(application, "DEBUG", "Pattern 3: Random edit operation #$opCount/100 (choice=$actionChoice)")
+
+                                withContext(Dispatchers.Main) {
+                                    if (!isEnduranceRunning.get()) return@withContext
+                                    when (actionChoice) {
+                                        0 -> viewModelActions.rotateSelected(90)
+                                        1 -> viewModelActions.rotateSelected(180)
+                                        2 -> viewModelActions.rotateSelected(-90)
+                                        3 -> viewModelActions.insertBlankAfterSelected()
+                                        4 -> viewModelActions.moveSelected(if (random.nextBoolean()) 1 else -1)
+                                        5 -> viewModelActions.invertSelection()
+                                        6 -> { viewModelActions.clearSelection(); viewModelActions.selectAll() }
+                                        7 -> viewModelActions.toggleMihirakiView()
+                                        8 -> viewModelActions.toggleRtl()
+                                        9 -> { if (random.nextBoolean()) viewModelActions.undo() else viewModelActions.redo() }
+                                    }
+                                }
+
+                                while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                    delay(100L)
+                                }
+                                delay(1000L) // >= 1.0 second interval after each operation
+                            }
+                        }
                         else -> {
                             withContext(Dispatchers.Main) {
                                 if (!isEnduranceRunning.get()) return@withContext
@@ -143,7 +198,9 @@ class EnduranceTestExecutor(
                                 when (patternIndex) {
                                     0 -> { viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0])) }
                                     1 -> { viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0])); viewModelActions.selectAll(); viewModelActions.rotateSelected(90) }
-                                    2 -> { viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0])); viewModelActions.selectAll(); viewModelActions.cropSelectedPages(0.1f) }
+                                    2 -> { // Pattern 3 in All mode
+                                        viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
+                                    }
                                     3 -> { viewModelActions.toggleMihirakiView(); viewModelActions.toggleRtl() }
                                     else -> { viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0])) }
                                 }
