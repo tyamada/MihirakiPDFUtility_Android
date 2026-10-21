@@ -4,6 +4,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,12 +17,19 @@ class UiEnduranceTest {
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Test
-    fun testModularUiEndurancePatterns() {
-        // Execute all 10 modular test course combination patterns (Courses 1-5 combinations)
-        // emulating real user taps, touch interactions, dialog navigation, and view toggles.
-        val patterns = 1..10
+    fun testConfigurableDurationUiEndurance() {
+        // Read configurable duration in minutes from instrumentation arguments (default: 3 mins)
+        val args = InstrumentationRegistry.getArguments()
+        val durationMinutes = args.getString("duration")?.toIntOrNull() ?: 3
+        val targetMillis = durationMinutes * 60 * 1000L
+        val startTime = System.currentTimeMillis()
+        var iteration = 0
 
-        for (pattern in patterns) {
+        println("Starting UI-Emulated Endurance Test for $durationMinutes minutes...")
+
+        while (System.currentTimeMillis() - startTime < targetMillis) {
+            iteration++
+            val pattern = ((iteration - 1) % 10) + 1
             composeTestRule.waitForIdle()
 
             // 1. Open Settings / Diagnostics dialog
@@ -32,7 +40,7 @@ class UiEnduranceTest {
                 composeTestRule.waitForIdle()
             }
 
-            // 2. Execute pattern-specific UI actions
+            // 2. Execute pattern-specific UI actions (Courses 1-5 modular combinations)
             when (pattern) {
                 1 -> { // Pattern 1: Course 1 (Multi-File Merge) alone
                     runCatching {
@@ -50,7 +58,6 @@ class UiEnduranceTest {
                     runCatching {
                         composeTestRule.onNodeWithText("閉じる", ignoreCase = true).performClick()
                         composeTestRule.waitForIdle()
-                        // Tap grid item to select and edit
                         composeTestRule.onAllNodes(hasClickAction()).get(0).performClick()
                         composeTestRule.waitForIdle()
                     }
