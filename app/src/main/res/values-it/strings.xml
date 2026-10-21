@@ -52,6 +52,7 @@
 
     <string name="diagnostics_screen_title">Diagnostica app e log di audit</string>
     <string name="diagnostics_screen_desc">Esegui test diagnostici, rivedi i log di audit operativi locali e di errore di runtime protetti da privacy (automaticamente conservati per 24 ore, escludendo rigorosamente i dati personali), condividi report e segnala problemi su GitHub.</string>
+    <string name="run_comprehensive_diagnostics">Esegui diagnostica completa e benchmark</string>
     <string name="report_github">Segnala problema su GitHub</string>
     <string name="diagnostics_screen_privacy">I log contengono suggerimenti tecnici per la risoluzione dei problemi (specifiche del dispositivo, utilizzo della memoria, cronologia delle operazioni e dettagli sugli errori di runtime) ed escludono rigorosamente qualsiasi dato personale.</string>
 

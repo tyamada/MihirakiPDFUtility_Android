@@ -44,6 +44,11 @@
     <string name="settings_password">Contraseña</string>
     <string name="settings_version">Versión</string>
     <string name="support">Apoyar</string>
+    <string name="settings_diagnostics">Diagnóstico</string>
+    <string name="diagnostics_screen_title">Diagnóstico de la app y registros de auditoría</string>
+    <string name="diagnostics_screen_desc">Ejecutar diagnóstico completo y pruebas de rendimiento (pruebas funcionales, pruebas de funciones de edición, pruebas de carga de 1000 páginas, pruebas de rendimiento de búsqueda utilizando PDFs de prueba dinámicos), revisar registros de auditoría locales y reportar problemas.</string>
+    <string name="run_comprehensive_diagnostics">Ejecutar diagnóstico completo y pruebas</string>
+    <string name="diagnostics_screen_privacy">Los registros contienen sugerencias técnicas de solución de problemas (especificaciones del dispositivo, uso de memoria, historial de operaciones y detalles de errores de tiempo de ejecución) y excluyen estrictamente cualquier dato personal.</string>
 
     <string name="prop_filename">Nombre de archivo</string>
     <string name="prop_title">Título</string>

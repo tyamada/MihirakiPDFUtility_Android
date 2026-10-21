@@ -38,11 +38,12 @@ class DiagnosticBenchmarkTest {
     fun testDiagnosticBenchmarkExecution() {
         val context = ApplicationProvider.getApplicationContext<Context>()
 
-        val result = DiagnosticTestManager.runDiagnosticBenchmark(context)
+        val result = DiagnosticTestManager.runComprehensiveDiagnostics(context)
         assertNotNull("Diagnostic benchmark result should not be null", result)
         assertNotNull("Timestamp should not be null", result.timestamp)
         assertTrue("Available storage should be >= 0", result.availableStorageMb >= 0.0)
         assertNotNull("Functional test status should not be null", result.functionalTestStatus)
+        assertNotNull("Editing test status should not be null", result.editingTestStatus)
         assertNotNull("Search test status should not be null", result.searchTestStatus)
         assertNotNull("Overall status should not be null", result.overallStatus)
         assertNotNull("Details string should not be null", result.details)

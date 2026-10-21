@@ -44,6 +44,11 @@
     <string name="settings_password">密碼</string>
     <string name="settings_version">版本</string>
     <string name="support">支持</string>
+    <string name="settings_diagnostics">診斷</string>
+    <string name="diagnostics_screen_title">應用程式診斷與審計日誌</string>
+    <string name="diagnostics_screen_desc">執行綜合診斷與基準測試（使用動態測試PDF進行功能測試、編輯功能測試、1000頁負載測試、搜尋效能測試），審查本地審計日誌並回報問題。</string>
+    <string name="run_comprehensive_diagnostics">執行綜合診斷與基準測試</string>
+    <string name="diagnostics_screen_privacy">日誌僅包含技術故障排除提示（設備規格、記憶體使用情況、操作歷史記錄和執行階段錯誤詳情），嚴格排除任何個人資料。</string>
 
     <string name="prop_filename">文件名</string>
     <string name="prop_title">標題</string>

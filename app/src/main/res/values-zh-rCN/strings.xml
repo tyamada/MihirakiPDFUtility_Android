@@ -44,6 +44,11 @@
     <string name="settings_password">密码</string>
     <string name="settings_version">版本</string>
     <string name="support">支持</string>
+    <string name="settings_diagnostics">诊断</string>
+    <string name="diagnostics_screen_title">应用诊断与审计日志</string>
+    <string name="diagnostics_screen_desc">运行综合诊断和基准测试（使用动态测试PDF进行功能测试、编辑功能测试、1000页负载测试、搜索性能测试），审查本地审计日志并报告问题。</string>
+    <string name="run_comprehensive_diagnostics">运行综合诊断与基准测试</string>
+    <string name="diagnostics_screen_privacy">日志仅包含技术故障排除提示（设备规格、内存使用情况、操作历史记录和运行时错误详情），严格排除任何个人数据。</string>
 
     <string name="prop_filename">文件名</string>
     <string name="prop_title">标题</string>

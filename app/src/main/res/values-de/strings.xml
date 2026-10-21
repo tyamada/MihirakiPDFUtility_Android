@@ -44,6 +44,11 @@
     <string name="settings_password">Passwort</string>
     <string name="settings_version">Version</string>
     <string name="support">Unterstützen</string>
+    <string name="settings_diagnostics">Diagnose</string>
+    <string name="diagnostics_screen_title">App-Diagnose &amp; Audit-Logs</string>
+    <string name="diagnostics_screen_desc">Umfassende Diagnose- und Benchmark-Tests ausführen (Funktionstests, Bearbeitungsfunktionstests, 1000-Seiten-Lasttests, Suchleistungstests mit dynamischen Test-PDFs), lokale Audit-Logs überprüfen und Probleme melden.</string>
+    <string name="run_comprehensive_diagnostics">Umfassende Diagnose &amp; Benchmarks ausführen</string>
+    <string name="diagnostics_screen_privacy">Logs enthalten technische Hinweise zur Fehlerbehebung (Gerätespezifikationen, Speichernutzung, Operationsverlauf und Laufzeitfehlerdetails) und schließen personenbezogene Daten strikt aus.</string>
 
     <string name="prop_filename">Dateiname</string>
     <string name="prop_title">Titel</string>
