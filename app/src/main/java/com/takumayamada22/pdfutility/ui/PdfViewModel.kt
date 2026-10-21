@@ -1446,15 +1446,14 @@ class PdfViewModel(
 
                     // Execute UI actions on Main thread with strict error catching
                     when (selectedCourse) {
-                        1 -> { // Course 1: Merge a robust subset of manga PDFs (e.g. 4 files) via PdfProcessor to prevent OOM
-                            val mergeSubset = filesToProcess.take(4)
+                        1 -> { // Course 1: Merge ALL sample manga PDFs (all 14 files) via PdfProcessor with immediate stream closure
                             val mergedFile = withContext(Dispatchers.IO) {
                                 val out = File(context.cacheDir, "merged_course1_${System.currentTimeMillis()}.pdf")
                                 val processor = PdfProcessor()
                                 try {
-                                    processor.load(mergeSubset[0].inputStream())
-                                    for (i in 1 until mergeSubset.size) {
-                                        processor.append(mergeSubset[i].inputStream())
+                                    processor.load(filesToProcess[0].inputStream())
+                                    for (i in 1 until filesToProcess.size) {
+                                        processor.append(filesToProcess[i].inputStream())
                                     }
                                     FileOutputStream(out).use { fos ->
                                         processor.save(fos)
@@ -1470,14 +1469,15 @@ class PdfViewModel(
                                     loadPdf(Uri.fromFile(mergedFile))
                                 }
                             }
+                            kotlinx.coroutines.delay(1000L)
                         }
-                        2 -> { // Course 2: load_test_1100_pages.pdf appended safely (e.g. 2 times) to prevent OOM
+                        2 -> { // Course 2: load_test_1100_pages.pdf appended 9 times via PdfProcessor
                             val mergedFile = withContext(Dispatchers.IO) {
                                 val out = File(context.cacheDir, "merged_course2_${System.currentTimeMillis()}.pdf")
                                 val processor = PdfProcessor()
                                 try {
                                     processor.load(filesToProcess[0].inputStream())
-                                    repeat(2) {
+                                    repeat(9) {
                                         processor.append(filesToProcess[0].inputStream())
                                     }
                                     FileOutputStream(out).use { fos ->
@@ -1494,23 +1494,25 @@ class PdfViewModel(
                                     loadPdf(Uri.fromFile(mergedFile))
                                 }
                             }
+                            kotlinx.coroutines.delay(1000L)
                         }
                         else -> { // Patterns 1-10 loop
                             withContext(Dispatchers.Main) {
                                 if (!isEnduranceRunning.get()) return@withContext
                                 val patternIndex = (iteration - 1) % 10
                                 when (patternIndex) {
-                                    0 -> { loadPdf(Uri.fromFile(filesToProcess[0])); kotlinx.coroutines.delay(300L) }
+                                    0 -> { loadPdf(Uri.fromFile(filesToProcess[0])); }
                                     1 -> { loadPdf(Uri.fromFile(filesToProcess[0])); selectAll(); rotateSelected(90) }
                                     2 -> { loadPdf(Uri.fromFile(filesToProcess[0])); selectAll(); cropSelectedPages(0.1f) }
                                     3 -> { toggleMihirakiView(); toggleRtl() }
                                     else -> { loadPdf(Uri.fromFile(filesToProcess[0])) }
                                 }
                             }
+                            kotlinx.coroutines.delay(1000L)
                         }
                     }
 
-                    kotlinx.coroutines.delay(2000L)
+                    kotlinx.coroutines.delay(1000L)
                 }
 
                 val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)

@@ -66,11 +66,15 @@ class PdfProcessor {
         } else {
             PDDocument.load(inputStream)
         }
-        appendedDocs.add(appendDoc)
-        
-        val newPageCount = appendDoc.numberOfPages
-        for (i in 0 until newPageCount) {
-            currentDoc.importPage(appendDoc.getPage(i))
+        try {
+            val newPageCount = appendDoc.numberOfPages
+            for (i in 0 until newPageCount) {
+                currentDoc.importPage(appendDoc.getPage(i))
+            }
+        } finally {
+            try {
+                appendDoc.close()
+            } catch (_: Exception) {}
         }
         return currentDoc.numberOfPages
     }
