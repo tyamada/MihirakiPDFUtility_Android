@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.takumayamada22.pdfutility.ui.components.DeleteConfirmationDialog
 import com.takumayamada22.pdfutility.ui.components.PasswordDialog
@@ -22,10 +24,12 @@ import com.takumayamada22.pdfutility.ui.components.CropDialog
 import com.takumayamada22.pdfutility.ui.components.SamplePdfScreen
 import com.takumayamada22.pdfutility.ui.components.FolderImageSortDialog
 import com.takumayamada22.pdfutility.ui.SamplePdfViewModel
+import com.takumayamada22.pdfutility.util.LongRunningTestManager
 
 @Composable
 fun MainScreen(viewModel: PdfViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
+    val enduranceProgress by LongRunningTestManager.progressFlow.collectAsState()
     val sampleViewModel: SamplePdfViewModel = viewModel()
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -125,19 +129,43 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
             }
         },
         topBar = {
-            PdfTopAppBar(
-                uiState = uiState,
-                viewModel = viewModel,
-                onOpen = { openLauncher.launch("application/pdf") },
-                onOpenFolder = { openFolderLauncher.launch(null) },
-                onOpenSamplePdf = { viewModel.openSamplePdf() },
-                onAppend = { appendLauncher.launch("application/pdf") },
-                onSave = { saveLauncher.launch("edited_${uiState.fileName ?: "document"}.pdf") },
-                onExport = { exportLauncher.launch("selected_pages.pdf") },
-                onSplitClick = { showSplitDialog = true },
-                onCropClick = { showCropDialog = true },
-                onDeleteClick = { showDeleteConfirmation = true }
-            )
+            Column {
+                PdfTopAppBar(
+                    uiState = uiState,
+                    viewModel = viewModel,
+                    onOpen = { openLauncher.launch("application/pdf") },
+                    onOpenFolder = { openFolderLauncher.launch(null) },
+                    onOpenSamplePdf = { viewModel.openSamplePdf() },
+                    onAppend = { appendLauncher.launch("application/pdf") },
+                    onSave = { saveLauncher.launch("edited_${uiState.fileName ?: "document"}.pdf") },
+                    onExport = { exportLauncher.launch("selected_pages.pdf") },
+                    onSplitClick = { showSplitDialog = true },
+                    onCropClick = { showCropDialog = true },
+                    onDeleteClick = { showDeleteConfirmation = true }
+                )
+                enduranceProgress?.let { prog ->
+                    Surface(
+                        color = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                "⚡ [耐久テスト実行中] 経過: ${prog.elapsedMinutes}分 / 目標: ${prog.targetMinutes}分 (#${prog.currentIteration})",
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                            Text(
+                                prog.currentCourse,
+                                style = MaterialTheme.typography.labelSmall
+                            )
+                        }
+                    }
+                }
+            }
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
