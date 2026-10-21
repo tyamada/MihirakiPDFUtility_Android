@@ -18,6 +18,8 @@ import com.takumayamada22.pdfutility.ui.PdfViewModel
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
 import com.takumayamada22.pdfutility.util.AppLogger
 import com.takumayamada22.pdfutility.util.DiagnosticTestManager
+import com.takumayamada22.pdfutility.util.LongRunningTestManager
+import com.takumayamada22.pdfutility.util.LongRunningTestProgress
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -28,6 +30,9 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
     var testResults by remember { mutableStateOf<String?>(null) }
     var showLogs by remember { mutableStateOf(false) }
     var logsText by remember { mutableStateOf("") }
+    var enduranceMinutes by remember { mutableStateOf(3) }
+    var enduranceProgress by remember { mutableStateOf<LongRunningTestProgress?>(null) }
+    var enduranceStatusMessage by remember { mutableStateOf<String?>(null) }
 
     androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
         Surface(
@@ -83,6 +88,80 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(stringResource(R.string.view_app_logs))
+                    }
+
+                    // 3. 長時間ランニング耐久・ストレステスト
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(12.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text("長時間ランニング耐久テスト (Long-Running Stress Test)", style = MaterialTheme.typography.titleSmall)
+                            Text("テスト継続時間を選択し、マンガ全14本結合、1100ページ9回追加、編集ストレステスト、画面回転・折りたたみシミュレーションを連続実行します。", style = MaterialTheme.typography.bodySmall)
+                            
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                listOf(3, 10, 30, 60).forEach { mins ->
+                                    Button(
+                                        onClick = { enduranceMinutes = mins },
+                                        colors = ButtonDefaults.buttonColors(
+                                            containerColor = if (enduranceMinutes == mins) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer
+                                        ),
+                                        modifier = Modifier.weight(1f)
+                                    ) {
+                                        Text("${mins}分")
+                                    }
+                                }
+                            }
+
+                            val isRunning = enduranceProgress?.isRunning == true
+                            Button(
+                                onClick = {
+                                    if (isRunning) {
+                                        LongRunningTestManager.stopTest()
+                                        enduranceStatusMessage = "テスト停止リクエスト送信中..."
+                                    } else {
+                                        enduranceStatusMessage = "テスト開始..."
+                                        LongRunningTestManager.startEnduranceTest(context, enduranceMinutes, object : LongRunningTestManager.TestCallback {
+                                            override fun onProgress(progress: LongRunningTestProgress) {
+                                                enduranceProgress = progress
+                                            }
+                                            override fun onCompleted(summary: String) {
+                                                enduranceProgress = null
+                                                enduranceStatusMessage = summary
+                                            }
+                                            override fun onError(error: String) {
+                                                enduranceProgress = null
+                                                enduranceStatusMessage = "エラー: $error"
+                                            }
+                                        })
+                                    }
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = if (isRunning) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
+                                ),
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(if (isRunning) "長時間テストを停止 (Stop Test)" else "長時間テストを開始 (${enduranceMinutes}分)")
+                            }
+
+                            enduranceProgress?.let { prog ->
+                                HorizontalDivider()
+                                Text("進捗: 経過 ${prog.elapsedMinutes}分 / 目標 ${prog.targetMinutes}分", style = MaterialTheme.typography.bodySmall)
+                                Text("イテレーション: #${prog.currentIteration}", style = MaterialTheme.typography.bodySmall)
+                                Text("現在コース: ${prog.currentCourse}", style = MaterialTheme.typography.bodySmall)
+                                Text("メモリ使用量: ${prog.memoryUsageMb} MB", style = MaterialTheme.typography.bodySmall)
+                            }
+
+                            enduranceStatusMessage?.let { msg ->
+                                Text(msg, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+                            }
+                        }
                     }
 
                     // 4. 不具合を報告
