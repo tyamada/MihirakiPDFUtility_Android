@@ -43,6 +43,11 @@
     <string name="settings_property">Properti</string>
     <string name="settings_password">Sandi</string>
     <string name="settings_version">Versi</string>
+    <string name="settings_diagnostics">Diagnosis</string>
+    <string name="diagnostics_screen_title">Diagnosis App &amp; Log Audit</string>
+    <string name="diagnostics_screen_desc">Jalankan diagnosis komprehensif dan uji benchmark (uji fungsional, uji fitur pengeditan, uji beban 1000 halaman, uji kinerja pencarian menggunakan PDF uji dinamis), tinjau log audit lokal, dan laporkan masalah.</string>
+    <string name="run_comprehensive_diagnostics">Jalankan Diagnosis &amp; Benchmark</string>
+    <string name="diagnostics_screen_privacy">Log berisi tips pemecahan masalah teknis (spesifikasi perangkat, penggunaan memori, riwayat operasi, dan detail kesalahan runtime) dan secara ketat mengecualikan data pribadi apa pun.</string>
     <string name="support">Dukungan</string>
 
     <string name="prop_filename">Nama File</string>

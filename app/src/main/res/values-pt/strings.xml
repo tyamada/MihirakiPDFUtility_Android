@@ -43,6 +43,11 @@
     <string name="settings_property">Propriedades</string>
     <string name="settings_password">Senha</string>
     <string name="settings_version">Versão</string>
+    <string name="settings_diagnostics">Diagnósticos</string>
+    <string name="diagnostics_screen_title">Diagnóstico do app e logs de auditoria</string>
+    <string name="diagnostics_screen_desc">Executar diagnósticos abrangentes e testes de benchmark (testes funcionais, testes de recursos de edição, testes de carga de 1000 páginas, testes de desempenho de pesquisa usando PDFs de teste dinâmicos), revisar logs de auditoria locais e relatar problemas.</string>
+    <string name="run_comprehensive_diagnostics">Executar Diagnóstico e Benchmarks</string>
+    <string name="diagnostics_screen_privacy">Os logs contêm dicas técnicas de solução de problemas (especificações do dispositivo, uso de memória, histórico de operações e detalhes de erros de tempo de execução) e excluem estritamente quaisquer dados pessoais.</string>
     <string name="support">Apoiar</string>
 
     <string name="prop_filename">Nome do arquivo</string>

@@ -44,6 +44,11 @@
     <string name="settings_password">비밀번호</string>
     <string name="settings_version">버전</string>
     <string name="support">응원</string>
+    <string name="settings_diagnostics">진단</string>
+    <string name="diagnostics_screen_title">앱 진단 및 감사 로그</string>
+    <string name="diagnostics_screen_desc">포괄적인 진단 및 벤치마크 테스트 실행 (동적 테스트 PDF를 사용한 기능 테스트, 편집 기능 테스트, 1000페이지 부하 테스트, 검색 성능 테스트), 로컬 감사 로그 검토 및 문제 신고.</string>
+    <string name="run_comprehensive_diagnostics">포괄적인 진단 및 벤치마크 실행</string>
+    <string name="diagnostics_screen_privacy">로그에는 기술적 문제 해결 힌트(기기 사양, 메모리 사용량, 작업 기록, 런타임 오류 세부 정보)만 포함되며 개인 정보는 엄격히 제외됩니다.</string>
 
     <string name="prop_filename">파일명</string>
     <string name="prop_title">제목</string>

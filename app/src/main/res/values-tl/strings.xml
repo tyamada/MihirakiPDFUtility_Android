@@ -43,6 +43,11 @@
     <string name="settings_property">Property</string>
     <string name="settings_password">Password</string>
     <string name="settings_version">Bersyon</string>
+    <string name="settings_diagnostics">Diagnostics</string>
+    <string name="diagnostics_screen_title">App Diagnostics at Audit Logs</string>
+    <string name="diagnostics_screen_desc">Mag-run ng komprehensibong diagnostics at benchmark tests (functional tests, editing feature tests, 1000-page load tests, search performance tests gamit ang dynamic test PDFs), suriin ang local audit logs, at mag-report ng mga isyu.</string>
+    <string name="run_comprehensive_diagnostics">Mag-run ng Comprehensive Diagnostics</string>
+    <string name="diagnostics_screen_privacy">Ang mga log ay naglalaman ng mga teknikal na pahiwatig sa pag-troubleshoot (device specs, memory usage, operation history, at mga detalye ng error sa runtime) at mahigpit na nag-aalis ng anumang personal na data.</string>
     <string name="support">Suporta</string>
 
     <string name="prop_filename">Pangalan ng File</string>

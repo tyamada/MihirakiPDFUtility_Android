@@ -62,40 +62,15 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                         .fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    // 1. 診断テストを実行
+                    // 1. 総合診断・ベンチマークテストを実行 (機能テスト、編集系機能テスト、負荷テスト、検索・パフォーマンス、デバイス情報含む)
                     Button(
                         onClick = {
-                            val timestamp = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
-                            val manufacturer = Build.MANUFACTURER
-                            val model = Build.MODEL
-                            val osVersion = Build.VERSION.RELEASE
-                            val sdkInt = Build.VERSION.SDK_INT
-
-                            val resultsBuilder = StringBuilder()
-                            resultsBuilder.append("=== MihirakiPDF Utility Diagnostics ===\n")
-                            resultsBuilder.append(context.getString(R.string.test_timestamp_format, timestamp)).append("\n")
-                            resultsBuilder.append(context.getString(R.string.device_info_format, manufacturer, model, osVersion)).append(" (SDK $sdkInt)\n")
-
-                            try {
-                                val processor = PdfProcessor()
-                                processor.close()
-                                resultsBuilder.append("1. PdfProcessor Init Test: PASSED\n")
-                            } catch (e: Exception) {
-                                resultsBuilder.append("1. PdfProcessor Init Test: FAILED (${e.message})\n")
-                            }
-
-                            val runtime = Runtime.getRuntime()
-                            val usedMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
-                            val maxMb = runtime.maxMemory() / (1024 * 1024)
-                            resultsBuilder.append("2. Memory Usage: ${usedMb}MB / max ${maxMb}MB: PASSED\n")
-                            resultsBuilder.append("All diagnostic checks completed successfully.")
-
-                            testResults = resultsBuilder.toString()
-                            AppLogger.log(context, "INFO", "Diagnostic tests executed successfully.")
+                            val benchmarkResult = DiagnosticTestManager.runComprehensiveDiagnostics(context)
+                            testResults = benchmarkResult.details
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(stringResource(R.string.run_diagnostics))
+                        Text(stringResource(R.string.run_comprehensive_diagnostics))
                     }
 
                     // 2. アプリログを表示
@@ -108,19 +83,6 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(stringResource(R.string.view_app_logs))
-                    }
-
-                    // 3. 負荷・性能テストベンチマークを実行
-                    Button(
-                        onClick = {
-                            val benchmarkResult = DiagnosticTestManager.runDiagnosticBenchmark(context)
-                            val resultsBuilder = StringBuilder()
-                            resultsBuilder.append(benchmarkResult.details)
-                            testResults = resultsBuilder.toString()
-                        },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text("負荷・性能テスト実行 (Run Benchmarks)")
                     }
 
                     // 4. 不具合を報告

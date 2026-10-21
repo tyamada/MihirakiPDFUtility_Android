@@ -44,6 +44,11 @@
     <string name="settings_password">Mot de passe</string>
     <string name="settings_version">Version</string>
     <string name="support">Soutenir</string>
+    <string name="settings_diagnostics">Diagnostics</string>
+    <string name="diagnostics_screen_title">Diagnostics de l\'application &amp; journaux d\'audit</string>
+    <string name="diagnostics_screen_desc">Exécuter des diagnostics complets et des tests de performance (tests fonctionnels, tests de fonctions d\'édition, tests de charge de 1000 pages, tests de performance de recherche à l\'aide de PDF de test dynamiques), examiner les journaux d\'audit locaux et signaler les problèmes.</string>
+    <string name="run_comprehensive_diagnostics">Exécuter les diagnostics complets et benchmarks</string>
+    <string name="diagnostics_screen_privacy">Les journaux contiennent des conseils techniques de dépannage (spécifications de l\'appareil, utilisation de la mémoire, historique des opérations et détails des erreurs d\'exécution) et excluent strictement toute donnée personnelle.</string>
 
     <string name="prop_filename">Nom du fichier</string>
     <string name="prop_title">Titre</string>

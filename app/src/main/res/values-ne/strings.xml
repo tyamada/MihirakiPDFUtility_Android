@@ -43,6 +43,11 @@
     <string name="settings_property">विशेषता</string>
     <string name="settings_password">पासवर्ड</string>
     <string name="settings_version">संस्करण</string>
+    <string name="settings_diagnostics">निदान</string>
+    <string name="diagnostics_screen_title">एप निदान र लेखा परीक्षण लगहरू</string>
+    <string name="diagnostics_screen_desc">विस्तृत निदान र बेञ्चमार्क परीक्षणहरू चलाउनुहोस् (गतिशील परीक्षण PDF हरू प्रयोग गरेर प्रकार्य परीक्षणहरू, सम्पादन सुविधा परीक्षणहरू, १०००-पृष्ठ भार परीक्षणहरू, खोज कार्यसम्पादन परीक्षणहरू), स्थानीय लेखा परीक्षण लगहरू समीक्षा गर्नुहोस्, र समस्याहरू रिपोर्ट गर्नुहोस्।</string>
+    <string name="run_comprehensive_diagnostics">विस्तृत निदान र बेञ्चमार्कहरू चलाउनुहोस्</string>
+    <string name="diagnostics_screen_privacy">लगहरूले प्राविधिक समस्या निवारण संकेतहरू (यन्त्र विनिर्देशहरू, स्मृति उपयोग, सञ्चालन इतिहास, र रनटाइम त्रुटि विवरणहरू) समावेश गर्दछ र व्यक्तिगत डेटा कडाईका साथ बाहिर राख्छ।</string>
     <string name="support">समर्थन</string>
 
     <string name="prop_filename">फाइलको नाम</string>

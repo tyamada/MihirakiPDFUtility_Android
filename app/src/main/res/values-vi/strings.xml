@@ -43,6 +43,11 @@
     <string name="settings_property">Thuộc tính</string>
     <string name="settings_password">Mật khẩu</string>
     <string name="settings_version">Phiên bản</string>
+    <string name="settings_diagnostics">Chẩn đoán</string>
+    <string name="diagnostics_screen_title">Chẩn đoán ứng dụng &amp; Nhật ký kiểm toán</string>
+    <string name="diagnostics_screen_desc">Chạy chuẩn đoán toàn diện và kiểm tra hiệu năng (kiểm tra chức năng, kiểm tra tính năng chỉnh sửa, kiểm tra tải 1000 trang, kiểm tra hiệu năng tìm kiếm sử dụng PDF kiểm tra động), xem lại nhật ký kiểm toán cục bộ và báo cáo sự cố.</string>
+    <string name="run_comprehensive_diagnostics">Chạy chuẩn đoán toàn diện &amp; Hiệu năng</string>
+    <string name="diagnostics_screen_privacy">Nhật ký chứa các gợi ý khắc phục sự cố kỹ thuật (thông số thiết bị, mức sử dụng bộ nhớ, lịch sử hoạt động và chi tiết lỗi thời gian chạy) và loại trừ nghiêm ngặt bất kỳ dữ liệu cá nhân nào.</string>
     <string name="support">Ủng hộ</string>
 
     <string name="prop_filename">Tên tệp</string>

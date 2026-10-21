@@ -15,6 +15,7 @@ import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.ui.PdfViewModel
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
 import com.takumayamada22.pdfutility.util.DeviceTestRunner
+import com.takumayamada22.pdfutility.util.DiagnosticTestManager
 import com.takumayamada22.pdfutility.util.PersistentLogManager
 
 @Composable
@@ -68,8 +69,9 @@ internal fun PdfReportIssueDialog(viewModel: PdfViewModel) {
                         onClick = {
                             val result = DeviceTestRunner.runTest(context)
                             val testReport = DeviceTestRunner.formatResultString(result)
+                            val benchmarkResult = DiagnosticTestManager.runComprehensiveDiagnostics(context)
                             val logs = PersistentLogManager.getAllLogs().joinToString("\n")
-                            val combined = "$testReport\n\n--- App Logs (${PersistentLogManager.getAllLogs().size} lines) ---\n$logs"
+                            val combined = "$testReport\n\n--- Comprehensive Diagnostics & Benchmarks ---\n${benchmarkResult.details}\n\n--- App Logs (${PersistentLogManager.getAllLogs().size} lines) ---\n$logs"
                             clipboardManager.setText(androidx.compose.ui.text.AnnotatedString(combined))
                             android.widget.Toast.makeText(context, context.getString(R.string.bulk_copy_success), android.widget.Toast.LENGTH_SHORT).show()
                         },
