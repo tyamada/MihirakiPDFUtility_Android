@@ -1380,10 +1380,16 @@ class PdfViewModel(
             override fun loadPdf(uri: Uri) { this@PdfViewModel.loadPdf(uri) }
             override fun appendPdf(uri: Uri) { this@PdfViewModel.appendPdf(uri) }
             override fun selectAll() { this@PdfViewModel.selectAll() }
+            override fun clearSelection() { this@PdfViewModel.clearSelection() }
+            override fun invertSelection() { this@PdfViewModel.invertSelection() }
             override fun rotateSelected(degrees: Int) { this@PdfViewModel.rotateSelected(degrees) }
             override fun cropSelectedPages(fraction: Float) { this@PdfViewModel.cropSelectedPages(fraction) }
+            override fun insertBlankAfterSelected() { this@PdfViewModel.insertBlankAfterSelected() }
+            override fun moveSelected(offset: Int) { this@PdfViewModel.moveSelected(offset) }
             override fun toggleMihirakiView() { this@PdfViewModel.toggleMihirakiView() }
             override fun toggleRtl() { this@PdfViewModel.toggleRtl() }
+            override fun undo() { this@PdfViewModel.undo() }
+            override fun redo() { this@PdfViewModel.redo() }
             override fun openSettingsDialog(type: SettingsDialogType) { this@PdfViewModel.openSettingsDialog(type) }
             override fun isProcessing(): Boolean = _uiState.value.isLoading || _uiState.value.isAppending
         }
