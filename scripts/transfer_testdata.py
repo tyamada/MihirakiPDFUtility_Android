@@ -69,7 +69,7 @@ def main():
     extra_test_files = ['load_test_1100_pages.pdf', 'search_test_600_hits.pdf', 'search_test_600_hits_en.pdf']
     all_target_filenames = list(set(catalog_filenames + extra_test_files))
 
-    pkg_name = 'com.github.tyamada.MihirakiPDFViewer_Android'
+    pkg_name = 'com.takumayamada22.pdfutility'
     device_test_dir = f"/sdcard/Android/data/{pkg_name}/files/testdata"
 
     print(f"Cleaning up old test files from device: {device_test_dir}")
