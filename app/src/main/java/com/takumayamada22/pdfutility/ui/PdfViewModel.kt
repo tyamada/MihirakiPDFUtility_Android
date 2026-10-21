@@ -546,8 +546,8 @@ class PdfViewModel(
                             showCover = metadata["layout"]?.let { it == "TwoColumnRight" || it == "TwoPageRight" } ?: false,
                             savePassword = "",
                             isSamplePdf = isSample,
-                            ccByAcknowledged = false,
-                            showCcByDialog = isSample
+                            ccByAcknowledged = isEnduranceRunning.get(),
+                            showCcByDialog = isSample && !isEnduranceRunning.get()
                         )
                         AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: $pageCount, location: $locationDesc")
                         // Clear history on new load
