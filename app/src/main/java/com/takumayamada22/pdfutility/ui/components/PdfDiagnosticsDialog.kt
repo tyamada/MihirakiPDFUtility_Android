@@ -130,6 +130,7 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                                         viewModel.stopEnduranceTest()
                                     } else {
                                         viewModel.startEnduranceTest(enduranceMinutes)
+                                        viewModel.closeSettingsDialog()
                                     }
                                 },
                                 colors = ButtonDefaults.buttonColors(
