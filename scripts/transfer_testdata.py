@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
 MihirakiPDFUtility Test Data Transfer Script
-Transfers all sample manga PDF files (tameshibu*.pdf) and load test PDFs from PC/Mac testdata/
-to the connected Android device via USB or Wi-Fi ADB.
+1. Cleans up any old or unnecessary test files from the device testdata directory.
+2. Transfers all 28 latest sample manga PDF files (tameshibu_episode?_2_??.pdf) and load test PDFs
+   from local testdata/ to the connected Android device via USB or Wi-Fi ADB.
 """
 
 import os
@@ -52,16 +53,17 @@ def main():
     pkg_name = 'com.github.tyamada.MihirakiPDFViewer_Android'
     device_test_dir = f"/sdcard/Android/data/{pkg_name}/files/testdata"
 
-    print(f"Creating test directory on device: {device_test_dir}")
+    print(f"Cleaning up old/unnecessary test files from device: {device_test_dir}")
+    run_cmd(['adb', '-s', device_serial, 'shell', f'rm -rf {device_test_dir}/*'])
     run_cmd(['adb', '-s', device_serial, 'shell', f'mkdir -p {device_test_dir}'])
 
-    # Target patterns: tameshibu*.pdf and load_test_1100_pages.pdf
-    files_to_transfer = list(testdata_dir.glob('tameshibu*.pdf'))
+    # Target patterns: tameshibu_episode*_2_*.pdf and load_test_1100_pages.pdf
+    files_to_transfer = list(testdata_dir.glob('tameshibu*_2_*.pdf'))
     load_test_file = testdata_dir / 'load_test_1100_pages.pdf'
     if load_test_file.exists():
         files_to_transfer.append(load_test_file)
 
-    print(f"Found {len(files_to_transfer)} test files to transfer.")
+    print(f"Found {len(files_to_transfer)} latest test files to transfer.")
     success_count = 0
 
     for f in files_to_transfer:
@@ -75,7 +77,7 @@ def main():
                 print(f"WARNING: Failed to push {f.name}:\n{out}")
 
     print(f"\n=== Transfer Completed ===")
-    print(f"Successfully transferred {success_count} / {len(files_to_transfer)} test files to device storage.")
+    print(f"Successfully transferred {success_count} / {len(files_to_transfer)} latest test files to device storage.")
 
 if __name__ == '__main__':
     main()
