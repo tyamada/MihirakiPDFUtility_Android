@@ -1375,27 +1375,110 @@ class PdfViewModel(
 
     fun startEnduranceTest(durationMinutes: Int) {
         val context = getApplication<Application>()
-        _enduranceStatusMessage.value = "テスト開始..."
-        LongRunningTestManager.startEnduranceTest(context, durationMinutes, object : LongRunningTestManager.TestCallback {
-            override fun onProgress(progress: LongRunningTestProgress) {
-                _enduranceProgress.value = progress
-                // Visibly load test PDF into the UI grid every few iterations so the user can see it on screen
-                if (progress.currentIteration % 2 == 1) {
+        _enduranceStatusMessage.value = "UI耐久テスト開始..."
+        
+        // Mark LongRunningTestManager as running
+        LongRunningTestManager.startEnduranceTest(context, durationMinutes)
+
+        viewModelScope.launch(Dispatchers.Main) {
+            val targetMillis = durationMinutes * 60 * 1000L
+            val startTime = System.currentTimeMillis()
+            var iteration = 0
+            val runtime = Runtime.getRuntime()
+
+            try {
+                AppLogger.log(context, "INFO", "Starting UI-Driven Long-Running Endurance Test for $durationMinutes minutes.")
+
+                while (LongRunningTestManager.isTestRunning() && (System.currentTimeMillis() - startTime) < targetMillis) {
+                    iteration++
+                    val elapsedMs = System.currentTimeMillis() - startTime
+                    val elapsedMin = (elapsedMs / (60 * 1000L)).toInt()
+
+                    // 1. Open functional test PDF via UI
+                    val progress = LongRunningTestProgress(
+                        isRunning = true,
+                        elapsedMinutes = elapsedMin,
+                        targetMinutes = durationMinutes,
+                        currentIteration = iteration,
+                        currentCourse = "UI Course 1: Load & Grid Render",
+                        memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
+                        statusSummary = "Loading test PDF in UI grid"
+                    )
+                    _enduranceProgress.value = progress
+                    
                     val f = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
                     if (f != null && f.exists()) {
                         loadPdf(Uri.fromFile(f))
                     }
+                    kotlinx.coroutines.delay(1500L)
+
+                    if (!LongRunningTestManager.isTestRunning()) break
+
+                    // 2. UI Editing Operations (Select all, rotate, crop, undo)
+                    val progress2 = progress.copy(
+                        currentCourse = "UI Course 2: Batch Editing (Rotate/Crop/Undo)",
+                        statusSummary = "Executing UI editing operations"
+                    )
+                    _enduranceProgress.value = progress2
+                    
+                    selectAll()
+                    kotlinx.coroutines.delay(800L)
+                    rotateSelected(90)
+                    kotlinx.coroutines.delay(800L)
+                    cropSelectedPages(0.1f)
+                    kotlinx.coroutines.delay(800L)
+                    undo()
+                    kotlinx.coroutines.delay(800L)
+
+                    if (!LongRunningTestManager.isTestRunning()) break
+
+                    // 3. View mode & RTL toggles
+                    val progress3 = progress.copy(
+                        currentCourse = "UI Course 3: View Mode & RTL Toggles",
+                        statusSummary = "Toggling Mihiraki view and RTL"
+                    )
+                    _enduranceProgress.value = progress3
+                    
+                    toggleMihirakiView()
+                    kotlinx.coroutines.delay(800L)
+                    toggleRtl()
+                    kotlinx.coroutines.delay(800L)
+
+                    if (!LongRunningTestManager.isTestRunning()) break
+
+                    // 4. Dialog Navigation Testing
+                    val progress4 = progress.copy(
+                        currentCourse = "UI Course 4: Settings & Dialog Navigation",
+                        statusSummary = "Cycling settings & dialogs"
+                    )
+                    _enduranceProgress.value = progress4
+                    
+                    openSettingsDialog(SettingsDialogType.OPTIONS)
+                    kotlinx.coroutines.delay(1000L)
+                    closeSettingsDialog()
+                    kotlinx.coroutines.delay(500L)
+                    openSettingsDialog(SettingsDialogType.PROPERTY)
+                    kotlinx.coroutines.delay(1000L)
+                    closeSettingsDialog()
+                    kotlinx.coroutines.delay(500L)
+
+                    kotlinx.coroutines.delay(1000L)
                 }
-            }
-            override fun onCompleted(summary: String) {
+
+                val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
+                val summary = "UI Endurance test completed successfully after $iteration iterations. Final memory: ${finalMemory}MB."
+                AppLogger.log(context, "INFO", summary)
                 _enduranceProgress.value = null
                 _enduranceStatusMessage.value = summary
-            }
-            override fun onError(error: String) {
+            } catch (e: Exception) {
+                AppLogger.log(context, "ERROR", "UI Endurance test failed: ${e.message}")
                 _enduranceProgress.value = null
-                _enduranceStatusMessage.value = "エラー: $error"
+                _enduranceStatusMessage.value = "エラー: ${e.message}"
+            } finally {
+                LongRunningTestManager.stopTest()
+                _enduranceProgress.value = null
             }
-        })
+        }
     }
 
     fun stopEnduranceTest() {
