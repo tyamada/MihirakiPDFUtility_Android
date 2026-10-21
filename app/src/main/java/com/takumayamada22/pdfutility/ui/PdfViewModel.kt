@@ -28,6 +28,8 @@ import android.os.Environment
 import java.net.URL
 import androidx.documentfile.provider.DocumentFile
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -501,11 +503,28 @@ class PdfViewModel(
         updateHistoryFlags()
     }
 
+    private var activeOperationJob: Job? = null
+
+    fun cancelCurrentOperation() {
+        activeOperationJob?.cancel()
+        activeOperationJob = null
+        if (_uiState.value.canUndo) {
+            undo()
+        }
+        _uiState.value = _uiState.value.copy(
+            isLoading = false,
+            isAppending = false,
+            errorMessage = "操作がキャンセルされました"
+        )
+        AppLogger.log(getApplication(), "INFO", "Operation cancelled by user, state rolled back.")
+    }
+
     fun loadPdf(uri: Uri, password: String? = null, isSamplePdf: Boolean? = null) {
-        viewModelScope.launch {
+        activeOperationJob?.cancel()
+        activeOperationJob = viewModelScope.launch {
             val fileName = getFileName(uri)
             _uiState.value = _uiState.value.copy(
-                isLoading = true, 
+                isLoading = false,
                 fileName = fileName,
                 errorMessage = null,
                 errorResId = null,
@@ -513,8 +532,13 @@ class PdfViewModel(
                 isAppending = false
             )
             
-            withContext(Dispatchers.IO) {
-                try {
+            val loadingIndicatorJob = launch {
+                delay(1000L)
+                _uiState.value = _uiState.value.copy(isLoading = true)
+            }
+
+            try {
+                withContext(Dispatchers.IO) {
                     val inputStream = getApplication<Application>().contentResolver.openInputStream(uri)
                     if (inputStream != null) {
                         val path = uri.path ?: ""
@@ -536,62 +560,74 @@ class PdfViewModel(
 
                         val metadata = loadPdfUseCase.getMetadata()
                         
-                        _uiState.value = _uiState.value.copy(
-                            pages = pages,
-                            isLoading = false,
-                            isDirty = false,
-                            pendingUri = null,
-                            title = metadata["title"] ?: "",
-                            author = metadata["author"] ?: "",
-                            subject = metadata["subject"] ?: "",
-                            keywords = metadata["keywords"] ?: "",
-                            pdfVersion = metadata["version"] ?: "",
-                            pageLayout = metadata["layout"] ?: "SinglePage",
-                            scrollDirection = metadata["direction"] ?: "L2R",
-                            showCover = metadata["layout"]?.let { it == "TwoColumnRight" || it == "TwoPageRight" } ?: false,
-                            savePassword = "",
-                            isSamplePdf = isSample,
-                            ccByAcknowledged = enduranceExecutor.isRunning,
-                            showCcByDialog = isSample && !enduranceExecutor.isRunning
-                        )
+                        withContext(Dispatchers.Main) {
+                            _uiState.value = _uiState.value.copy(
+                                pages = pages,
+                                isLoading = false,
+                                isDirty = false,
+                                pendingUri = null,
+                                title = metadata["title"] ?: "",
+                                author = metadata["author"] ?: "",
+                                subject = metadata["subject"] ?: "",
+                                keywords = metadata["keywords"] ?: "",
+                                pdfVersion = metadata["version"] ?: "",
+                                pageLayout = metadata["layout"] ?: "SinglePage",
+                                scrollDirection = metadata["direction"] ?: "L2R",
+                                showCover = metadata["layout"]?.let { it == "TwoColumnRight" || it == "TwoPageRight" } ?: false,
+                                savePassword = "",
+                                isSamplePdf = isSample,
+                                ccByAcknowledged = enduranceExecutor.isRunning,
+                                showCcByDialog = isSample && !enduranceExecutor.isRunning
+                            )
+                        }
                         AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: $pageCount, location: $locationDesc")
-                        // Clear history on new load
                         undoStack.clear()
                         redoStack.clear()
                         updateHistoryFlags()
                     }
-                } catch (_: InvalidPasswordException) {
-                    AppLogger.log(getApplication(), "WARN", "PDF load failed: Invalid password")
-                    _uiState.value = _uiState.value.copy(
-                        isLoading = false,
-                        showPasswordDialog = true,
-                        pendingUri = uri,
-                        isAppending = false,
-                        errorResId = if (password != null) R.string.error_incorrect_password else null
-                    )
-                } catch (e: Exception) {
+                }
+            } catch (_: InvalidPasswordException) {
+                AppLogger.log(getApplication(), "WARN", "PDF load failed: Invalid password")
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    showPasswordDialog = true,
+                    pendingUri = uri,
+                    isAppending = false,
+                    errorResId = if (password != null) R.string.error_incorrect_password else null
+                )
+            } catch (e: Exception) {
+                if (e !is java.util.concurrent.CancellationException) {
                     AppLogger.log(getApplication(), "ERROR", "PDF load failed: ${e.message}")
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         errorResId = R.string.error_load_failed
                     )
                 }
+            } finally {
+                loadingIndicatorJob.cancel()
+                _uiState.value = _uiState.value.copy(isLoading = false, isAppending = false)
             }
         }
     }
 
     fun appendPdf(uri: Uri, password: String? = null) {
-        viewModelScope.launch {
+        activeOperationJob?.cancel()
+        activeOperationJob = viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
-                isLoading = true,
+                isLoading = false,
                 errorMessage = null,
                 errorResId = null,
                 showPasswordDialog = false,
                 isAppending = true
             )
 
-            withContext(Dispatchers.IO) {
-                try {
+            val loadingIndicatorJob = launch {
+                delay(1000L)
+                _uiState.value = _uiState.value.copy(isLoading = true)
+            }
+
+            try {
+                withContext(Dispatchers.IO) {
                     val inputStream = getApplication<Application>().contentResolver.openInputStream(uri)
                     if (inputStream != null) {
                         saveToHistory()
@@ -616,30 +652,38 @@ class PdfViewModel(
                         }
                         currentPages.addAll(insertIndex, newPages)
                         
-                        _uiState.value = _uiState.value.copy(
-                            pages = currentPages,
-                            isLoading = false,
-                            isDirty = true,
-                            pendingUri = null,
-                            isAppending = false
-                        )
+                        withContext(Dispatchers.Main) {
+                            _uiState.value = _uiState.value.copy(
+                                pages = currentPages,
+                                isLoading = false,
+                                isDirty = true,
+                                pendingUri = null,
+                                isAppending = false
+                            )
+                        }
                     }
-                } catch (e: InvalidPasswordException) {
-                    AppLogger.log(getApplication(), "WARN", "PDF load failed: Invalid password")
-                    _uiState.value = _uiState.value.copy(
-                        isLoading = false,
-                        showPasswordDialog = true,
-                        pendingUri = uri,
-                        isAppending = true,
-                        errorResId = if (password != null) R.string.error_incorrect_password else null
-                    )
-                } catch (e: Exception) {
+                }
+            } catch (e: InvalidPasswordException) {
+                AppLogger.log(getApplication(), "WARN", "PDF load failed: Invalid password")
+                _uiState.value = _uiState.value.copy(
+                    isLoading = false,
+                    showPasswordDialog = true,
+                    pendingUri = uri,
+                    isAppending = true,
+                    errorResId = if (password != null) R.string.error_incorrect_password else null
+                )
+            } catch (e: Exception) {
+                if (e !is java.util.concurrent.CancellationException) {
                     AppLogger.log(getApplication(), "ERROR", "PDF load failed: ${e.message}")
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
+                        isAppending = false,
                         errorResId = R.string.error_append_failed
                     )
                 }
+            } finally {
+                loadingIndicatorJob.cancel()
+                _uiState.value = _uiState.value.copy(isLoading = false, isAppending = false)
             }
         }
     }

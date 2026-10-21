@@ -213,6 +213,17 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     textAlign = androidx.compose.ui.text.style.TextAlign.Center
                                 )
+                                Spacer(Modifier.height(4.dp))
+                                Button(
+                                    onClick = { viewModel.cancelCurrentOperation() },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.error,
+                                        contentColor = MaterialTheme.colorScheme.onError
+                                    ),
+                                    modifier = Modifier.heightIn(min = 40.dp)
+                                ) {
+                                    Text("キャンセル (Cancel)", style = MaterialTheme.typography.labelLarge)
+                                }
                             }
                         }
                     }
