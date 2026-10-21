@@ -63,7 +63,7 @@ def main():
     print(f"Output Directory: {session_dir}")
 
     # 1. App Installation Check & Setup
-    pkg_name = 'com.github.tyamada.MihirakiPDFViewer_Android'
+    pkg_name = 'com.takumayamada22.pdfutility'
     print(f"\n--- Step 1: Verifying App Installation ({pkg_name}) ---")
     _, installed_pkgs = run_cmd(['adb', '-s', device_serial, 'shell', 'pm', 'list', 'packages', pkg_name])
     if pkg_name not in installed_pkgs:
