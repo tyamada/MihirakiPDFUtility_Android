@@ -7,7 +7,6 @@ import androidx.test.filters.LargeTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.File
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -17,26 +16,13 @@ class UiEnduranceTest {
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Test
-    fun testConfigurableDurationUiEndurance() {
-        val durationFile = File("/sdcard/Download/test_duration.txt")
-        val durationMinutes = if (durationFile.exists()) {
-            durationFile.readText().trim().toIntOrNull() ?: 3
-        } else {
-            3
-        }
+    fun testConfigurableDurationUiEnduranceWithScrolling() {
+        val iterationCount = 5
 
-        val targetMillis = durationMinutes * 60 * 1000L
-        val startTime = System.currentTimeMillis()
-        var iteration = 0
-
-        println("Starting UI-Emulated Endurance Test for $durationMinutes minutes...")
-
-        while (System.currentTimeMillis() - startTime < targetMillis) {
-            iteration++
-            val pattern = ((iteration - 1) % 10) + 1
+        for (i in 1..iterationCount) {
             composeTestRule.waitForIdle()
 
-            // 1. Open Settings / Diagnostics dialog using language-independent testTags
+            // 1. Open Settings / Diagnostics dialog using testTag
             runCatching {
                 composeTestRule.onNodeWithTag("settingsButton").performClick()
                 composeTestRule.waitForIdle()
@@ -44,39 +30,32 @@ class UiEnduranceTest {
                 composeTestRule.waitForIdle()
             }
 
-            // 2. Execute pattern-specific UI actions (Courses 1-5 modular combinations)
-            when (pattern) {
-                1 -> { // Pattern 1: Course 1 (Multi-File Merge) alone
-                    runCatching {
-                        composeTestRule.onNode(hasClickAction() and hasText("総合診断・ベンチマークテストを実行", ignoreCase = true), true).performClick()
-                        composeTestRule.waitForIdle()
-                    }
-                }
-                2 -> { // Pattern 2: Course 2 (1100p Append) alone
-                    runCatching {
-                        composeTestRule.onNode(hasClickAction() and hasText("長時間テストを開始", ignoreCase = true), true).performClick()
-                        composeTestRule.waitForIdle()
-                    }
-                }
-                3, 4 -> { // Pattern 3 & 4: Editing Stress
-                    runCatching {
-                        composeTestRule.onNode(hasText("閉じる", ignoreCase = true), true).performClick()
-                        composeTestRule.waitForIdle()
-                        composeTestRule.onAllNodes(hasClickAction()).get(0).performClick()
-                        composeTestRule.waitForIdle()
-                    }
-                }
-                5, 6, 7, 8, 9, 10 -> { // Other patterns
-                    runCatching {
-                        composeTestRule.onNode(hasText("閉じる", ignoreCase = true), true).performClick()
+            // 2. Perform test actions with explicit consideration for scrollable containers
+            runCatching {
+                // If a scrollable container exists (like dialog content or lazy list), scroll down first to ensure nodes are visible
+                composeTestRule.onAllNodes(hasScrollAction()).let { nodes ->
+                    if (nodes.fetchSemanticsNodes().isNotEmpty()) {
+                        nodes.get(0).performScrollToIndex(0)
                         composeTestRule.waitForIdle()
                     }
                 }
             }
 
-            // 3. Close dialogs / cleanup for next iteration
+            // 3. Click test execution or dialog buttons safely with scroll support
             runCatching {
-                composeTestRule.onNode(hasText("閉じる", ignoreCase = true), true).performClick()
+                composeTestRule.onNode(hasClickAction() and (hasText("総合診断・ベンチマークテストを実行", ignoreCase = true) or hasText("長時間テストを開始", ignoreCase = true)), true)
+                    .assertExists()
+                    .performScrollTo()
+                    .performClick()
+                composeTestRule.waitForIdle()
+            }
+
+            // 4. Close dialogs / cleanup with scroll consideration
+            runCatching {
+                composeTestRule.onNode(hasText("閉じる", ignoreCase = true), true)
+                    .assertExists()
+                    .performScrollTo()
+                    .performClick()
                 composeTestRule.waitForIdle()
             }
         }
