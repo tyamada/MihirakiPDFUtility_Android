@@ -20,11 +20,12 @@ class PdfProcessor {
 
     fun load(inputStream: InputStream, password: String? = null): Int {
         close()
+        val memoryUsage = com.tom_roush.pdfbox.io.MemoryUsageSetting.setupTempFileOnly()
         document = try {
             if (password != null) {
-                PDDocument.load(inputStream, password)
+                PDDocument.load(inputStream, password, memoryUsage)
             } else {
-                PDDocument.load(inputStream)
+                PDDocument.load(inputStream, memoryUsage)
             }
         } catch (_: Exception) {
             null
@@ -61,10 +62,11 @@ class PdfProcessor {
 
     fun append(inputStream: InputStream, password: String? = null): Int {
         val currentDoc = document ?: return 0
+        val memoryUsage = com.tom_roush.pdfbox.io.MemoryUsageSetting.setupTempFileOnly()
         val appendDoc = if (password != null) {
-            PDDocument.load(inputStream, password)
+            PDDocument.load(inputStream, password, memoryUsage)
         } else {
-            PDDocument.load(inputStream)
+            PDDocument.load(inputStream, memoryUsage)
         }
         try {
             val newPageCount = appendDoc.numberOfPages
