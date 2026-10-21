@@ -64,7 +64,8 @@ def main():
         gradlew,
         'app:connectedDebugAndroidTest',
         '-Pandroid.testInstrumentationRunnerArguments.class=com.takumayamada22.pdfutility.UiEnduranceTest',
-        f'-Pandroid.testInstrumentationRunnerArguments.duration={args.duration}'
+        f'-Pandroid.testInstrumentationRunnerArguments.duration={args.duration}',
+        '--no-daemon'
     ]
 
     print(f"\n[RUNNING] Executing Instrumented UI Endurance Tests via Gradle...")
