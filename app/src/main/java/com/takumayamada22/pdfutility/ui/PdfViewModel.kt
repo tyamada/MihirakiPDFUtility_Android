@@ -1407,7 +1407,7 @@ class PdfViewModel(
                     )
                     _enduranceProgress.value = progress
 
-                    // Prepare PDF files on IO thread
+                    // Prepare PDF files on IO thread (Strict file check without auto-generation)
                     val filesToProcess = withContext(Dispatchers.IO) {
                         try {
                             val testDataDir = File(context.getExternalFilesDir(null), "testdata")
@@ -1417,12 +1417,17 @@ class PdfViewModel(
                             when (selectedCourse) {
                                 1 -> { // Course 1 Only: 14 sample manga PDFs (tameshibu_*.pdf)
                                     val mangaFiles = activeDir.listFiles { file -> file.name.startsWith("tameshibu_") && file.name.endsWith(".pdf") }?.sortedBy { it.name } ?: emptyList()
-                                    if (mangaFiles.isNotEmpty()) mangaFiles else listOfNotNull(TestPdfGenerator.createFunctionalTestPdf(context))
+                                    if (mangaFiles.isEmpty()) {
+                                        throw java.io.FileNotFoundException("Required test files (tameshibu_*.pdf manga episode PDFs) not found in device testdata folder (${activeDir.absolutePath}). Please transfer test files from PC/Mac (testdata/) via ADB.")
+                                    }
+                                    mangaFiles
                                 }
-                                2 -> { // Course 2 Only: load_test_1100_pages.pdf appended 9x
+                                2 -> { // Course 2 Only: load_test_1100_pages.pdf
                                     val loadFile = File(activeDir, "load_test_1100_pages.pdf")
-                                    val baseFile = if (loadFile.exists()) loadFile else TestPdfGenerator.createLoadTestPdf(context, 200)
-                                    listOfNotNull(baseFile)
+                                    if (!loadFile.exists()) {
+                                        throw java.io.FileNotFoundException("Required test file (load_test_1100_pages.pdf) not found in device testdata folder (${activeDir.absolutePath}). Please transfer test files from PC/Mac (testdata/) via ADB.")
+                                    }
+                                    listOf(loadFile)
                                 }
                                 else -> { // All Courses / Patterns 1-10
                                     val f1 = TestPdfGenerator.createFunctionalTestPdf(context)
@@ -1506,74 +1511,6 @@ class PdfViewModel(
         isEnduranceRunning.set(false)
         _enduranceProgress.value = null
         _enduranceStatusMessage.value = "テスト停止リクエスト送信中..."
-    }
-
-    fun startCourse1Loop(durationMinutes: Int = 3) {
-        val context = getApplication<Application>()
-        if (isEnduranceRunning.get()) return
-        isEnduranceRunning.set(true)
-        _enduranceStatusMessage.value = "コース1ループテスト開始..."
-
-        viewModelScope.launch {
-            val targetMillis = durationMinutes * 60 * 1000L
-            val startTime = System.currentTimeMillis()
-            var iteration = 0
-            val runtime = Runtime.getRuntime()
-
-            try {
-                AppLogger.log(context, "INFO", "Starting Course 1 Loop Test for $durationMinutes minutes.")
-
-                while (isEnduranceRunning.get() && (System.currentTimeMillis() - startTime) < targetMillis) {
-                    iteration++
-                    val elapsedMs = System.currentTimeMillis() - startTime
-                    val elapsedMin = (elapsedMs / (60 * 1000L)).toInt()
-
-                    val progress = LongRunningTestProgress(
-                        isRunning = true,
-                        elapsedMinutes = elapsedMin,
-                        targetMinutes = durationMinutes,
-                        currentIteration = iteration,
-                        currentCourse = "Course 1: Multi-File Merge Loop",
-                        memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
-                        statusSummary = "Executing Course 1 (Merge)"
-                    )
-                    _enduranceProgress.value = progress
-
-                    val (f1, f2) = withContext(Dispatchers.IO) {
-                        val fn1 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
-                        val fn2 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createSearchTestPdf(context)
-                        Pair(fn1, fn2)
-                    }
-
-                    if (!isEnduranceRunning.get()) break
-
-                    withContext(Dispatchers.Main) {
-                        if (!isEnduranceRunning.get()) return@withContext
-                        if (f1 != null && f2 != null) {
-                            loadPdf(Uri.fromFile(f1))
-                            kotlinx.coroutines.delay(800L)
-                            appendPdf(Uri.fromFile(f2))
-                        }
-                    }
-
-                    kotlinx.coroutines.delay(2000L)
-                }
-
-                val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
-                val summary = "Course 1 Loop test completed after $iteration iterations. Final memory: ${finalMemory}MB."
-                AppLogger.log(context, "INFO", summary)
-                _enduranceProgress.value = null
-                _enduranceStatusMessage.value = summary
-            } catch (e: Exception) {
-                AppLogger.log(context, "ERROR", "Course 1 Loop test failed: ${e.message}")
-                _enduranceProgress.value = null
-                _enduranceStatusMessage.value = "エラー: ${e.message}"
-            } finally {
-                isEnduranceRunning.set(false)
-                _enduranceProgress.value = null
-                com.takumayamada22.pdfutility.util.TestPdfGenerator.cleanupTestPdfs(context)
-            }
-        }
     }
 
     override fun onCleared() {

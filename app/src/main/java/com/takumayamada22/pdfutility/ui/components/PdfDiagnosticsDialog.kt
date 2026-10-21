@@ -25,6 +25,21 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
     var showLogs by remember { mutableStateOf(false) }
     var logsText by remember { mutableStateOf("") }
     var enduranceMinutes by remember { mutableStateOf(3) }
+    var selectedCourseIndex by remember { mutableStateOf(0) }
+    var courseDropdownExpanded by remember { mutableStateOf(false) }
+    val courseOptions = listOf(
+        "すべて (All Courses / Patterns 1-10)",
+        "パターン1 (コース1単独: 多ファイル結合)",
+        "パターン2 (コース2単独: 1100p Append 9x)",
+        "パターン3 (コース1 + 3: 結合 + 編集)",
+        "パターン4 (コース2 + 3: 追加 + 編集)",
+        "パターン5 (コース1 + 4: 結合 + 画面回転)",
+        "パターン6 (コース2 + 4: 追加 + 画面回転)",
+        "パターン7 (コース1 + 5: 結合 + 折りたたみ)",
+        "パターン8 (コース2 + 5: 追加 + 折りたたみ)",
+        "パターン9 (フルコンビネーション A)",
+        "パターン10 (フルコンビネーション B)"
+    )
     val enduranceProgress by viewModel.enduranceProgress.collectAsState()
     val enduranceStatusMessage by viewModel.enduranceStatusMessage.collectAsState()
 
@@ -105,6 +120,36 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             
+                            Text(
+                                "テストコース・パターン選択:",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Box(modifier = Modifier.fillMaxWidth()) {
+                                OutlinedButton(
+                                    onClick = { courseDropdownExpanded = true },
+                                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
+                                    colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onSurface)
+                                ) {
+                                    Text(courseOptions[selectedCourseIndex], style = MaterialTheme.typography.bodyMedium)
+                                }
+                                DropdownMenu(
+                                    expanded = courseDropdownExpanded,
+                                    onDismissRequest = { courseDropdownExpanded = false },
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    courseOptions.forEachIndexed { index, option ->
+                                        DropdownMenuItem(
+                                            text = { Text(option, style = MaterialTheme.typography.bodyMedium) },
+                                            onClick = {
+                                                selectedCourseIndex = index
+                                                courseDropdownExpanded = false
+                                            }
+                                        )
+                                    }
+                                }
+                            }
+
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -129,7 +174,7 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                                     if (isRunning) {
                                         viewModel.stopEnduranceTest()
                                     } else {
-                                        viewModel.startEnduranceTest(enduranceMinutes)
+                                        viewModel.startEnduranceTest(enduranceMinutes, selectedCourseIndex)
                                         viewModel.closeSettingsDialog()
                                     }
                                 },
@@ -155,21 +200,6 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
 
                             enduranceStatusMessage?.let { msg ->
                                 Text(msg, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
-                            }
-
-                            Spacer(Modifier.height(4.dp))
-                            Button(
-                                onClick = {
-                                    viewModel.startCourse1Loop(enduranceMinutes)
-                                    viewModel.closeSettingsDialog()
-                                },
-                                colors = ButtonDefaults.buttonColors(
-                                    containerColor = MaterialTheme.colorScheme.secondary,
-                                    contentColor = MaterialTheme.colorScheme.onSecondary
-                                ),
-                                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
-                            ) {
-                                Text("コース1（多ファイル結合）をループ実行 (${enduranceMinutes}分)", style = MaterialTheme.typography.bodyLarge)
                             }
                         }
                     }
