@@ -154,8 +154,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep1_es",
             title = "EL CLUB DE PRUEBA EPISODIO 1",
-            fileName = "tameshibu_episode1_es.pdf",
-            url = "${BASE_URL}tameshibu_episode1_es.pdf",
+            fileName = "tameshibu_episode1_2_es.pdf",
+            url = "${BASE_URL}tameshibu_episode1_2_es.pdf",
             fileSize = "23MB",
             languageCode = "es",
             languageDisplayName = "Spanish"
@@ -163,8 +163,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep2_es",
             title = "EL CLUB DE PRUEBA EPISODIO 2",
-            fileName = "tameshibu_episode2_es.pdf",
-            url = "${BASE_URL}tameshibu_episode2_es.pdf",
+            fileName = "tameshibu_episode2_2_es.pdf",
+            url = "${BASE_URL}tameshibu_episode2_2_es.pdf",
             fileSize = "24MB",
             languageCode = "es",
             languageDisplayName = "Spanish"
@@ -172,8 +172,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep1_it",
             title = "IL CLUB DI PROVA EPISODIO 1",
-            fileName = "tameshibu_episode1_it.pdf",
-            url = "${BASE_URL}tameshibu_episode1_it.pdf",
+            fileName = "tameshibu_episode1_2_it.pdf",
+            url = "${BASE_URL}tameshibu_episode1_2_it.pdf",
             fileSize = "23MB",
             languageCode = "it",
             languageDisplayName = "Italian"
@@ -181,8 +181,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep2_it",
             title = "IL CLUB DI PROVA EPISODIO 2",
-            fileName = "tameshibu_episode2_it.pdf",
-            url = "${BASE_URL}tameshibu_episode2_it.pdf",
+            fileName = "tameshibu_episode2_2_it.pdf",
+            url = "${BASE_URL}tameshibu_episode2_2_it.pdf",
             fileSize = "24MB",
             languageCode = "it",
             languageDisplayName = "Italian"
@@ -190,8 +190,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep1_pt",
             title = "O CLUBE DE TESTE EPISÓDIO 1",
-            fileName = "tameshibu_episode1_pt.pdf",
-            url = "${BASE_URL}tameshibu_episode1_pt.pdf",
+            fileName = "tameshibu_episode1_2_pt.pdf",
+            url = "${BASE_URL}tameshibu_episode1_2_pt.pdf",
             fileSize = "23MB",
             languageCode = "pt",
             languageDisplayName = "Portuguese"
@@ -199,8 +199,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep2_pt",
             title = "O CLUBE DE TESTE EPISÓDIO 2",
-            fileName = "tameshibu_episode2_pt.pdf",
-            url = "${BASE_URL}tameshibu_episode2_pt.pdf",
+            fileName = "tameshibu_episode2_2_pt.pdf",
+            url = "${BASE_URL}tameshibu_episode2_2_pt.pdf",
             fileSize = "24MB",
             languageCode = "pt",
             languageDisplayName = "Portuguese"
@@ -208,8 +208,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep1_vi",
             title = "CÂU LẠC BỘ THỬ NGHIỆM TẬP 1",
-            fileName = "tameshibu_episode1_vi.pdf",
-            url = "${BASE_URL}tameshibu_episode1_vi.pdf",
+            fileName = "tameshibu_episode1_2_vi.pdf",
+            url = "${BASE_URL}tameshibu_episode1_2_vi.pdf",
             fileSize = "23MB",
             languageCode = "vi",
             languageDisplayName = "Vietnamese"
@@ -217,8 +217,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep2_vi",
             title = "CÂU LẠC BỘ THỬ NGHIỆM TẬP 2",
-            fileName = "tameshibu_episode2_vi.pdf",
-            url = "${BASE_URL}tameshibu_episode2_vi.pdf",
+            fileName = "tameshibu_episode2_2_vi.pdf",
+            url = "${BASE_URL}tameshibu_episode2_2_vi.pdf",
             fileSize = "24MB",
             languageCode = "vi",
             languageDisplayName = "Vietnamese"
@@ -226,8 +226,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep1_id",
             title = "KLUB PERCOBAAN EPISODE 1",
-            fileName = "tameshibu_episode1_id.pdf",
-            url = "${BASE_URL}tameshibu_episode1_id.pdf",
+            fileName = "tameshibu_episode1_2_id.pdf",
+            url = "${BASE_URL}tameshibu_episode1_2_id.pdf",
             fileSize = "23MB",
             languageCode = "id",
             languageDisplayName = "Indonesian"
@@ -235,8 +235,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep2_id",
             title = "KLUB PERCOBAAN EPISODE 2",
-            fileName = "tameshibu_episode2_id.pdf",
-            url = "${BASE_URL}tameshibu_episode2_id.pdf",
+            fileName = "tameshibu_episode2_2_id.pdf",
+            url = "${BASE_URL}tameshibu_episode2_2_id.pdf",
             fileSize = "24MB",
             languageCode = "id",
             languageDisplayName = "Indonesian"
@@ -244,8 +244,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep1_fil",
             title = "ANG SUBOK CLUB EPISODE 1",
-            fileName = "tameshibu_episode1_tl.pdf",
-            url = "${BASE_URL}tameshibu_episode1_tl.pdf",
+            fileName = "tameshibu_episode1_2_fil.pdf",
+            url = "${BASE_URL}tameshibu_episode1_2_fil.pdf",
             fileSize = "23MB",
             languageCode = "fil",
             languageDisplayName = "Filipino"
@@ -253,8 +253,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep2_fil",
             title = "ANG SUBOK CLUB EPISODE 2",
-            fileName = "tameshibu_episode2_tl.pdf",
-            url = "${BASE_URL}tameshibu_episode2_tl.pdf",
+            fileName = "tameshibu_episode2_2_fil.pdf",
+            url = "${BASE_URL}tameshibu_episode2_2_fil.pdf",
             fileSize = "24MB",
             languageCode = "fil",
             languageDisplayName = "Filipino"
@@ -262,8 +262,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep1_ne",
             title = "परीक्षण क्लब एपिसोड १",
-            fileName = "tameshibu_episode1_ne.pdf",
-            url = "${BASE_URL}tameshibu_episode1_ne.pdf",
+            fileName = "tameshibu_episode1_2_ne.pdf",
+            url = "${BASE_URL}tameshibu_episode1_2_ne.pdf",
             fileSize = "23MB",
             languageCode = "ne",
             languageDisplayName = "Nepali"
@@ -271,8 +271,8 @@ object SamplePdfCatalog {
         SamplePdfItem(
             id = "ep2_ne",
             title = "परीक्षण क्लब एपिसोड २",
-            fileName = "tameshibu_episode2_ne.pdf",
-            url = "${BASE_URL}tameshibu_episode2_ne.pdf",
+            fileName = "tameshibu_episode2_2_ne.pdf",
+            url = "${BASE_URL}tameshibu_episode2_2_ne.pdf",
             fileSize = "24MB",
             languageCode = "ne",
             languageDisplayName = "Nepali"
