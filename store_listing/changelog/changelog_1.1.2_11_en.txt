@@ -1,0 +1,4 @@
+v1.1.2
+- Improved stability for long-running endurance and stress tests (Patterns 1-10).
+- Added 1-second delayed loading indicator, cancellation support, and safe state rollback for edit actions.
+- Added differential downloading for test PDFs and samples.
