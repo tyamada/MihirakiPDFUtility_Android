@@ -42,6 +42,7 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
     )
     val enduranceProgress by viewModel.enduranceProgress.collectAsState()
     val enduranceStatusMessage by viewModel.enduranceStatusMessage.collectAsState()
+    val downloadStatus by viewModel.downloadTestFilesStatus.collectAsState()
 
     androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
         Surface(
@@ -98,6 +99,21 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
                     ) {
                         Text(stringResource(R.string.view_app_logs), style = MaterialTheme.typography.bodyLarge)
+                    }
+
+                    Button(
+                        onClick = { viewModel.downloadAllTestFiles() },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondary,
+                            contentColor = MaterialTheme.colorScheme.onSecondary
+                        ),
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                    ) {
+                        Text("☁️ テスト用PDF・サンプルを一括ダウンロード", style = MaterialTheme.typography.bodyLarge)
+                    }
+
+                    downloadStatus?.let { status ->
+                        Text(status, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
                     }
 
                     // 3. 長時間ランニング耐久・ストレステスト

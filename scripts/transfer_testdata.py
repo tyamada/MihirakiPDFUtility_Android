@@ -2,14 +2,15 @@
 """
 MihirakiPDFUtility Test Data Transfer Script
 Dynamically parses SamplePdfCatalog.kt to extract sample PDF filenames,
-combines them with load/search test PDFs, cleans up device testdata,
-and transfers them from PC/Mac testdata/ to the connected Android device via ADB.
+combines them with load/search test PDFs, downloads missing files from GitHub Pages if needed,
+cleans up device testdata, and transfers them from PC/Mac testdata/ to the connected Android device via ADB.
 """
 
 import os
 import sys
 import subprocess
 import re
+import urllib.request
 from pathlib import Path
 
 def get_env():
@@ -47,10 +48,7 @@ def get_sample_filenames_from_catalog(root_dir):
 def main():
     root_dir = Path(__file__).resolve().parent.parent
     testdata_dir = root_dir / 'testdata'
-
-    if not testdata_dir.exists():
-        print(f"ERROR: Local testdata/ directory not found at {testdata_dir}", file=sys.stderr)
-        sys.exit(1)
+    testdata_dir.mkdir(parents=True, exist_ok=True)
 
     devices = get_connected_devices()
     if not devices:
@@ -79,7 +77,18 @@ def main():
     success_count = 0
     for filename in all_target_filenames:
         local_file = testdata_dir / filename
-        if local_file.exists() and local_file.is_file():
+        if not local_file.exists() or local_file.stat().st_size == 0:
+            print(f"File {filename} not found locally. Downloading from GitHub Pages...")
+            url = f"https://tyamada.github.io/MihirakiPDFViewer_Android/testdata/{filename}"
+            if filename in catalog_filenames:
+                url = f"https://tyamada.github.io/MihirakiPDFViewer_Android/sample/{filename}"
+            try:
+                urllib.request.urlretrieve(url, str(local_file))
+                print(f"  Downloaded successfully: {filename}")
+            except Exception as e:
+                print(f"  WARNING: Failed to download {filename} from {url}: {e}")
+
+        if local_file.exists() and local_file.is_file() and local_file.stat().st_size > 0:
             dest_path = f"{device_test_dir}/{filename}"
             print(f"Pushing {filename} -> {dest_path} ...")
             code, out = run_cmd(['adb', '-s', device_serial, 'push', str(local_file), dest_path])
@@ -88,7 +97,7 @@ def main():
             else:
                 print(f"WARNING: Failed to push {filename}:\n{out}")
         else:
-            print(f"NOTICE: Catalog file {filename} not found locally in testdata/.")
+            print(f"NOTICE: Skipping {filename} (file does not exist locally).")
 
     print(f"\n=== Dynamic Transfer Completed ===")
     print(f"Successfully transferred {success_count} / {len(all_target_filenames)} target test files to device storage.")
