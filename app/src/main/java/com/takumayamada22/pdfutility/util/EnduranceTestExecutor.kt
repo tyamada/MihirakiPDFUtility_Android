@@ -187,5 +187,9 @@ class EnduranceTestExecutor(
         testJob?.cancel()
         _enduranceProgress.value = null
         _enduranceStatusMessage.value = "テスト停止リクエスト送信中..."
+        AppLogger.log(application, "INFO", "Endurance test was interrupted/stopped by user.")
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModelActions.openSettingsDialog(SettingsDialogType.DIAGNOSTICS)
+        }
     }
 }
