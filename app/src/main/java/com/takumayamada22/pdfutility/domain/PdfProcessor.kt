@@ -16,9 +16,10 @@ import java.io.OutputStream
 
 class PdfProcessor {
     private var document: PDDocument? = null
+    private val appendedDocs = mutableListOf<PDDocument>()
 
     fun load(inputStream: InputStream, password: String? = null): Int {
-        document?.close()
+        close()
         document = try {
             if (password != null) {
                 PDDocument.load(inputStream, password)
@@ -32,7 +33,7 @@ class PdfProcessor {
     }
 
     fun createPdfFromImages(imageUris: List<Uri>, context: android.content.Context): Int {
-        document?.close()
+        close()
         val newDoc = PDDocument()
         for (uri in imageUris) {
             try {
@@ -65,24 +66,22 @@ class PdfProcessor {
         } else {
             PDDocument.load(inputStream)
         }
+        appendedDocs.add(appendDoc)
         
         val newPageCount = appendDoc.numberOfPages
-        // We don't actually append to 'document' yet because PdfViewModel manages the state 
-        // as a list of pages. We just need to be able to save it later.
-        // Actually, PdfProcessor.save uses 'document' as the source for 'originalIndex'.
-        // This won't work for multiple documents. 
-        // Let's refine the strategy: PdfProcessor should hold a list of documents or we merge them now.
-        
         for (i in 0 until newPageCount) {
             currentDoc.importPage(appendDoc.getPage(i))
         }
-        appendDoc.close()
         return currentDoc.numberOfPages
     }
 
     fun close() {
         document?.close()
         document = null
+        appendedDocs.forEach { 
+            try { it.close() } catch (_: Exception) {} 
+        }
+        appendedDocs.clear()
     }
 
     fun getPageCount(): Int = document?.numberOfPages ?: 0
