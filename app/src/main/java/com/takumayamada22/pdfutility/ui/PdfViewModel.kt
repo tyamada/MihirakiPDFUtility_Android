@@ -19,6 +19,7 @@ import com.takumayamada22.pdfutility.domain.LoadPdfUseCase
 import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.domain.ThumbnailProvider
 import com.takumayamada22.pdfutility.util.AppLogger
+import com.takumayamada22.pdfutility.util.EnduranceTestExecutor
 import com.takumayamada22.pdfutility.util.LongRunningTestManager
 import com.takumayamada22.pdfutility.util.LongRunningTestProgress
 import com.takumayamada22.pdfutility.util.TestPdfGenerator
@@ -547,8 +548,8 @@ class PdfViewModel(
                             showCover = metadata["layout"]?.let { it == "TwoColumnRight" || it == "TwoPageRight" } ?: false,
                             savePassword = "",
                             isSamplePdf = isSample,
-                            ccByAcknowledged = isEnduranceRunning.get(),
-                            showCcByDialog = isSample && !isEnduranceRunning.get()
+                            ccByAcknowledged = enduranceExecutor.isRunning,
+                            showCcByDialog = isSample && !enduranceExecutor.isRunning
                         )
                         AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: $pageCount, location: $locationDesc")
                         // Clear history on new load
@@ -1370,180 +1371,30 @@ class PdfViewModel(
         return "Local Device"
     }
 
-    private val _enduranceProgress = MutableStateFlow<LongRunningTestProgress?>(null)
-    val enduranceProgress: StateFlow<LongRunningTestProgress?> = _enduranceProgress.asStateFlow()
+    private val enduranceExecutor = EnduranceTestExecutor(
+        application = getApplication(),
+        viewModelActions = object : EnduranceTestExecutor.ViewModelActions {
+            override fun loadPdf(uri: Uri) { this@PdfViewModel.loadPdf(uri) }
+            override fun appendPdf(uri: Uri) { this@PdfViewModel.appendPdf(uri) }
+            override fun selectAll() { this@PdfViewModel.selectAll() }
+            override fun rotateSelected(degrees: Int) { this@PdfViewModel.rotateSelected(degrees) }
+            override fun cropSelectedPages(fraction: Float) { this@PdfViewModel.cropSelectedPages(fraction) }
+            override fun toggleMihirakiView() { this@PdfViewModel.toggleMihirakiView() }
+            override fun toggleRtl() { this@PdfViewModel.toggleRtl() }
+            override fun openSettingsDialog(type: SettingsDialogType) { this@PdfViewModel.openSettingsDialog(type) }
+            override fun isProcessing(): Boolean = _uiState.value.isLoading || _uiState.value.isAppending
+        }
+    )
 
-    private val _enduranceStatusMessage = MutableStateFlow<String?>(null)
-    val enduranceStatusMessage: StateFlow<String?> = _enduranceStatusMessage.asStateFlow()
-
-    private val isEnduranceRunning = java.util.concurrent.atomic.AtomicBoolean(false)
+    val enduranceProgress: StateFlow<LongRunningTestProgress?> = enduranceExecutor.enduranceProgress
+    val enduranceStatusMessage: StateFlow<String?> = enduranceExecutor.enduranceStatusMessage
 
     fun startEnduranceTest(durationMinutes: Int, selectedCourse: Int = 0) {
-        val context = getApplication<Application>()
-        if (isEnduranceRunning.get()) return
-        isEnduranceRunning.set(true)
-        _enduranceStatusMessage.value = "耐久テスト開始 (コース: $selectedCourse)..."
-
-        viewModelScope.launch {
-            val targetMillis = durationMinutes * 60 * 1000L
-            val startTime = System.currentTimeMillis()
-            var iteration = 0
-            val runtime = Runtime.getRuntime()
-
-            try {
-                AppLogger.log(context, "INFO", "Starting Endurance Test (Course: $selectedCourse) for $durationMinutes minutes.")
-
-                while (isEnduranceRunning.get() && (System.currentTimeMillis() - startTime) < targetMillis) {
-                    iteration++
-                    val elapsedMs = System.currentTimeMillis() - startTime
-                    val elapsedMin = (elapsedMs / (60 * 1000L)).toInt()
-
-                    val progress = LongRunningTestProgress(
-                        isRunning = true,
-                        elapsedMinutes = elapsedMin,
-                        targetMinutes = durationMinutes,
-                        currentIteration = iteration,
-                        currentCourse = "Course Mode: $selectedCourse (#$iteration)",
-                        memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
-                        statusSummary = "Running Course $selectedCourse"
-                    )
-                    _enduranceProgress.value = progress
-
-                    // Prepare PDF files on IO thread (Strict file check without auto-generation)
-                    val filesToProcess = withContext(Dispatchers.IO) {
-                        try {
-                            val testDataDir = File(context.getExternalFilesDir(null), "testdata")
-                            val fallbackDir = File(context.filesDir, "testdata")
-                            val activeDir = if (testDataDir.exists() && testDataDir.list()?.isNotEmpty() == true) testDataDir else fallbackDir
-
-                            when (selectedCourse) {
-                                1 -> { // Course 1 Only: 14 sample manga PDFs (tameshibu_*.pdf)
-                                    val mangaFiles = activeDir.listFiles { file -> file.name.startsWith("tameshibu_") && file.name.endsWith(".pdf") }?.sortedBy { it.name } ?: emptyList()
-                                    if (mangaFiles.isEmpty()) {
-                                        throw java.io.FileNotFoundException("Required test files (tameshibu_*.pdf manga episode PDFs) not found in device testdata folder (${activeDir.absolutePath}). Please transfer test files from PC/Mac (testdata/) via ADB.")
-                                    }
-                                    mangaFiles
-                                }
-                                2 -> { // Course 2 Only: load_test_1100_pages.pdf
-                                    val loadFile = File(activeDir, "load_test_1100_pages.pdf")
-                                    if (!loadFile.exists()) {
-                                        throw java.io.FileNotFoundException("Required test file (load_test_1100_pages.pdf) not found in device testdata folder (${activeDir.absolutePath}). Please transfer test files from PC/Mac (testdata/) via ADB.")
-                                    }
-                                    listOf(loadFile)
-                                }
-                                else -> { // All Courses / Patterns 1-10
-                                    val f1 = TestPdfGenerator.createFunctionalTestPdf(context)
-                                    listOfNotNull(f1)
-                                }
-                            }
-                        } catch (e: Exception) {
-                            AppLogger.log(context, "FATAL", "Exception during test file preparation: ${e.message}\n${e.stackTraceToString()}")
-                            throw e
-                        }
-                    }
-
-                    if (!isEnduranceRunning.get()) break
-
-                    // Execute UI actions on Main thread with strict error catching
-                    when (selectedCourse) {
-                        1 -> { // Course 1: Merge ALL sample manga PDFs (all 14 files) via PdfProcessor with immediate stream closure
-                            val mergedFile = withContext(Dispatchers.IO) {
-                                val out = File(context.cacheDir, "merged_course1_${System.currentTimeMillis()}.pdf")
-                                val processor = PdfProcessor()
-                                try {
-                                    processor.load(filesToProcess[0].inputStream())
-                                    for (i in 1 until filesToProcess.size) {
-                                        processor.append(filesToProcess[i].inputStream())
-                                    }
-                                    FileOutputStream(out).use { fos ->
-                                        processor.save(fos)
-                                    }
-                                } finally {
-                                    processor.close()
-                                }
-                                out
-                            }
-                            withContext(Dispatchers.Main) {
-                                if (!isEnduranceRunning.get()) return@withContext
-                                if (mergedFile.exists()) {
-                                    loadPdf(Uri.fromFile(mergedFile))
-                                }
-                            }
-                            kotlinx.coroutines.delay(1000L)
-                        }
-                        2 -> { // Course 2: load_test_1100_pages.pdf appended 9 times via PdfProcessor
-                            val mergedFile = withContext(Dispatchers.IO) {
-                                val out = File(context.cacheDir, "merged_course2_${System.currentTimeMillis()}.pdf")
-                                val processor = PdfProcessor()
-                                try {
-                                    processor.load(filesToProcess[0].inputStream())
-                                    repeat(9) {
-                                        processor.append(filesToProcess[0].inputStream())
-                                    }
-                                    FileOutputStream(out).use { fos ->
-                                        processor.save(fos)
-                                    }
-                                } finally {
-                                    processor.close()
-                                }
-                                out
-                            }
-                            withContext(Dispatchers.Main) {
-                                if (!isEnduranceRunning.get()) return@withContext
-                                if (mergedFile.exists()) {
-                                    loadPdf(Uri.fromFile(mergedFile))
-                                }
-                            }
-                            kotlinx.coroutines.delay(1000L)
-                        }
-                        else -> { // Patterns 1-10 loop
-                            withContext(Dispatchers.Main) {
-                                if (!isEnduranceRunning.get()) return@withContext
-                                val patternIndex = (iteration - 1) % 10
-                                when (patternIndex) {
-                                    0 -> { loadPdf(Uri.fromFile(filesToProcess[0])); }
-                                    1 -> { loadPdf(Uri.fromFile(filesToProcess[0])); selectAll(); rotateSelected(90) }
-                                    2 -> { loadPdf(Uri.fromFile(filesToProcess[0])); selectAll(); cropSelectedPages(0.1f) }
-                                    3 -> { toggleMihirakiView(); toggleRtl() }
-                                    else -> { loadPdf(Uri.fromFile(filesToProcess[0])) }
-                                }
-                            }
-                            kotlinx.coroutines.delay(1000L)
-                        }
-                    }
-
-                    // Actively wait for processing indicator (isLoading / isAppending) to finish before next operation
-                    while (isEnduranceRunning.get() && (_uiState.value.isLoading || _uiState.value.isAppending)) {
-                        kotlinx.coroutines.delay(100L)
-                    }
-                    kotlinx.coroutines.delay(1000L)
-                }
-
-                val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
-                val summary = "Endurance Test completed successfully. Final memory: ${finalMemory}MB."
-                AppLogger.log(context, "INFO", summary)
-                _enduranceProgress.value = null
-                _enduranceStatusMessage.value = summary
-                openSettingsDialog(SettingsDialogType.DIAGNOSTICS)
-            } catch (e: Exception) {
-                val errorMsg = "FATAL ERROR: ${e.message}"
-                AppLogger.log(context, "FATAL", "$errorMsg\n${e.stackTraceToString()}")
-                _enduranceProgress.value = null
-                _enduranceStatusMessage.value = errorMsg
-                isEnduranceRunning.set(false)
-                openSettingsDialog(SettingsDialogType.DIAGNOSTICS)
-            } finally {
-                isEnduranceRunning.set(false)
-                _enduranceProgress.value = null
-                TestPdfGenerator.cleanupTestPdfs(context)
-            }
-        }
+        enduranceExecutor.startEnduranceTest(durationMinutes, selectedCourse, viewModelScope)
     }
 
     fun stopEnduranceTest() {
-        isEnduranceRunning.set(false)
-        _enduranceProgress.value = null
-        _enduranceStatusMessage.value = "テスト停止リクエスト送信中..."
+        enduranceExecutor.stopEnduranceTest()
     }
 
     override fun onCleared() {
