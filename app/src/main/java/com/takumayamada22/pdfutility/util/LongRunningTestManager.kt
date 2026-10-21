@@ -6,10 +6,12 @@ import android.os.Looper
 import android.util.Log
 import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.ui.PageState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.math.max
 
 data class LongRunningTestProgress(
     val isRunning: Boolean,
@@ -26,6 +28,9 @@ object LongRunningTestManager {
     private val isRunning = AtomicBoolean(false)
     private val shouldStop = AtomicBoolean(false)
 
+    private val _progressFlow = MutableStateFlow<LongRunningTestProgress?>(null)
+    val progressFlow: StateFlow<LongRunningTestProgress?> = _progressFlow.asStateFlow()
+
     interface TestCallback {
         fun onProgress(progress: LongRunningTestProgress)
         fun onCompleted(summary: String)
@@ -36,6 +41,7 @@ object LongRunningTestManager {
 
     fun stopTest() {
         shouldStop.set(true)
+        _progressFlow.value = null
     }
 
     fun startEnduranceTest(
@@ -57,7 +63,6 @@ object LongRunningTestManager {
 
         Thread {
             var iteration = 0
-            var lastError: String? = null
             val runtime = Runtime.getRuntime()
 
             try {
@@ -66,112 +71,80 @@ object LongRunningTestManager {
                 while (!shouldStop.get() && (System.currentTimeMillis() - startTime) < targetMillis) {
                     iteration++
                     val elapsedMs = System.currentTimeMillis() - startTime
-                    val elapsedMin = (elapsedMs / (60 * 1050L)).toInt()
+                    val elapsedMin = (elapsedMs / (60 * 1000L)).toInt()
 
-                    // Course 1: Multi-file Merge Stress Test
-                    handler.post {
-                        callback?.onProgress(
-                            LongRunningTestProgress(
-                                isRunning = true,
-                                elapsedMinutes = (elapsedMs / 60000).toInt(),
-                                targetMinutes = durationMinutes,
-                                currentIteration = iteration,
-                                currentCourse = "Course 1: Multi-File Merge Stress",
-                                memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
-                                statusSummary = "Running Course 1 (Merge)"
-                            )
-                        )
-                    }
+                    val progress = LongRunningTestProgress(
+                        isRunning = true,
+                        elapsedMinutes = elapsedMin,
+                        targetMinutes = durationMinutes,
+                        currentIteration = iteration,
+                        currentCourse = "Course 1: Multi-File Merge Stress",
+                        memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
+                        statusSummary = "Running Course 1 (Merge)"
+                    )
+                    _progressFlow.value = progress
+                    handler.post { callback?.onProgress(progress) }
+
                     runMergeStressTest(context)
-
                     if (shouldStop.get()) break
 
-                    // Course 2: High-Page Load & 9x Append Stress Test
-                    handler.post {
-                        callback?.onProgress(
-                            LongRunningTestProgress(
-                                isRunning = true,
-                                elapsedMinutes = (elapsedMs / 60000).toInt(),
-                                targetMinutes = durationMinutes,
-                                currentIteration = iteration,
-                                currentCourse = "Course 2: High-Page 1100-Pages 9x Append Stress",
-                                memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
-                                statusSummary = "Running Course 2 (1100p Append 9x)"
-                            )
-                        )
-                    }
+                    val progress2 = progress.copy(
+                        currentCourse = "Course 2: High-Page 1100-Pages 9x Append Stress",
+                        statusSummary = "Running Course 2 (1100p Append 9x)"
+                    )
+                    _progressFlow.value = progress2
+                    handler.post { callback?.onProgress(progress2) }
+
                     runLoadAndAppendStressTest(context)
-
                     if (shouldStop.get()) break
 
-                    // Course 3: Repeated Editing & Export Stress Test
-                    handler.post {
-                        callback?.onProgress(
-                            LongRunningTestProgress(
-                                isRunning = true,
-                                elapsedMinutes = (elapsedMs / 60000).toInt(),
-                                targetMinutes = durationMinutes,
-                                currentIteration = iteration,
-                                currentCourse = "Course 3: Repeated Editing & Export Stress",
-                                memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
-                                statusSummary = "Running Course 3 (Editing & Export)"
-                            )
-                        )
-                    }
+                    val progress3 = progress.copy(
+                        currentCourse = "Course 3: Repeated Editing & Export Stress",
+                        statusSummary = "Running Course 3 (Editing & Export)"
+                    )
+                    _progressFlow.value = progress3
+                    handler.post { callback?.onProgress(progress3) }
+
                     runEditingStressTest(context)
-
                     if (shouldStop.get()) break
 
-                    // Course 4: Orientation Rotation Simulation
-                    handler.post {
-                        callback?.onProgress(
-                            LongRunningTestProgress(
-                                isRunning = true,
-                                elapsedMinutes = (elapsedMs / 60000).toInt(),
-                                targetMinutes = durationMinutes,
-                                currentIteration = iteration,
-                                currentCourse = "Course 4: Orientation Rotation Simulation",
-                                memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
-                                statusSummary = "Running Course 4 (Orientation Rotation)"
-                            )
-                        )
-                    }
+                    val progress4 = progress.copy(
+                        currentCourse = "Course 4: Orientation Rotation Simulation",
+                        statusSummary = "Running Course 4 (Orientation Rotation)"
+                    )
+                    _progressFlow.value = progress4
+                    handler.post { callback?.onProgress(progress4) }
+
                     simulateOrientationRotation(context)
-
                     if (shouldStop.get()) break
 
-                    // Course 5: Foldable Posture Simulation
-                    handler.post {
-                        callback?.onProgress(
-                            LongRunningTestProgress(
-                                isRunning = true,
-                                elapsedMinutes = (elapsedMs / 60000).toInt(),
-                                targetMinutes = durationMinutes,
-                                currentIteration = iteration,
-                                currentCourse = "Course 5: Foldable Posture Simulation",
-                                memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
-                                statusSummary = "Running Course 5 (Foldable Posture)"
-                            )
-                        )
-                    }
+                    val progress5 = progress.copy(
+                        currentCourse = "Course 5: Foldable Posture Simulation",
+                        statusSummary = "Running Course 5 (Foldable Posture)"
+                    )
+                    _progressFlow.value = progress5
+                    handler.post { callback?.onProgress(progress5) }
+
                     simulateFoldablePosture(context)
 
-                    Thread.sleep(1000L) // Small breathing pause between iterations
+                    Thread.sleep(1000L)
                 }
 
                 val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
-                val summary = "Endurance test completed successfully after $iteration iterations. Final memory: ${finalMemory}MB."
+                val summary = if (shouldStop.get()) {
+                    "Endurance test was interrupted/stopped by user after $iteration iterations."
+                } else {
+                    "Endurance test completed successfully after $iteration iterations. Final memory: ${finalMemory}MB."
+                }
                 AppLogger.log(context, "INFO", summary)
 
-                handler.post {
-                    callback?.onCompleted(summary)
-                }
+                _progressFlow.value = null
+                handler.post { callback?.onCompleted(summary) }
             } catch (e: Exception) {
                 Log.e(TAG, "Endurance test failed", e)
                 AppLogger.log(context, "ERROR", "Endurance test failed: ${e.message}")
-                handler.post {
-                    callback?.onError(e.message ?: "Unknown error")
-                }
+                _progressFlow.value = null
+                handler.post { callback?.onError(e.message ?: "Unknown error") }
             } finally {
                 isRunning.set(false)
                 shouldStop.set(false)
@@ -194,11 +167,10 @@ object LongRunningTestManager {
     }
 
     private fun runLoadAndAppendStressTest(context: Context) {
-        val loadFile = TestPdfGenerator.createLoadTestPdf(context, 100) // 100 pages for rapid stress iteration
+        val loadFile = TestPdfGenerator.createLoadTestPdf(context, 100)
         if (loadFile != null) {
             val processor = PdfProcessor()
             processor.load(loadFile.inputStream())
-            // Append 9 times
             repeat(9) {
                 processor.append(loadFile.inputStream())
             }
@@ -225,12 +197,10 @@ object LongRunningTestManager {
     }
 
     private fun simulateOrientationRotation(context: Context) {
-        // Simulate orientation rotation logging and memory check
         AppLogger.log(context, "DEBUG", "Endurance Test: Simulated orientation rotation (Portrait <-> Landscape)")
     }
 
     private fun simulateFoldablePosture(context: Context) {
-        // Simulate foldable posture state change (Half-opened / Fully opened / Closed)
         AppLogger.log(context, "DEBUG", "Endurance Test: Simulated foldable posture change (Folded <-> Unfolded)")
     }
 }
