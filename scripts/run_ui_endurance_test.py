@@ -20,6 +20,7 @@ def get_env():
     env['ANDROID_HOME'] = sdk_path
     env['ANDROID_SDK_ROOT'] = sdk_path
     env['JAVA_HOME'] = jbr_path
+    env['HOME'] = os.path.expanduser('~')
     return env
 
 def run_cmd(cmd, cwd=None):
@@ -62,7 +63,8 @@ def main():
     test_cmd = [
         gradlew,
         'app:connectedDebugAndroidTest',
-        '-Pandroid.testInstrumentationRunnerArguments.class=com.takumayamada22.pdfutility.UiEnduranceTest'
+        '-Pandroid.testInstrumentationRunnerArguments.class=com.takumayamada22.pdfutility.UiEnduranceTest',
+        f'-Pandroid.testInstrumentationRunnerArguments.duration={args.duration}'
     ]
 
     print(f"\n[RUNNING] Executing Instrumented UI Endurance Tests via Gradle...")
