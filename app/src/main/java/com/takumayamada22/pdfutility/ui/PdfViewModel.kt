@@ -1405,65 +1405,82 @@ class PdfViewModel(
 
     fun downloadAllTestFiles() {
         val context = getApplication<Application>()
-        _downloadTestFilesStatus.value = "テスト用PDFのダウンロードを開始..."
+        _downloadTestFilesStatus.value = "保存済みファイルを確認中..."
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val sampleRepo = SamplePdfRepository(context)
-                val totalItems = SamplePdfCatalog.items.size
-
-                for ((index, item) in SamplePdfCatalog.items.withIndex()) {
-                    if (!sampleRepo.isDownloaded(item.fileName)) {
-                        _downloadTestFilesStatus.value = "サンプルPDF (${index + 1}/$totalItems): ${item.fileName}"
-                        try {
-                            val url = URL(item.url)
-                            val conn = url.openConnection() as javax.net.ssl.HttpsURLConnection
-                            conn.connect()
-                            if (conn.responseCode == 200) {
-                                val targetDir = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "MihirakiSamplePdfs")
-                                if (!targetDir.exists()) targetDir.mkdirs()
-                                val targetFile = File(targetDir, item.fileName)
-                                conn.inputStream.use { input ->
-                                    FileOutputStream(targetFile).use { output ->
-                                        input.copyTo(output)
-                                    }
-                                }
-                            }
-                        } catch (e: Exception) {
-                            AppLogger.log(context, "WARN", "Failed to download sample ${item.fileName}: ${e.message}")
-                        }
-                    }
-                }
-
+                
+                // Check missing sample catalog PDFs
+                val missingSamples = SamplePdfCatalog.items.filter { !sampleRepo.isDownloaded(it.fileName) }
+                
+                // Check missing testdata files
                 val testDataDir = File(context.getExternalFilesDir(null), "testdata")
                 if (!testDataDir.exists()) testDataDir.mkdirs()
-
                 val extraFiles = listOf("load_test_1100_pages.pdf", "search_test_600_hits.pdf", "search_test_600_hits_en.pdf")
-                val testDataUrlBase = "https://tyamada.github.io/MihirakiPDFViewer_Android/testdata/"
+                val missingExtraFiles = extraFiles.filter { fileName ->
+                    val f = File(testDataDir, fileName)
+                    !f.exists() || f.length() == 0L
+                }
 
-                for ((index, fileName) in extraFiles.withIndex()) {
-                    val targetFile = File(testDataDir, fileName)
-                    if (!targetFile.exists() || targetFile.length() == 0L) {
-                        _downloadTestFilesStatus.value = "テストデータ (${index + 1}/${extraFiles.size}): $fileName"
-                        try {
-                            val url = URL("$testDataUrlBase$fileName")
-                            val conn = url.openConnection() as javax.net.ssl.HttpsURLConnection
-                            conn.connect()
-                            if (conn.responseCode == 200) {
-                                conn.inputStream.use { input ->
-                                    FileOutputStream(targetFile).use { output ->
-                                        input.copyTo(output)
-                                    }
+                val totalMissing = missingSamples.size + missingExtraFiles.size
+                if (totalMissing == 0) {
+                    _downloadTestFilesStatus.value = "すべてのテスト用PDF・サンプルは既に保存済みです（追加ダウンロード不要）。"
+                    AppLogger.log(context, "INFO", "All test files and sample PDFs are already downloaded. Skipped.")
+                    return@launch
+                }
+
+                _downloadTestFilesStatus.value = "不足しているファイル (${totalMissing}件) のみダウンロードを開始..."
+
+                var downloadedCount = 0
+
+                // 1. Download missing sample catalog PDFs
+                for ((_, item) in missingSamples.withIndex()) {
+                    downloadedCount++
+                    _downloadTestFilesStatus.value = "サンプルPDFダウンロード ($downloadedCount/$totalMissing): ${item.fileName}"
+                    try {
+                        val url = URL(item.url)
+                        val conn = url.openConnection() as javax.net.ssl.HttpsURLConnection
+                        conn.connect()
+                        if (conn.responseCode == 200) {
+                            val targetDir = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "MihirakiSamplePdfs")
+                            if (!targetDir.exists()) targetDir.mkdirs()
+                            val targetFile = File(targetDir, item.fileName)
+                            conn.inputStream.use { input ->
+                                FileOutputStream(targetFile).use { output ->
+                                    input.copyTo(output)
                                 }
                             }
-                        } catch (e: Exception) {
-                            AppLogger.log(context, "WARN", "Failed to download test file $fileName: ${e.message}")
                         }
+                    } catch (e: Exception) {
+                        AppLogger.log(context, "WARN", "Failed to download sample ${item.fileName}: ${e.message}")
                     }
                 }
 
-                _downloadTestFilesStatus.value = "すべてのテスト用PDF・サンプルのダウンロードが完了しました！"
-                AppLogger.log(context, "INFO", "Successfully downloaded all test files and sample PDFs from GitHub Pages.")
+                // 2. Download missing extra testdata files
+                val testDataUrlBase = "https://tyamada.github.io/MihirakiPDFViewer_Android/testdata/"
+                for ((index, fileName) in missingExtraFiles.withIndex()) {
+                    downloadedCount++
+                    _downloadTestFilesStatus.value = "テストデータダウンロード ($downloadedCount/$totalMissing): $fileName"
+                    try {
+                        val url = URL("$testDataUrlBase$fileName")
+                        val conn = url.openConnection() as javax.net.ssl.HttpsURLConnection
+                        conn.connect()
+                        if (conn.responseCode == 200) {
+                            val targetFile = File(testDataDir, fileName)
+                            conn.inputStream.use { input ->
+                                FileOutputStream(targetFile).use { output ->
+                                    input.copyTo(output)
+                                }
+                            }
+                        }
+                    } catch (e: Exception) {
+                        AppLogger.log(context, "WARN", "Failed to download test file $fileName: ${e.message}")
+                    }
+                }
+
+                _downloadTestFilesStatus.value = "不足していた ${totalMissing} 件のファイルのダウンロードが完了しました！"
+                AppLogger.log(context, "INFO", "Successfully downloaded $totalMissing missing test files.")
             } catch (e: Exception) {
                 _downloadTestFilesStatus.value = "ダウンロードエラー: ${e.message}"
                 AppLogger.log(context, "ERROR", "Failed to download test files: ${e.message}")
