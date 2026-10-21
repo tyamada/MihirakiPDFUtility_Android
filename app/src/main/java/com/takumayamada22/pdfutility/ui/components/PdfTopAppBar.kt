@@ -80,6 +80,7 @@ fun PdfTopAppBar(
     onDeleteClick: () -> Unit
 ) {
     val displayType = uiState.buttonDisplayType
+    val isBusy = uiState.isLoading || uiState.isAppending
 
     Surface(
         modifier = Modifier.fillMaxWidth().statusBarsPadding(),
@@ -115,18 +116,21 @@ fun PdfTopAppBar(
                 if (uiState.selectedIndices.isEmpty()) {
                     ActionButton(
                         onClick = onOpen,
+                        enabled = !isBusy,
                         icon = { Icon(Icons.Default.FileOpen, contentDescription = stringResource(R.string.action_open)) },
                         text = stringResource(R.string.action_open),
                         displayType = displayType
                     )
                     ActionButton(
                         onClick = onOpenFolder,
+                        enabled = !isBusy,
                         icon = { Icon(Icons.Default.FolderOpen, contentDescription = stringResource(R.string.menu_open_folder)) },
                         text = stringResource(R.string.menu_open_folder),
                         displayType = displayType
                     )
                     ActionButton(
                         onClick = onOpenSamplePdf,
+                        enabled = !isBusy,
                         icon = { Icon(Icons.Default.Download, contentDescription = stringResource(R.string.sample_pdf)) },
                         text = stringResource(R.string.sample_pdf),
                         displayType = displayType
@@ -134,32 +138,35 @@ fun PdfTopAppBar(
                     if (uiState.pages.isNotEmpty()) {
                         ActionButton(
                             onClick = onSave,
+                            enabled = !isBusy,
                             icon = { Icon(Icons.Default.Save, contentDescription = stringResource(R.string.action_save)) },
                             text = stringResource(R.string.action_save),
                             displayType = displayType
                         )
                         ActionButton(
                             onClick = onAppend,
+                            enabled = !isBusy,
                             icon = { Icon(Icons.Default.Add, contentDescription = stringResource(R.string.action_add_pdf)) },
                             text = stringResource(R.string.action_add_pdf),
                             displayType = displayType
                         )
                         ActionButton(
                             onClick = { viewModel.undo() },
-                            enabled = uiState.canUndo,
+                            enabled = !isBusy && uiState.canUndo,
                             icon = { Icon(Icons.AutoMirrored.Filled.Undo, contentDescription = stringResource(R.string.action_undo)) },
                             text = stringResource(R.string.action_undo),
                             displayType = displayType
                         )
                         ActionButton(
                             onClick = { viewModel.redo() },
-                            enabled = uiState.canRedo,
+                            enabled = !isBusy && uiState.canRedo,
                             icon = { Icon(Icons.AutoMirrored.Filled.Redo, contentDescription = stringResource(R.string.action_redo)) },
                             text = stringResource(R.string.action_redo),
                             displayType = displayType
                         )
                         ActionButton(
                             onClick = { viewModel.toggleMihirakiView() },
+                            enabled = !isBusy,
                             icon = {
                                 Icon(
                                     Icons.Default.GridView,
@@ -171,18 +178,21 @@ fun PdfTopAppBar(
                         )
                         ActionButton(
                             onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) },
+                            enabled = !isBusy,
                             icon = { Icon(Icons.Default.Description, contentDescription = stringResource(R.string.action_property)) },
                             text = stringResource(R.string.action_property),
                             displayType = displayType
                         )
                         ActionButton(
                             onClick = { viewModel.setRightBinding() },
+                            enabled = !isBusy,
                             icon = { Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = stringResource(R.string.action_right_binding)) },
                             text = stringResource(R.string.action_right_binding),
                             displayType = displayType
                         )
                         ActionButton(
                             onClick = { viewModel.setRightBindingWithCover() },
+                            enabled = !isBusy,
                             icon = { Icon(Icons.Default.AutoStories, contentDescription = stringResource(R.string.action_right_binding_cover)) },
                             text = stringResource(R.string.action_right_binding_cover),
                             displayType = displayType
@@ -190,6 +200,7 @@ fun PdfTopAppBar(
                         if (uiState.isMihirakiView) {
                             ActionButton(
                                 onClick = { viewModel.toggleRtl() },
+                                enabled = !isBusy,
                                 icon = {
                                     Icon(
                                         if (uiState.isRtl) Icons.AutoMirrored.Filled.ArrowBack else Icons.AutoMirrored.Filled.ArrowForward,
@@ -201,9 +212,94 @@ fun PdfTopAppBar(
                             )
                         }
                     }
-
+                } else {
+                    ActionButton(
+                        onClick = { viewModel.selectAll() },
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.Default.SelectAll, contentDescription = stringResource(R.string.action_select_all)) },
+                        text = stringResource(R.string.action_select_all),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.clearSelection() },
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_clear_selection)) },
+                        text = stringResource(R.string.action_clear_selection),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.invertSelection() },
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.Default.Flip, contentDescription = stringResource(R.string.action_invert_selection)) },
+                        text = stringResource(R.string.action_invert_selection),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onExport,
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.Default.Output, contentDescription = stringResource(R.string.action_export_selected)) },
+                        text = stringResource(R.string.action_export_selected),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onAppend,
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.Default.Add, contentDescription = stringResource(R.string.action_add_pdf)) },
+                        text = stringResource(R.string.action_add_pdf),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onDeleteClick,
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.action_delete)) },
+                        text = stringResource(R.string.action_delete),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.insertBlankAfterSelected() },
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.Default.AddBox, contentDescription = stringResource(R.string.action_insert_blank)) },
+                        text = stringResource(R.string.action_insert_blank),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onSplitClick,
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.Default.ContentCut, contentDescription = stringResource(R.string.action_split_pages)) },
+                        text = stringResource(R.string.action_split_pages),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = onCropClick,
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.Default.Crop, contentDescription = stringResource(R.string.crop_title)) },
+                        text = stringResource(R.string.crop_title),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.moveSelected(-1) },
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.action_move_up)) },
+                        text = stringResource(R.string.action_move_up),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.moveSelected(1) },
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = stringResource(R.string.action_move_down)) },
+                        text = stringResource(R.string.action_move_down),
+                        displayType = displayType
+                    )
+                    ActionButton(
+                        onClick = { viewModel.rotateSelected(-90) },
+                        enabled = !isBusy,
+                        icon = { Icon(Icons.AutoMirrored.Filled.RotateLeft, contentDescription = stringResource(R.string.action_rotate_left)) },
+                        text = stringResource(R.string.action_rotate_left),
+                        displayType = displayType
+                    )
                     ActionButton(
                         onClick = { viewModel.rotateSelected(90) },
+                        enabled = !isBusy,
                         icon = { Icon(Icons.Default.RotateRight, contentDescription = stringResource(R.string.action_rotate_right)) },
                         text = stringResource(R.string.action_rotate_right),
                         displayType = displayType
