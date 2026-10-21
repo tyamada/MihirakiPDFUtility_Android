@@ -1512,6 +1512,10 @@ class PdfViewModel(
                         }
                     }
 
+                    // Actively wait for processing indicator (isLoading / isAppending) to finish before next operation
+                    while (isEnduranceRunning.get() && (_uiState.value.isLoading || _uiState.value.isAppending)) {
+                        kotlinx.coroutines.delay(100L)
+                    }
                     kotlinx.coroutines.delay(1000L)
                 }
 
