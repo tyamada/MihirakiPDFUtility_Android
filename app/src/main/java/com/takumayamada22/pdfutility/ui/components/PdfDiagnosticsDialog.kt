@@ -31,8 +31,8 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
     var showLogs by remember { mutableStateOf(false) }
     var logsText by remember { mutableStateOf("") }
     var enduranceMinutes by remember { mutableStateOf(3) }
-    var enduranceProgress by remember { mutableStateOf<LongRunningTestProgress?>(null) }
-    var enduranceStatusMessage by remember { mutableStateOf<String?>(null) }
+    val enduranceProgress by viewModel.enduranceProgress.collectAsState()
+    val enduranceStatusMessage by viewModel.enduranceStatusMessage.collectAsState()
 
     androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
         Surface(
@@ -123,23 +123,9 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                             Button(
                                 onClick = {
                                     if (isRunning) {
-                                        LongRunningTestManager.stopTest()
-                                        enduranceStatusMessage = "テスト停止リクエスト送信中..."
+                                        viewModel.stopEnduranceTest()
                                     } else {
-                                        enduranceStatusMessage = "テスト開始..."
-                                        LongRunningTestManager.startEnduranceTest(context, enduranceMinutes, object : LongRunningTestManager.TestCallback {
-                                            override fun onProgress(progress: LongRunningTestProgress) {
-                                                enduranceProgress = progress
-                                            }
-                                            override fun onCompleted(summary: String) {
-                                                enduranceProgress = null
-                                                enduranceStatusMessage = summary
-                                            }
-                                            override fun onError(error: String) {
-                                                enduranceProgress = null
-                                                enduranceStatusMessage = "エラー: $error"
-                                            }
-                                        })
+                                        viewModel.startEnduranceTest(enduranceMinutes)
                                     }
                                 },
                                 colors = ButtonDefaults.buttonColors(

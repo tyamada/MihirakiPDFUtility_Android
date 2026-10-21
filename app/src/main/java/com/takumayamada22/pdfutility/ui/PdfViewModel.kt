@@ -19,10 +19,13 @@ import com.takumayamada22.pdfutility.domain.LoadPdfUseCase
 import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.domain.ThumbnailProvider
 import com.takumayamada22.pdfutility.util.AppLogger
+import com.takumayamada22.pdfutility.util.LongRunningTestManager
+import com.takumayamada22.pdfutility.util.LongRunningTestProgress
 import androidx.documentfile.provider.DocumentFile
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
@@ -1362,6 +1365,36 @@ class PdfViewModel(
         }
 
         return "Local Device"
+    }
+
+    private val _enduranceProgress = MutableStateFlow<LongRunningTestProgress?>(null)
+    val enduranceProgress: StateFlow<LongRunningTestProgress?> = _enduranceProgress.asStateFlow()
+
+    private val _enduranceStatusMessage = MutableStateFlow<String?>(null)
+    val enduranceStatusMessage: StateFlow<String?> = _enduranceStatusMessage.asStateFlow()
+
+    fun startEnduranceTest(durationMinutes: Int) {
+        val context = getApplication<Application>()
+        _enduranceStatusMessage.value = "テスト開始..."
+        LongRunningTestManager.startEnduranceTest(context, durationMinutes, object : LongRunningTestManager.TestCallback {
+            override fun onProgress(progress: LongRunningTestProgress) {
+                _enduranceProgress.value = progress
+            }
+            override fun onCompleted(summary: String) {
+                _enduranceProgress.value = null
+                _enduranceStatusMessage.value = summary
+            }
+            override fun onError(error: String) {
+                _enduranceProgress.value = null
+                _enduranceStatusMessage.value = "エラー: $error"
+            }
+        })
+    }
+
+    fun stopEnduranceTest() {
+        LongRunningTestManager.stopTest()
+        _enduranceProgress.value = null
+        _enduranceStatusMessage.value = "テスト停止リクエスト送信中..."
     }
 
     override fun onCleared() {
