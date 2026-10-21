@@ -97,52 +97,19 @@ class EnduranceTestExecutor(
                     if (!isEnduranceRunning.get()) break
 
                     when (selectedCourse) {
-                        1 -> {
+                        1 -> { // Temporary reduced plan: merge 3 manga files for rapid early detection
+                            val testSubset = filesToProcess.take(3)
                             val mergedFile = File(application.cacheDir, "merged_course1_${System.currentTimeMillis()}.pdf")
-                            val batchSize = 4
-                            var currentMerged: File? = null
-
+                            val processor = PdfProcessor()
                             try {
-                                var startIndex = 0
-                                while (startIndex < filesToProcess.size) {
-                                    val endIndex = minOf(startIndex + batchSize, filesToProcess.size)
-                                    val batch = filesToProcess.subList(startIndex, endIndex)
-                                    
-                                    val batchFile = File(application.cacheDir, "batch_${System.currentTimeMillis()}_${startIndex}.pdf")
-                                    val processor = PdfProcessor()
-                                    try {
-                                        if (currentMerged != null && currentMerged.exists()) {
-                                            processor.load(currentMerged.inputStream())
-                                            for (file in batch) {
-                                                processor.append(file.inputStream())
-                                            }
-                                        } else {
-                                            processor.load(batch[0].inputStream())
-                                            for (i in 1 until batch.size) {
-                                                processor.append(batch[i].inputStream())
-                                            }
-                                        }
-                                        FileOutputStream(batchFile).use { fos -> processor.save(fos) }
-                                    } finally {
-                                        processor.close()
-                                    }
-
-                                    if (currentMerged != null && currentMerged.exists()) {
-                                        currentMerged.delete()
-                                    }
-                                    currentMerged = batchFile
-                                    startIndex = endIndex
-                                    System.gc()
+                                processor.load(testSubset[0].inputStream())
+                                for (i in 1 until testSubset.size) {
+                                    processor.append(testSubset[i].inputStream())
                                 }
-
-                                if (currentMerged != null && currentMerged.exists()) {
-                                    currentMerged.renameTo(mergedFile)
-                                }
-                            } catch (e: Exception) {
-                                AppLogger.log(application, "ERROR", "Batch merge failed: ${e.message}")
-                                throw e
+                                FileOutputStream(mergedFile).use { fos -> processor.save(fos) }
+                            } finally {
+                                processor.close()
                             }
-
                             withContext(Dispatchers.Main) {
                                 if (!isEnduranceRunning.get()) return@withContext
                                 if (mergedFile.exists()) {
@@ -150,44 +117,17 @@ class EnduranceTestExecutor(
                                 }
                             }
                         }
-                        2 -> {
+                        2 -> { // Course 2: load_test_1100_pages.pdf appended 2 times (temporary reduced plan)
                             val mergedFile = File(application.cacheDir, "merged_course2_${System.currentTimeMillis()}.pdf")
-                            var currentMerged: File? = null
+                            val processor = PdfProcessor()
                             try {
-                                var remaining = 9
-                                while (remaining > 0) {
-                                    val count = minOf(3, remaining)
-                                    val batchFile = File(application.cacheDir, "batch_c2_${System.currentTimeMillis()}.pdf")
-                                    val processor = PdfProcessor()
-                                    try {
-                                        if (currentMerged != null && currentMerged.exists()) {
-                                            processor.load(currentMerged.inputStream())
-                                            repeat(count) {
-                                                processor.append(filesToProcess[0].inputStream())
-                                            }
-                                        } else {
-                                            processor.load(filesToProcess[0].inputStream())
-                                            repeat(count) {
-                                                processor.append(filesToProcess[0].inputStream())
-                                            }
-                                        }
-                                        FileOutputStream(batchFile).use { fos -> processor.save(fos) }
-                                    } finally {
-                                        processor.close()
-                                    }
-                                    if (currentMerged != null && currentMerged.exists()) {
-                                        currentMerged.delete()
-                                    }
-                                    currentMerged = batchFile
-                                    remaining -= count
-                                    System.gc()
+                                processor.load(filesToProcess[0].inputStream())
+                                repeat(2) {
+                                    processor.append(filesToProcess[0].inputStream())
                                 }
-                                if (currentMerged != null && currentMerged.exists()) {
-                                    currentMerged.renameTo(mergedFile)
-                                }
-                            } catch (e: Exception) {
-                                AppLogger.log(application, "ERROR", "Course 2 batch append failed: ${e.message}")
-                                throw e
+                                FileOutputStream(mergedFile).use { fos -> processor.save(fos) }
+                            } finally {
+                                processor.close()
                             }
                             withContext(Dispatchers.Main) {
                                 if (!isEnduranceRunning.get()) return@withContext
