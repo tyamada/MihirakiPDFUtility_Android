@@ -521,9 +521,10 @@ class PdfViewModel(
                         loadPdfUseCase.load(inputStream, password)
                         
                         val pageCount = thumbnailProvider.getPageCount(uri)
+                        val generateThumbnailsNow = pageCount <= 100
                         val pages = (0 until pageCount).map { index ->
                             PageState(
-                                thumbnail = thumbnailProvider.getThumbnail(uri, index, getThumbnailWidth(_uiState.value.thumbnailSize)),
+                                thumbnail = if (generateThumbnailsNow) thumbnailProvider.getThumbnail(uri, index, getThumbnailWidth(_uiState.value.thumbnailSize)) else null,
                                 originalIndex = index,
                                 sourceUri = uri
                             )
@@ -593,9 +594,10 @@ class PdfViewModel(
                         val startIndex = loadPdfUseCase.append(inputStream, password) - thumbnailProvider.getPageCount(uri)
                         
                         val pageCount = thumbnailProvider.getPageCount(uri)
+                        val generateThumbnailsNow = pageCount <= 50 && _uiState.value.pages.size < 100
                         val newPages = (0 until pageCount).map { index ->
                             PageState(
-                                thumbnail = thumbnailProvider.getThumbnail(uri, index, getThumbnailWidth(_uiState.value.thumbnailSize)),
+                                thumbnail = if (generateThumbnailsNow) thumbnailProvider.getThumbnail(uri, index, getThumbnailWidth(_uiState.value.thumbnailSize)) else null,
                                 originalIndex = startIndex + index,
                                 sourceUri = uri
                             )
