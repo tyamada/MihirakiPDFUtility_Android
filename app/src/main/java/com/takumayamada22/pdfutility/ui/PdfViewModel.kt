@@ -1413,7 +1413,7 @@ class PdfViewModel(
                         Triple(fn1, fn2, ld)
                     }
 
-                    // Execute UI actions on Main thread
+                    // Execute UI actions on Main thread with rapid rendering (within 1 second)
                     withContext(Dispatchers.Main) {
                         if (!LongRunningTestManager.isTestRunning()) return@withContext
 
@@ -1422,7 +1422,7 @@ class PdfViewModel(
                                 _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 1: Course 1 (Multi-File Merge) Alone", statusSummary = "Running Course 1")
                                 if (f1 != null && f2 != null) {
                                     loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(1000L)
+                                    kotlinx.coroutines.delay(300L)
                                     appendPdf(Uri.fromFile(f2))
                                 }
                             }
@@ -1430,7 +1430,7 @@ class PdfViewModel(
                                 _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 2: Course 2 (1100p Append) Alone", statusSummary = "Running Course 2")
                                 if (loadFile != null) {
                                     loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(1000L)
+                                    kotlinx.coroutines.delay(300L)
                                     repeat(2) { appendPdf(Uri.fromFile(loadFile)) }
                                 }
                             }
@@ -1438,11 +1438,11 @@ class PdfViewModel(
                                 _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 3: Course 1 + Course 3 (Merge + Editing)", statusSummary = "Running Course 1 & 3")
                                 if (f1 != null) {
                                     loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     selectAll()
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     rotateSelected(90)
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     cropSelectedPages(0.1f)
                                 }
                             }
@@ -1450,9 +1450,9 @@ class PdfViewModel(
                                 _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 4: Course 2 + Course 3 (Append + Editing)", statusSummary = "Running Course 2 & 3")
                                 if (loadFile != null) {
                                     loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     selectAll()
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     rotateSelected(180)
                                 }
                             }
@@ -1460,9 +1460,9 @@ class PdfViewModel(
                                 _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 5: Course 1 + Course 4 (Merge + Orientation)", statusSummary = "Running Course 1 & 4")
                                 if (f1 != null) {
                                     loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     toggleMihirakiView()
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     toggleRtl()
                                 }
                             }
@@ -1470,7 +1470,7 @@ class PdfViewModel(
                                 _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 6: Course 2 + Course 4 (Append + Orientation)", statusSummary = "Running Course 2 & 4")
                                 if (loadFile != null) {
                                     loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     toggleMihirakiView()
                                 }
                             }
@@ -1492,9 +1492,9 @@ class PdfViewModel(
                                 _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 9: Course 1 + 3 + 4 + 5 (Full Combo A)", statusSummary = "Running Full Combination A")
                                 if (f1 != null) {
                                     loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     selectAll()
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     rotateSelected(90)
                                     toggleMihirakiView()
                                 }
@@ -1503,9 +1503,9 @@ class PdfViewModel(
                                 _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 10: Course 2 + 3 + 4 + 5 (Full Combo B)", statusSummary = "Running Full Combination B")
                                 if (loadFile != null) {
                                     loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     selectAll()
-                                    kotlinx.coroutines.delay(800L)
+                                    kotlinx.coroutines.delay(300L)
                                     rotateSelected(180)
                                     toggleRtl()
                                 }
@@ -1513,7 +1513,7 @@ class PdfViewModel(
                         }
                     }
 
-                    kotlinx.coroutines.delay(2500L)
+                    kotlinx.coroutines.delay(1000L)
                 }
 
                 val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
