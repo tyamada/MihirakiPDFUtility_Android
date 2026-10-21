@@ -1379,6 +1379,13 @@ class PdfViewModel(
         LongRunningTestManager.startEnduranceTest(context, durationMinutes, object : LongRunningTestManager.TestCallback {
             override fun onProgress(progress: LongRunningTestProgress) {
                 _enduranceProgress.value = progress
+                // Visibly load test PDF into the UI grid every few iterations so the user can see it on screen
+                if (progress.currentIteration % 2 == 1) {
+                    val f = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
+                    if (f != null && f.exists()) {
+                        loadPdf(Uri.fromFile(f))
+                    }
+                }
             }
             override fun onCompleted(summary: String) {
                 _enduranceProgress.value = null
