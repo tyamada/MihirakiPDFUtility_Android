@@ -16,17 +16,19 @@ import java.io.OutputStream
 
 class PdfProcessor {
     private var document: PDDocument? = null
-    private val appendedDocs = mutableListOf<PDDocument>()
+    private val sourceDocs = mutableListOf<PDDocument>()
 
     fun load(inputStream: InputStream, password: String? = null): Int {
         close()
         val memoryUsage = com.tom_roush.pdfbox.io.MemoryUsageSetting.setupTempFileOnly()
         document = try {
-            if (password != null) {
+            val doc = if (password != null) {
                 PDDocument.load(inputStream, password, memoryUsage)
             } else {
                 PDDocument.load(inputStream, memoryUsage)
             }
+            sourceDocs.add(doc)
+            doc
         } catch (_: Exception) {
             null
         }
@@ -36,6 +38,7 @@ class PdfProcessor {
     fun createPdfFromImages(imageUris: List<Uri>, context: android.content.Context): Int {
         close()
         val newDoc = PDDocument()
+        sourceDocs.add(newDoc)
         for (uri in imageUris) {
             try {
                 val inputStream = context.contentResolver.openInputStream(uri) ?: continue
@@ -68,15 +71,11 @@ class PdfProcessor {
         } else {
             PDDocument.load(inputStream, memoryUsage)
         }
-        try {
-            val newPageCount = appendDoc.numberOfPages
-            for (i in 0 until newPageCount) {
-                currentDoc.importPage(appendDoc.getPage(i))
-            }
-        } finally {
-            try {
-                appendDoc.close()
-            } catch (_: Exception) {}
+        sourceDocs.add(appendDoc)
+        
+        val newPageCount = appendDoc.numberOfPages
+        for (i in 0 until newPageCount) {
+            currentDoc.importPage(appendDoc.getPage(i))
         }
         return currentDoc.numberOfPages
     }
@@ -84,10 +83,10 @@ class PdfProcessor {
     fun close() {
         document?.close()
         document = null
-        appendedDocs.forEach { 
+        sourceDocs.forEach { 
             try { it.close() } catch (_: Exception) {} 
         }
-        appendedDocs.clear()
+        sourceDocs.clear()
     }
 
     fun getPageCount(): Int = document?.numberOfPages ?: 0
@@ -119,6 +118,7 @@ class PdfProcessor {
     ) {
         val sourceDoc = document ?: return
         val newDoc = PDDocument()
+        sourceDocs.add(newDoc)
         
         // Apply metadata and viewer preferences
         metadata?.let { meta ->
@@ -135,21 +135,20 @@ class PdfProcessor {
                     if (newDoc.version < ver) {
                         newDoc.version = ver
                     }
-                } catch (e: Exception) {}
+                } catch (_: Exception) {}
             }
-            
+
             val catalog = newDoc.documentCatalog
             meta["layout"]?.let { layoutStr ->
                 try {
                     val layout = PageLayout.fromString(layoutStr)
                     catalog.pageLayout = layout
-                    // PDF 1.5 is required for TwoPageLeft/Right
                     if (layoutStr == "TwoPageLeft" || layoutStr == "TwoPageRight") {
                         if (newDoc.version < 1.5f) {
                             newDoc.version = 1.5f
                         }
                     }
-                } catch (e: Exception) {}
+                } catch (_: Exception) {}
             }
             
             var vp = catalog.viewerPreferences
@@ -159,7 +158,7 @@ class PdfProcessor {
             }
             
             meta["direction"]?.let { dir ->
-                try { vp.setReadingDirection(PDViewerPreferences.READING_DIRECTION.valueOf(dir)) } catch (e: Exception) {}
+                try { vp.readingDirection = if (dir == "R2L") PDViewerPreferences.READING_DIRECTION_R2L else PDViewerPreferences.READING_DIRECTION_L2R } catch (_: Exception) {}
             }
         }
 
@@ -212,10 +211,10 @@ class PdfProcessor {
         }
         
         newDoc.save(outputStream)
-        newDoc.close()
     }
 
     fun save(outputStream: OutputStream) {
-        document?.save(outputStream)
+        val doc = document ?: return
+        doc.save(outputStream)
     }
 }
