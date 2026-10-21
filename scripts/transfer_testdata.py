@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
 MihirakiPDFUtility Test Data Transfer Script
-1. Cleans up any old or unnecessary test files from the device testdata directory.
-2. Transfers all 28 latest sample manga PDF files (tameshibu_episode?_2_??.pdf) and load test PDFs
-   from local testdata/ to the connected Android device via USB or Wi-Fi ADB.
+Dynamically parses SamplePdfCatalog.kt to extract sample PDF filenames,
+combines them with load/search test PDFs, cleans up device testdata,
+and transfers them from PC/Mac testdata/ to the connected Android device via ADB.
 """
 
 import os
 import sys
 import subprocess
+import re
 from pathlib import Path
 
 def get_env():
@@ -33,6 +34,16 @@ def get_connected_devices():
             devices.append(parts[0])
     return devices
 
+def get_sample_filenames_from_catalog(root_dir):
+    catalog_path = root_dir / 'app' / 'src' / 'main' / 'java' / 'com' / 'takumayamada22' / 'pdfutility' / 'data' / 'SamplePdfCatalog.kt'
+    if not catalog_path.exists():
+        print(f"WARNING: SamplePdfCatalog.kt not found at {catalog_path}, falling back to glob.")
+        return []
+
+    content = catalog_path.read_text(encoding='utf-8')
+    filenames = re.findall(r'fileName\s*=\s*"([^"]+)"', content)
+    return filenames
+
 def main():
     root_dir = Path(__file__).resolve().parent.parent
     testdata_dir = root_dir / 'testdata'
@@ -43,41 +54,44 @@ def main():
 
     devices = get_connected_devices()
     if not devices:
-        print("ERROR: No connected Android devices or emulators found via ADB (check USB or Wi-Fi connection).", file=sys.stderr)
+        print("ERROR: No connected Android devices or emulators found via ADB.", file=sys.stderr)
         sys.exit(1)
 
     device_serial = devices[0]
-    print(f"=== MihirakiPDFUtility Test Data Transfer Tool ===")
+    print(f"=== MihirakiPDFUtility Dynamic Test Data Transfer Tool ===")
     print(f"Target Device: {device_serial}")
+
+    # Dynamically extract filenames from SamplePdfCatalog.kt
+    catalog_filenames = get_sample_filenames_from_catalog(root_dir)
+    print(f"Extracted {len(catalog_filenames)} sample PDF filenames from SamplePdfCatalog.kt")
+
+    # Add benchmark/load/search test files
+    extra_test_files = ['load_test_1100_pages.pdf', 'search_test_600_hits.pdf', 'search_test_600_hits_en.pdf']
+    all_target_filenames = list(set(catalog_filenames + extra_test_files))
 
     pkg_name = 'com.github.tyamada.MihirakiPDFViewer_Android'
     device_test_dir = f"/sdcard/Android/data/{pkg_name}/files/testdata"
 
-    print(f"Cleaning up old/unnecessary test files from device: {device_test_dir}")
+    print(f"Cleaning up old test files from device: {device_test_dir}")
     run_cmd(['adb', '-s', device_serial, 'shell', f'rm -rf {device_test_dir}/*'])
     run_cmd(['adb', '-s', device_serial, 'shell', f'mkdir -p {device_test_dir}'])
 
-    # Target patterns: tameshibu_episode*_2_*.pdf and load_test_1100_pages.pdf
-    files_to_transfer = list(testdata_dir.glob('tameshibu*_2_*.pdf'))
-    load_test_file = testdata_dir / 'load_test_1100_pages.pdf'
-    if load_test_file.exists():
-        files_to_transfer.append(load_test_file)
-
-    print(f"Found {len(files_to_transfer)} latest test files to transfer.")
     success_count = 0
-
-    for f in files_to_transfer:
-        if f.is_file():
-            dest_path = f"{device_test_dir}/{f.name}"
-            print(f"Pushing {f.name} -> {dest_path} ...")
-            code, out = run_cmd(['adb', '-s', device_serial, 'push', str(f), dest_path])
+    for filename in all_target_filenames:
+        local_file = testdata_dir / filename
+        if local_file.exists() and local_file.is_file():
+            dest_path = f"{device_test_dir}/{filename}"
+            print(f"Pushing {filename} -> {dest_path} ...")
+            code, out = run_cmd(['adb', '-s', device_serial, 'push', str(local_file), dest_path])
             if code == 0:
                 success_count += 1
             else:
-                print(f"WARNING: Failed to push {f.name}:\n{out}")
+                print(f"WARNING: Failed to push {filename}:\n{out}")
+        else:
+            print(f"NOTICE: Catalog file {filename} not found locally in testdata/.")
 
-    print(f"\n=== Transfer Completed ===")
-    print(f"Successfully transferred {success_count} / {len(files_to_transfer)} latest test files to device storage.")
+    print(f"\n=== Dynamic Transfer Completed ===")
+    print(f"Successfully transferred {success_count} / {len(all_target_filenames)} target test files to device storage.")
 
 if __name__ == '__main__':
     main()
