@@ -21,6 +21,7 @@ import com.takumayamada22.pdfutility.domain.ThumbnailProvider
 import com.takumayamada22.pdfutility.util.AppLogger
 import com.takumayamada22.pdfutility.util.LongRunningTestManager
 import com.takumayamada22.pdfutility.util.LongRunningTestProgress
+import com.takumayamada22.pdfutility.util.TestPdfGenerator
 import androidx.documentfile.provider.DocumentFile
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -1375,11 +1376,11 @@ class PdfViewModel(
 
     private val isEnduranceRunning = java.util.concurrent.atomic.AtomicBoolean(false)
 
-    fun startEnduranceTest(durationMinutes: Int) {
+    fun startEnduranceTest(durationMinutes: Int, selectedCourse: Int = 0) {
         val context = getApplication<Application>()
         if (isEnduranceRunning.get()) return
         isEnduranceRunning.set(true)
-        _enduranceStatusMessage.value = "UI耐久テスト開始..."
+        _enduranceStatusMessage.value = "耐久テスト開始 (コース: $selectedCourse)..."
 
         viewModelScope.launch {
             val targetMillis = durationMinutes * 60 * 1000L
@@ -1388,100 +1389,94 @@ class PdfViewModel(
             val runtime = Runtime.getRuntime()
 
             try {
-                AppLogger.log(context, "INFO", "Starting UI-Driven Long-Running Endurance Test for $durationMinutes minutes.")
+                AppLogger.log(context, "INFO", "Starting Endurance Test (Course: $selectedCourse) for $durationMinutes minutes.")
 
                 while (isEnduranceRunning.get() && (System.currentTimeMillis() - startTime) < targetMillis) {
                     iteration++
                     val elapsedMs = System.currentTimeMillis() - startTime
                     val elapsedMin = (elapsedMs / (60 * 1000L)).toInt()
-                    val patternIndex = (iteration - 1) % 10
 
                     val progress = LongRunningTestProgress(
                         isRunning = true,
                         elapsedMinutes = elapsedMin,
                         targetMinutes = durationMinutes,
                         currentIteration = iteration,
-                        currentCourse = "UI Pattern ${patternIndex + 1}: Course Combination",
+                        currentCourse = "Course Mode: $selectedCourse (#$iteration)",
                         memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
-                        statusSummary = "Executing Pattern ${patternIndex + 1}"
+                        statusSummary = "Running Course $selectedCourse"
                     )
                     _enduranceProgress.value = progress
 
-                    // Generate test PDFs on IO thread
-                    val (f1, f2, loadFile) = withContext(Dispatchers.IO) {
-                        val fn1 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
-                        val fn2 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createSearchTestPdf(context)
-                        val ld = if (patternIndex % 2 == 1) com.takumayamada22.pdfutility.util.TestPdfGenerator.createLoadTestPdf(context, 30) else null
-                        Triple(fn1, fn2, ld)
+                    // Prepare PDF files on IO thread
+                    val filesToProcess = withContext(Dispatchers.IO) {
+                        try {
+                            val testDataDir = File(context.getExternalFilesDir(null), "testdata")
+                            val fallbackDir = File(context.filesDir, "testdata")
+                            val activeDir = if (testDataDir.exists() && testDataDir.list()?.isNotEmpty() == true) testDataDir else fallbackDir
+
+                            when (selectedCourse) {
+                                1 -> { // Course 1 Only: 14 sample manga PDFs (tameshibu_*.pdf)
+                                    val mangaFiles = activeDir.listFiles { file -> file.name.startsWith("tameshibu_") && file.name.endsWith(".pdf") }?.sortedBy { it.name } ?: emptyList()
+                                    if (mangaFiles.isNotEmpty()) mangaFiles else listOfNotNull(TestPdfGenerator.createFunctionalTestPdf(context))
+                                }
+                                2 -> { // Course 2 Only: load_test_1100_pages.pdf appended 9x
+                                    val loadFile = File(activeDir, "load_test_1100_pages.pdf")
+                                    val baseFile = if (loadFile.exists()) loadFile else TestPdfGenerator.createLoadTestPdf(context, 200)
+                                    listOfNotNull(baseFile)
+                                }
+                                else -> { // All Courses / Patterns 1-10
+                                    val f1 = TestPdfGenerator.createFunctionalTestPdf(context)
+                                    listOfNotNull(f1)
+                                }
+                            }
+                        } catch (e: Exception) {
+                            AppLogger.log(context, "FATAL", "Exception during test file preparation: ${e.message}\n${e.stackTraceToString()}")
+                            throw e
+                        }
                     }
 
                     if (!isEnduranceRunning.get()) break
 
-                    // Execute UI actions on Main thread
+                    // Execute UI actions on Main thread with strict error catching
                     withContext(Dispatchers.Main) {
                         if (!isEnduranceRunning.get()) return@withContext
 
-                        when (patternIndex) {
-                            0 -> { // Pattern 1: Course 1 Alone
-                                if (f1 != null && f2 != null) {
-                                    loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(500L)
-                                    appendPdf(Uri.fromFile(f2))
+                        try {
+                            when (selectedCourse) {
+                                1 -> { // Course 1: Merge all 14 manga PDFs
+                                    if (filesToProcess.isNotEmpty()) {
+                                        loadPdf(Uri.fromFile(filesToProcess[0]))
+                                        kotlinx.coroutines.delay(500L)
+                                        for (i in 1 until filesToProcess.size) {
+                                            appendPdf(Uri.fromFile(filesToProcess[i]))
+                                            kotlinx.coroutines.delay(300L)
+                                        }
+                                    }
+                                }
+                                2 -> { // Course 2: load_test_1100_pages.pdf appended 9 times
+                                    if (filesToProcess.isNotEmpty()) {
+                                        loadPdf(Uri.fromFile(filesToProcess[0]))
+                                        kotlinx.coroutines.delay(500L)
+                                        repeat(9) {
+                                            appendPdf(Uri.fromFile(filesToProcess[0]))
+                                            kotlinx.coroutines.delay(300L)
+                                        }
+                                    }
+                                }
+                                else -> { // Patterns 1-10 loop
+                                    val patternIndex = (iteration - 1) % 10
+                                    when (patternIndex) {
+                                        0 -> { loadPdf(Uri.fromFile(filesToProcess[0])); kotlinx.coroutines.delay(300L) }
+                                        1 -> { loadPdf(Uri.fromFile(filesToProcess[0])); selectAll(); rotateSelected(90) }
+                                        2 -> { loadPdf(Uri.fromFile(filesToProcess[0])); selectAll(); cropSelectedPages(0.1f) }
+                                        3 -> { toggleMihirakiView(); toggleRtl() }
+                                        else -> { loadPdf(Uri.fromFile(filesToProcess[0])) }
+                                    }
                                 }
                             }
-                            1 -> { // Pattern 2: Course 2 Alone
-                                if (loadFile != null) {
-                                    loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(500L)
-                                    appendPdf(Uri.fromFile(loadFile))
-                                }
-                            }
-                            2 -> { // Pattern 3: Course 1 + 3 (Merge + Editing)
-                                if (f1 != null) {
-                                    loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(500L)
-                                    selectAll()
-                                    kotlinx.coroutines.delay(500L)
-                                    rotateSelected(90)
-                                }
-                            }
-                            3 -> { // Pattern 4: Course 2 + 3 (Append + Editing)
-                                if (loadFile != null) {
-                                    loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(500L)
-                                    selectAll()
-                                    kotlinx.coroutines.delay(500L)
-                                    rotateSelected(180)
-                                }
-                            }
-                            4 -> { // Pattern 5: Course 1 + 4 (Merge + Orientation)
-                                if (f1 != null) {
-                                    loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(500L)
-                                    toggleMihirakiView()
-                                }
-                            }
-                            5 -> { // Pattern 6: Course 2 + 4 (Append + Orientation)
-                                if (loadFile != null) {
-                                    loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(500L)
-                                    toggleRtl()
-                                }
-                            }
-                            6, 7 -> { // Pattern 7 & 8: Foldable
-                                if (f1 != null) {
-                                    loadPdf(Uri.fromFile(f1))
-                                }
-                            }
-                            8, 9 -> { // Pattern 9 & 10: Full Combo
-                                if (f1 != null) {
-                                    loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(500L)
-                                    selectAll()
-                                    rotateSelected(90)
-                                    toggleMihirakiView()
-                                }
-                            }
+                        } catch (e: Exception) {
+                            AppLogger.log(context, "FATAL", "FATAL ERROR during UI test action: ${e.message}\n${e.stackTraceToString()}")
+                            throw e
                         }
                     }
 
@@ -1489,18 +1484,20 @@ class PdfViewModel(
                 }
 
                 val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
-                val summary = "UI Endurance test completed after $iteration iterations. Final memory: ${finalMemory}MB."
+                val summary = "Endurance Test completed successfully. Final memory: ${finalMemory}MB."
                 AppLogger.log(context, "INFO", summary)
                 _enduranceProgress.value = null
                 _enduranceStatusMessage.value = summary
             } catch (e: Exception) {
-                AppLogger.log(context, "ERROR", "UI Endurance test failed: ${e.message}")
+                val errorMsg = "FATAL ERROR: ${e.message}"
+                AppLogger.log(context, "FATAL", "$errorMsg\n${e.stackTraceToString()}")
                 _enduranceProgress.value = null
-                _enduranceStatusMessage.value = "エラー: ${e.message}"
+                _enduranceStatusMessage.value = errorMsg
+                isEnduranceRunning.set(false)
             } finally {
                 isEnduranceRunning.set(false)
                 _enduranceProgress.value = null
-                com.takumayamada22.pdfutility.util.TestPdfGenerator.cleanupTestPdfs(context)
+                TestPdfGenerator.cleanupTestPdfs(context)
             }
         }
     }
