@@ -1445,45 +1445,67 @@ class PdfViewModel(
                     if (!isEnduranceRunning.get()) break
 
                     // Execute UI actions on Main thread with strict error catching
-                    withContext(Dispatchers.Main) {
-                        if (!isEnduranceRunning.get()) return@withContext
-
-                        try {
-                            when (selectedCourse) {
-                                1 -> { // Course 1: Merge all 14 manga PDFs
-                                    if (filesToProcess.isNotEmpty()) {
-                                        loadPdf(Uri.fromFile(filesToProcess[0]))
-                                        kotlinx.coroutines.delay(500L)
-                                        for (i in 1 until filesToProcess.size) {
-                                            appendPdf(Uri.fromFile(filesToProcess[i]))
-                                            kotlinx.coroutines.delay(300L)
-                                        }
+                    when (selectedCourse) {
+                        1 -> { // Course 1: Merge all 14 manga PDFs efficiently on disk via PdfProcessor to prevent OOM
+                            val mergedFile = withContext(Dispatchers.IO) {
+                                val out = File(context.cacheDir, "merged_course1_${System.currentTimeMillis()}.pdf")
+                                val processor = PdfProcessor()
+                                try {
+                                    processor.load(filesToProcess[0].inputStream())
+                                    for (i in 1 until filesToProcess.size) {
+                                        processor.append(filesToProcess[i].inputStream())
                                     }
+                                    FileOutputStream(out).use { fos ->
+                                        processor.save(fos)
+                                    }
+                                } finally {
+                                    processor.close()
                                 }
-                                2 -> { // Course 2: load_test_1100_pages.pdf appended 9 times
-                                    if (filesToProcess.isNotEmpty()) {
-                                        loadPdf(Uri.fromFile(filesToProcess[0]))
-                                        kotlinx.coroutines.delay(500L)
-                                        repeat(9) {
-                                            appendPdf(Uri.fromFile(filesToProcess[0]))
-                                            kotlinx.coroutines.delay(300L)
-                                        }
-                                    }
-                                }
-                                else -> { // Patterns 1-10 loop
-                                    val patternIndex = (iteration - 1) % 10
-                                    when (patternIndex) {
-                                        0 -> { loadPdf(Uri.fromFile(filesToProcess[0])); kotlinx.coroutines.delay(300L) }
-                                        1 -> { loadPdf(Uri.fromFile(filesToProcess[0])); selectAll(); rotateSelected(90) }
-                                        2 -> { loadPdf(Uri.fromFile(filesToProcess[0])); selectAll(); cropSelectedPages(0.1f) }
-                                        3 -> { toggleMihirakiView(); toggleRtl() }
-                                        else -> { loadPdf(Uri.fromFile(filesToProcess[0])) }
-                                    }
+                                out
+                            }
+                            withContext(Dispatchers.Main) {
+                                if (!isEnduranceRunning.get()) return@withContext
+                                if (mergedFile.exists()) {
+                                    loadPdf(Uri.fromFile(mergedFile))
                                 }
                             }
-                        } catch (e: Exception) {
-                            AppLogger.log(context, "FATAL", "FATAL ERROR during UI test action: ${e.message}\n${e.stackTraceToString()}")
-                            throw e
+                        }
+                        2 -> { // Course 2: load_test_1100_pages.pdf appended 9 times efficiently on disk
+                            val mergedFile = withContext(Dispatchers.IO) {
+                                val out = File(context.cacheDir, "merged_course2_${System.currentTimeMillis()}.pdf")
+                                val processor = PdfProcessor()
+                                try {
+                                    processor.load(filesToProcess[0].inputStream())
+                                    repeat(9) {
+                                        processor.append(filesToProcess[0].inputStream())
+                                    }
+                                    FileOutputStream(out).use { fos ->
+                                        processor.save(fos)
+                                    }
+                                } finally {
+                                    processor.close()
+                                }
+                                out
+                            }
+                            withContext(Dispatchers.Main) {
+                                if (!isEnduranceRunning.get()) return@withContext
+                                if (mergedFile.exists()) {
+                                    loadPdf(Uri.fromFile(mergedFile))
+                                }
+                            }
+                        }
+                        else -> { // Patterns 1-10 loop
+                            withContext(Dispatchers.Main) {
+                                if (!isEnduranceRunning.get()) return@withContext
+                                val patternIndex = (iteration - 1) % 10
+                                when (patternIndex) {
+                                    0 -> { loadPdf(Uri.fromFile(filesToProcess[0])); kotlinx.coroutines.delay(300L) }
+                                    1 -> { loadPdf(Uri.fromFile(filesToProcess[0])); selectAll(); rotateSelected(90) }
+                                    2 -> { loadPdf(Uri.fromFile(filesToProcess[0])); selectAll(); cropSelectedPages(0.1f) }
+                                    3 -> { toggleMihirakiView(); toggleRtl() }
+                                    else -> { loadPdf(Uri.fromFile(filesToProcess[0])) }
+                                }
+                            }
                         }
                     }
 
