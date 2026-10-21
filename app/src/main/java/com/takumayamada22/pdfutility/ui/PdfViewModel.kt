@@ -1375,161 +1375,20 @@ class PdfViewModel(
 
     fun startEnduranceTest(durationMinutes: Int) {
         val context = getApplication<Application>()
-        _enduranceStatusMessage.value = "UI耐久テスト開始..."
-        
-        // Mark LongRunningTestManager as running
-        LongRunningTestManager.startEnduranceTest(context, durationMinutes)
-
-        viewModelScope.launch {
-            val targetMillis = durationMinutes * 60 * 1000L
-            val startTime = System.currentTimeMillis()
-            var iteration = 0
-            val runtime = Runtime.getRuntime()
-
-            try {
-                AppLogger.log(context, "INFO", "Starting UI-Driven Long-Running Endurance Test (Modular Combination Patterns) for $durationMinutes minutes.")
-
-                while (LongRunningTestManager.isTestRunning() && (System.currentTimeMillis() - startTime) < targetMillis) {
-                    iteration++
-                    val elapsedMs = System.currentTimeMillis() - startTime
-                    val elapsedMin = (elapsedMs / (60 * 1000L)).toInt()
-                    val patternIndex = (iteration - 1) % 10
-
-                    val progressBase = LongRunningTestProgress(
-                        isRunning = true,
-                        elapsedMinutes = elapsedMin,
-                        targetMinutes = durationMinutes,
-                        currentIteration = iteration,
-                        currentCourse = "",
-                        memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
-                        statusSummary = ""
-                    )
-
-                    // Generate test PDFs on IO thread to avoid blocking main thread
-                    val (f1, f2, loadFile) = withContext(Dispatchers.IO) {
-                        val fn1 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
-                        val fn2 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createSearchTestPdf(context)
-                        val ld = if (patternIndex % 2 == 1) com.takumayamada22.pdfutility.util.TestPdfGenerator.createLoadTestPdf(context, 50) else null
-                        Triple(fn1, fn2, ld)
-                    }
-
-                    // Execute UI actions on Main thread with rapid rendering (within 1 second)
-                    withContext(Dispatchers.Main) {
-                        if (!LongRunningTestManager.isTestRunning()) return@withContext
-
-                        when (patternIndex) {
-                            0 -> {
-                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 1: Course 1 (Multi-File Merge) Alone", statusSummary = "Running Course 1")
-                                if (f1 != null && f2 != null) {
-                                    loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(300L)
-                                    appendPdf(Uri.fromFile(f2))
-                                }
-                            }
-                            1 -> {
-                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 2: Course 2 (1100p Append) Alone", statusSummary = "Running Course 2")
-                                if (loadFile != null) {
-                                    loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(300L)
-                                    repeat(2) { appendPdf(Uri.fromFile(loadFile)) }
-                                }
-                            }
-                            2 -> {
-                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 3: Course 1 + Course 3 (Merge + Editing)", statusSummary = "Running Course 1 & 3")
-                                if (f1 != null) {
-                                    loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(300L)
-                                    selectAll()
-                                    kotlinx.coroutines.delay(300L)
-                                    rotateSelected(90)
-                                    kotlinx.coroutines.delay(300L)
-                                    cropSelectedPages(0.1f)
-                                }
-                            }
-                            3 -> {
-                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 4: Course 2 + Course 3 (Append + Editing)", statusSummary = "Running Course 2 & 3")
-                                if (loadFile != null) {
-                                    loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(300L)
-                                    selectAll()
-                                    kotlinx.coroutines.delay(300L)
-                                    rotateSelected(180)
-                                }
-                            }
-                            4 -> {
-                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 5: Course 1 + Course 4 (Merge + Orientation)", statusSummary = "Running Course 1 & 4")
-                                if (f1 != null) {
-                                    loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(300L)
-                                    toggleMihirakiView()
-                                    kotlinx.coroutines.delay(300L)
-                                    toggleRtl()
-                                }
-                            }
-                            5 -> {
-                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 6: Course 2 + Course 4 (Append + Orientation)", statusSummary = "Running Course 2 & 4")
-                                if (loadFile != null) {
-                                    loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(300L)
-                                    toggleMihirakiView()
-                                }
-                            }
-                            6 -> {
-                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 7: Course 1 + Course 5 (Merge + Foldable)", statusSummary = "Running Course 1 & 5 (Foldable)")
-                                if (f1 != null) {
-                                    loadPdf(Uri.fromFile(f1))
-                                    AppLogger.log(context, "DEBUG", "Test Course 5: Foldable posture simulation active")
-                                }
-                            }
-                            7 -> {
-                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 8: Course 2 + Course 5 (Append + Foldable)", statusSummary = "Running Course 2 & 5 (Foldable)")
-                                if (loadFile != null) {
-                                    loadPdf(Uri.fromFile(loadFile))
-                                    AppLogger.log(context, "DEBUG", "Test Course 5: Foldable posture simulation active")
-                                }
-                            }
-                            8 -> {
-                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 9: Course 1 + 3 + 4 + 5 (Full Combo A)", statusSummary = "Running Full Combination A")
-                                if (f1 != null) {
-                                    loadPdf(Uri.fromFile(f1))
-                                    kotlinx.coroutines.delay(300L)
-                                    selectAll()
-                                    kotlinx.coroutines.delay(300L)
-                                    rotateSelected(90)
-                                    toggleMihirakiView()
-                                }
-                            }
-                            9 -> {
-                                _enduranceProgress.value = progressBase.copy(currentCourse = "Pattern 10: Course 2 + 3 + 4 + 5 (Full Combo B)", statusSummary = "Running Full Combination B")
-                                if (loadFile != null) {
-                                    loadPdf(Uri.fromFile(loadFile))
-                                    kotlinx.coroutines.delay(300L)
-                                    selectAll()
-                                    kotlinx.coroutines.delay(300L)
-                                    rotateSelected(180)
-                                    toggleRtl()
-                                }
-                            }
-                        }
-                    }
-
-                    kotlinx.coroutines.delay(1000L)
-                }
-
-                val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
-                val summary = "UI Endurance test completed successfully after $iteration iterations. Final memory: ${finalMemory}MB."
-                AppLogger.log(context, "INFO", summary)
+        _enduranceStatusMessage.value = "耐久テスト開始..."
+        LongRunningTestManager.startEnduranceTest(context, durationMinutes, object : LongRunningTestManager.TestCallback {
+            override fun onProgress(progress: LongRunningTestProgress) {
+                _enduranceProgress.value = progress
+            }
+            override fun onCompleted(summary: String) {
                 _enduranceProgress.value = null
                 _enduranceStatusMessage.value = summary
-            } catch (e: Exception) {
-                AppLogger.log(context, "ERROR", "UI Endurance test failed: ${e.message}")
-                _enduranceProgress.value = null
-                _enduranceStatusMessage.value = "エラー: ${e.message}"
-            } finally {
-                LongRunningTestManager.stopTest()
-                _enduranceProgress.value = null
             }
-        }
+            override fun onError(error: String) {
+                _enduranceProgress.value = null
+                _enduranceStatusMessage.value = "エラー: $error"
+            }
+        })
     }
 
     fun stopEnduranceTest() {
