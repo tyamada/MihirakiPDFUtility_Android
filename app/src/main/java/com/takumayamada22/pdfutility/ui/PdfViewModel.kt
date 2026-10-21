@@ -1511,6 +1511,74 @@ class PdfViewModel(
         _enduranceStatusMessage.value = "テスト停止リクエスト送信中..."
     }
 
+    fun startCourse1Loop(durationMinutes: Int = 3) {
+        val context = getApplication<Application>()
+        if (isEnduranceRunning.get()) return
+        isEnduranceRunning.set(true)
+        _enduranceStatusMessage.value = "コース1ループテスト開始..."
+
+        viewModelScope.launch {
+            val targetMillis = durationMinutes * 60 * 1000L
+            val startTime = System.currentTimeMillis()
+            var iteration = 0
+            val runtime = Runtime.getRuntime()
+
+            try {
+                AppLogger.log(context, "INFO", "Starting Course 1 Loop Test for $durationMinutes minutes.")
+
+                while (isEnduranceRunning.get() && (System.currentTimeMillis() - startTime) < targetMillis) {
+                    iteration++
+                    val elapsedMs = System.currentTimeMillis() - startTime
+                    val elapsedMin = (elapsedMs / (60 * 1000L)).toInt()
+
+                    val progress = LongRunningTestProgress(
+                        isRunning = true,
+                        elapsedMinutes = elapsedMin,
+                        targetMinutes = durationMinutes,
+                        currentIteration = iteration,
+                        currentCourse = "Course 1: Multi-File Merge Loop",
+                        memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
+                        statusSummary = "Executing Course 1 (Merge)"
+                    )
+                    _enduranceProgress.value = progress
+
+                    val (f1, f2) = withContext(Dispatchers.IO) {
+                        val fn1 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createFunctionalTestPdf(context)
+                        val fn2 = com.takumayamada22.pdfutility.util.TestPdfGenerator.createSearchTestPdf(context)
+                        Pair(fn1, fn2)
+                    }
+
+                    if (!isEnduranceRunning.get()) break
+
+                    withContext(Dispatchers.Main) {
+                        if (!isEnduranceRunning.get()) return@withContext
+                        if (f1 != null && f2 != null) {
+                            loadPdf(Uri.fromFile(f1))
+                            kotlinx.coroutines.delay(800L)
+                            appendPdf(Uri.fromFile(f2))
+                        }
+                    }
+
+                    kotlinx.coroutines.delay(2000L)
+                }
+
+                val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)
+                val summary = "Course 1 Loop test completed after $iteration iterations. Final memory: ${finalMemory}MB."
+                AppLogger.log(context, "INFO", summary)
+                _enduranceProgress.value = null
+                _enduranceStatusMessage.value = summary
+            } catch (e: Exception) {
+                AppLogger.log(context, "ERROR", "Course 1 Loop test failed: ${e.message}")
+                _enduranceProgress.value = null
+                _enduranceStatusMessage.value = "エラー: ${e.message}"
+            } finally {
+                isEnduranceRunning.set(false)
+                _enduranceProgress.value = null
+                com.takumayamada22.pdfutility.util.TestPdfGenerator.cleanupTestPdfs(context)
+            }
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         thumbnailProvider.close()

@@ -156,6 +156,21 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                             enduranceStatusMessage?.let { msg ->
                                 Text(msg, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
                             }
+
+                            Spacer(Modifier.height(4.dp))
+                            Button(
+                                onClick = {
+                                    viewModel.startCourse1Loop(enduranceMinutes)
+                                    viewModel.closeSettingsDialog()
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.secondary,
+                                    contentColor = MaterialTheme.colorScheme.onSecondary
+                                ),
+                                modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                            ) {
+                                Text("コース1（多ファイル結合）をループ実行 (${enduranceMinutes}分)", style = MaterialTheme.typography.bodyLarge)
+                            }
                         }
                     }
 
