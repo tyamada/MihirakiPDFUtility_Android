@@ -25,6 +25,7 @@ class EnduranceTestExecutor(
         fun appendPdf(uri: Uri)
         fun selectAll()
         fun clearSelection()
+        fun clearPages()
         fun invertSelection()
         fun rotateSelected(degrees: Int)
         fun cropSelectedPages(fraction: Float)
@@ -56,70 +57,123 @@ class EnduranceTestExecutor(
     val isRunning: Boolean get() = isEnduranceRunning.get()
 
     private suspend fun executePattern(courseNum: Int, filesToProcess: List<File>) {
-        // Initial state setup: Ensure non-spread (single page view) and clear all selection before each pattern starts
+        // Initial state setup: Clear pages, clear selection, and ensure single page view before each pattern starts
         withContext(Dispatchers.Main) {
             if (!isEnduranceRunning.get()) return@withContext
+            viewModelActions.clearPages()
             viewModelActions.clearSelection()
             viewModelActions.ensureSinglePageView()
         }
-        delay(500L)
+        delay(300L)
 
         when (courseNum) {
-            1 -> { // Course 1: UI Simulation (Open 1st file -> Append 2nd file -> ... -> Append nth file) with >= 1.0s interval & busy waiting
+            1 -> { // Course 1: Merge ALL sample manga files (all 14 files) via incremental batch merging with live progress
                 withContext(Dispatchers.Main) {
                     if (!isEnduranceRunning.get()) return@withContext
-                    AppLogger.log(application, "INFO", "Pattern 1: UI Simulation - Opening first file: ${filesToProcess[0].name}")
-                    _enduranceStatusMessage.value = "コース1: 1番目のファイルを開いています..."
-                    viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
+                    _enduranceStatusMessage.value = "コース1: マンガ全14冊の結合を開始..."
                 }
+                val mergedFile = File(application.cacheDir, "merged_course1_${System.currentTimeMillis()}.pdf")
+                val batchSize = 4
+                var currentMerged: File? = null
 
-                while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
-                    delay(100L)
-                }
-                delay(1000L) // >= 1.0 second interval
+                try {
+                    var startIndex = 0
+                    while (startIndex < filesToProcess.size) {
+                        val endIndex = minOf(startIndex + batchSize, filesToProcess.size)
+                        val batch = filesToProcess.subList(startIndex, endIndex)
+                        
+                        withContext(Dispatchers.Main) {
+                            if (!isEnduranceRunning.get()) return@withContext
+                            _enduranceStatusMessage.value = "コース1: マンガファイル結合中 (${startIndex + 1}〜${endIndex} / ${filesToProcess.size})..."
+                        }
 
-                for (i in 1 until filesToProcess.size) {
-                    if (!isEnduranceRunning.get()) break
-                    withContext(Dispatchers.Main) {
-                        if (!isEnduranceRunning.get()) return@withContext
-                        AppLogger.log(application, "INFO", "Pattern 1: UI Simulation - Appending file #${i + 1}/${filesToProcess.size}: ${filesToProcess[i].name}")
-                        _enduranceStatusMessage.value = "コース1: PDFを追加中 (${i + 1}/${filesToProcess.size})..."
-                        viewModelActions.appendPdf(Uri.fromFile(filesToProcess[i]))
+                        val batchFile = File(application.cacheDir, "batch_${System.currentTimeMillis()}_${startIndex}.pdf")
+                        val processor = com.takumayamada22.pdfutility.domain.PdfProcessor()
+                        try {
+                            if (currentMerged != null && currentMerged.exists()) {
+                                processor.load(currentMerged.inputStream())
+                                for (file in batch) {
+                                    processor.append(file.inputStream())
+                                }
+                            } else {
+                                processor.load(batch[0].inputStream())
+                                for (i in 1 until batch.size) {
+                                    processor.append(batch[i].inputStream())
+                                }
+                            }
+                            FileOutputStream(batchFile).use { fos -> processor.save(fos) }
+                        } finally {
+                            processor.close()
+                        }
+
+                        if (currentMerged != null && currentMerged.exists()) {
+                            currentMerged.delete()
+                        }
+                        currentMerged = batchFile
+                        startIndex = endIndex
+                        System.gc()
                     }
 
-                    // Wait while processing dialog is displayed; do not start next operation until finished
-                    while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
-                        delay(100L)
+                    if (currentMerged != null && currentMerged.exists()) {
+                        currentMerged.renameTo(mergedFile)
                     }
-                    delay(1000L) // >= 1.0 second interval between operations
+                } catch (e: Exception) {
+                    AppLogger.log(application, "ERROR", "Batch merge failed: ${e.message}")
+                    throw e
+                }
+
+                withContext(Dispatchers.Main) {
+                    if (!isEnduranceRunning.get()) return@withContext
+                    if (mergedFile.exists()) {
+                        _enduranceStatusMessage.value = "コース1: 結合完了。PDFを読み込み中..."
+                        viewModelActions.loadPdf(Uri.fromFile(mergedFile))
+                    }
                 }
             }
-            2 -> { // Course 2: load_test_1100_pages.pdf appended 9 times via UI simulation
+            2 -> { // Course 2: load_test_1100_pages.pdf appended 9 times via incremental batching
+                val mergedFile = File(application.cacheDir, "merged_course2_${System.currentTimeMillis()}.pdf")
+                var currentMerged: File? = null
+                try {
+                    var remaining = 9
+                    while (remaining > 0) {
+                        val count = minOf(3, remaining)
+                        val batchFile = File(application.cacheDir, "batch_c2_${System.currentTimeMillis()}.pdf")
+                        val processor = com.takumayamada22.pdfutility.domain.PdfProcessor()
+                        try {
+                            if (currentMerged != null && currentMerged.exists()) {
+                                processor.load(currentMerged.inputStream())
+                                repeat(count) {
+                                    processor.append(filesToProcess[0].inputStream())
+                                }
+                            } else {
+                                processor.load(filesToProcess[0].inputStream())
+                                repeat(count) {
+                                    processor.append(filesToProcess[0].inputStream())
+                                }
+                            }
+                            FileOutputStream(batchFile).use { fos -> processor.save(fos) }
+                        } finally {
+                            processor.close()
+                        }
+                        if (currentMerged != null && currentMerged.exists()) {
+                            currentMerged.delete()
+                        }
+                        currentMerged = batchFile
+                        remaining -= count
+                        System.gc()
+                    }
+                    if (currentMerged != null && currentMerged.exists()) {
+                        currentMerged.renameTo(mergedFile)
+                    }
+                } catch (e: Exception) {
+                    AppLogger.log(application, "ERROR", "Course 2 batch append failed: ${e.message}")
+                    throw e
+                }
                 withContext(Dispatchers.Main) {
                     if (!isEnduranceRunning.get()) return@withContext
-                    AppLogger.log(application, "INFO", "Pattern 2: UI Simulation - Opening load test file")
-                    _enduranceStatusMessage.value = "コース2: 大規模ロードテストファイルを開いています..."
-                    viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
-                }
-
-                while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
-                    delay(100L)
-                }
-                delay(1000L)
-
-                repeat(9) { appendIndex ->
-                    if (!isEnduranceRunning.get()) return@repeat
-                    withContext(Dispatchers.Main) {
-                        if (!isEnduranceRunning.get()) return@withContext
-                        AppLogger.log(application, "INFO", "Pattern 2: UI Simulation - Appending load test file #${appendIndex + 1}/9")
-                        _enduranceStatusMessage.value = "コース2: 大規模ファイルを追加中 (${appendIndex + 1}/9)..."
-                        viewModelActions.appendPdf(Uri.fromFile(filesToProcess[0]))
+                    if (mergedFile.exists()) {
+                        viewModelActions.loadPdf(Uri.fromFile(mergedFile))
                     }
-
-                    while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
-                        delay(100L)
-                    }
-                    delay(1000L)
                 }
             }
             3, 4 -> { // Pattern 3 & 4: Base (Load -> SelectAll -> Crop) + 100 Random Edit Operations (>= 1.0s interval)
@@ -149,6 +203,7 @@ class EnduranceTestExecutor(
                     if (!isEnduranceRunning.get()) break
                     val actionChoice = random.nextInt(10)
                     AppLogger.log(application, "DEBUG", "Pattern $courseNum: Random edit operation #$opCount/100")
+
                     withContext(Dispatchers.Main) {
                         if (!isEnduranceRunning.get()) return@withContext
                         _enduranceStatusMessage.value = "パターン $courseNum: ランダム編集操作 #$opCount/100"
@@ -248,50 +303,85 @@ class EnduranceTestExecutor(
                     }
                 }
             }
-            9, 10 -> { // Pattern 9 & 10: After Course 1/2 (UI simulation), 300 ops if foldable, else 200 ops
+            9, 10 -> { // Pattern 9 & 10: After Course 1/2, 300 ops if foldable, else 200 ops
                 if (courseNum == 9) {
+                    val mergedFile = File(application.cacheDir, "merged_p9_${System.currentTimeMillis()}.pdf")
+                    val batchSize = 4
+                    var currentMerged: File? = null
+                    try {
+                        var startIndex = 0
+                        while (startIndex < filesToProcess.size) {
+                            val endIndex = minOf(startIndex + batchSize, filesToProcess.size)
+                            val batch = filesToProcess.subList(startIndex, endIndex)
+                            val batchFile = File(application.cacheDir, "batch_p9_${System.currentTimeMillis()}_${startIndex}.pdf")
+                            val processor = com.takumayamada22.pdfutility.domain.PdfProcessor()
+                            try {
+                                if (currentMerged != null && currentMerged.exists()) {
+                                    processor.load(currentMerged.inputStream())
+                                    for (file in batch) { processor.append(file.inputStream()) }
+                                } else {
+                                    processor.load(batch[0].inputStream())
+                                    for (i in 1 until batch.size) { processor.append(batch[i].inputStream()) }
+                                }
+                                FileOutputStream(batchFile).use { fos -> processor.save(fos) }
+                            } finally {
+                                processor.close()
+                            }
+                            if (currentMerged != null && currentMerged.exists()) currentMerged.delete()
+                            currentMerged = batchFile
+                            startIndex = endIndex
+                            System.gc()
+                        }
+                        if (currentMerged != null && currentMerged.exists()) currentMerged.renameTo(mergedFile)
+                    } catch (e: Exception) {
+                        AppLogger.log(application, "ERROR", "Pattern 9 merge failed: ${e.message}")
+                        throw e
+                    }
                     withContext(Dispatchers.Main) {
                         if (!isEnduranceRunning.get()) return@withContext
-                        _enduranceStatusMessage.value = "パターン9: マンガファイル群をUI順次追加中..."
-                        viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
-                    }
-                    while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
-                        delay(100L)
-                    }
-                    delay(1000L)
-                    for (i in 1 until minOf(4, filesToProcess.size)) {
-                        if (!isEnduranceRunning.get()) break
-                        withContext(Dispatchers.Main) {
-                            if (!isEnduranceRunning.get()) return@withContext
-                            viewModelActions.appendPdf(Uri.fromFile(filesToProcess[i]))
-                        }
-                        while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
-                            delay(100L)
-                        }
-                        delay(1000L)
+                        if (mergedFile.exists()) viewModelActions.loadPdf(Uri.fromFile(mergedFile))
                     }
                 } else {
+                    val mergedFile = File(application.cacheDir, "merged_p10_${System.currentTimeMillis()}.pdf")
+                    var currentMerged: File? = null
+                    try {
+                        var remaining = 9
+                        while (remaining > 0) {
+                            val count = minOf(3, remaining)
+                            val batchFile = File(application.cacheDir, "batch_p10_${System.currentTimeMillis()}.pdf")
+                            val processor = com.takumayamada22.pdfutility.domain.PdfProcessor()
+                            try {
+                                if (currentMerged != null && currentMerged.exists()) {
+                                    processor.load(currentMerged.inputStream())
+                                    repeat(count) { processor.append(filesToProcess[0].inputStream()) }
+                                } else {
+                                    processor.load(filesToProcess[0].inputStream())
+                                    repeat(count) { processor.append(filesToProcess[0].inputStream()) }
+                                }
+                                FileOutputStream(batchFile).use { fos -> processor.save(fos) }
+                            } finally {
+                                processor.close()
+                            }
+                            if (currentMerged != null && currentMerged.exists()) currentMerged.delete()
+                            currentMerged = batchFile
+                            remaining -= count
+                            System.gc()
+                        }
+                        if (currentMerged != null && currentMerged.exists()) currentMerged.renameTo(mergedFile)
+                    } catch (e: Exception) {
+                        AppLogger.log(application, "ERROR", "Pattern 10 append failed: ${e.message}")
+                        throw e
+                    }
                     withContext(Dispatchers.Main) {
                         if (!isEnduranceRunning.get()) return@withContext
-                        _enduranceStatusMessage.value = "パターン10: 1100pファイルをUI順次追加中..."
-                        viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
-                    }
-                    while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
-                        delay(100L)
-                    }
-                    delay(1000L)
-                    repeat(2) {
-                        if (!isEnduranceRunning.get()) return@repeat
-                        withContext(Dispatchers.Main) {
-                            if (!isEnduranceRunning.get()) return@withContext
-                            viewModelActions.appendPdf(Uri.fromFile(filesToProcess[0]))
-                        }
-                        while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
-                            delay(100L)
-                        }
-                        delay(1000L)
+                        if (mergedFile.exists()) viewModelActions.loadPdf(Uri.fromFile(mergedFile))
                     }
                 }
+
+                while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                    delay(100L)
+                }
+                delay(1000L)
 
                 val isFoldable = viewModelActions.isFoldableDevice()
                 val totalOps = if (isFoldable) 300 else 200
