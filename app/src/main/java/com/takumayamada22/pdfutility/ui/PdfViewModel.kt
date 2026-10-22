@@ -1442,6 +1442,11 @@ class PdfViewModel(
             override fun moveSelected(offset: Int) { this@PdfViewModel.moveSelected(offset) }
             override fun toggleMihirakiView() { this@PdfViewModel.toggleMihirakiView() }
             override fun toggleRtl() { this@PdfViewModel.toggleRtl() }
+            override fun ensureSinglePageView() {
+                if (_uiState.value.isMihirakiView) {
+                    toggleMihirakiView()
+                }
+            }
             override fun setOrientation(orientationCode: Int) { this@PdfViewModel.setOrientation(orientationCode) }
             override fun getInitialOrientationCode(): Int {
                 val config = getApplication<Application>().resources.configuration

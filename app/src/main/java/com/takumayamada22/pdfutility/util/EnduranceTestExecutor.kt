@@ -33,6 +33,7 @@ class EnduranceTestExecutor(
         fun moveSelected(offset: Int)
         fun toggleMihirakiView()
         fun toggleRtl()
+        fun ensureSinglePageView()
         fun setOrientation(orientationCode: Int)
         fun getInitialOrientationCode(): Int
         fun isFoldableDevice(): Boolean
@@ -56,6 +57,14 @@ class EnduranceTestExecutor(
     val isRunning: Boolean get() = isEnduranceRunning.get()
 
     private suspend fun executePattern(courseNum: Int, filesToProcess: List<File>) {
+        // Initial state setup: Ensure non-spread (single page view) and clear all selection before each pattern starts
+        withContext(Dispatchers.Main) {
+            if (!isEnduranceRunning.get()) return@withContext
+            viewModelActions.clearSelection()
+            viewModelActions.ensureSinglePageView()
+        }
+        delay(500L)
+
         when (courseNum) {
             1 -> { // Course 1: Merge 3 manga files (temporary reduced plan)
                 val testSubset = filesToProcess.take(3)
@@ -353,8 +362,7 @@ class EnduranceTestExecutor(
                             listOf(loadFile)
                         }
                         else -> {
-                            val f1 = TestPdfGenerator.createFunctionalTestPdf(application)
-                            listOfNotNull(f1)
+                            throw java.io.FileNotFoundException("Required test files not found.")
                         }
                     }
 
