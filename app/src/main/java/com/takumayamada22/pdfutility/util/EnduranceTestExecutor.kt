@@ -28,6 +28,7 @@ class EnduranceTestExecutor(
         fun moveSelected(offset: Int)
         fun toggleMihirakiView()
         fun toggleRtl()
+        fun setOrientation(isLandscape: Boolean)
         fun undo()
         fun redo()
         fun openSettingsDialog(type: SettingsDialogType)
@@ -191,7 +192,7 @@ class EnduranceTestExecutor(
                                 delay(1000L) // >= 1.0 second interval after each operation
                             }
                         }
-                        5, 6 -> { // Pattern 5 & 6: 100 consecutive orientation rotation operations at >= 1.0s intervals
+                        5, 6 -> { // Pattern 5 & 6: 100 consecutive true orientation changes (Landscape/Portrait) at >= 1.0s intervals
                             withContext(Dispatchers.Main) {
                                 if (!isEnduranceRunning.get()) return@withContext
                                 viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
@@ -201,22 +202,18 @@ class EnduranceTestExecutor(
                             }
                             delay(1000L)
 
-                            val random = java.util.Random()
                             for (opCount in 1..100) {
                                 if (!isEnduranceRunning.get()) break
-                                AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: Orientation rotation operation #$opCount/100")
+                                val isLandscape = (opCount % 2 == 0)
+                                AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: True orientation change #$opCount/100 (Landscape=$isLandscape)")
                                 withContext(Dispatchers.Main) {
                                     if (!isEnduranceRunning.get()) return@withContext
-                                    if (random.nextBoolean()) {
-                                        viewModelActions.toggleMihirakiView()
-                                    } else {
-                                        viewModelActions.toggleRtl()
-                                    }
+                                    viewModelActions.setOrientation(isLandscape)
                                 }
                                 while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
                                     delay(100L)
                                 }
-                                delay(1000L)
+                                delay(1000L) // >= 1.0s interval
                             }
                         }
                         7, 8 -> { // Pattern 7 & 8: 100 consecutive foldable posture simulation changes at >= 1.0s intervals
@@ -231,10 +228,11 @@ class EnduranceTestExecutor(
 
                             for (opCount in 1..100) {
                                 if (!isEnduranceRunning.get()) break
-                                AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: Foldable posture simulation #$opCount/100")
+                                val isLandscape = (opCount % 2 == 0)
+                                AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: Foldable posture change #$opCount/100")
                                 withContext(Dispatchers.Main) {
                                     if (!isEnduranceRunning.get()) return@withContext
-                                    viewModelActions.toggleMihirakiView()
+                                    viewModelActions.setOrientation(isLandscape)
                                 }
                                 while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
                                     delay(100L)
@@ -313,8 +311,8 @@ class EnduranceTestExecutor(
                                                 9 -> { if (random.nextBoolean()) viewModelActions.undo() else viewModelActions.redo() }
                                             }
                                         }
-                                        1 -> viewModelActions.toggleMihirakiView()
-                                        2 -> viewModelActions.toggleRtl()
+                                        1 -> viewModelActions.setOrientation(random.nextBoolean())
+                                        2 -> viewModelActions.setOrientation(random.nextBoolean())
                                     }
                                 }
                                 while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
