@@ -18,11 +18,8 @@ class ThumbnailProvider(private val context: Context) {
     private val cacheSize = 50 // max 50 thumbnails in memory cache
     private val memoryCache = object : LruCache<String, Bitmap>(cacheSize) {
         override fun entryRemoved(expired: Boolean, key: String, oldValue: Bitmap, newValue: Bitmap?) {
-            try {
-                if (!oldValue.isRecycled) {
-                    oldValue.recycle()
-                }
-            } catch (_: Exception) {}
+            // Bitmaps are managed by cache eviction and GC. Do not call recycle() here 
+            // because Compose UI pages (PageState.thumbnail) may still hold references to evicted bitmaps.
         }
     }
 
