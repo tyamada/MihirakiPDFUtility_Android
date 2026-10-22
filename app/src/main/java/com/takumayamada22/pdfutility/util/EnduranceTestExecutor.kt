@@ -66,7 +66,11 @@ class EnduranceTestExecutor(
         delay(500L)
 
         when (courseNum) {
-            1 -> { // Course 1: Merge ALL sample manga files (all 14 files) via incremental batch merging
+            1 -> { // Course 1: Merge ALL sample manga files (all 14 files) via incremental batch merging with live progress
+                withContext(Dispatchers.Main) {
+                    if (!isEnduranceRunning.get()) return@withContext
+                    _enduranceStatusMessage.value = "コース1: マンガ全14冊の結合を開始..."
+                }
                 val mergedFile = File(application.cacheDir, "merged_course1_${System.currentTimeMillis()}.pdf")
                 val batchSize = 4
                 var currentMerged: File? = null
@@ -77,6 +81,11 @@ class EnduranceTestExecutor(
                         val endIndex = minOf(startIndex + batchSize, filesToProcess.size)
                         val batch = filesToProcess.subList(startIndex, endIndex)
                         
+                        withContext(Dispatchers.Main) {
+                            if (!isEnduranceRunning.get()) return@withContext
+                            _enduranceStatusMessage.value = "コース1: マンガファイル結合中 (${startIndex + 1}〜${endIndex} / ${filesToProcess.size})..."
+                        }
+
                         val batchFile = File(application.cacheDir, "batch_${System.currentTimeMillis()}_${startIndex}.pdf")
                         val processor = PdfProcessor()
                         try {
@@ -115,6 +124,7 @@ class EnduranceTestExecutor(
                 withContext(Dispatchers.Main) {
                     if (!isEnduranceRunning.get()) return@withContext
                     if (mergedFile.exists()) {
+                        _enduranceStatusMessage.value = "コース1: 結合完了。PDFを読み込み中..."
                         viewModelActions.loadPdf(Uri.fromFile(mergedFile))
                     }
                 }
