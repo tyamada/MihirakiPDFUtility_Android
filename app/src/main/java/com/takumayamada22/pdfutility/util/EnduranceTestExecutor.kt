@@ -66,19 +66,52 @@ class EnduranceTestExecutor(
         delay(500L)
 
         when (courseNum) {
-            1 -> { // Course 1: Merge 3 manga files (temporary reduced plan)
-                val testSubset = filesToProcess.take(3)
+            1 -> { // Course 1: Merge ALL sample manga files (all 14 files) via incremental batch merging
                 val mergedFile = File(application.cacheDir, "merged_course1_${System.currentTimeMillis()}.pdf")
-                val processor = PdfProcessor()
+                val batchSize = 4
+                var currentMerged: File? = null
+
                 try {
-                    processor.load(testSubset[0].inputStream())
-                    for (i in 1 until testSubset.size) {
-                        processor.append(testSubset[i].inputStream())
+                    var startIndex = 0
+                    while (startIndex < filesToProcess.size) {
+                        val endIndex = minOf(startIndex + batchSize, filesToProcess.size)
+                        val batch = filesToProcess.subList(startIndex, endIndex)
+                        
+                        val batchFile = File(application.cacheDir, "batch_${System.currentTimeMillis()}_${startIndex}.pdf")
+                        val processor = PdfProcessor()
+                        try {
+                            if (currentMerged != null && currentMerged.exists()) {
+                                processor.load(currentMerged.inputStream())
+                                for (file in batch) {
+                                    processor.append(file.inputStream())
+                                }
+                            } else {
+                                processor.load(batch[0].inputStream())
+                                for (i in 1 until batch.size) {
+                                    processor.append(batch[i].inputStream())
+                                }
+                            }
+                            FileOutputStream(batchFile).use { fos -> processor.save(fos) }
+                        } finally {
+                            processor.close()
+                        }
+
+                        if (currentMerged != null && currentMerged.exists()) {
+                            currentMerged.delete()
+                        }
+                        currentMerged = batchFile
+                        startIndex = endIndex
+                        System.gc()
                     }
-                    FileOutputStream(mergedFile).use { fos -> processor.save(fos) }
-                } finally {
-                    processor.close()
+
+                    if (currentMerged != null && currentMerged.exists()) {
+                        currentMerged.renameTo(mergedFile)
+                    }
+                } catch (e: Exception) {
+                    AppLogger.log(application, "ERROR", "Batch merge failed: ${e.message}")
+                    throw e
                 }
+
                 withContext(Dispatchers.Main) {
                     if (!isEnduranceRunning.get()) return@withContext
                     if (mergedFile.exists()) {
@@ -86,17 +119,44 @@ class EnduranceTestExecutor(
                     }
                 }
             }
-            2 -> { // Course 2: load_test_1100_pages.pdf appended 2 times (temporary reduced plan)
+            2 -> { // Course 2: load_test_1100_pages.pdf appended 9 times via incremental batching
                 val mergedFile = File(application.cacheDir, "merged_course2_${System.currentTimeMillis()}.pdf")
-                val processor = PdfProcessor()
+                var currentMerged: File? = null
                 try {
-                    processor.load(filesToProcess[0].inputStream())
-                    repeat(2) {
-                        processor.append(filesToProcess[0].inputStream())
+                    var remaining = 9
+                    while (remaining > 0) {
+                        val count = minOf(3, remaining)
+                        val batchFile = File(application.cacheDir, "batch_c2_${System.currentTimeMillis()}.pdf")
+                        val processor = PdfProcessor()
+                        try {
+                            if (currentMerged != null && currentMerged.exists()) {
+                                processor.load(currentMerged.inputStream())
+                                repeat(count) {
+                                    processor.append(filesToProcess[0].inputStream())
+                                }
+                            } else {
+                                processor.load(filesToProcess[0].inputStream())
+                                repeat(count) {
+                                    processor.append(filesToProcess[0].inputStream())
+                                }
+                            }
+                            FileOutputStream(batchFile).use { fos -> processor.save(fos) }
+                        } finally {
+                            processor.close()
+                        }
+                        if (currentMerged != null && currentMerged.exists()) {
+                            currentMerged.delete()
+                        }
+                        currentMerged = batchFile
+                        remaining -= count
+                        System.gc()
                     }
-                    FileOutputStream(mergedFile).use { fos -> processor.save(fos) }
-                } finally {
-                    processor.close()
+                    if (currentMerged != null && currentMerged.exists()) {
+                        currentMerged.renameTo(mergedFile)
+                    }
+                } catch (e: Exception) {
+                    AppLogger.log(application, "ERROR", "Course 2 batch append failed: ${e.message}")
+                    throw e
                 }
                 withContext(Dispatchers.Main) {
                     if (!isEnduranceRunning.get()) return@withContext
@@ -230,17 +290,37 @@ class EnduranceTestExecutor(
             }
             9, 10 -> { // Pattern 9 & 10: After Course 1/2, 300 ops if foldable, else 200 ops
                 if (courseNum == 9) {
-                    val testSubset = filesToProcess.take(3)
                     val mergedFile = File(application.cacheDir, "merged_p9_${System.currentTimeMillis()}.pdf")
-                    val processor = PdfProcessor()
+                    val batchSize = 4
+                    var currentMerged: File? = null
                     try {
-                        processor.load(testSubset[0].inputStream())
-                        for (i in 1 until testSubset.size) {
-                            processor.append(testSubset[i].inputStream())
+                        var startIndex = 0
+                        while (startIndex < filesToProcess.size) {
+                            val endIndex = minOf(startIndex + batchSize, filesToProcess.size)
+                            val batch = filesToProcess.subList(startIndex, endIndex)
+                            val batchFile = File(application.cacheDir, "batch_p9_${System.currentTimeMillis()}_${startIndex}.pdf")
+                            val processor = PdfProcessor()
+                            try {
+                                if (currentMerged != null && currentMerged.exists()) {
+                                    processor.load(currentMerged.inputStream())
+                                    for (file in batch) { processor.append(file.inputStream()) }
+                                } else {
+                                    processor.load(batch[0].inputStream())
+                                    for (i in 1 until batch.size) { processor.append(batch[i].inputStream()) }
+                                }
+                                FileOutputStream(batchFile).use { fos -> processor.save(fos) }
+                            } finally {
+                                processor.close()
+                            }
+                            if (currentMerged != null && currentMerged.exists()) currentMerged.delete()
+                            currentMerged = batchFile
+                            startIndex = endIndex
+                            System.gc()
                         }
-                        FileOutputStream(mergedFile).use { fos -> processor.save(fos) }
-                    } finally {
-                        processor.close()
+                        if (currentMerged != null && currentMerged.exists()) currentMerged.renameTo(mergedFile)
+                    } catch (e: Exception) {
+                        AppLogger.log(application, "ERROR", "Pattern 9 merge failed: ${e.message}")
+                        throw e
                     }
                     withContext(Dispatchers.Main) {
                         if (!isEnduranceRunning.get()) return@withContext
@@ -248,15 +328,34 @@ class EnduranceTestExecutor(
                     }
                 } else {
                     val mergedFile = File(application.cacheDir, "merged_p10_${System.currentTimeMillis()}.pdf")
-                    val processor = PdfProcessor()
+                    var currentMerged: File? = null
                     try {
-                        processor.load(filesToProcess[0].inputStream())
-                        repeat(2) {
-                            processor.append(filesToProcess[0].inputStream())
+                        var remaining = 9
+                        while (remaining > 0) {
+                            val count = minOf(3, remaining)
+                            val batchFile = File(application.cacheDir, "batch_p10_${System.currentTimeMillis()}.pdf")
+                            val processor = PdfProcessor()
+                            try {
+                                if (currentMerged != null && currentMerged.exists()) {
+                                    processor.load(currentMerged.inputStream())
+                                    repeat(count) { processor.append(filesToProcess[0].inputStream()) }
+                                } else {
+                                    processor.load(filesToProcess[0].inputStream())
+                                    repeat(count) { processor.append(filesToProcess[0].inputStream()) }
+                                }
+                                FileOutputStream(batchFile).use { fos -> processor.save(fos) }
+                            } finally {
+                                processor.close()
+                            }
+                            if (currentMerged != null && currentMerged.exists()) currentMerged.delete()
+                            currentMerged = batchFile
+                            remaining -= count
+                            System.gc()
                         }
-                        FileOutputStream(mergedFile).use { fos -> processor.save(fos) }
-                    } finally {
-                        processor.close()
+                        if (currentMerged != null && currentMerged.exists()) currentMerged.renameTo(mergedFile)
+                    } catch (e: Exception) {
+                        AppLogger.log(application, "ERROR", "Pattern 10 append failed: ${e.message}")
+                        throw e
                     }
                     withContext(Dispatchers.Main) {
                         if (!isEnduranceRunning.get()) return@withContext
