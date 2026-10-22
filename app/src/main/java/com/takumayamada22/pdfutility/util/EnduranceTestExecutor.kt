@@ -41,6 +41,7 @@ class EnduranceTestExecutor(
         fun setLayoutState(state: LayoutState)
         fun undo()
         fun redo()
+        fun clearHistoryAndCaches()
         fun openSettingsDialog(type: SettingsDialogType)
         fun isProcessing(): Boolean
     }
@@ -403,6 +404,12 @@ class EnduranceTestExecutor(
                         delay(100L)
                     }
                     delay(1000L)
+
+                    withContext(Dispatchers.Main) {
+                        if (!isEnduranceRunning.get()) return@withContext
+                        viewModelActions.clearHistoryAndCaches()
+                    }
+                    System.gc()
                 }
 
                 val finalMemory = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024)

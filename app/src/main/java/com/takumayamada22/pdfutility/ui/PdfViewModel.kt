@@ -1467,6 +1467,12 @@ class PdfViewModel(
             }
             override fun undo() { this@PdfViewModel.undo() }
             override fun redo() { this@PdfViewModel.redo() }
+            override fun clearHistoryAndCaches() {
+                undoStack.clear()
+                redoStack.clear()
+                updateHistoryFlags()
+                thumbnailProvider.close()
+            }
             override fun isFoldableDevice(): Boolean {
                 val context = getApplication<Application>()
                 return try {
