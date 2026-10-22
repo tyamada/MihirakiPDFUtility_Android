@@ -161,7 +161,7 @@ class EnduranceTestExecutor(
                             0 -> viewModelActions.rotateSelected(90)
                             1 -> viewModelActions.rotateSelected(180)
                             2 -> viewModelActions.rotateSelected(-90)
-                            3 -> viewModelActions.insertBlankAfterSelected()
+                            3 -> viewModelActions.rotateSelected(90)
                             4 -> viewModelActions.moveSelected(if (random.nextBoolean()) 1 else -1)
                             5 -> viewModelActions.invertSelection()
                             6 -> { viewModelActions.clearSelection(); viewModelActions.selectAll() }
@@ -316,7 +316,7 @@ class EnduranceTestExecutor(
                                     0 -> viewModelActions.rotateSelected(90)
                                     1 -> viewModelActions.rotateSelected(180)
                                     2 -> viewModelActions.rotateSelected(-90)
-                                    3 -> viewModelActions.insertBlankAfterSelected()
+                                    3 -> viewModelActions.rotateSelected(90)
                                     4 -> viewModelActions.moveSelected(if (random.nextBoolean()) 1 else -1)
                                     5 -> viewModelActions.invertSelection()
                                     6 -> { viewModelActions.clearSelection(); viewModelActions.selectAll() }
