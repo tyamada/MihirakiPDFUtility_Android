@@ -228,5 +228,17 @@
     <string name="cancel_download">Cancel Download</string>
     <string name="endurance_running_banner">⚡ [Endurance Test Running] Elapsed: %1$d min / Target: %2$d min (#%3$d)</string>
     <string name="endurance_stop_button">Stop</string>
-    <string name="processing_pdf_message">Processing &amp; merging PDF files...\nPlease wait.</string>
+    <string name="processing_pdf_message">Processing &amp; merging PDF files&#8230;\nPlease wait.</string>
+
+    <string name="course_option_all">All Courses (Patterns 1–10)</string>
+    <string name="course_option_pattern_1">Pattern 1 (Multi-File Merge)</string>
+    <string name="course_option_pattern_2">Pattern 2 (1100p Append 9x)</string>
+    <string name="course_option_pattern_3">Pattern 3 (Merge + Editing Stress)</string>
+    <string name="course_option_pattern_4">Pattern 4 (Append + Editing Stress)</string>
+    <string name="course_option_pattern_5">Pattern 5 (Merge + Screen Rotation)</string>
+    <string name="course_option_pattern_6">Pattern 6 (Append + Screen Rotation)</string>
+    <string name="course_option_pattern_7">Pattern 7 (Merge + Foldable Simulation)</string>
+    <string name="course_option_pattern_8">Pattern 8 (Append + Foldable Simulation)</string>
+    <string name="course_option_pattern_9">Pattern 9 (Full Combination A)</string>
+    <string name="course_option_pattern_10">Pattern 10 (Full Combination B)</string>
 </resources>

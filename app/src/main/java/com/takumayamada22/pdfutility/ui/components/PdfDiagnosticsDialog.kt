@@ -28,17 +28,17 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
     var selectedCourseIndex by remember { mutableStateOf(0) }
     var courseDropdownExpanded by remember { mutableStateOf(false) }
     val courseOptions = listOf(
-        "すべて (All Courses / Patterns 1-10)",
-        "パターン1 (コース1単独: 多ファイル結合)",
-        "パターン2 (コース2単独: 1100p Append 9x)",
-        "パターン3 (コース1 + 3: 結合 + 編集)",
-        "パターン4 (コース2 + 3: 追加 + 編集)",
-        "パターン5 (コース1 + 4: 結合 + 画面回転)",
-        "パターン6 (コース2 + 4: 追加 + 画面回転)",
-        "パターン7 (コース1 + 5: 結合 + 折りたたみ)",
-        "パターン8 (コース2 + 5: 追加 + 折りたたみ)",
-        "パターン9 (フルコンビネーション A)",
-        "パターン10 (フルコンビネーション B)"
+        stringResource(R.string.course_option_all),
+        stringResource(R.string.course_option_pattern_1),
+        stringResource(R.string.course_option_pattern_2),
+        stringResource(R.string.course_option_pattern_3),
+        stringResource(R.string.course_option_pattern_4),
+        stringResource(R.string.course_option_pattern_5),
+        stringResource(R.string.course_option_pattern_6),
+        stringResource(R.string.course_option_pattern_7),
+        stringResource(R.string.course_option_pattern_8),
+        stringResource(R.string.course_option_pattern_9),
+        stringResource(R.string.course_option_pattern_10)
     )
     val enduranceProgress by viewModel.enduranceProgress.collectAsState()
     val enduranceStatusMessage by viewModel.enduranceStatusMessage.collectAsState()
