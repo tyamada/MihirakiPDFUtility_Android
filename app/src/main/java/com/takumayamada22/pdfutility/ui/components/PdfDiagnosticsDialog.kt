@@ -109,7 +109,7 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                         ),
                         modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
                     ) {
-                        Text("☁️ テスト用PDF・サンプルを一括ダウンロード", style = MaterialTheme.typography.bodyLarge)
+                        Text(stringResource(R.string.download_all_test_files), style = MaterialTheme.typography.bodyLarge)
                     }
 
                     downloadStatus?.let { status ->
@@ -126,7 +126,7 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                                     contentPadding = PaddingValues(horizontal = 12.dp, vertical = 2.dp),
                                     modifier = Modifier.heightIn(min = 36.dp)
                                 ) {
-                                    Text("ダウンロードをキャンセル (Cancel)", style = MaterialTheme.typography.labelMedium)
+                                    Text(stringResource(R.string.cancel_download), style = MaterialTheme.typography.labelMedium)
                                 }
                             }
                         }
@@ -142,18 +142,18 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             Text(
-                                "長時間ランニング耐久テスト (Long-Running Stress Test)",
+                                stringResource(R.string.diagnostics_endurance_title),
                                 style = MaterialTheme.typography.titleMedium,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                             Text(
-                                "テスト継続時間を選択し、マンガ全14本結合、1100ページ9回追加、編集ストレステスト、画面回転・折りたたみシミュレーションを連続実行します。",
+                                stringResource(R.string.diagnostics_endurance_desc),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                             
                             Text(
-                                "テストコース・パターン選択:",
+                                stringResource(R.string.endurance_pattern_select),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
@@ -217,17 +217,17 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                                 modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)
                             ) {
                                 Text(
-                                    if (isRunning) "長時間テストを停止 (Stop Test)" else "長時間テストを開始 (${enduranceMinutes}分)",
+                                    if (isRunning) stringResource(R.string.endurance_stop_test) else stringResource(R.string.endurance_start_test, enduranceMinutes),
                                     style = MaterialTheme.typography.bodyLarge
                                 )
                             }
 
                             enduranceProgress?.let { prog ->
                                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                                Text("進捗: 経過 ${prog.elapsedMinutes}分 / 目標 ${prog.targetMinutes}分", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
-                                Text("イテレーション: #${prog.currentIteration}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
-                                Text("現在コース: ${prog.currentCourse}", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
-                                Text("メモリ使用量: ${prog.memoryUsageMb} MB", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
+                                Text(stringResource(R.string.endurance_progress_text, prog.elapsedMinutes, prog.targetMinutes), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
+                                Text(stringResource(R.string.endurance_iteration_text, prog.currentIteration), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
+                                Text(stringResource(R.string.endurance_course_text, prog.currentCourse), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
+                                Text(stringResource(R.string.endurance_memory_text, prog.memoryUsageMb), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
                             }
 
                             enduranceStatusMessage?.let { msg ->
