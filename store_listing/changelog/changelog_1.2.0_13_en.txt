@@ -1,0 +1,4 @@
+v1.2.0
+- Added a step-by-step interactive tutorial screen for first-time users.
+- Added a direct "Try Sample PDF" button on the final tutorial slide for instant testing.
+- Added an option in the help menu to re-trigger the tutorial guide at any time.

@@ -241,4 +241,20 @@
     <string name="course_option_pattern_8">Pattern 8 (Append + Foldable Simulation)</string>
     <string name="course_option_pattern_9">Pattern 9 (Full Combination A)</string>
     <string name="course_option_pattern_10">Pattern 10 (Full Combination B)</string>
+
+    <string name="help_show_tutorial">Show Tutorial Guide</string>
+    <string name="tutorial_skip">Skip</string>
+    <string name="tutorial_next">Next</string>
+    <string name="tutorial_finish">Get Started</string>
+    <string name="tutorial_try_sample">Try Sample PDF</string>
+    <string name="tutorial_title_1">Welcome to Mihiraki PDF Utility</string>
+    <string name="tutorial_desc_1">Optimized for reading and organizing scanned books and manga with double-page spread views and RTL/LTR support across 14 languages.</string>
+    <string name="tutorial_title_2">Open &amp; Sample PDFs</string>
+    <string name="tutorial_desc_2">Tap Open (Ctrl+O) to load any PDF file, or try out the built-in sample PDF catalog right away.</string>
+    <string name="tutorial_title_3">Page Operations &amp; Editing</string>
+    <string name="tutorial_desc_3">Select pages with a tap to reorder, rotate, split spreads, insert blank pages, or delete unwanted pages easily.</string>
+    <string name="tutorial_title_4">Display Modes &amp; RTL Reading</string>
+    <string name="tutorial_desc_4">Switch between grid view and spread view instantly. Toggle right-to-left (RTL) reading mode for manga and traditional books.</string>
+    <string name="tutorial_title_5">Save &amp; Export</string>
+    <string name="tutorial_desc_5">Save all pages as a new PDF (Ctrl+S) or export selected pages only. You are all set to start!</string>
 </resources>

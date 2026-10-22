@@ -189,4 +189,20 @@
     <string name="help_item_display_modes"><b>显示模式:</b> 在网格视图和跨页视图之间切换。支持在从右到左（RTL）和从左到右（LTR）阅读方向之间切换。</string>
     <string name="help_item_device_optimization"><b>设备支持:</b> 完全针对智能手机、平板电脑、折叠屏设备以及桌面端（ChromeOS等，支持键盘快捷键和右键点击）进行了优化。</string>
     <string name="help_item_button_reference"><b>工具栏按钮参考:</b><br/>• <b>打开 / 保存 / 添加:</b> 加载PDF、保存所有页面、合并PDF。<br/>• <b>选择:</b> 全选、清除选择或反向选择。<br/>• <b>页面编辑:</b> 旋转、移动（上/下）、拆分、插入空白页、删除或导出所选页面。<br/>• <b>视图与设置:</b> 切换视图（网格/跨页）、RTL/LTR阅读方向、封面布局、属性和密码安全。</string>
+
+    <string name="help_show_tutorial">查看使用教程</string>
+    <string name="tutorial_skip">跳过</string>
+    <string name="tutorial_next">下一步</string>
+    <string name="tutorial_finish">开始使用</string>
+    <string name="tutorial_try_sample">尝试示例 PDF</string>
+    <string name="tutorial_title_1">欢迎使用双页PDF工具箱</string>
+    <string name="tutorial_desc_1">专为扫描书籍和漫画优化，支持双页跨页视图（RTL/LTR），支持14种语言。</string>
+    <string name="tutorial_title_2">打开与示例 PDF</string>
+    <string name="tutorial_desc_2">点击“打开”（Ctrl+O）加载PDF文件，或立即体验内置的示例PDF目录。</string>
+    <string name="tutorial_title_3">页面操作与编辑</string>
+    <string name="tutorial_desc_3">点击选择页面以重新排序、旋转、拆分跨页、插入空白页或删除页面。</string>
+    <string name="tutorial_title_4">显示模式与阅读方向</string>
+    <string name="tutorial_desc_4">在网格视图和跨页视图之间即时切换。支持从右到左（RTL）阅读模式。</string>
+    <string name="tutorial_title_5">保存与导出</string>
+    <string name="tutorial_desc_5">将所有页面保存为新PDF（Ctrl+S）或仅导出选定页面。一切准备就绪！</string>
 </resources>
