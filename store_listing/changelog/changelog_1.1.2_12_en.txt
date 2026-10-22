@@ -1,4 +1,4 @@
 v1.1.2
-- Improved long-running endurance/stress test stability (Patterns 1-10) with true orientation rotation and state cleanup.
+- Greatly improved long-running endurance/stress test stability (Patterns 1-10) with 4-way true orientation rotation.
 - Added 1-second delayed loading indicator, cancellation support, safe state rollback, and selection-mode display toggle.
 - Added differential batch downloading for test PDFs and samples with cancellation.
