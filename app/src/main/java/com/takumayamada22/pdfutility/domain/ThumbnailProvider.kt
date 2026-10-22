@@ -9,7 +9,6 @@ import android.os.ParcelFileDescriptor
 import android.util.LruCache
 import android.util.Log
 import java.io.File
-import java.io.IOException
 
 class ThumbnailProvider(private val context: Context) {
     private val renderers = mutableMapOf<Uri, PdfRenderer>()
@@ -27,59 +26,30 @@ class ThumbnailProvider(private val context: Context) {
         val cacheKey = "$uri-$pageIndex-$width"
         memoryCache.get(cacheKey)?.let { return it }
 
-        val renderer = getRenderer(uri) ?: throw IOException("Failed to open PdfRenderer for $uri")
-        if (pageIndex !in 0 until renderer.pageCount) {
-            throw IndexOutOfBoundsException("Page index $pageIndex out of bounds for page count ${renderer.pageCount}")
-        }
+        val renderer = getRenderer(uri) ?: return null
+        if (pageIndex !in 0 until renderer.pageCount) return null
 
-        try {
+        return try {
             val page = renderer.openPage(pageIndex)
-            val height = (width * page.height / page.width)
-            if (width <= 0 || height <= 0) {
-                page.close()
-                throw IllegalArgumentException("Invalid thumbnail dimensions: ${width}x$height")
-            }
-            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            
-            bitmap.eraseColor(Color.WHITE)
-            page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-            page.close()
-
-            // Rigorous check: if 98%+ of 100 sample points are white/transparent, treat as blank white screen corruption error
-            if (isBitmapBlank(bitmap)) {
-                Log.e("ThumbnailProvider", "Thumbnail render corruption error: page $pageIndex of $uri rendered as blank white screen.")
-                throw IOException("Thumbnail rendering failed: page $pageIndex rendered as blank white screen (corruption detected).")
+            val bitmap = try {
+                val height = (width * page.height / page.width)
+                if (width <= 0 || height <= 0) {
+                    return null
+                }
+                val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                bmp.eraseColor(Color.WHITE)
+                page.render(bmp, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                bmp
+            } finally {
+                try { page.close() } catch (_: Exception) {}
             }
 
             memoryCache.put(cacheKey, bitmap)
-            return bitmap
+            bitmap
         } catch (e: Exception) {
             Log.e("ThumbnailProvider", "Failed to render thumbnail for $uri page $pageIndex", e)
-            if (e is IOException) throw e
-            throw IOException("Thumbnail rendering failed for page $pageIndex: ${e.message}", e)
+            null
         }
-    }
-
-    private fun isBitmapBlank(bitmap: Bitmap): Boolean {
-        val w = bitmap.width
-        val h = bitmap.height
-        if (w <= 0 || h <= 0) return true
-        
-        var whiteCount = 0
-        val totalSamples = 100
-        val stepX = w / 10
-        val stepY = h / 10
-        
-        for (i in 0 until 10) {
-            for (j in 0 until 10) {
-                val px = bitmap.getPixel((i * stepX) + (stepX / 2), (j * stepY) + (stepY / 2))
-                if (px == Color.WHITE || px == Color.TRANSPARENT) {
-                    whiteCount++
-                }
-            }
-        }
-        
-        return (whiteCount.toFloat() / totalSamples.toFloat()) >= 0.98f
     }
 
     fun getPageCount(uri: Uri): Int = getRenderer(uri)?.pageCount ?: 0
