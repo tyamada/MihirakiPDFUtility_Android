@@ -58,6 +58,14 @@ class ThumbnailProvider(private val context: Context) {
             }
             if (pfd != null) {
                 val renderer = PdfRenderer(pfd)
+                // Cap active renderers cache at max 5 entries to prevent native memory / FD leaks during long endurance runs
+                if (renderers.size >= 5) {
+                    val oldestKey = renderers.keys.firstOrNull()
+                    if (oldestKey != null) {
+                        renderers.remove(oldestKey)?.close()
+                        pfds.remove(oldestKey)?.close()
+                    }
+                }
                 pfds[uri] = pfd
                 renderers[uri] = renderer
                 renderer
