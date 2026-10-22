@@ -1442,6 +1442,10 @@ class PdfViewModel(
             override fun toggleMihirakiView() { this@PdfViewModel.toggleMihirakiView() }
             override fun toggleRtl() { this@PdfViewModel.toggleRtl() }
             override fun setOrientation(orientationCode: Int) { this@PdfViewModel.setOrientation(orientationCode) }
+            override fun getInitialOrientationCode(): Int {
+                val config = getApplication<Application>().resources.configuration
+                return if (config.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE) 1 else 0
+            }
             override fun undo() { this@PdfViewModel.undo() }
             override fun redo() { this@PdfViewModel.redo() }
             override fun openSettingsDialog(type: SettingsDialogType) { this@PdfViewModel.openSettingsDialog(type) }
