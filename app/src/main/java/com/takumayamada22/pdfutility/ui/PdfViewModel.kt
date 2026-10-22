@@ -525,6 +525,7 @@ class PdfViewModel(
         activeOperationJob = viewModelScope.launch {
             val fileName = getFileName(uri)
             _uiState.value = _uiState.value.copy(
+                pages = emptyList(),
                 isLoading = false,
                 fileName = fileName,
                 errorMessage = null,
