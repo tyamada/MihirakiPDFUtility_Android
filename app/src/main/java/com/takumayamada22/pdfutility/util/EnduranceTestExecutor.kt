@@ -142,10 +142,10 @@ class EnduranceTestExecutor(
                                 }
                             }
                         }
-                        3 -> { // Pattern 3: Base (Load -> SelectAll -> Crop) + 100 Random Edit Operations (>= 1.0s interval)
+                        3, 4 -> { // Pattern 3 & 4: Base (Load -> SelectAll -> Crop) + 100 Random Edit Operations (>= 1.0s interval)
                             withContext(Dispatchers.Main) {
                                 if (!isEnduranceRunning.get()) return@withContext
-                                AppLogger.log(application, "INFO", "Pattern 3: Starting base sequence (Load -> SelectAll -> Crop)")
+                                AppLogger.log(application, "INFO", "Pattern $selectedCourse: Starting base sequence (Load -> SelectAll -> Crop)")
                                 viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
                             }
                             while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
@@ -167,7 +167,7 @@ class EnduranceTestExecutor(
                             for (opCount in 1..100) {
                                 if (!isEnduranceRunning.get()) break
                                 val actionChoice = random.nextInt(10)
-                                AppLogger.log(application, "DEBUG", "Pattern 3: Random edit operation #$opCount/100 (choice=$actionChoice)")
+                                AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: Random edit operation #$opCount/100")
 
                                 withContext(Dispatchers.Main) {
                                     if (!isEnduranceRunning.get()) return@withContext
@@ -191,6 +191,138 @@ class EnduranceTestExecutor(
                                 delay(1000L) // >= 1.0 second interval after each operation
                             }
                         }
+                        5, 6 -> { // Pattern 5 & 6: 100 consecutive orientation rotation operations at >= 1.0s intervals
+                            withContext(Dispatchers.Main) {
+                                if (!isEnduranceRunning.get()) return@withContext
+                                viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
+                            }
+                            while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                delay(100L)
+                            }
+                            delay(1000L)
+
+                            val random = java.util.Random()
+                            for (opCount in 1..100) {
+                                if (!isEnduranceRunning.get()) break
+                                AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: Orientation rotation operation #$opCount/100")
+                                withContext(Dispatchers.Main) {
+                                    if (!isEnduranceRunning.get()) return@withContext
+                                    if (random.nextBoolean()) {
+                                        viewModelActions.toggleMihirakiView()
+                                    } else {
+                                        viewModelActions.toggleRtl()
+                                    }
+                                }
+                                while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                    delay(100L)
+                                }
+                                delay(1000L)
+                            }
+                        }
+                        7, 8 -> { // Pattern 7 & 8: 100 consecutive foldable posture simulation changes at >= 1.0s intervals
+                            withContext(Dispatchers.Main) {
+                                if (!isEnduranceRunning.get()) return@withContext
+                                viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
+                            }
+                            while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                delay(100L)
+                            }
+                            delay(1000L)
+
+                            for (opCount in 1..100) {
+                                if (!isEnduranceRunning.get()) break
+                                AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: Foldable posture simulation #$opCount/100")
+                                withContext(Dispatchers.Main) {
+                                    if (!isEnduranceRunning.get()) return@withContext
+                                    viewModelActions.toggleMihirakiView()
+                                }
+                                while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                    delay(100L)
+                                }
+                                delay(1000L)
+                            }
+                        }
+                        9, 10 -> { // Pattern 9 & 10: After Course 1/2, 300 ops if foldable, else 200 ops
+                            if (selectedCourse == 9) {
+                                val testSubset = filesToProcess.take(3)
+                                val mergedFile = File(application.cacheDir, "merged_p9_${System.currentTimeMillis()}.pdf")
+                                val processor = PdfProcessor()
+                                try {
+                                    processor.load(testSubset[0].inputStream())
+                                    for (i in 1 until testSubset.size) {
+                                        processor.append(testSubset[i].inputStream())
+                                    }
+                                    FileOutputStream(mergedFile).use { fos -> processor.save(fos) }
+                                } finally {
+                                    processor.close()
+                                }
+                                withContext(Dispatchers.Main) {
+                                    if (!isEnduranceRunning.get()) return@withContext
+                                    if (mergedFile.exists()) viewModelActions.loadPdf(Uri.fromFile(mergedFile))
+                                }
+                            } else {
+                                val mergedFile = File(application.cacheDir, "merged_p10_${System.currentTimeMillis()}.pdf")
+                                val processor = PdfProcessor()
+                                try {
+                                    processor.load(filesToProcess[0].inputStream())
+                                    repeat(2) {
+                                        processor.append(filesToProcess[0].inputStream())
+                                    }
+                                    FileOutputStream(mergedFile).use { fos -> processor.save(fos) }
+                                } finally {
+                                    processor.close()
+                                }
+                                withContext(Dispatchers.Main) {
+                                    if (!isEnduranceRunning.get()) return@withContext
+                                    if (mergedFile.exists()) viewModelActions.loadPdf(Uri.fromFile(mergedFile))
+                                }
+                            }
+
+                            while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                delay(100L)
+                            }
+                            delay(1000L)
+
+                            val isFoldable = try {
+                                application.resources.displayMetrics.widthPixels > 1200
+                            } catch (_: Exception) {
+                                false
+                            }
+                            val totalOps = if (isFoldable) 300 else 200
+                            AppLogger.log(application, "INFO", "Pattern $selectedCourse: Running $totalOps consecutive operations (Foldable=$isFoldable)")
+
+                            val random = java.util.Random()
+                            repeat(totalOps) {
+                                if (!isEnduranceRunning.get()) return@repeat
+                                withContext(Dispatchers.Main) {
+                                    if (!isEnduranceRunning.get()) return@withContext
+                                    val choice = random.nextInt(if (isFoldable) 3 else 2)
+                                    when (choice) {
+                                        0 -> {
+                                            val editChoice = random.nextInt(10)
+                                            when (editChoice) {
+                                                0 -> viewModelActions.rotateSelected(90)
+                                                1 -> viewModelActions.rotateSelected(180)
+                                                2 -> viewModelActions.rotateSelected(-90)
+                                                3 -> viewModelActions.insertBlankAfterSelected()
+                                                4 -> viewModelActions.moveSelected(if (random.nextBoolean()) 1 else -1)
+                                                5 -> viewModelActions.invertSelection()
+                                                6 -> { viewModelActions.clearSelection(); viewModelActions.selectAll() }
+                                                7 -> viewModelActions.toggleMihirakiView()
+                                                8 -> viewModelActions.toggleRtl()
+                                                9 -> { if (random.nextBoolean()) viewModelActions.undo() else viewModelActions.redo() }
+                                            }
+                                        }
+                                        1 -> viewModelActions.toggleMihirakiView()
+                                        2 -> viewModelActions.toggleRtl()
+                                    }
+                                }
+                                while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                    delay(100L)
+                                }
+                                delay(1000L)
+                            }
+                        }
                         else -> {
                             withContext(Dispatchers.Main) {
                                 if (!isEnduranceRunning.get()) return@withContext
@@ -198,9 +330,7 @@ class EnduranceTestExecutor(
                                 when (patternIndex) {
                                     0 -> { viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0])) }
                                     1 -> { viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0])); viewModelActions.selectAll(); viewModelActions.rotateSelected(90) }
-                                    2 -> { // Pattern 3 in All mode
-                                        viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
-                                    }
+                                    2 -> { viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0])) }
                                     3 -> { viewModelActions.toggleMihirakiView(); viewModelActions.toggleRtl() }
                                     else -> { viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0])) }
                                 }
