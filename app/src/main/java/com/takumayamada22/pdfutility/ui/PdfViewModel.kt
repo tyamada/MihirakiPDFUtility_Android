@@ -374,26 +374,7 @@ class PdfViewModel(
 
 
 
-    private data class PageSnapshot(
-        val id: String,
-        val originalIndex: Int,
-        val rotation: Int,
-        val isBlank: Boolean,
-        val sourceUri: Uri?,
-        val isSplit: Boolean,
-        val splitPart: Int,
-        val splitDirection: SplitDirection,
-        val cropMargin: Float
-    )
-
-    private data class HistoryState(
-        val pageSnapshots: List<PageSnapshot>,
-        val selectedIndices: Set<Int>
-    )
-
-    private val undoStack = mutableListOf<HistoryState>()
-    private val redoStack = mutableListOf<HistoryState>()
-    private val maxHistorySize = 20
+    private val historyManager = PdfHistoryManager()
 
     private fun saveToHistory() {
         val snapshots = _uiState.value.pages.map { page ->
@@ -409,23 +390,18 @@ class PdfViewModel(
                 cropMargin = page.cropMargin
             )
         }
-        undoStack.add(HistoryState(snapshots, _uiState.value.selectedIndices.toSet()))
-        if (undoStack.size > maxHistorySize) {
-            undoStack.removeAt(0)
-        }
-        redoStack.clear()
+        historyManager.saveState(snapshots, _uiState.value.selectedIndices.toSet())
         updateHistoryFlags()
     }
 
     private fun updateHistoryFlags() {
         _uiState.value = _uiState.value.copy(
-            canUndo = undoStack.isNotEmpty(),
-            canRedo = redoStack.isNotEmpty()
+            canUndo = historyManager.canUndo,
+            canRedo = historyManager.canRedo
         )
     }
 
     fun undo() {
-        if (undoStack.isEmpty()) return
         val currentSnapshots = _uiState.value.pages.map { page ->
             PageSnapshot(
                 id = page.id,
@@ -440,13 +416,12 @@ class PdfViewModel(
             )
         }
         val currentState = HistoryState(currentSnapshots, _uiState.value.selectedIndices.toSet())
-        redoStack.add(currentState)
-        val previousState = undoStack.removeAt(undoStack.size - 1)
+        val previousState = historyManager.undo(currentState) ?: return
         restoreState(previousState)
+        updateHistoryFlags()
     }
 
     fun redo() {
-        if (redoStack.isEmpty()) return
         val currentSnapshots = _uiState.value.pages.map { page ->
             PageSnapshot(
                 id = page.id,
@@ -461,9 +436,9 @@ class PdfViewModel(
             )
         }
         val currentState = HistoryState(currentSnapshots, _uiState.value.selectedIndices.toSet())
-        undoStack.add(currentState)
-        val nextState = redoStack.removeAt(redoStack.size - 1)
+        val nextState = historyManager.redo(currentState) ?: return
         restoreState(nextState)
+        updateHistoryFlags()
     }
 
     private fun restoreState(historyState: HistoryState) {
@@ -589,8 +564,7 @@ class PdfViewModel(
                             )
                         }
                         AppLogger.log(getApplication(), "INFO", "PDF loaded successfully, pages: $pageCount, location: $locationDesc")
-                        undoStack.clear()
-                        redoStack.clear()
+                        historyManager.clear()
                         updateHistoryFlags()
                     }
                 }
@@ -1308,8 +1282,7 @@ class PdfViewModel(
                         )
                     )
                     AppLogger.log(context, "INFO", "Successfully created PDF from folder images, pages: $pageCount")
-                    undoStack.clear()
-                    redoStack.clear()
+                    historyManager.clear()
                     updateHistoryFlags()
                 }
             } catch (e: Exception) {
@@ -1468,8 +1441,7 @@ class PdfViewModel(
             override fun undo() { this@PdfViewModel.undo() }
             override fun redo() { this@PdfViewModel.redo() }
             override fun clearHistoryAndCaches() {
-                undoStack.clear()
-                redoStack.clear()
+                historyManager.clear()
                 updateHistoryFlags()
                 thumbnailProvider.close()
             }
