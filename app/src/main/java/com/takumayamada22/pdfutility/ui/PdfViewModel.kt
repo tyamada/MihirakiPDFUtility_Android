@@ -20,6 +20,7 @@ import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.domain.ThumbnailProvider
 import com.takumayamada22.pdfutility.util.AppLogger
 import com.takumayamada22.pdfutility.util.EnduranceTestExecutor
+import com.takumayamada22.pdfutility.util.LayoutState
 import com.takumayamada22.pdfutility.util.LongRunningTestManager
 import com.takumayamada22.pdfutility.util.LongRunningTestProgress
 import com.takumayamada22.pdfutility.util.TestPdfGenerator
@@ -1448,6 +1449,31 @@ class PdfViewModel(
             }
             override fun undo() { this@PdfViewModel.undo() }
             override fun redo() { this@PdfViewModel.redo() }
+            override fun isFoldableDevice(): Boolean {
+                val context = getApplication<Application>()
+                return try {
+                    context.packageManager.hasSystemFeature("android.hardware.type.foldable") ||
+                    context.resources.configuration.smallestScreenWidthDp >= 600 ||
+                    android.os.Build.MODEL.contains("Fold", true) ||
+                    android.os.Build.DEVICE.contains("felix", true)
+                } catch (_: Exception) {
+                    false
+                }
+            }
+            override fun getLayoutState(): LayoutState {
+                return LayoutState(
+                    isMihirakiView = _uiState.value.isMihirakiView,
+                    isRtl = _uiState.value.isRtl
+                )
+            }
+            override fun setLayoutState(state: LayoutState) {
+                if (_uiState.value.isMihirakiView != state.isMihirakiView) {
+                    toggleMihirakiView()
+                }
+                if (_uiState.value.isRtl != state.isRtl) {
+                    toggleRtl()
+                }
+            }
             override fun openSettingsDialog(type: SettingsDialogType) { this@PdfViewModel.openSettingsDialog(type) }
             override fun isProcessing(): Boolean = _uiState.value.isLoading || _uiState.value.isAppending
         }
