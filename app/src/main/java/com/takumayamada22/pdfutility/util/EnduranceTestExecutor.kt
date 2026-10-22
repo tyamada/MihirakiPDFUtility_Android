@@ -204,9 +204,9 @@ class EnduranceTestExecutor(
                             }
                             delay(1000L)
 
-                            val clockwiseSequence = listOf(0, 1, 2, 3)
-                            val counterClockwiseSequence = listOf(3, 2, 1, 0)
-                            val fullSet = clockwiseSequence + counterClockwiseSequence // 8 steps
+                            val clockwiseSequence = listOf(0, 1, 2, 3, 0)
+                            val counterClockwiseSequence = listOf(0, 3, 2, 1, 0)
+                            val fullSet = clockwiseSequence + counterClockwiseSequence
 
                             for (setIndex in 1..25) {
                                 if (!isEnduranceRunning.get()) break
