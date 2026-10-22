@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.ui.components.DeleteConfirmationDialog
 import com.takumayamada22.pdfutility.ui.components.PasswordDialog
 import com.takumayamada22.pdfutility.ui.components.CcByExplanationDialog
@@ -156,7 +157,7 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    "⚡ [耐久テスト実行中] 経過: ${prog.elapsedMinutes}分 / 目標: ${prog.targetMinutes}分 (#${prog.currentIteration})",
+                                    stringResource(R.string.endurance_running_banner, prog.elapsedMinutes, prog.targetMinutes, prog.currentIteration),
                                     style = MaterialTheme.typography.bodySmall
                                 )
                                 Text(
@@ -174,7 +175,7 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 4.dp),
                                 modifier = Modifier.heightIn(min = 36.dp)
                             ) {
-                                Text("⏹ 中断 (Stop)", style = MaterialTheme.typography.labelMedium)
+                                Text(stringResource(R.string.endurance_stop_button), style = MaterialTheme.typography.labelMedium)
                             }
                         }
                     }
@@ -208,7 +209,7 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                             ) {
                                 CircularProgressIndicator()
                                 Text(
-                                    "PDFファイルを処理中・結合しています...\nしばらくお待ちください。",
+                                    stringResource(R.string.processing_pdf_message),
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     textAlign = androidx.compose.ui.text.style.TextAlign.Center

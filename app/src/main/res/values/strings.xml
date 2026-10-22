@@ -214,4 +214,19 @@
     <string name="claim_free_badge">Claim Free Badge</string>
     <string name="badge_claimed_success">Koyomi badge claimed successfully!</string>
     <string name="action_owned">Owned</string>
+
+    <string name="diagnostics_endurance_title">Long-Running Stress Test</string>
+    <string name="diagnostics_endurance_desc">Select test duration and run continuous stress tests including 14-manga merge, 1100-page 9x append, editing stress, rotation, and foldable simulation.</string>
+    <string name="endurance_progress_text">Progress: Elapsed %1$d min / Target %2$d min</string>
+    <string name="endurance_iteration_text">Iteration: #%1$d</string>
+    <string name="endurance_course_text">Current Course: %1$s</string>
+    <string name="endurance_memory_text">Memory Usage: %1$d MB</string>
+    <string name="endurance_pattern_select">Test Course &amp; Pattern Selection:</string>
+    <string name="endurance_stop_test">Stop Test</string>
+    <string name="endurance_start_test">Start Test (%1$d min)</string>
+    <string name="download_all_test_files">Download All Test PDFs &amp; Samples</string>
+    <string name="cancel_download">Cancel Download</string>
+    <string name="endurance_running_banner">⚡ [Endurance Test Running] Elapsed: %1$d min / Target: %2$d min (#%3$d)</string>
+    <string name="endurance_stop_button">Stop</string>
+    <string name="processing_pdf_message">Processing &amp; merging PDF files...\nPlease wait.</string>
 </resources>
