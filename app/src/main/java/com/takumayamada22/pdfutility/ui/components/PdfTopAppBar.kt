@@ -304,6 +304,32 @@ fun PdfTopAppBar(
                         text = stringResource(R.string.action_rotate_right),
                         displayType = displayType
                     )
+                    ActionButton(
+                        onClick = { viewModel.toggleMihirakiView() },
+                        enabled = !isBusy,
+                        icon = {
+                            Icon(
+                                Icons.Default.GridView,
+                                contentDescription = stringResource(R.string.action_toggle_view)
+                            )
+                        },
+                        text = stringResource(R.string.action_toggle_view),
+                        displayType = displayType
+                    )
+                    if (uiState.isMihirakiView) {
+                        ActionButton(
+                            onClick = { viewModel.toggleRtl() },
+                            enabled = !isBusy,
+                            icon = {
+                                Icon(
+                                    if (uiState.isRtl) Icons.AutoMirrored.Filled.ArrowBack else Icons.AutoMirrored.Filled.ArrowForward,
+                                    contentDescription = stringResource(R.string.action_toggle_rtl)
+                                )
+                            },
+                            text = stringResource(R.string.action_toggle_rtl),
+                            displayType = displayType
+                        )
+                    }
                 }
 
                 // Settings button is always visible in both selected and unselected states
