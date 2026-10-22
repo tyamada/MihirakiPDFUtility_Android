@@ -29,6 +29,7 @@ class EnduranceTestExecutor(
         fun toggleMihirakiView()
         fun toggleRtl()
         fun setOrientation(orientationCode: Int)
+        fun getInitialOrientationCode(): Int
         fun undo()
         fun redo()
         fun openSettingsDialog(type: SettingsDialogType)
@@ -56,6 +57,7 @@ class EnduranceTestExecutor(
             val startTime = System.currentTimeMillis()
             var iteration = 0
             val runtime = Runtime.getRuntime()
+            val originalOrientation = viewModelActions.getInitialOrientationCode()
 
             try {
                 AppLogger.log(application, "INFO", "Starting Endurance Test (Course: $selectedCourse) for $durationMinutes minutes.")
@@ -355,6 +357,7 @@ class EnduranceTestExecutor(
                 _enduranceProgress.value = null
                 _enduranceStatusMessage.value = summary
                 withContext(Dispatchers.Main) {
+                    viewModelActions.setOrientation(originalOrientation)
                     viewModelActions.openSettingsDialog(SettingsDialogType.DIAGNOSTICS)
                 }
             } catch (e: Exception) {
@@ -364,11 +367,15 @@ class EnduranceTestExecutor(
                 _enduranceStatusMessage.value = errorMsg
                 isEnduranceRunning.set(false)
                 withContext(Dispatchers.Main) {
+                    viewModelActions.setOrientation(originalOrientation)
                     viewModelActions.openSettingsDialog(SettingsDialogType.DIAGNOSTICS)
                 }
             } finally {
                 isEnduranceRunning.set(false)
                 _enduranceProgress.value = null
+                withContext(Dispatchers.Main) {
+                    viewModelActions.setOrientation(originalOrientation)
+                }
                 TestPdfGenerator.cleanupTestPdfs(application)
             }
         }
@@ -380,7 +387,9 @@ class EnduranceTestExecutor(
         _enduranceProgress.value = null
         _enduranceStatusMessage.value = "テスト停止リクエスト送信中..."
         AppLogger.log(application, "INFO", "Endurance test was interrupted/stopped by user.")
+        val originalOrientation = viewModelActions.getInitialOrientationCode()
         CoroutineScope(Dispatchers.Main).launch {
+            viewModelActions.setOrientation(originalOrientation)
             viewModelActions.openSettingsDialog(SettingsDialogType.DIAGNOSTICS)
         }
     }
