@@ -19,6 +19,7 @@ import com.takumayamada22.pdfutility.domain.LoadPdfUseCase
 import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.domain.ThumbnailProvider
 import com.takumayamada22.pdfutility.util.AppLogger
+import com.takumayamada22.pdfutility.util.PreferencesManager
 import com.takumayamada22.pdfutility.util.EnduranceTestExecutor
 import com.takumayamada22.pdfutility.util.LayoutState
 import com.takumayamada22.pdfutility.util.LongRunningTestManager
@@ -103,7 +104,8 @@ data class PdfDialogState(
     val showSettingsMenu: Boolean = false,
     val activeSettingsDialog: SettingsDialogType? = null,
     val showCcByDialog: Boolean = false,
-    val showSamplePdfScreen: Boolean = false
+    val showSamplePdfScreen: Boolean = false,
+    val showTutorial: Boolean = false
 )
 
 data class PdfHistoryState(
@@ -165,6 +167,7 @@ data class PdfUiState(
     val activeSettingsDialog: SettingsDialogType? get() = dialog.activeSettingsDialog
     val showCcByDialog: Boolean get() = dialog.showCcByDialog
     val showSamplePdfScreen: Boolean get() = dialog.showSamplePdfScreen
+    val showTutorial: Boolean get() = dialog.showTutorial
 
     val canUndo: Boolean get() = history.canUndo
     val canRedo: Boolean get() = history.canRedo
@@ -295,8 +298,28 @@ class PdfViewModel(
     private val minDimensionPx = minOf(metrics.widthPixels, metrics.heightPixels)
     private val defaultThumbnailSize = if (minDimensionPx < 1280) ThumbnailSize.S else ThumbnailSize.M
 
-    private val _uiState = MutableStateFlow(PdfUiState(preference = PdfPreferenceState(thumbnailSize = defaultThumbnailSize)))
+    private val initialFirstLaunch = PreferencesManager.isFirstLaunch(application)
+    private val _uiState = MutableStateFlow(
+        PdfUiState(
+            dialog = PdfDialogState(showTutorial = initialFirstLaunch),
+            preference = PdfPreferenceState(thumbnailSize = defaultThumbnailSize)
+        )
+    )
     val uiState: StateFlow<PdfUiState> = _uiState
+
+    fun dismissTutorial() {
+        PreferencesManager.setFirstLaunchCompleted(getApplication<Application>())
+        _uiState.value = _uiState.value.copy(dialog = _uiState.value.dialog.copy(showTutorial = false))
+    }
+
+    fun showTutorialAgain() {
+        _uiState.value = _uiState.value.copy(dialog = _uiState.value.dialog.copy(showTutorial = true))
+    }
+
+    fun trySamplePdfFromTutorial() {
+        dismissTutorial()
+        openSamplePdf()
+    }
 
     private fun getThumbnailWidth(size: ThumbnailSize): Int {
         return when (size) {

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-Update documentation files (README.md, README_ja.md, docs/*.html) to reference sample/ instead of testdata/
-for sample PDFs, and update version numbers to v1.1.2.
+Update documentation files (README.md, README_ja.md, docs/*.html) for sample PDFs and version numbers to v1.2.0.
 """
 
 from pathlib import Path
@@ -24,7 +23,8 @@ def main():
         updated = updated.replace('testdata/tameshibu_', 'sample/tameshibu_')
 
         # Update version strings
-        updated = updated.replace('1.1.1', '1.1.2').replace('v1.1.1', 'v1.1.2')
+        updated = updated.replace('1.1.2', '1.2.0').replace('v1.1.2', 'v1.2.0')
+        updated = updated.replace('1.1.1', '1.2.0').replace('v1.1.1', 'v1.2.0')
 
         if updated != content:
             path.write_text(updated, encoding='utf-8')

@@ -213,4 +213,20 @@
     <string name="claim_free_badge">無料で受け取る</string>
     <string name="badge_claimed_success">こよみバッジを受け取りました！</string>
     <string name="action_owned">購入済み</string>
+
+    <string name="help_show_tutorial">使い方チュートリアルを見る</string>
+    <string name="tutorial_skip">スキップ</string>
+    <string name="tutorial_next">次へ</string>
+    <string name="tutorial_finish">はじめる</string>
+    <string name="tutorial_try_sample">サンプルPDFを試す</string>
+    <string name="tutorial_title_1">見開きPDFユーティリティへようこそ</string>
+    <string name="tutorial_desc_1">自炊書籍やマンガの見開き表示（右開き/左開き）、ページ整理に特化。14言語に対応した高機能PDFツールです。</string>
+    <string name="tutorial_title_2">PDFの読み込みとサンプル</string>
+    <string name="tutorial_desc_2">「開く」ボタン（Ctrl+O）からお持ちのPDFを読み込むか、同梱のサンプルPDFですぐに機能をお試しいただけます。</string>
+    <string name="tutorial_title_3">ページ操作と編集</string>
+    <string name="tutorial_desc_3">ページをタップして選択し、回転、移動、分割、白紙挿入、削除などの豊富な操作を直感的に行えます。</string>
+    <string name="tutorial_title_4">表示モードと読み方向</string>
+    <string name="tutorial_desc_4">グリッド一覧表示と見開き(スプレッド)表示をワンタッチで切り替え。マンガに最適な右開き(RTL)にも対応しています。</string>
+    <string name="tutorial_title_5">保存とエクスポート</string>
+    <string name="tutorial_desc_5">編集結果をすべて保存（Ctrl+S）したり、選択したページだけを別名で書き出すことができます。準備完了です！</string>
 </resources>

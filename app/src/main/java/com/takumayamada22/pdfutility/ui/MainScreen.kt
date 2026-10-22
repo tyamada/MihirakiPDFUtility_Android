@@ -24,6 +24,7 @@ import com.takumayamada22.pdfutility.ui.components.SplitDialog
 import com.takumayamada22.pdfutility.ui.components.CropDialog
 import com.takumayamada22.pdfutility.ui.components.SamplePdfScreen
 import com.takumayamada22.pdfutility.ui.components.FolderImageSortDialog
+import com.takumayamada22.pdfutility.ui.components.TutorialScreen
 import com.takumayamada22.pdfutility.ui.SamplePdfViewModel
 import com.takumayamada22.pdfutility.util.LongRunningTestManager
 
@@ -293,4 +294,8 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
             showDeleteConfirmation = false
         }
     )
+
+    if (uiState.showTutorial) {
+        TutorialScreen(viewModel = viewModel)
+    }
 }
