@@ -245,9 +245,14 @@ fun PageThumbnail(
                 )
             }
     ) {
-        page.thumbnail?.let {
+        page.thumbnail?.let { bitmap ->
+            if (bitmap.isRecycled) {
+                val errorMsg = "FATAL ERROR: Attempted to draw a recycled bitmap for page $pageNumber"
+                android.util.Log.e("PdfPageGrid", errorMsg)
+                throw IllegalStateException(errorMsg)
+            }
             Image(
-                bitmap = it.asImageBitmap(),
+                bitmap = bitmap.asImageBitmap(),
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Fit
