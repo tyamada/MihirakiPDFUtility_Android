@@ -45,10 +45,10 @@ class ThumbnailProvider(private val context: Context) {
             page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
             page.close()
 
-            // Check if rendered bitmap is completely blank white (detect render failure / white screen error)
+            // Rigorous check: if 98%+ of 100 sample points are white/transparent, treat as blank white screen corruption error
             if (isBitmapBlank(bitmap)) {
-                Log.e("ThumbnailProvider", "Thumbnail render error: page $pageIndex of $uri rendered as blank white screen.")
-                throw IOException("Thumbnail rendering failed: page $pageIndex rendered as blank white screen.")
+                Log.e("ThumbnailProvider", "Thumbnail render corruption error: page $pageIndex of $uri rendered as blank white screen.")
+                throw IOException("Thumbnail rendering failed: page $pageIndex rendered as blank white screen (corruption detected).")
             }
 
             memoryCache.put(cacheKey, bitmap)
@@ -64,14 +64,22 @@ class ThumbnailProvider(private val context: Context) {
         val w = bitmap.width
         val h = bitmap.height
         if (w <= 0 || h <= 0) return true
-        val samplePoints = intArrayOf(
-            bitmap.getPixel(w / 2, h / 2),
-            bitmap.getPixel(w / 4, h / 4),
-            bitmap.getPixel(3 * w / 4, 3 * h / 4),
-            bitmap.getPixel(w / 2, h / 4),
-            bitmap.getPixel(w / 2, 3 * h / 4)
-        )
-        return samplePoints.all { it == Color.WHITE || it == Color.TRANSPARENT }
+        
+        var whiteCount = 0
+        val totalSamples = 100
+        val stepX = w / 10
+        val stepY = h / 10
+        
+        for (i in 0 until 10) {
+            for (j in 0 until 10) {
+                val px = bitmap.getPixel((i * stepX) + (stepX / 2), (j * stepY) + (stepY / 2))
+                if (px == Color.WHITE || px == Color.TRANSPARENT) {
+                    whiteCount++
+                }
+            }
+        }
+        
+        return (whiteCount.toFloat() / totalSamples.toFloat()) >= 0.98f
     }
 
     fun getPageCount(uri: Uri): Int = getRenderer(uri)?.pageCount ?: 0
