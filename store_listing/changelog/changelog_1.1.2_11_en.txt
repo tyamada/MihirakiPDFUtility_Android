@@ -1,4 +1,4 @@
 v1.1.2
-- Improved stability for long-running endurance and stress tests (Patterns 1-10).
-- Added 1-second delayed loading indicator, cancellation support, and safe state rollback for edit actions.
-- Added differential downloading for test PDFs and samples.
+- Improved long-running endurance/stress test stability (Patterns 1-10) with true orientation rotation and state cleanup.
+- Added 1-second delayed loading indicator, cancellation support, safe state rollback, and selection-mode display toggle.
+- Added differential batch downloading for test PDFs and samples with cancellation.
