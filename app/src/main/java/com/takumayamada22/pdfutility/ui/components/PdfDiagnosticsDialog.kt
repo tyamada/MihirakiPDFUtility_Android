@@ -113,7 +113,23 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                     }
 
                     downloadStatus?.let { status ->
-                        Text(status, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
+                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(status, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary)
+                            val isDownloading = status.contains("中") || status.contains("開始") || status.contains("確認")
+                            if (isDownloading) {
+                                Button(
+                                    onClick = { viewModel.cancelDownloadTestFiles() },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = MaterialTheme.colorScheme.error,
+                                        contentColor = MaterialTheme.colorScheme.onError
+                                    ),
+                                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 2.dp),
+                                    modifier = Modifier.heightIn(min = 36.dp)
+                                ) {
+                                    Text("ダウンロードをキャンセル (Cancel)", style = MaterialTheme.typography.labelMedium)
+                                }
+                            }
+                        }
                     }
 
                     // 3. 長時間ランニング耐久・ストレステスト
@@ -240,12 +256,6 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
                                 modifier = Modifier.padding(16.dp),
                                 verticalArrangement = Arrangement.spacedBy(10.dp)
                             ) {
-                                Text(
-                                    stringResource(R.string.diagnostics_privacy),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.error
-                                )
-                                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                                 Text(results, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),

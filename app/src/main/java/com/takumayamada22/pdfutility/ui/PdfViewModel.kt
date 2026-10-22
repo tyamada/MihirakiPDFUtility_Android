@@ -31,9 +31,11 @@ import androidx.documentfile.provider.DocumentFile
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
@@ -1509,11 +1511,21 @@ class PdfViewModel(
     private val _downloadTestFilesStatus = MutableStateFlow<String?>(null)
     val downloadTestFilesStatus: StateFlow<String?> = _downloadTestFilesStatus.asStateFlow()
 
+    private var downloadJob: Job? = null
+
+    fun cancelDownloadTestFiles() {
+        downloadJob?.cancel()
+        downloadJob = null
+        _downloadTestFilesStatus.value = "ダウンロードがキャンセルされました。"
+        AppLogger.log(getApplication(), "INFO", "Test files download cancelled by user.")
+    }
+
     fun downloadAllTestFiles() {
+        downloadJob?.cancel()
         val context = getApplication<Application>()
         _downloadTestFilesStatus.value = "保存済みファイルを確認中..."
 
-        viewModelScope.launch(Dispatchers.IO) {
+        downloadJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 val sampleRepo = SamplePdfRepository(context)
                 
@@ -1542,6 +1554,7 @@ class PdfViewModel(
 
                 // 1. Download missing sample catalog PDFs
                 for ((_, item) in missingSamples.withIndex()) {
+                    ensureActive()
                     downloadedCount++
                     _downloadTestFilesStatus.value = "サンプルPDFダウンロード ($downloadedCount/$totalMissing): ${item.fileName}"
                     try {
@@ -1565,7 +1578,8 @@ class PdfViewModel(
 
                 // 2. Download missing extra testdata files
                 val testDataUrlBase = "https://tyamada.github.io/MihirakiPDFViewer_Android/testdata/"
-                for ((index, fileName) in missingExtraFiles.withIndex()) {
+                for ((_, fileName) in missingExtraFiles.withIndex()) {
+                    if (!isActive) break
                     downloadedCount++
                     _downloadTestFilesStatus.value = "テストデータダウンロード ($downloadedCount/$totalMissing): $fileName"
                     try {
@@ -1585,11 +1599,17 @@ class PdfViewModel(
                     }
                 }
 
-                _downloadTestFilesStatus.value = "不足していた ${totalMissing} 件のファイルのダウンロードが完了しました！"
-                AppLogger.log(context, "INFO", "Successfully downloaded $totalMissing missing test files.")
+                if (isActive) {
+                    _downloadTestFilesStatus.value = "不足していた ${totalMissing} 件のファイルのダウンロードが完了しました！"
+                    AppLogger.log(context, "INFO", "Successfully downloaded $totalMissing missing test files.")
+                }
             } catch (e: Exception) {
-                _downloadTestFilesStatus.value = "ダウンロードエラー: ${e.message}"
-                AppLogger.log(context, "ERROR", "Failed to download test files: ${e.message}")
+                if (e !is java.util.concurrent.CancellationException) {
+                    _downloadTestFilesStatus.value = "ダウンロードエラー: ${e.message}"
+                    AppLogger.log(context, "ERROR", "Failed to download test files: ${e.message}")
+                } else {
+                    _downloadTestFilesStatus.value = "ダウンロードがキャンセルされました。"
+                }
             }
         }
     }
