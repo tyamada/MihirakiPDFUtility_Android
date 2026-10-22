@@ -540,7 +540,11 @@ class PdfViewModel(
 
             try {
                 withContext(Dispatchers.IO) {
-                    val inputStream = getApplication<Application>().contentResolver.openInputStream(uri)
+                    val inputStream = if (uri.scheme == "file" && uri.path != null) {
+                        java.io.FileInputStream(java.io.File(uri.path!!))
+                    } else {
+                        getApplication<Application>().contentResolver.openInputStream(uri)
+                    }
                     if (inputStream != null) {
                         val path = uri.path ?: ""
                         val isSample = isSamplePdf ?: (path.contains("MihirakiSamplePdfs") || SamplePdfCatalog.items.any { path.endsWith(it.fileName) })
@@ -629,7 +633,11 @@ class PdfViewModel(
 
             try {
                 withContext(Dispatchers.IO) {
-                    val inputStream = getApplication<Application>().contentResolver.openInputStream(uri)
+                    val inputStream = if (uri.scheme == "file" && uri.path != null) {
+                        java.io.FileInputStream(java.io.File(uri.path!!))
+                    } else {
+                        getApplication<Application>().contentResolver.openInputStream(uri)
+                    }
                     if (inputStream != null) {
                         saveToHistory()
                         val startIndex = loadPdfUseCase.append(inputStream, password) - thumbnailProvider.getPageCount(uri)
