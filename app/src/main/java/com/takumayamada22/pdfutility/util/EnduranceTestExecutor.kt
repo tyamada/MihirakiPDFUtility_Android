@@ -319,14 +319,17 @@ class EnduranceTestExecutor(
                     val elapsedMs = System.currentTimeMillis() - startTime
                     val elapsedMin = (elapsedMs / (60 * 1000L)).toInt()
 
+                    val courseNum = if (selectedCourse in 1..10) selectedCourse else ((iteration - 1) % 10) + 1
+                    val courseLabel = if (selectedCourse == 0) "All (Pattern $courseNum)" else "Course $selectedCourse (Pattern $courseNum)"
+
                     val progress = LongRunningTestProgress(
                         isRunning = true,
                         elapsedMinutes = elapsedMin,
                         targetMinutes = durationMinutes,
                         currentIteration = iteration,
-                        currentCourse = "Course Mode: $selectedCourse (#$iteration)",
+                        currentCourse = courseLabel,
                         memoryUsageMb = (runtime.totalMemory() - runtime.freeMemory()) / (1024 * 1024),
-                        statusSummary = "Running Course $selectedCourse"
+                        statusSummary = "Running Pattern $courseNum [Mode: $selectedCourse]"
                     )
                     _enduranceProgress.value = progress
 
@@ -334,15 +337,15 @@ class EnduranceTestExecutor(
                     val fallbackDir = File(application.filesDir, "testdata")
                     val activeDir = if (testDataDir.exists() && testDataDir.list()?.isNotEmpty() == true) testDataDir else fallbackDir
 
-                    val filesToProcess = when (selectedCourse) {
-                        1 -> {
+                    val filesToProcess = when (courseNum) {
+                        1, 3, 4, 5, 6, 7, 8, 9 -> {
                             val mangaFiles = activeDir.listFiles { file -> file.name.startsWith("tameshibu_") && file.name.endsWith(".pdf") }?.sortedBy { it.name } ?: emptyList()
                             if (mangaFiles.isEmpty()) {
                                 throw java.io.FileNotFoundException("Required test files (tameshibu_*.pdf manga episode PDFs) not found in device testdata folder (${activeDir.absolutePath}). Please transfer test files from PC/Mac (testdata/) via ADB.")
                             }
                             mangaFiles
                         }
-                        2 -> {
+                        2, 10 -> {
                             val loadFile = File(activeDir, "load_test_1100_pages.pdf")
                             if (!loadFile.exists()) {
                                 throw java.io.FileNotFoundException("Required test file (load_test_1100_pages.pdf) not found in device testdata folder (${activeDir.absolutePath}). Please transfer test files from PC/Mac (testdata/) via ADB.")
@@ -357,13 +360,7 @@ class EnduranceTestExecutor(
 
                     if (!isEnduranceRunning.get()) break
 
-                    if (selectedCourse in 1..10) {
-                        executePattern(selectedCourse, filesToProcess)
-                    } else {
-                        // "すべて" (All): cycle through patterns 1 to 10 based on iteration
-                        val patternNum = ((iteration - 1) % 10) + 1
-                        executePattern(patternNum, filesToProcess)
-                    }
+                    executePattern(courseNum, filesToProcess)
 
                     while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
                         delay(100L)
