@@ -18,7 +18,11 @@ class ThumbnailProvider(private val context: Context) {
     private val cacheSize = 50 // max 50 thumbnails in memory cache
     private val memoryCache = object : LruCache<String, Bitmap>(cacheSize) {
         override fun entryRemoved(expired: Boolean, key: String, oldValue: Bitmap, newValue: Bitmap?) {
-            // Bitmaps are managed by cache eviction or GC
+            try {
+                if (!oldValue.isRecycled) {
+                    oldValue.recycle()
+                }
+            } catch (_: Exception) {}
         }
     }
 
@@ -105,8 +109,12 @@ class ThumbnailProvider(private val context: Context) {
 
     fun close() {
         memoryCache.evictAll()
-        renderers.values.forEach { it.close() }
-        pfds.values.forEach { it.close() }
+        renderers.values.forEach { 
+            try { it.close() } catch (_: Exception) {} 
+        }
+        pfds.values.forEach { 
+            try { it.close() } catch (_: Exception) {} 
+        }
         renderers.clear()
         pfds.clear()
     }
