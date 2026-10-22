@@ -23,11 +23,12 @@ class MainActivity : ComponentActivity() {
                 val application = context.applicationContext as Application
                 val viewModel: PdfViewModel = viewModel(factory = PdfViewModel.provideFactory(application))
                 LaunchedEffect(viewModel) {
-                    viewModel.orientationEvent.collect { isLandscape ->
-                        requestedOrientation = if (isLandscape) {
-                            android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                        } else {
-                            android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                    viewModel.orientationEvent.collect { orientationCode ->
+                        requestedOrientation = when (orientationCode) {
+                            1 -> android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                            2 -> android.content.pm.ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT
+                            3 -> android.content.pm.ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
+                            else -> android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                         }
                     }
                 }

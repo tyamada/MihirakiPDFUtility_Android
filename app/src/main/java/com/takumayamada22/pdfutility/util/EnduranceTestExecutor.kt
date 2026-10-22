@@ -28,7 +28,7 @@ class EnduranceTestExecutor(
         fun moveSelected(offset: Int)
         fun toggleMihirakiView()
         fun toggleRtl()
-        fun setOrientation(isLandscape: Boolean)
+        fun setOrientation(orientationCode: Int)
         fun undo()
         fun redo()
         fun openSettingsDialog(type: SettingsDialogType)
@@ -192,7 +192,7 @@ class EnduranceTestExecutor(
                                 delay(1000L) // >= 1.0 second interval after each operation
                             }
                         }
-                        5, 6 -> { // Pattern 5 & 6: 100 consecutive true orientation changes (Landscape/Portrait) at >= 1.0s intervals
+                        5, 6 -> { // Pattern 5 & 6: Clockwise 90deg x 4 then Counter-clockwise 90deg x 4 set repeated 25 times at >= 1.0s intervals
                             withContext(Dispatchers.Main) {
                                 if (!isEnduranceRunning.get()) return@withContext
                                 viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
@@ -202,18 +202,24 @@ class EnduranceTestExecutor(
                             }
                             delay(1000L)
 
-                            for (opCount in 1..100) {
+                            val clockwiseSequence = listOf(0, 1, 2, 3)
+                            val counterClockwiseSequence = listOf(3, 2, 1, 0)
+                            val fullSet = clockwiseSequence + counterClockwiseSequence // 8 steps
+
+                            for (setIndex in 1..25) {
                                 if (!isEnduranceRunning.get()) break
-                                val isLandscape = (opCount % 2 == 0)
-                                AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: True orientation change #$opCount/100 (Landscape=$isLandscape)")
-                                withContext(Dispatchers.Main) {
-                                    if (!isEnduranceRunning.get()) return@withContext
-                                    viewModelActions.setOrientation(isLandscape)
+                                AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: Rotation set #$setIndex/25")
+                                for (orientCode in fullSet) {
+                                    if (!isEnduranceRunning.get()) break
+                                    withContext(Dispatchers.Main) {
+                                        if (!isEnduranceRunning.get()) return@withContext
+                                        viewModelActions.setOrientation(orientCode)
+                                    }
+                                    while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                        delay(100L)
+                                    }
+                                    delay(1000L) // >= 1.0s interval
                                 }
-                                while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
-                                    delay(100L)
-                                }
-                                delay(1000L) // >= 1.0s interval
                             }
                         }
                         7, 8 -> { // Pattern 7 & 8: 100 consecutive foldable posture simulation changes at >= 1.0s intervals
@@ -226,13 +232,14 @@ class EnduranceTestExecutor(
                             }
                             delay(1000L)
 
+                            val random = java.util.Random()
                             for (opCount in 1..100) {
                                 if (!isEnduranceRunning.get()) break
-                                val isLandscape = (opCount % 2 == 0)
+                                val orientCode = random.nextInt(4)
                                 AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: Foldable posture change #$opCount/100")
                                 withContext(Dispatchers.Main) {
                                     if (!isEnduranceRunning.get()) return@withContext
-                                    viewModelActions.setOrientation(isLandscape)
+                                    viewModelActions.setOrientation(orientCode)
                                 }
                                 while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
                                     delay(100L)
@@ -311,8 +318,8 @@ class EnduranceTestExecutor(
                                                 9 -> { if (random.nextBoolean()) viewModelActions.undo() else viewModelActions.redo() }
                                             }
                                         }
-                                        1 -> viewModelActions.setOrientation(random.nextBoolean())
-                                        2 -> viewModelActions.setOrientation(random.nextBoolean())
+                                        1 -> viewModelActions.setOrientation(random.nextInt(4))
+                                        2 -> viewModelActions.setOrientation(random.nextInt(4))
                                     }
                                 }
                                 while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {

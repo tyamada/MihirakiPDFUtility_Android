@@ -1418,12 +1418,12 @@ class PdfViewModel(
         return "Local Device"
     }
 
-    private val _orientationEvent = kotlinx.coroutines.flow.MutableSharedFlow<Boolean>()
-    val orientationEvent: kotlinx.coroutines.flow.SharedFlow<Boolean> = _orientationEvent
+    private val _orientationEvent = kotlinx.coroutines.flow.MutableSharedFlow<Int>()
+    val orientationEvent: kotlinx.coroutines.flow.SharedFlow<Int> = _orientationEvent
 
-    fun setOrientation(isLandscape: Boolean) {
+    fun setOrientation(orientationCode: Int) {
         viewModelScope.launch {
-            _orientationEvent.emit(isLandscape)
+            _orientationEvent.emit(orientationCode)
         }
     }
 
@@ -1441,7 +1441,7 @@ class PdfViewModel(
             override fun moveSelected(offset: Int) { this@PdfViewModel.moveSelected(offset) }
             override fun toggleMihirakiView() { this@PdfViewModel.toggleMihirakiView() }
             override fun toggleRtl() { this@PdfViewModel.toggleRtl() }
-            override fun setOrientation(isLandscape: Boolean) { this@PdfViewModel.setOrientation(isLandscape) }
+            override fun setOrientation(orientationCode: Int) { this@PdfViewModel.setOrientation(orientationCode) }
             override fun undo() { this@PdfViewModel.undo() }
             override fun redo() { this@PdfViewModel.redo() }
             override fun openSettingsDialog(type: SettingsDialogType) { this@PdfViewModel.openSettingsDialog(type) }
