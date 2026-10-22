@@ -12,6 +12,11 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.atomic.AtomicBoolean
 
+data class LayoutState(
+    val isMihirakiView: Boolean,
+    val isRtl: Boolean
+)
+
 class EnduranceTestExecutor(
     private val application: Application,
     private val viewModelActions: ViewModelActions
@@ -30,6 +35,9 @@ class EnduranceTestExecutor(
         fun toggleRtl()
         fun setOrientation(orientationCode: Int)
         fun getInitialOrientationCode(): Int
+        fun isFoldableDevice(): Boolean
+        fun getLayoutState(): LayoutState
+        fun setLayoutState(state: LayoutState)
         fun undo()
         fun redo()
         fun openSettingsDialog(type: SettingsDialogType)
@@ -206,7 +214,7 @@ class EnduranceTestExecutor(
 
                             val clockwiseSequence = listOf(0, 1, 2, 3, 0)
                             val counterClockwiseSequence = listOf(0, 3, 2, 1, 0)
-                            val fullSet = clockwiseSequence + counterClockwiseSequence
+                            val fullSet = clockwiseSequence + counterClockwiseSequence // 10 steps
 
                             for (setIndex in 1..25) {
                                 if (!isEnduranceRunning.get()) break
@@ -224,29 +232,48 @@ class EnduranceTestExecutor(
                                 }
                             }
                         }
-                        7, 8 -> { // Pattern 7 & 8: 100 consecutive foldable posture simulation changes at >= 1.0s intervals
-                            withContext(Dispatchers.Main) {
-                                if (!isEnduranceRunning.get()) return@withContext
-                                viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
-                            }
-                            while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
-                                delay(100L)
-                            }
-                            delay(1000L)
-
-                            val random = java.util.Random()
-                            for (opCount in 1..100) {
-                                if (!isEnduranceRunning.get()) break
-                                val orientCode = random.nextInt(4)
-                                AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: Foldable posture change #$opCount/100")
+                        7, 8 -> { // Pattern 7 & 8: Foldable posture simulation (only if device is foldable) with layout restore
+                            if (!viewModelActions.isFoldableDevice()) {
+                                val skipMsg = "Pattern $selectedCourse skipped: Device is not a foldable device."
+                                AppLogger.log(application, "INFO", skipMsg)
                                 withContext(Dispatchers.Main) {
                                     if (!isEnduranceRunning.get()) return@withContext
-                                    viewModelActions.setOrientation(orientCode)
+                                    _enduranceStatusMessage.value = skipMsg
+                                }
+                                delay(2000L)
+                                break
+                            }
+
+                            val initialLayout = viewModelActions.getLayoutState()
+                            try {
+                                withContext(Dispatchers.Main) {
+                                    if (!isEnduranceRunning.get()) return@withContext
+                                    AppLogger.log(application, "INFO", "Pattern $selectedCourse: Starting foldable posture simulation")
+                                    viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
                                 }
                                 while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
                                     delay(100L)
                                 }
                                 delay(1000L)
+
+                                val random = java.util.Random()
+                                for (opCount in 1..100) {
+                                    if (!isEnduranceRunning.get()) break
+                                    val orientCode = random.nextInt(4)
+                                    AppLogger.log(application, "DEBUG", "Pattern $selectedCourse: Foldable posture change #$opCount/100")
+                                    withContext(Dispatchers.Main) {
+                                        if (!isEnduranceRunning.get()) return@withContext
+                                        viewModelActions.setOrientation(orientCode)
+                                    }
+                                    while (isEnduranceRunning.get() && viewModelActions.isProcessing()) {
+                                        delay(100L)
+                                    }
+                                    delay(1000L)
+                                }
+                            } finally {
+                                withContext(Dispatchers.Main) {
+                                    viewModelActions.setLayoutState(initialLayout)
+                                }
                             }
                         }
                         9, 10 -> { // Pattern 9 & 10: After Course 1/2, 300 ops if foldable, else 200 ops
@@ -290,11 +317,7 @@ class EnduranceTestExecutor(
                             }
                             delay(1000L)
 
-                            val isFoldable = try {
-                                application.resources.displayMetrics.widthPixels > 1200
-                            } catch (_: Exception) {
-                                false
-                            }
+                            val isFoldable = viewModelActions.isFoldableDevice()
                             val totalOps = if (isFoldable) 300 else 200
                             AppLogger.log(application, "INFO", "Pattern $selectedCourse: Running $totalOps consecutive operations (Foldable=$isFoldable)")
 
