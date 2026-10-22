@@ -22,6 +22,15 @@ class MainActivity : ComponentActivity() {
                 val context = LocalContext.current
                 val application = context.applicationContext as Application
                 val viewModel: PdfViewModel = viewModel(factory = PdfViewModel.provideFactory(application))
+                LaunchedEffect(viewModel) {
+                    viewModel.orientationEvent.collect { isLandscape ->
+                        requestedOrientation = if (isLandscape) {
+                            android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                        } else {
+                            android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                        }
+                    }
+                }
                 LaunchedEffect(initialUri) {
                     initialUri?.let { viewModel.loadPdf(it) }
                 }
