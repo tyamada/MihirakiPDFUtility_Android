@@ -1444,6 +1444,9 @@ class PdfViewModel(
             override fun appendPdf(uri: Uri) { this@PdfViewModel.appendPdf(uri) }
             override fun selectAll() { this@PdfViewModel.selectAll() }
             override fun clearSelection() { this@PdfViewModel.clearSelection() }
+            override fun clearPages() {
+                _uiState.value = _uiState.value.copy(pages = emptyList(), selectedIndices = emptySet(), fileName = null)
+            }
             override fun invertSelection() { this@PdfViewModel.invertSelection() }
             override fun rotateSelected(degrees: Int) { this@PdfViewModel.rotateSelected(degrees) }
             override fun cropSelectedPages(fraction: Float) { this@PdfViewModel.cropSelectedPages(fraction) }
