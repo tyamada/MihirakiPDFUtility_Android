@@ -7,6 +7,8 @@ import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.ParcelFileDescriptor
 import android.util.LruCache
+import android.util.Log
+import java.io.File
 
 class ThumbnailProvider(private val context: Context) {
     private val renderers = mutableMapOf<Uri, PdfRenderer>()
@@ -26,16 +28,21 @@ class ThumbnailProvider(private val context: Context) {
         val renderer = getRenderer(uri) ?: return null
         if (pageIndex !in 0 until renderer.pageCount) return null
 
-        val page = renderer.openPage(pageIndex)
-        val height = (width * page.height / page.width)
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        
-        bitmap.eraseColor(Color.WHITE)
-        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-        page.close()
+        try {
+            val page = renderer.openPage(pageIndex)
+            val height = (width * page.height / page.width)
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            
+            bitmap.eraseColor(Color.WHITE)
+            page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+            page.close()
 
-        memoryCache.put(cacheKey, bitmap)
-        return bitmap
+            memoryCache.put(cacheKey, bitmap)
+            return bitmap
+        } catch (e: Exception) {
+            Log.e("ThumbnailProvider", "Failed to render thumbnail for $uri page $pageIndex", e)
+            return null
+        }
     }
 
     fun getPageCount(uri: Uri): Int = getRenderer(uri)?.pageCount ?: 0
@@ -44,7 +51,11 @@ class ThumbnailProvider(private val context: Context) {
         renderers[uri]?.let { return it }
         
         return try {
-            val pfd = context.contentResolver.openFileDescriptor(uri, "r")
+            val pfd = if (uri.scheme == "file" && uri.path != null) {
+                ParcelFileDescriptor.open(File(uri.path!!), ParcelFileDescriptor.MODE_READ_ONLY)
+            } else {
+                context.contentResolver.openFileDescriptor(uri, "r")
+            }
             if (pfd != null) {
                 val renderer = PdfRenderer(pfd)
                 pfds[uri] = pfd
@@ -52,6 +63,7 @@ class ThumbnailProvider(private val context: Context) {
                 renderer
             } else null
         } catch (e: Exception) {
+            Log.e("ThumbnailProvider", "Failed to open renderer for $uri", e)
             null
         }
     }
