@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Update documentation files (README.md, README_ja.md, docs/*.html) for sample PDFs and version numbers to v1.2.0.
+Update documentation files (README.md, README_ja.md, docs/*.html) for version numbers to v1.2.1.
 """
 
 from pathlib import Path
@@ -18,13 +18,10 @@ def main():
             continue
         content = path.read_text(encoding='utf-8')
 
-        # Replace testdata/tameshibu with sample/tameshibu
-        updated = content.replace('/testdata/tameshibu_', '/sample/tameshibu_')
-        updated = updated.replace('testdata/tameshibu_', 'sample/tameshibu_')
-
         # Update version strings
-        updated = updated.replace('1.1.2', '1.2.0').replace('v1.1.2', 'v1.2.0')
-        updated = updated.replace('1.1.1', '1.2.0').replace('v1.1.1', 'v1.2.0')
+        updated = content.replace('1.2.0', '1.2.1').replace('v1.2.0', 'v1.2.1')
+        updated = updated.replace('1.1.2', '1.2.1').replace('v1.1.2', 'v1.2.1')
+        updated = updated.replace('1.1.1', '1.2.1').replace('v1.1.1', 'v1.2.1')
 
         if updated != content:
             path.write_text(updated, encoding='utf-8')
