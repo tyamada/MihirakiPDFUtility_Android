@@ -1,0 +1,4 @@
+v1.2.1
+- Added robust PDF vulnerability countermeasures (automatic active content sanitization for JavaScript and Launch actions).
+- Added DoS and memory exhaustion safeguards for handling complex or oversized PDFs.
+- Enhanced overall security and stability.

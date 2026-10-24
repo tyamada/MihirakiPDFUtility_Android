@@ -1,6 +1,7 @@
 package com.takumayamada22.pdfutility.domain
 
 import com.tom_roush.pdfbox.cos.COSDictionary
+import com.tom_roush.pdfbox.cos.COSName
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.pdmodel.PDDocumentInformation
 import com.tom_roush.pdfbox.pdmodel.PDPage
@@ -18,6 +19,49 @@ class PdfProcessor {
     private var document: PDDocument? = null
     private val sourceDocs = mutableListOf<PDDocument>()
 
+    companion object {
+        private const val MAX_PAGES = 5000
+    }
+
+    private fun sanitizeActiveContent(doc: PDDocument) {
+        try {
+            val catalog = doc.documentCatalog ?: return
+            
+            // 1. Remove OpenAction
+            try {
+                catalog.openAction = null
+            } catch (_: Exception) {}
+
+            // 2. Remove JS, EmbeddedFiles, and Names dictionaries from Catalog
+            try {
+                catalog.cosObject.removeItem(COSName.JAVA_SCRIPT)
+                catalog.cosObject.removeItem(COSName.JS)
+                catalog.cosObject.removeItem(COSName.EMBEDDED_FILES)
+                catalog.cosObject.removeItem(COSName.NAMES)
+            } catch (_: Exception) {}
+
+            // 3. Inspect pages and annotations
+            for (page in doc.pages) {
+                try {
+                    page.actions = null
+                    page.cosObject.removeItem(COSName.AA)
+                    
+                    val annotations = page.annotations
+                    if (annotations != null) {
+                        for (annot in annotations) {
+                            try {
+                                annot.cosObject.removeItem(COSName.A)
+                                annot.cosObject.removeItem(COSName.AA)
+                            } catch (_: Exception) {}
+                        }
+                    }
+                } catch (_: Exception) {}
+            }
+        } catch (e: Exception) {
+            android.util.Log.w("PdfProcessor", "Failed to sanitize active content: ${e.message}")
+        }
+    }
+
     fun load(inputStream: InputStream, password: String? = null): Int {
         close()
         val memoryUsage = com.tom_roush.pdfbox.io.MemoryUsageSetting.setupTempFileOnly()
@@ -27,9 +71,14 @@ class PdfProcessor {
             } else {
                 PDDocument.load(inputStream, memoryUsage)
             }
+            if (doc.numberOfPages > MAX_PAGES) {
+                doc.close()
+                throw IllegalArgumentException("PDF exceeds maximum allowed pages ($MAX_PAGES)")
+            }
+            sanitizeActiveContent(doc)
             sourceDocs.add(doc)
             doc
-        } catch (_: Exception) {
+        } catch (e: Exception) {
             null
         }
         return document?.numberOfPages ?: 0
@@ -71,6 +120,11 @@ class PdfProcessor {
         } else {
             PDDocument.load(inputStream, memoryUsage)
         }
+        if (currentDoc.numberOfPages + appendDoc.numberOfPages > MAX_PAGES) {
+            appendDoc.close()
+            throw IllegalArgumentException("Combined PDF exceeds maximum allowed pages ($MAX_PAGES)")
+        }
+        sanitizeActiveContent(appendDoc)
         sourceDocs.add(appendDoc)
         
         val newPageCount = appendDoc.numberOfPages
