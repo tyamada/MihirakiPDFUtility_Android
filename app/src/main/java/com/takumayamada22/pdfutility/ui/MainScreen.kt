@@ -224,7 +224,7 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                                     ),
                                     modifier = Modifier.heightIn(min = 40.dp)
                                 ) {
-                                    Text("キャンセル (Cancel)", style = MaterialTheme.typography.labelLarge)
+                                    Text(stringResource(R.string.action_cancel), style = MaterialTheme.typography.labelLarge)
                                 }
                             }
                         }
