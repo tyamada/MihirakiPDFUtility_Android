@@ -41,4 +41,10 @@ App Bundle (`bundleRelease` 等) をビルドする前に、アプリケーシ�
 Gradleビルドシステムには、App Bundleのビルド前（`bundle` タスク実行時）に自動的に実行される検証タスク `preBundleDocumentationCheck` が組み込まれています。
 
 - 必須ドキュメント、メタデータファイル、全14言語の翻訳リソース（`strings.xml`）、およびアプリ内ヘルプ画面の定義キーの存在と整合性を検証します。
+- **翻訳キー完全性自動検証 (Localization Parity Rule)**: App Bundle (`bundleRelease` 等) のビルド前に、すべてのサポート対象非英語ロケール（`values-[lang]/strings.xml`）とベース英語（`values/strings.xml`）の間で 100% の翻訳キー完全一致（パリティ）を自動検証します。不足キーがある場合はビルドを中断します。
 - 更新漏れを防ぐためのビルド前チェックとして機能します。
+
+## 🛠️ 開発者向け診断・ロギング仕様 (Testing & Diagnostics)
+
+- **Diagnostic Logger (`AppLogger`)**: レンダリング時間、メモリ使用量、およびアプリケーションイベントをメモリ内のローリングバッファに記録します。
+- **Testing & Diagnostics Screen**: 「設定 → 診断」からアクセス可能であり、リアルタイムのメモリ使用量および直近のアプリケーションログを表示します。
