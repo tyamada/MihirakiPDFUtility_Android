@@ -257,4 +257,47 @@
     <string name="tutorial_desc_4">Switch between grid view and spread view instantly. Toggle right-to-left (RTL) reading mode for manga and traditional books.</string>
     <string name="tutorial_title_5">Save &amp; Export</string>
     <string name="tutorial_desc_5">Save all pages as a new PDF (Ctrl+S) or export selected pages only. You are all set to start!</string>
+
+    <string name="help_category_getting_started">Getting Started</string>
+    <string name="help_category_editing_features">Editing Features</string>
+    <string name="help_category_toolbar_cheat_sheet">Toolbar Cheat Sheet</string>
+    <string name="help_category_settings_guide">Settings Guide</string>
+    <string name="help_category_diagnostics">Diagnostics</string>
+
+    <string name="help_toolbar_cheat_sheet_desc">A list of primary buttons and icons in the top toolbar.</string>
+    <string name="help_tool_open_title">Open</string>
+    <string name="help_tool_open_desc">Loads a PDF file.</string>
+    <string name="help_tool_save_title">Save</string>
+    <string name="help_tool_save_desc">Saves all pages as a PDF.</string>
+    <string name="help_tool_add_title">Add PDF</string>
+    <string name="help_tool_add_desc">Appends another PDF to the end.</string>
+    <string name="help_tool_select_all_title">Select All</string>
+    <string name="help_tool_select_all_desc">Selects all pages.</string>
+    <string name="help_tool_clear_title">Clear</string>
+    <string name="help_tool_clear_desc">Clears all page selections.</string>
+    <string name="help_tool_invert_title">Invert</string>
+    <string name="help_tool_invert_desc">Inverts the selection state.</string>
+    <string name="help_tool_rotate_title">Rotate</string>
+    <string name="help_tool_rotate_desc">Rotates selected pages in 90-degree increments.</string>
+    <string name="help_tool_move_title">Move</string>
+    <string name="help_tool_move_desc">Moves selected pages forward or backward.</string>
+    <string name="help_tool_split_title">Split</string>
+    <string name="help_tool_split_desc">Splits spread pages into left and right.</string>
+    <string name="help_tool_insert_blank_title">Insert Blank</string>
+    <string name="help_tool_insert_blank_desc">Inserts a blank page at the selected position.</string>
+    <string name="help_tool_delete_title">Delete</string>
+    <string name="help_tool_delete_desc">Deletes selected pages.</string>
+    <string name="help_tool_export_title">Export Selected</string>
+    <string name="help_tool_export_desc">Exports only selected pages.</string>
+    <string name="help_tool_toggle_view_title">Toggle View</string>
+    <string name="help_tool_toggle_view_desc">Switches between grid view and spread view.</string>
+    <string name="help_tool_rtl_title">RTL</string>
+    <string name="help_tool_rtl_desc">Switches between Right-to-Left (RTL) and Left-to-Right (LTR).</string>
+    <string name="help_tool_properties_title">Properties</string>
+    <string name="help_tool_properties_desc">Edits title and metadata.</string>
+    <string name="help_tool_settings_title">Settings</string>
+    <string name="help_tool_settings_desc">Configures password protection and options.</string>
+
+    <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
+    <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
 </resources>

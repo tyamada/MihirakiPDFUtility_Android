@@ -43,7 +43,7 @@ internal fun PdfReportIssueDialog(viewModel: PdfViewModel) {
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "不具合が発生した場合は、以下の情報をまとめてご確認ください。",
+                    text = stringResource(R.string.report_intro_text),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -103,7 +103,7 @@ internal fun PdfReportIssueDialog(viewModel: PdfViewModel) {
                         Text(stringResource(R.string.report_github))
                     }
                     Text(
-                        "※ GitHubアカウントが必要です。送信した情報は公開される場合があります。",
+                        stringResource(R.string.report_github_note),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

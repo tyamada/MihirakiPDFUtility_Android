@@ -230,4 +230,46 @@
     <string name="tutorial_desc_4">グリッド一覧表示と見開き(スプレッド)表示をワンタッチで切り替え。マンガに最適な右開き(RTL)にも対応しています。</string>
     <string name="tutorial_title_5">保存とエクスポート</string>
     <string name="tutorial_desc_5">編集結果をすべて保存（Ctrl+S）したり、選択したページだけを別名で書き出すことができます。準備完了です！</string>
-<string name="help_item_devices" /><string name="diagnostics_endurance_title">Long-Running Stress Test</string><string name="diagnostics_endurance_desc">Select test duration and run continuous stress tests including 14-manga merge, 1100-page 9x append, editing stress, rotation, and foldable simulation.</string><string name="endurance_progress_text">Progress: Elapsed %1$d min / Target %2$d min</string><string name="endurance_iteration_text">Iteration: #%1$d</string><string name="endurance_course_text">Current Course: %1$s</string><string name="endurance_memory_text">Memory Usage: %1$d MB</string><string name="endurance_pattern_select">Test Course &amp; Pattern Selection:</string><string name="endurance_stop_test">Stop Test</string><string name="endurance_start_test">Start Test (%1$d min)</string><string name="download_all_test_files">Download All Test PDFs &amp; Samples</string><string name="cancel_download">Cancel Download</string><string name="endurance_running_banner">⚡ [Endurance Test Running] Elapsed: %1$d min / Target: %2$d min (#%3$d)</string><string name="endurance_stop_button">Stop</string><string name="processing_pdf_message">Processing &amp; merging PDF files…\nPlease wait.</string><string name="course_option_all">All Courses (Patterns 1–10)</string><string name="course_option_pattern_1">Pattern 1 (Multi-File Merge)</string><string name="course_option_pattern_2">Pattern 2 (1100p Append 9x)</string><string name="course_option_pattern_3">Pattern 3 (Merge + Editing Stress)</string><string name="course_option_pattern_4">Pattern 4 (Append + Editing Stress)</string><string name="course_option_pattern_5">Pattern 5 (Merge + Screen Rotation)</string><string name="course_option_pattern_6">Pattern 6 (Append + Screen Rotation)</string><string name="course_option_pattern_7">Pattern 7 (Merge + Foldable Simulation)</string><string name="course_option_pattern_8">Pattern 8 (Append + Foldable Simulation)</string><string name="course_option_pattern_9">Pattern 9 (Full Combination A)</string><string name="course_option_pattern_10">Pattern 10 (Full Combination B)</string></resources>
+<string name="help_item_devices" /><string name="diagnostics_endurance_title">Long-Running Stress Test</string><string name="diagnostics_endurance_desc">Select test duration and run continuous stress tests including 14-manga merge, 1100-page 9x append, editing stress, rotation, and foldable simulation.</string><string name="endurance_progress_text">Progress: Elapsed %1$d min / Target %2$d min</string><string name="endurance_iteration_text">Iteration: #%1$d</string><string name="endurance_course_text">Current Course: %1$s</string><string name="endurance_memory_text">Memory Usage: %1$d MB</string><string name="endurance_pattern_select">Test Course &amp; Pattern Selection:</string><string name="endurance_stop_test">Stop Test</string><string name="endurance_start_test">Start Test (%1$d min)</string><string name="download_all_test_files">Download All Test PDFs &amp; Samples</string><string name="cancel_download">Cancel Download</string><string name="endurance_running_banner">⚡ [Endurance Test Running] Elapsed: %1$d min / Target: %2$d min (#%3$d)</string><string name="endurance_stop_button">Stop</string><string name="processing_pdf_message">Processing &amp; merging PDF files…\nPlease wait.</string><string name="course_option_all">All Courses (Patterns 1–10)</string><string name="course_option_pattern_1">Pattern 1 (Multi-File Merge)</string><string name="course_option_pattern_2">Pattern 2 (1100p Append 9x)</string><string name="course_option_pattern_3">Pattern 3 (Merge + Editing Stress)</string><string name="course_option_pattern_4">Pattern 4 (Append + Editing Stress)</string><string name="course_option_pattern_5">Pattern 5 (Merge + Screen Rotation)</string><string name="course_option_pattern_6">Pattern 6 (Append + Screen Rotation)</string><string name="course_option_pattern_7">Pattern 7 (Merge + Foldable Simulation)</string><string name="course_option_pattern_8">Pattern 8 (Append + Foldable Simulation)</string><string name="course_option_pattern_9">Pattern 9 (Full Combination A)</string><string name="course_option_pattern_10">Pattern 10 (Full Combination B)</string>    <string name="help_category_getting_started">はじめての使い方</string>
+    <string name="help_category_editing_features">編集を快適にする機能</string>
+    <string name="help_category_toolbar_cheat_sheet">ボタン・アイコン一覧</string>
+    <string name="help_category_settings_guide">設定とカスタマイズ</string>
+    <string name="help_category_diagnostics">診断</string>
+
+    <string name="help_toolbar_cheat_sheet_desc">トップツールバーの主要なボタンとアイコンの一覧です。</string>
+    <string name="help_tool_open_title">開く</string>
+    <string name="help_tool_open_desc">PDFファイルを読み込みます</string>
+    <string name="help_tool_save_title">保存</string>
+    <string name="help_tool_save_desc">すべてのページをPDFとして保存します</string>
+    <string name="help_tool_add_title">PDF追加</string>
+    <string name="help_tool_add_desc">別のPDFを末尾に結合・追加します</string>
+    <string name="help_tool_select_all_title">すべて選択</string>
+    <string name="help_tool_select_all_desc">すべてのページを選択状態にします</string>
+    <string name="help_tool_clear_title">選択解除</string>
+    <string name="help_tool_clear_desc">ページ選択をすべて解除します</string>
+    <string name="help_tool_invert_title">選択反転</string>
+    <string name="help_tool_invert_desc">選択状態を反転させます</string>
+    <string name="help_tool_rotate_title">回転</string>
+    <string name="help_tool_rotate_desc">選択したページを90度単位で回転します</string>
+    <string name="help_tool_move_title">移動</string>
+    <string name="help_tool_move_desc">選択ページの順序を前後に移動します</string>
+    <string name="help_tool_split_title">ページ分割</string>
+    <string name="help_tool_split_desc">見開きページを左右に分割します</string>
+    <string name="help_tool_insert_blank_title">白紙挿入</string>
+    <string name="help_tool_insert_blank_desc">選択した位置に空白ページを挿入します</string>
+    <string name="help_tool_delete_title">削除</string>
+    <string name="help_tool_delete_desc">選択したページを削除します</string>
+    <string name="help_tool_export_title">選択保存</string>
+    <string name="help_tool_export_desc">選択したページのみを書き出します</string>
+    <string name="help_tool_toggle_view_title">表示切替</string>
+    <string name="help_tool_toggle_view_desc">グリッド表示と見開き表示を切り替えます</string>
+    <string name="help_tool_rtl_title">右開き切替</string>
+    <string name="help_tool_rtl_desc">右開き(RTL)と左開き(LTR)を切り替えます</string>
+    <string name="help_tool_properties_title">プロパティ</string>
+    <string name="help_tool_properties_desc">タイトルやメタデータを編集します</string>
+    <string name="help_tool_settings_title">設定</string>
+    <string name="help_tool_settings_desc">パスワード保護やオプションを設定します</string>
+
+    <string name="report_intro_text">不具合が発生した場合は、以下の情報をまとめてご確認ください。</string>
+    <string name="report_github_note">※ GitHubアカウントが必要です。送信した情報は公開される場合があります。</string>
+</resources>
