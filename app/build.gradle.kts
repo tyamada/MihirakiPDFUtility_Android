@@ -134,17 +134,25 @@ tasks.register("preBundleDocumentationCheck") {
         }
         logger.lifecycle("Verified translation files for all ${requiredLocales.size} locales.")
 
-        // Verify essential string keys exist in all locales
-        val essentialKeys = listOf("app_name")
-        requiredLocales.forEach { locale ->
-            val localeFile = File(resDir, "$locale/strings.xml")
-            val localeText = localeFile.readText()
-            val missingEssential = essentialKeys.filter { !localeText.contains("name=\"$it\"") }
-            if (missingEssential.isNotEmpty()) {
-                throw GradleException("Locale $locale is missing essential translation keys: $missingEssential")
+        // Verify 100% translation key parity across all locales against base values/strings.xml
+        val baseStringsFile = File(resDir, "values/strings.xml")
+        if (baseStringsFile.exists()) {
+            val baseContent = baseStringsFile.readText()
+            val nameRegex = Regex("<string\\s+name=\"([^\"]+)\"")
+            val baseKeys = nameRegex.findAll(baseContent).map { it.groupValues[1] }.toSet()
+
+            requiredLocales.filter { it != "values" }.forEach { locale ->
+                val localeFile = File(resDir, "$locale/strings.xml")
+                if (localeFile.exists()) {
+                    val localeText = localeFile.readText()
+                    val missingKeys = baseKeys.filter { !localeText.contains("name=\"$it\"") }
+                    if (missingKeys.isNotEmpty()) {
+                        throw GradleException("Locale $locale is missing translation keys: $missingKeys (Total missing: ${missingKeys.size})")
+                    }
+                }
             }
+            logger.lifecycle("100% translation key parity verified across all ${requiredLocales.size - 1} localized locales (${baseKeys.size} keys each).")
         }
-        logger.lifecycle("Essential translation keys verified across all locales.")
 
         val docsDir = File(rootDir, "docs")
         val htmlFiles = docsDir.listFiles { file -> file.extension.lowercase() == "html" } ?: emptyArray()
