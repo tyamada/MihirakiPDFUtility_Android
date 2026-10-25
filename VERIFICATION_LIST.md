@@ -22,3 +22,6 @@ This is a list of verification results compiled from developer and user informat
 ## Testing & Diagnostics
 - **Diagnostic Logger (`AppLogger`)**: Records rendering times, memory usage, and application events in an in-memory rolling buffer.
 - **Testing & Diagnostics Screen**: Accessible via Settings → Diagnostics, displaying real-time memory usage and recent application logs.
+
+## Release Rules & Localization
+- **App Bundle Localization Rule**: Prior to building any App Bundle (`bundleRelease`), the Gradle task `preBundleDocumentationCheck` automatically verifies 100% translation key parity across all supported non-English locales (`values-[lang]/strings.xml`) against the base English `values/strings.xml`. Any missing keys will halt the build and throw an error.

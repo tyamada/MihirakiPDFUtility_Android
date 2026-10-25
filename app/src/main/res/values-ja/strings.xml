@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">見開きPDFユーティリティ</string>
     <string name="action_open">開く</string>
@@ -78,7 +79,7 @@
     <string name="help_item_page_ops"><b>ページ操作:</b> ページをタップして選択すると、トップバーのボタンが動的に切り替わります（非選択時は保存や設定、選択時は回転、移動、分割、白紙挿入、削除、選択ページのエクスポートなど）。</string>
     <string name="help_item_display_modes"><b>表示切り替え:</b> グリッド表示と見開き表示の切り替え、右開き(RTL)と左開き(LTR)の読み方向切り替えをサポートします。</string>
     <string name="help_item_device_optimization"><b>デバイス対応:</b> スマートフォン、タブレット、Foldableデバイス（折りたたみ端末）、およびデスクトップ（ChromeOSなど）に最適化されています。</string>
-    <string name="help_item_button_reference"><b>主なボタン・アイコンの機能一覧:</b><br/>• <b>ファイル操作:</b> 開く、保存、PDF追加（結合）<br/>• <b>選択操作:</b> すべて選択、選択解除、選択反転<br/>• <b>ページ編集:</b> 回転、上下移動、分割、白紙挿入、削除、選択ページ書き出し<br/>• <b>表示・設定:</b> グリッド/見開き切替、右開き(RTL)/左開き(LTR)切替、表紙付き設定、プロパティ、パスワード設定</string>
+    <string name="help_item_button_reference"><b>主なボタン・アイコンの機能一覧:</b><br />• <b>ファイル操作:</b> 開く、保存、PDF追加（結合）<br />• <b>選択操作:</b> すべて選択、選択解除、選択反転<br />• <b>ページ編集:</b> 回転、上下移動、分割、白紙挿入、削除、選択ページ書き出し<br />• <b>表示・設定:</b> グリッド/見開き切替、右開き(RTL)/左開き(LTR)切替、表紙付き設定、プロパティ、パスワード設定</string>
     <string name="help_item_properties"><b>プロパティ・メタデータ:</b> 文書のタイトル、作成者、サブタイトル、キーワード、PDFバージョン、ページレイアウトを設定できます。</string>
     <string name="help_item_security"><b>セキュリティ・パスワード:</b> PDFの保存やエクスポート時に適用する暗号化パスワードを設定・クリアできます。</string>
     <string name="help_item_options"><b>オプション設定:</b> サムネイル画像のサイズ（小/中/大）や、ボタンの表示形式（アイコン＋テキスト／アイコンのみ／テキストのみ）をカスタマイズできます。</string>
@@ -229,4 +230,4 @@
     <string name="tutorial_desc_4">グリッド一覧表示と見開き(スプレッド)表示をワンタッチで切り替え。マンガに最適な右開き(RTL)にも対応しています。</string>
     <string name="tutorial_title_5">保存とエクスポート</string>
     <string name="tutorial_desc_5">編集結果をすべて保存（Ctrl+S）したり、選択したページだけを別名で書き出すことができます。準備完了です！</string>
-</resources>
+<string name="help_item_devices" /><string name="diagnostics_endurance_title">Long-Running Stress Test</string><string name="diagnostics_endurance_desc">Select test duration and run continuous stress tests including 14-manga merge, 1100-page 9x append, editing stress, rotation, and foldable simulation.</string><string name="endurance_progress_text">Progress: Elapsed %1$d min / Target %2$d min</string><string name="endurance_iteration_text">Iteration: #%1$d</string><string name="endurance_course_text">Current Course: %1$s</string><string name="endurance_memory_text">Memory Usage: %1$d MB</string><string name="endurance_pattern_select">Test Course &amp; Pattern Selection:</string><string name="endurance_stop_test">Stop Test</string><string name="endurance_start_test">Start Test (%1$d min)</string><string name="download_all_test_files">Download All Test PDFs &amp; Samples</string><string name="cancel_download">Cancel Download</string><string name="endurance_running_banner">⚡ [Endurance Test Running] Elapsed: %1$d min / Target: %2$d min (#%3$d)</string><string name="endurance_stop_button">Stop</string><string name="processing_pdf_message">Processing &amp; merging PDF files…\nPlease wait.</string><string name="course_option_all">All Courses (Patterns 1–10)</string><string name="course_option_pattern_1">Pattern 1 (Multi-File Merge)</string><string name="course_option_pattern_2">Pattern 2 (1100p Append 9x)</string><string name="course_option_pattern_3">Pattern 3 (Merge + Editing Stress)</string><string name="course_option_pattern_4">Pattern 4 (Append + Editing Stress)</string><string name="course_option_pattern_5">Pattern 5 (Merge + Screen Rotation)</string><string name="course_option_pattern_6">Pattern 6 (Append + Screen Rotation)</string><string name="course_option_pattern_7">Pattern 7 (Merge + Foldable Simulation)</string><string name="course_option_pattern_8">Pattern 8 (Append + Foldable Simulation)</string><string name="course_option_pattern_9">Pattern 9 (Full Combination A)</string><string name="course_option_pattern_10">Pattern 10 (Full Combination B)</string></resources>

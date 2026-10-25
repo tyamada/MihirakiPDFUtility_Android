@@ -213,18 +213,23 @@ internal fun PdfHelpDialog(viewModel: PdfViewModel) {
                 }
 
                 Spacer(Modifier.height(16.dp))
-                Row(
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    OutlinedButton(onClick = {
-                        viewModel.closeSettingsDialog()
-                        viewModel.showTutorialAgain()
-                    }) {
+                    OutlinedButton(
+                        onClick = {
+                            viewModel.closeSettingsDialog()
+                            viewModel.showTutorialAgain()
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
                         Text(stringResource(R.string.help_show_tutorial))
                     }
-                    Button(onClick = { viewModel.closeSettingsDialog() }) {
+                    Button(
+                        onClick = { viewModel.closeSettingsDialog() },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
                         Text(stringResource(R.string.action_close))
                     }
                 }
