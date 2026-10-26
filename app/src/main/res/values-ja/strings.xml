@@ -224,7 +224,7 @@
     <string name="tutorial_title_1">見開きPDFユーティリティへようこそ</string>
     <string name="tutorial_desc_1">自炊書籍やマンガの見開き表示（右開き/左開き）、ページ整理に特化。14言語に対応した高機能PDFツールです。</string>
     <string name="tutorial_title_2">PDF読込・メニューバーとサンプル</string>
-    <string name="tutorial_desc_2">トップのメニューバー（ファイル、編集、挿入、表示、オプション、ヘルプ）からすべての機能にアクセスできます。</string>
+    <string name="tutorial_desc_2">デスクトップでは上部メニューバーから、スマホやタブレットでは右上の3点リーダー（ボトムシート）からすべての機能にアクセスできます。</string>
     <string name="tutorial_title_3">ページ操作と編集</string>
     <string name="tutorial_desc_3">ページをタップして選択し、回転、移動、分割、白紙挿入、削除などの豊富な操作を直感的に行えます。</string>
     <string name="tutorial_title_4">表示モードとツールバーカスタマイズ</string>
