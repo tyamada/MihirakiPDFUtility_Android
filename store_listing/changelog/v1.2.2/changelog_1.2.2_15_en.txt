@@ -1,0 +1,5 @@
+v1.2.2
+- Added a top menu bar (File, Edit, Insert, View, Options, Help) for improved navigation.
+- Added toolbar button customization, allowing users to choose which buttons appear in the main toolbar via Options.
+- Changed main toolbar button layout to left-aligned and set icon-only as the default button display type.
+- Added an in-app Privacy Policy screen and updated the help guide and tutorial.
