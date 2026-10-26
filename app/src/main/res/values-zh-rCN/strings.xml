@@ -248,6 +248,9 @@
 
     <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
     <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
+    <string name="help_category_menu_bar">Menu Bar &amp; Toolbar</string>
+    <string name="help_item_menu_bar">&lt;b&gt;Menu Bar:&lt;/b&gt; Access all file, edit, insert, view, options, and help functions via top menus.</string>
+    <string name="help_item_toolbar_customization">&lt;b&gt;Toolbar Customization:&lt;/b&gt; Go to Options > Toolbar Buttons to choose which action buttons appear in the main toolbar.</string>
     <string name="menu_file">文件</string>
     <string name="menu_edit">编辑</string>
     <string name="menu_insert">插入</string>
