@@ -16,6 +16,7 @@ fun PdfSettingsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
         SettingsDialogType.HELP -> PdfHelpDialog(viewModel)
         SettingsDialogType.DIAGNOSTICS -> PdfDiagnosticsDialog(viewModel)
         SettingsDialogType.REPORT_ISSUE -> PdfReportIssueDialog(viewModel)
+        SettingsDialogType.PRIVACY_POLICY -> PdfPrivacyDialog(viewModel)
         null -> {}
     }
 }

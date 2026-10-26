@@ -226,4 +226,6 @@
     <string name="menu_help">도움말</string>
     <string name="options_visible_buttons_title">도구 모음 버튼</string>
     <string name="options_visible_buttons_desc">기본 도구 모음에 표시할 버튼을 선택하세요</string>
+    <string name="privacy_policy_title">Privacy Policy</string>
+    <string name="privacy_policy_content">Mihiraki PDF Utility respects your privacy and is committed to protecting your personal data.\n\n• Local Processing: All PDF operations are performed entirely on your device.\n• No External Transmission: Document contents, filenames, and personal information are never transmitted to external servers.\n• Audit Logs: Local operation logs are stored temporarily on-device and do not include personal data.\n• Analytics / Ads: We adhere strictly to Google Play data safety standards.</string>
 </resources>

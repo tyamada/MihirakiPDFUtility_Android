@@ -140,6 +140,10 @@ fun PdfTopAppBar(
                             text = { Text(stringResource(R.string.support)) },
                             onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }
                         )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.privacy_policy_title)) },
+                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.PRIVACY_POLICY) }
+                        )
                     }
                 }
             }
