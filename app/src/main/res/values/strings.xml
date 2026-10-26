@@ -251,7 +251,7 @@
     <string name="tutorial_title_1">Welcome to Mihiraki PDF Utility</string>
     <string name="tutorial_desc_1">Optimized for reading and organizing scanned books and manga with double-page spread views and RTL/LTR support across 14 languages.</string>
     <string name="tutorial_title_2">Open, Menu Bar &amp; Sample PDFs</string>
-    <string name="tutorial_desc_2">Access all tools via top menu bars on desktop, or tap the top-right 3-dot menu for the mobile bottom sheet on phones and tablets.</string>
+    <string name="tutorial_desc_2">Access all tools via top menu bars on desktop or mobile landscape, or tap the top-right 3-dot menu for the mobile bottom sheet in portrait.</string>
     <string name="tutorial_title_3">Page Operations &amp; Editing</string>
     <string name="tutorial_desc_3">Select pages with a tap to reorder, rotate, split spreads, insert blank pages, or delete unwanted pages easily.</string>
     <string name="tutorial_title_4">Display Modes &amp; Toolbar Customization</string>
@@ -302,6 +302,7 @@
     <string name="help_category_menu_bar">Menu Bar &amp; Toolbar</string>
     <string name="help_item_menu_bar">&lt;b&gt;Menu Bar:&lt;/b&gt; Access all file, edit, insert, view, options, and help functions via top menus.</string>
     <string name="help_item_mobile_bottom_sheet">&lt;b&gt;Mobile Menu:&lt;/b&gt; On smartphones and tablets, tap the top-right 3-dot menu icon to open the categorized bottom sheet menu containing all functions.</string>
+    <string name="help_item_landscape_desktop_mode">&lt;b&gt;Landscape Mode:&lt;/b&gt; Rotating smartphones or tablets to landscape automatically switches to the desktop-like horizontal menu bar mode on wider screens.</string>
     <string name="help_item_toolbar_customization">&lt;b&gt;Toolbar Customization:&lt;/b&gt; Go to Options > Toolbar Buttons to choose which action buttons appear in the main toolbar.</string>
 
     <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>

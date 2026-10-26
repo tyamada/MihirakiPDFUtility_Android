@@ -111,6 +111,7 @@ internal fun PdfHelpDialog(viewModel: PdfViewModel) {
             title = stringResource(R.string.help_category_menu_bar),
             items = listOf(
                 stringResource(R.string.help_item_menu_bar),
+                stringResource(R.string.help_item_landscape_desktop_mode),
                 stringResource(R.string.help_item_mobile_bottom_sheet),
                 stringResource(R.string.help_item_toolbar_customization)
             )

@@ -224,7 +224,7 @@
     <string name="tutorial_title_1">見開きPDFユーティリティへようこそ</string>
     <string name="tutorial_desc_1">自炊書籍やマンガの見開き表示（右開き/左開き）、ページ整理に特化。14言語に対応した高機能PDFツールです。</string>
     <string name="tutorial_title_2">PDF読込・メニューバーとサンプル</string>
-    <string name="tutorial_desc_2">デスクトップでは上部メニューバーから、スマホやタブレットでは右上の3点リーダー（ボトムシート）からすべての機能にアクセスできます。</string>
+    <string name="tutorial_desc_2">デスクトップやスマホの横画面では上部メニューバーから、縦画面では右上の3点リーダー（ボトムシート）からすべての機能にアクセスできます。</string>
     <string name="tutorial_title_3">ページ操作と編集</string>
     <string name="tutorial_desc_3">ページをタップして選択し、回転、移動、分割、白紙挿入、削除などの豊富な操作を直感的に行えます。</string>
     <string name="tutorial_title_4">表示モードとツールバーカスタマイズ</string>
@@ -274,6 +274,7 @@
     <string name="help_category_menu_bar">メニューバーとツールバー</string>
     <string name="help_item_menu_bar">&lt;b&gt;メニューバー:&lt;/b&gt; ファイル、編集、挿入、表示、オプション、ヘルプの各メニューからすべての機能にアクセスできます。</string>
     <string name="help_item_mobile_bottom_sheet">&lt;b&gt;モバイルメニュー:&lt;/b&gt; スマートフォンやタブレットでは、右上の3点リーダー（メニュー）アイコンをタップすると、すべての機能がカテゴリ別に整理されたボトムシート（下部メニュー）が開きます。</string>
+    <string name="help_item_landscape_desktop_mode">&lt;b&gt;横画面モード:&lt;/b&gt; スマートフォンやタブレットを横向き（ランドスケープ）に回転させると、画面幅に応じて自動的にデスクトップ風の水平メニューバーモードに切り替わります。</string>
     <string name="help_item_toolbar_customization">&lt;b&gt;ツールバーのカスタマイズ:&lt;/b&gt; オプション > ツールバーボタン設定から、メインツールバーに表示するボタンを自由に選択できます。</string>
 
     <string name="report_intro_text">不具合が発生した場合は、以下の情報をまとめてご確認ください。</string>
