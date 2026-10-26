@@ -278,6 +278,10 @@ internal fun PdfMenuBar(
                     text = { Text(stringResource(R.string.support)) },
                     onClick = { helpMenuExpanded = false; viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }
                 )
+                DropdownMenuItem(
+                    text = { Text(stringResource(R.string.privacy_policy_title)) },
+                    onClick = { helpMenuExpanded = false; viewModel.openSettingsDialog(SettingsDialogType.PRIVACY_POLICY) }
+                )
             }
         }
     }
