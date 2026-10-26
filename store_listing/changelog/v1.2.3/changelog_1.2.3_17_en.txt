@@ -1,0 +1,4 @@
+v1.2.3
+- Enhanced adaptive UI behavior: rotating devices to landscape automatically switches to the desktop-like horizontal menu bar mode.
+- Updated help guides and tutorials to include landscape rotation guidance.
+- Further improved accessibility and overall stability.

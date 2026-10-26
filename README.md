@@ -14,7 +14,7 @@ A powerful and intuitive PDF utility for Android, specializing in **Mihiraki (tw
 | ✂️ **Smart Splitting** | Split double-page spreads into individual pages. Supports vertical and horizontal splitting. |
 | 🔀 **Drag & Drop Reordering** | Easily organize your PDF by dragging and dropping thumbnails. Intuitive page management. |
 | ➕ **Merge & Append** | Combine multiple PDF files into one, or add pages to existing documents. |
-| 🖥️ **Adaptive Menu & Customization** | Adaptive layout: horizontal menu bar for desktops/ChromeOS, and categorized bottom sheet menu for smartphones/tablets, plus customizable toolbar buttons via Options. |
+| 🖥️ **Adaptive Menu & Customization** | Adaptive layout: horizontal menu bar for desktops and mobile landscape, and categorized bottom sheet menu for mobile portrait, plus customizable toolbar buttons via Options. |
 | 🔒 **Security & Privacy** | Dedicated in-app privacy policy, password protection, metadata editing, automatic active content sanitization, and local audit logs. |
 | 🌟 **Interactive Tutorial** | Guided step-by-step tutorial screen for first-time users with instant sample PDF trial and re-triggerable help. |
 | 🔍 **Diagnostics & Benchmarks** | Run in-app comprehensive diagnostics and benchmark tests using dynamic test PDFs, and review local audit logs (24-hour retention, offline/privacy-protected). |
