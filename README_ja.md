@@ -14,10 +14,11 @@ Android向けの強力で直感的なPDFユーティリティアプリです。*
 | ✂️ **スマートページ分割** | 見開き1ページを2つのページに分割。垂直（左右）と水平（上下）の両方の分割方向をサポートします。 |
 | 🔀 **ドラッグ＆ドロップ並べ替え** | サムネイルをドラッグするだけでページ順序を整理。直感的なインターフェースで編集が捗ります。 |
 | ➕ **結合と追加** | 複数のPDFファイルを1つに結合したり、既存のPDFにページを追加したりできます。 |
-| 🔒 **セキュリティ＆ハードニング** | パスワード保護やメタデータ編集に加え、悪意あるアクティブコンテンツ（JavaScript / Launchアクション等）の自動サニタイズや、DoS/メモリ枯渇（Zip Bomb等）対策などの堅牢なセキュリティ機能を搭載。 |
+| 🖥️ **メニューバーとカスタマイズ** | ファイル、編集、挿入、表示、オプション、ヘルプのトップメニューバーと、オプション画面からのツールバーボタンのカスタマイズ。 |
+| 🔒 **セキュリティ＆プライバシー** | アプリ内プライバシーポリシー画面、パスワード保護、メタデータ編集、自動サニタイズ、ローカル監査ログ。 |
 | 🌟 **インタラクティブチュートリアル** | 初回起動時の分かりやすいガイド画面。サンプルPDFの即時試用や、ヘルプからのいつでも再確認に対応。 |
-| 🔍 **総合診断・ベンチマーク** | アプリ内で動的生成するテストPDFを活用した総合診断・ベンチマークテスト（機能テスト、編集系機能テスト、1000ページ負荷テスト、検索パフォーマンス測定）の実行と、端末内ローカル監査ログ（24時間自動保持・外部送信なし・オフライン処理）の確認が可能です。 |
-| 🖥️ **クロスデバイス対応** | スマートフォン、タブレット、ChromeOS（デスクトップ環境）で快適に動作するよう最適化されています。 |
+| 🔍 **総合診断・ベンチマーク** | アプリ内で動的生成するテストPDFを活用した総合診断・ベンチマークテストの実行と、端末内ローカル監査ログ（24時間自動保持・外部送信なし）の確認が可能。 |
+| 💻 **クロスデバイス対応** | スマートフォン、タブレット、折りたたみ端末、ChromeOS（デスクトップ環境）で快適に動作。 |
 
 ### 機能紹介
 
@@ -48,7 +49,7 @@ Android向けの強力で直感的なPDFユーティリティアプリです。*
 - [해봄부 제1화 한숨 돌림 지도 (Korean) - 코마이로 히요리](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_ko.pdf)
 - [해봄부제2화 책상이 넓어지다 (Korean) - 코마이로 히요리](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_ko.pdf)
 - [试试社 第1话 歇口气地图 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_zh_cn.pdf)
-- [试试社 第2话 桌子变大了 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_zh_cn.pdf)
+- [试试社 第2话 桌子变大了 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_zh_cn.pdf)
 - [試試社 第1話 (Chinese (Traditional)) - 小舞樓日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_zh_tw.pdf)
 - [試試社 第2話 (Chinese (Traditional)) - 小舞樓日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_zh_tw.pdf)
 - [DER PROBIERCLUB FOLGE 1 (German) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_de.pdf)
