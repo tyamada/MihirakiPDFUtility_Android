@@ -5,7 +5,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -21,16 +20,16 @@ internal fun PdfPrivacyDialog(viewModel: PdfViewModel) {
                 .wrapContentHeight()
                 .imePadding(),
             shape = MaterialTheme.shapes.extraLarge,
-            tonalElevation = AlertDialogDefaults.TonalElevation
+            tonalElevation = AlertDialogDefaults.TonalElevation,
         ) {
             Column(
                 modifier = Modifier
                     .padding(24.dp)
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
             ) {
                 Text(
                     text = stringResource(R.string.privacy_policy_title),
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineSmall,
                 )
                 Spacer(Modifier.height(16.dp))
 
@@ -39,19 +38,19 @@ internal fun PdfPrivacyDialog(viewModel: PdfViewModel) {
                         .heightIn(max = 480.dp)
                         .verticalScroll(rememberScrollState())
                         .fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     Text(
                         text = stringResource(R.string.privacy_policy_content),
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
 
                 Spacer(Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
+                    horizontalArrangement = Arrangement.End,
                 ) {
                     Button(onClick = { viewModel.closeSettingsDialog() }) {
                         Text(stringResource(R.string.action_close))
