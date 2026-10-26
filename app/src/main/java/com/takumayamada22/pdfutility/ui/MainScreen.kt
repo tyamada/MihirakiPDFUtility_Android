@@ -86,7 +86,11 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                         true
                     }
                     Key.S -> {
-                        saveLauncher.launch("edited_${uiState.fileName ?: "document"}.pdf")
+                        if (event.isShiftPressed && uiState.selectedIndices.isNotEmpty()) {
+                            showSplitDialog = true
+                        } else {
+                            saveLauncher.launch("edited_${uiState.fileName ?: "document"}.pdf")
+                        }
                         true
                     }
                     Key.E -> {
@@ -94,6 +98,18 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                             exportLauncher.launch("selected_pages.pdf")
                         }
                         true
+                    }
+                    Key.C -> {
+                        if (event.isShiftPressed && uiState.selectedIndices.isNotEmpty()) {
+                            showCropDialog = true
+                            true
+                        } else false
+                    }
+                    Key.B -> {
+                        if (event.isShiftPressed && uiState.selectedIndices.isNotEmpty()) {
+                            viewModel.insertBlankAfterSelected()
+                            true
+                        } else false
                     }
                     Key.T -> {
                         viewModel.toggleMihirakiView()
@@ -103,12 +119,16 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                         viewModel.toggleRtl()
                         true
                     }
-                    Key.L -> {
+                    Key.L, Key.D -> {
                         viewModel.clearSelection()
                         true
                     }
                     Key.A -> {
                         viewModel.selectAll()
+                        true
+                    }
+                    Key.I -> {
+                        viewModel.invertSelection()
                         true
                     }
                     Key.Z -> {
@@ -119,13 +139,37 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                         viewModel.redo()
                         true
                     }
+                    Key.DirectionLeft -> {
+                        if (uiState.selectedIndices.isNotEmpty()) {
+                            viewModel.rotateSelected(-90)
+                            true
+                        } else false
+                    }
+                    Key.DirectionRight -> {
+                        if (uiState.selectedIndices.isNotEmpty()) {
+                            viewModel.rotateSelected(90)
+                            true
+                        } else false
+                    }
+                    Key.DirectionUp -> {
+                        if (uiState.selectedIndices.isNotEmpty()) {
+                            viewModel.moveSelected(-1)
+                            true
+                        } else false
+                    }
+                    Key.DirectionDown -> {
+                        if (uiState.selectedIndices.isNotEmpty()) {
+                            viewModel.moveSelected(1)
+                            true
+                        } else false
+                    }
                     else -> false
                 }
-            } else if (event.type == KeyEventType.KeyDown && event.key == Key.Delete) {
+            } else if (event.type == KeyEventType.KeyDown && (event.key == Key.Delete || event.key == Key.Backspace)) {
                 if (uiState.selectedIndices.isNotEmpty()) {
                     showDeleteConfirmation = true
-                }
-                true
+                    true
+                } else false
             } else {
                 false
             }
