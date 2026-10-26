@@ -270,6 +270,10 @@
     <string name="help_tool_settings_title">設定</string>
     <string name="help_tool_settings_desc">パスワード保護やオプションを設定します</string>
 
+    <string name="help_category_menu_bar">メニューバーとツールバー</string>
+    <string name="help_item_menu_bar">&lt;b&gt;メニューバー:&lt;/b&gt; ファイル、編集、挿入、表示、オプション、ヘルプの各メニューからすべての機能にアクセスできます。</string>
+    <string name="help_item_toolbar_customization">&lt;b&gt;ツールバーのカスタマイズ:&lt;/b&gt; オプション > ツールバーボタン設定から、メインツールバーに表示するボタンを自由に選択できます。</string>
+
     <string name="report_intro_text">不具合が発生した場合は、以下の情報をまとめてご確認ください。</string>
     <string name="report_github_note">※ GitHubアカウントが必要です。送信した情報は公開される場合があります。</string>
     <string name="menu_file">ファイル</string>
