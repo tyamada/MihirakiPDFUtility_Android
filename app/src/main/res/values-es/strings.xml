@@ -152,8 +152,8 @@
     <string name="cc_by_dialog_text">Antes de modificar o guardar el PDF de ejemplo, revisa los términos de Creative Commons Attribution 4.0 International (CC BY 4.0):\n\n• Autor: Komairo Hiyori\n• Licencia: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• Al reutilizar, modificar o guardar, muestra el título, el nombre del autor, el enlace de la licencia e indica las modificaciones realizadas.\n\nNota: Tienes total libertad para modificar y guardar el PDF de ejemplo sin restricciones.</string>
     <string name="cc_by_dialog_confirm">Aceptar y continuar</string>
     <string name="options_button_display_title">Tipo de visualización de botones</string>
-    <string name="button_display_icon_and_text">Icono + Texto (Predeterminado)</string>
-    <string name="button_display_icon_only">Solo icono</string>
+    <string name="button_display_icon_and_text">Icono + Texto</string>
+    <string name="button_display_icon_only">Solo icono (Predeterminado)</string>
     <string name="button_display_text_only">Solo texto</string>
     <string name="folder_images_title">Imágenes en la carpeta</string>
     <string name="sort_options_label">Ordenar por</string>
@@ -233,4 +233,12 @@
 
     <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
     <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
+    <string name="menu_file">Archivo</string>
+    <string name="menu_edit">Editar</string>
+    <string name="menu_insert">Insertar</string>
+    <string name="menu_view">Ver</string>
+    <string name="menu_options">Opciones</string>
+    <string name="menu_help">Ayuda</string>
+    <string name="options_visible_buttons_title">Botones de la barra de herramientas</string>
+    <string name="options_visible_buttons_desc">Selecciona qué botones aparecen en la barra de herramientas principal</string>
 </resources>

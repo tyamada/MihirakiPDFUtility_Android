@@ -196,8 +196,8 @@
     <string name="cc_by_dialog_text">Before modifying or saving the sample PDF, please review the Creative Commons Attribution 4.0 International (CC BY 4.0) terms:\n\n• Author: Komairo Hiyori\n• License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• When reusing, modifying, or saving, please display the title, author name, license link, and indicate any modifications made.\n\nNote: You have full freedom to modify and save the sample PDF without restriction.</string>
     <string name="cc_by_dialog_confirm">Agree &amp; Proceed</string>
     <string name="options_button_display_title">Button Display Type</string>
-    <string name="button_display_icon_and_text">Icon + Text (Default)</string>
-    <string name="button_display_icon_only">Icon Only</string>
+    <string name="button_display_icon_and_text">Icon + Text</string>
+    <string name="button_display_icon_only">Icon Only (Default)</string>
     <string name="button_display_text_only">Text Only</string>
     <string name="folder_images_title">Images in Folder</string>
     <string name="sort_options_label">Sort By</string>
@@ -300,4 +300,12 @@
 
     <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
     <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
+    <string name="menu_file">File</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_insert">Insert</string>
+    <string name="menu_view">View</string>
+    <string name="menu_options">Options</string>
+    <string name="menu_help">Help</string>
+    <string name="options_visible_buttons_title">Toolbar Buttons</string>
+    <string name="options_visible_buttons_desc">Select which buttons appear in the main toolbar</string>
 </resources>

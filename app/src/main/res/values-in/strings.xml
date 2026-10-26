@@ -148,4 +148,12 @@
 
     <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
     <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
+    <string name="menu_file">File</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_insert">Insert</string>
+    <string name="menu_view">View</string>
+    <string name="menu_options">Options</string>
+    <string name="menu_help">Help</string>
+    <string name="options_visible_buttons_title">Toolbar Buttons</string>
+    <string name="options_visible_buttons_desc">Select which buttons appear in the main toolbar</string>
 </resources>

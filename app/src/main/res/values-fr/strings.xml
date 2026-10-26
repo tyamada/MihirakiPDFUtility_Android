@@ -152,8 +152,8 @@
     <string name="cc_by_dialog_text">Avant de modifier ou d\'enregistrer le PDF d\'exemple, veuillez consulter les conditions de Creative Commons Attribution 4.0 International (CC BY 4.0) :\n\n• Auteur : Komairo Hiyori\n• Licence : CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• Lors de la réutilisation, de la modification ou de l\'enregistrement, veuillez afficher le titre, le nom de l\'auteur, le lien de la licence et indiquer toute modification apportée.\n\nRemarque : Vous avez entière liberté pour modifier et enregistrer le PDF d\'exemple sans restriction.</string>
     <string name="cc_by_dialog_confirm">Accepter et continuer</string>
     <string name="options_button_display_title">Type d\'affichage des boutons</string>
-    <string name="button_display_icon_and_text">Icône + Texte (Par défaut)</string>
-    <string name="button_display_icon_only">Icône uniquement</string>
+    <string name="button_display_icon_and_text">Icône + Texte</string>
+    <string name="button_display_icon_only">Icône uniquement (Par défaut)</string>
     <string name="button_display_text_only">Texte uniquement</string>
     <string name="folder_images_title">Images dans le dossier</string>
     <string name="sort_options_label">Trier par</string>
@@ -215,4 +215,12 @@
 
     <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
     <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
+    <string name="menu_file">Fichier</string>
+    <string name="menu_edit">Éditer</string>
+    <string name="menu_insert">Insérer</string>
+    <string name="menu_view">Affichage</string>
+    <string name="menu_options">Options</string>
+    <string name="menu_help">Aide</string>
+    <string name="options_visible_buttons_title">Boutons de la barre d\'outils</string>
+    <string name="options_visible_buttons_desc">Sélectionnez les boutons à afficher dans la barre d\'outils principale</string>
 </resources>
