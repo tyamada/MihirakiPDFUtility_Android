@@ -32,9 +32,9 @@ internal fun MobileBottomSheetMenu(
     onExport: () -> Unit,
     onSplitClick: () -> Unit,
     onCropClick: () -> Unit,
-    onDeleteClick: () -> Unit
+    onDeleteClick: () -> Unit,
 ) {
-    var sheetVisible by remember { mutableStateOf(false) }
+    var sheetVisible by remember { mutableStateOf(value = false) }
     val sheetState = rememberModalBottomSheetState()
 
     Box {
@@ -46,7 +46,7 @@ internal fun MobileBottomSheetMenu(
     if (sheetVisible) {
         ModalBottomSheet(
             onDismissRequest = { sheetVisible = false },
-            sheetState = sheetState
+            sheetState = sheetState,
         ) {
             Column(
                 modifier = Modifier
@@ -54,13 +54,13 @@ internal fun MobileBottomSheetMenu(
                     .heightIn(max = 600.dp)
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 24.dp, vertical = 12.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Text(
                     text = stringResource(R.string.app_name),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    modifier = Modifier.padding(bottom = 8.dp),
                 )
 
                 // File Section
@@ -126,7 +126,7 @@ private fun MenuSectionHeader(title: String) {
         text = title,
         style = MaterialTheme.typography.labelMedium,
         color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(top = 8.dp, bottom = 2.dp)
+        modifier = Modifier.padding(top = 8.dp, bottom = 2.dp),
     )
 }
 
@@ -135,7 +135,7 @@ private fun MenuItemRow(
     icon: ImageVector,
     title: String,
     enabled: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     val alpha = if (enabled) 1f else 0.38f
     Row(
@@ -144,18 +144,18 @@ private fun MenuItemRow(
             .clickable(enabled = enabled, onClick = onClick)
             .padding(vertical = 10.dp, horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Icon(
             imageVector = icon,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurface.copy(alpha = alpha),
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(24.dp),
         )
         Text(
             text = title,
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = alpha)
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = alpha),
         )
     }
 }
