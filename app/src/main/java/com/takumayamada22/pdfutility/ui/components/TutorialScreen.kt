@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.FileOpen
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -51,7 +52,7 @@ fun TutorialScreen(viewModel: PdfViewModel) {
             descResId = R.string.tutorial_desc_3,
         ),
         TutorialPageData(
-            icon = Icons.AutoMirrored.Filled.MenuBook,
+            icon = Icons.Default.Settings,
             titleResId = R.string.tutorial_title_4,
             descResId = R.string.tutorial_desc_4,
         ),

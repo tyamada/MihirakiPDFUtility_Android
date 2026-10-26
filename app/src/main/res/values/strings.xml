@@ -256,8 +256,8 @@
     <string name="tutorial_desc_3">Select pages with a tap to reorder, rotate, split spreads, insert blank pages, or delete unwanted pages easily.</string>
     <string name="tutorial_title_4">Display Modes &amp; Toolbar Customization</string>
     <string name="tutorial_desc_4">Switch between grid view and spread view instantly. Customize which action buttons appear in the main toolbar via Options.</string>
-    <string name="tutorial_title_5">Save &amp; Export</string>
-    <string name="tutorial_desc_5">Save all pages as a new PDF (Ctrl+S) or export selected pages only. You are all set to start!</string>
+    <string name="tutorial_title_5">Save, Export &amp; Privacy</string>
+    <string name="tutorial_desc_5">Save all pages as a new PDF (Ctrl+S) or export selected pages. All processing is 100% local on device with full privacy protection.</string>
 
     <string name="help_category_getting_started">Getting Started</string>
     <string name="help_category_editing_features">Editing Features</string>
