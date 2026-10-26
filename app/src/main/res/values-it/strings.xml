@@ -169,8 +169,8 @@
     <string name="cc_by_dialog_text">Prima di modificare o salvare il PDF di esempio, rivedi i termini della licenza Creative Commons Attribution 4.0 International (CC BY 4.0):\n\n• Autore: Komairo Hiyori\n• Licenza: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• Quando riutilizzi, modifichi o salvi, mostra il titolo, il nome dell\'autore, il link della licenza e indica eventuali modifiche apportate.\n\nNota: Hai la totale libertà di modificare e salvare il PDF di esempio senza restrizioni.</string>
     <string name="cc_by_dialog_confirm">Accetta e procedi</string>
     <string name="options_button_display_title">Tipo di visualizzazione pulsanti</string>
-    <string name="button_display_icon_and_text">Icona + Testo (Predefinito)</string>
-    <string name="button_display_icon_only">Solo icona</string>
+    <string name="button_display_icon_and_text">Icona + Testo</string>
+    <string name="button_display_icon_only">Solo icona (Predefinito)</string>
     <string name="button_display_text_only">Solo testo</string>
     <string name="folder_images_title">Immagini nella cartella</string>
     <string name="sort_options_label">Ordina per</string>
@@ -256,4 +256,12 @@
 
     <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
     <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
+    <string name="menu_file">File</string>
+    <string name="menu_edit">Modifica</string>
+    <string name="menu_insert">Inserisci</string>
+    <string name="menu_view">Visualizza</string>
+    <string name="menu_options">Opzioni</string>
+    <string name="menu_help">Aiuto</string>
+    <string name="options_visible_buttons_title">Pulsanti della barra degli strumenti</string>
+    <string name="options_visible_buttons_desc">Seleziona quali pulsanti appaiono nella barra degli strumenti principale</string>
 </resources>

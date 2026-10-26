@@ -108,6 +108,33 @@ data class PdfDialogState(
     val showTutorial: Boolean = false
 )
 
+enum class ActionButtonType(val titleResId: Int) {
+    OPEN(R.string.action_open),
+    OPEN_FOLDER(R.string.menu_open_folder),
+    SAMPLE_PDF(R.string.sample_pdf),
+    SAVE(R.string.action_save),
+    APPEND(R.string.action_add_pdf),
+    SELECT_ALL(R.string.action_select_all),
+    CLEAR_SELECTION(R.string.action_clear_selection),
+    INVERT_SELECTION(R.string.action_invert_selection),
+    EXPORT(R.string.action_export_selected),
+    DELETE(R.string.action_delete),
+    INSERT_BLANK(R.string.action_insert_blank),
+    SPLIT(R.string.action_split_pages),
+    CROP(R.string.crop_title),
+    MOVE_UP(R.string.action_move_up),
+    MOVE_DOWN(R.string.action_move_down),
+    ROTATE_LEFT(R.string.action_rotate_left),
+    ROTATE_RIGHT(R.string.action_rotate_right),
+    UNDO(R.string.action_undo),
+    REDO(R.string.action_redo),
+    TOGGLE_VIEW(R.string.action_toggle_view),
+    PROPERTY(R.string.action_property),
+    RIGHT_BINDING(R.string.action_right_binding),
+    RIGHT_BINDING_COVER(R.string.action_right_binding_cover),
+    TOGGLE_RTL(R.string.action_toggle_rtl)
+}
+
 data class PdfHistoryState(
     val canUndo: Boolean = false,
     val canRedo: Boolean = false
@@ -117,7 +144,23 @@ data class PdfPreferenceState(
     val isMihirakiView: Boolean = false,
     val isRtl: Boolean = false,
     val thumbnailSize: ThumbnailSize = ThumbnailSize.M,
-    val buttonDisplayType: ButtonDisplayType = ButtonDisplayType.ICON_AND_TEXT
+    val buttonDisplayType: ButtonDisplayType = ButtonDisplayType.ICON_ONLY,
+    val visibleActionButtons: Set<ActionButtonType> = setOf(
+        ActionButtonType.OPEN,
+        ActionButtonType.SAMPLE_PDF,
+        ActionButtonType.SAVE,
+        ActionButtonType.APPEND,
+        ActionButtonType.DELETE,
+        ActionButtonType.MOVE_UP,
+        ActionButtonType.MOVE_DOWN,
+        ActionButtonType.ROTATE_LEFT,
+        ActionButtonType.ROTATE_RIGHT,
+        ActionButtonType.UNDO,
+        ActionButtonType.REDO,
+        ActionButtonType.PROPERTY,
+        ActionButtonType.RIGHT_BINDING,
+        ActionButtonType.RIGHT_BINDING_COVER
+    )
 )
 
 data class FolderImageState(
@@ -176,6 +219,7 @@ data class PdfUiState(
     val isRtl: Boolean get() = preference.isRtl
     val thumbnailSize: ThumbnailSize get() = preference.thumbnailSize
     val buttonDisplayType: ButtonDisplayType get() = preference.buttonDisplayType
+    val visibleActionButtons: Set<ActionButtonType> get() = preference.visibleActionButtons
 
     private object Unspecified
 
@@ -211,7 +255,8 @@ data class PdfUiState(
         isMihirakiView: Boolean? = null,
         isRtl: Boolean? = null,
         thumbnailSize: ThumbnailSize? = null,
-        buttonDisplayType: ButtonDisplayType? = null
+        buttonDisplayType: ButtonDisplayType? = null,
+        visibleActionButtons: Set<ActionButtonType>? = null
     ): PdfUiState {
         return PdfUiState(
             document = document.copy(
@@ -256,7 +301,8 @@ data class PdfUiState(
                 isMihirakiView = isMihirakiView ?: preference.isMihirakiView,
                 isRtl = isRtl ?: preference.isRtl,
                 thumbnailSize = thumbnailSize ?: preference.thumbnailSize,
-                buttonDisplayType = buttonDisplayType ?: preference.buttonDisplayType
+                buttonDisplayType = buttonDisplayType ?: preference.buttonDisplayType,
+                visibleActionButtons = visibleActionButtons ?: preference.visibleActionButtons
             )
         )
     }
@@ -351,6 +397,11 @@ class PdfViewModel(
     fun setButtonDisplayType(type: ButtonDisplayType) {
         if (_uiState.value.buttonDisplayType == type) return
         _uiState.value = _uiState.value.copy(buttonDisplayType = type)
+    }
+
+    fun setVisibleActionButtons(buttons: Set<ActionButtonType>) {
+        if (_uiState.value.visibleActionButtons == buttons) return
+        _uiState.value = _uiState.value.copy(visibleActionButtons = buttons)
     }
 
     private var pendingAction: (() -> Unit)? = null

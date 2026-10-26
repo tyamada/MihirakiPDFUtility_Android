@@ -152,8 +152,8 @@
     <string name="cc_by_dialog_text">在修改或儲存範例 PDF 之前，請閱讀創用 CC 姓名標示 4.0 國際（CC BY 4.0）條款：\n\n• 作者：Komairo Hiyori\n• 授權：CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• 重複使用、修改或儲存時，請顯示標題、作者名稱、授權連結，並註明所做的任何修改。\n\n注意：您完全可以自由修改和儲存範例 PDF，不受限制。</string>
     <string name="cc_by_dialog_confirm">同意並繼續</string>
     <string name="options_button_display_title">按鈕顯示類型</string>
-    <string name="button_display_icon_and_text">圖示 + 文字（預設）</string>
-    <string name="button_display_icon_only">僅圖示</string>
+    <string name="button_display_icon_and_text">圖示 + 文字</string>
+    <string name="button_display_icon_only">僅圖示（預設）</string>
     <string name="button_display_text_only">僅文字</string>
     <string name="folder_images_title">資料夾中的圖片</string>
     <string name="sort_options_label">排序方式</string>
@@ -214,4 +214,12 @@
 
     <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
     <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
+    <string name="menu_file">檔案</string>
+    <string name="menu_edit">編輯</string>
+    <string name="menu_insert">插入</string>
+    <string name="menu_view">檢視</string>
+    <string name="menu_options">選項</string>
+    <string name="menu_help">說明</string>
+    <string name="options_visible_buttons_title">工具列按鈕</string>
+    <string name="options_visible_buttons_desc">選擇要在主要工具列中显示的按鈕</string>
 </resources>

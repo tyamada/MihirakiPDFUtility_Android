@@ -152,8 +152,8 @@
     <string name="cc_by_dialog_text">Bevor Sie das Beispiel-PDF ändern oder speichern, lesen Sie bitte die Bedingungen von Creative Commons Attribution 4.0 International (CC BY 4.0):\n\n• Autor: Komairo Hiyori\n• Lizenz: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• Bei Wiederverwendung, Änderung oder Speicherung geben Sie bitte den Titel, den Namen des Autors, den Lizenzlink an und kennzeichnen Sie vorgenommene Änderungen.\n\nHinweis: Sie haben die volle Freiheit, das Beispiel-PDF uneingeschränkt zu ändern und zu speichern.</string>
     <string name="cc_by_dialog_confirm">Akzeptieren &amp; Fortfahren</string>
     <string name="options_button_display_title">Schaltflächen-Anzeigetyp</string>
-    <string name="button_display_icon_and_text">Symbol + Text (Standard)</string>
-    <string name="button_display_icon_only">Nur Symbol</string>
+    <string name="button_display_icon_and_text">Symbol + Text</string>
+    <string name="button_display_icon_only">Nur Symbol (Standard)</string>
     <string name="button_display_text_only">Nur Text</string>
     <string name="folder_images_title">Bilder im Ordner</string>
     <string name="sort_options_label">Sortieren nach</string>
@@ -215,4 +215,12 @@
 
     <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
     <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
+    <string name="menu_file">Datei</string>
+    <string name="menu_edit">Bearbeiten</string>
+    <string name="menu_insert">Einfügen</string>
+    <string name="menu_view">Ansicht</string>
+    <string name="menu_options">Optionen</string>
+    <string name="menu_help">Hilfe</string>
+    <string name="options_visible_buttons_title">Symbolleisten-Schaltflächen</string>
+    <string name="options_visible_buttons_desc">Wählen Sie aus, welche Schaltflächen in der Hauptsymbolleiste angezeigt werden</string>
 </resources>

@@ -196,8 +196,8 @@
     <string name="cc_by_dialog_text">本作品のサンプルPDFを変更・保存する前に、Creative Commons 表示 4.0 国際（CC BY 4.0）のご確認をお願いします。\n\n• 作者名: こまいろ日和\n• ライセンス: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• 条件: 再利用・変更・保存時は、作品名、作者名、ライセンスへのリンクを表示し、変更した場合はその旨を明示してください。\n\n※ サンプルPDFの変更（編集）や保存に制限はありません。自由に編集・保存していただけます。</string>
     <string name="cc_by_dialog_confirm">同意して進める</string>
     <string name="options_button_display_title">ボタン表示形式</string>
-    <string name="button_display_icon_and_text">アイコン＋テキスト (デフォルト)</string>
-    <string name="button_display_icon_only">アイコンのみ</string>
+    <string name="button_display_icon_and_text">アイコン＋テキスト</string>
+    <string name="button_display_icon_only">アイコンのみ (デフォルト)</string>
     <string name="button_display_text_only">テキストのみ</string>
     <string name="folder_images_title">フォルダ内の画像</string>
     <string name="sort_options_label">並べ替え</string>
@@ -272,4 +272,12 @@
 
     <string name="report_intro_text">不具合が発生した場合は、以下の情報をまとめてご確認ください。</string>
     <string name="report_github_note">※ GitHubアカウントが必要です。送信した情報は公開される場合があります。</string>
+    <string name="menu_file">ファイル</string>
+    <string name="menu_edit">編集</string>
+    <string name="menu_insert">挿入</string>
+    <string name="menu_view">表示</string>
+    <string name="menu_options">オプション</string>
+    <string name="menu_help">ヘルプ</string>
+    <string name="options_visible_buttons_title">ツールバーボタン設定</string>
+    <string name="options_visible_buttons_desc">メインツールバーに表示するボタンを選択してください</string>
 </resources>

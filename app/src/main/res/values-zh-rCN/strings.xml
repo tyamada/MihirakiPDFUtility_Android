@@ -152,8 +152,8 @@
     <string name="cc_by_dialog_text">在修改或保存示例 PDF 之前，请阅读知识共享署名 4.0 国际（CC BY 4.0）条款：\n\n• 作者：Komairo Hiyori\n• 许可证：CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• 重复使用、修改或保存时，请显示标题、作者名、许可证链接，并注明所做的任何修改。\n\n注意：您完全可以自由修改和保存示例 PDF，不受限制。</string>
     <string name="cc_by_dialog_confirm">同意并继续</string>
     <string name="options_button_display_title">按钮显示类型</string>
-    <string name="button_display_icon_and_text">图标 + 文本（默认）</string>
-    <string name="button_display_icon_only">仅图标</string>
+    <string name="button_display_icon_and_text">图标 + 文本</string>
+    <string name="button_display_icon_only">仅图标（默认）</string>
     <string name="button_display_text_only">仅文本</string>
     <string name="folder_images_title">文件夹中的图片</string>
     <string name="sort_options_label">排序方式</string>
@@ -248,4 +248,12 @@
 
     <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
     <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
+    <string name="menu_file">文件</string>
+    <string name="menu_edit">编辑</string>
+    <string name="menu_insert">插入</string>
+    <string name="menu_view">查看</string>
+    <string name="menu_options">选项</string>
+    <string name="menu_help">帮助</string>
+    <string name="options_visible_buttons_title">工具栏按钮</string>
+    <string name="options_visible_buttons_desc">选择要在主工具栏中显示的按钮</string>
 </resources>

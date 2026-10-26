@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.TipTier
+import com.takumayamada22.pdfutility.ui.ActionButtonType
 import com.takumayamada22.pdfutility.ui.ButtonDisplayType
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
@@ -27,6 +28,7 @@ import com.takumayamada22.pdfutility.ui.ThumbnailSize
 internal fun PdfOptionsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
     var selectedSize by remember { mutableStateOf(uiState.thumbnailSize) }
     var selectedButtonDisplayType by remember { mutableStateOf(uiState.buttonDisplayType) }
+    var visibleButtons by remember { mutableStateOf(uiState.visibleActionButtons) }
 
     androidx.compose.ui.window.Dialog(onDismissRequest = { viewModel.closeSettingsDialog() }) {
         Surface(
@@ -104,6 +106,41 @@ internal fun PdfOptionsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                             Text(label, style = MaterialTheme.typography.bodyLarge)
                         }
                     }
+
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+                    Text(stringResource(R.string.options_visible_buttons_title), style = MaterialTheme.typography.titleSmall)
+                    Text(stringResource(R.string.options_visible_buttons_desc), style = MaterialTheme.typography.bodyMedium)
+
+                    ActionButtonType.entries.forEach { buttonType ->
+                        val label = stringResource(buttonType.titleResId)
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    visibleButtons = if (visibleButtons.contains(buttonType)) {
+                                        visibleButtons - buttonType
+                                    } else {
+                                        visibleButtons + buttonType
+                                    }
+                                }
+                                .padding(vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = visibleButtons.contains(buttonType),
+                                onCheckedChange = { checked ->
+                                    visibleButtons = if (checked) {
+                                        visibleButtons + buttonType
+                                    } else {
+                                        visibleButtons - buttonType
+                                    }
+                                }
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(label, style = MaterialTheme.typography.bodyMedium)
+                        }
+                    }
                 }
 
                 Spacer(Modifier.height(16.dp))
@@ -118,6 +155,7 @@ internal fun PdfOptionsDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                     Button(onClick = {
                         viewModel.setThumbnailSize(selectedSize)
                         viewModel.setButtonDisplayType(selectedButtonDisplayType)
+                        viewModel.setVisibleActionButtons(visibleButtons)
                         viewModel.closeSettingsDialog()
                     }) {
                         Text(stringResource(R.string.action_apply))

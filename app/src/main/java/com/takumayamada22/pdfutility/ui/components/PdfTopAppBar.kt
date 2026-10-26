@@ -58,38 +58,44 @@ fun PdfTopAppBar(
                 )
             }
 
+            Spacer(modifier = Modifier.height(2.dp))
+
+            PdfMenuBar(
+                uiState = uiState,
+                viewModel = viewModel,
+                onOpen = onOpen,
+                onOpenFolder = onOpenFolder,
+                onOpenSamplePdf = onOpenSamplePdf,
+                onAppend = onAppend,
+                onSave = onSave,
+                onExport = onExport,
+                onSplitClick = onSplitClick,
+                onCropClick = onCropClick,
+                onDeleteClick = onDeleteClick
+            )
+
             Spacer(modifier = Modifier.height(4.dp))
 
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
+                horizontalArrangement = Arrangement.Start,
                 verticalArrangement = Arrangement.spacedBy(0.dp)
             ) {
-                if (uiState.selectedIndices.isEmpty()) {
-                    DefaultActionButtons(
-                        uiState = uiState,
-                        viewModel = viewModel,
-                        isBusy = isBusy,
-                        displayType = displayType,
-                        onOpen = onOpen,
-                        onOpenFolder = onOpenFolder,
-                        onOpenSamplePdf = onOpenSamplePdf,
-                        onAppend = onAppend,
-                        onSave = onSave
-                    )
-                } else {
-                    SelectedActionButtons(
-                        uiState = uiState,
-                        viewModel = viewModel,
-                        isBusy = isBusy,
-                        displayType = displayType,
-                        onExport = onExport,
-                        onAppend = onAppend,
-                        onSplitClick = onSplitClick,
-                        onCropClick = onCropClick,
-                        onDeleteClick = onDeleteClick
-                    )
-                }
+                PdfActionButtons(
+                    uiState = uiState,
+                    viewModel = viewModel,
+                    isBusy = isBusy,
+                    displayType = displayType,
+                    onOpen = onOpen,
+                    onOpenFolder = onOpenFolder,
+                    onOpenSamplePdf = onOpenSamplePdf,
+                    onAppend = onAppend,
+                    onSave = onSave,
+                    onExport = onExport,
+                    onSplitClick = onSplitClick,
+                    onCropClick = onCropClick,
+                    onDeleteClick = onDeleteClick
+                )
 
                 // Settings button is always visible in both selected and unselected states
                 Box(modifier = Modifier.testTag("settingsButton")) {
