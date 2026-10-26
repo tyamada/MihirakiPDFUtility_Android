@@ -84,6 +84,7 @@
     <string name="help_item_security"><b>Security &amp; Password:</b> Set or clear encryption passwords for saving and exporting protected PDFs.</string>
     <string name="help_item_options"><b>Options &amp; Display:</b> Customize thumbnail image sizes (Small/Medium/Large) and button display types (Icon + Text / Icon Only / Text Only).</string>
     <string name="help_item_support"><b>Support Development:</b> Purchase one-time support items (Bronze, Silver, Gold) or redeem Google Play promo codes to support app development.</string>
+    <string name="help_item_privacy_policy">&lt;b&gt;Privacy Policy:&lt;/b&gt; View the in-app privacy policy and data safety commitments.</string>
     <string name="help_item_diagnostics"><b>Diagnostics:</b> Run system diagnostic tests to verify PDF processor functionality, memory usage, and sample asset accessibility.</string>
     <string name="help_item_audit_logs"><b>Audit Logs:</b> Review privacy-protected local operation and runtime error audit logs (automatically retained for 24 hours, strictly excluding personal data).</string>
     <string name="help_item_report_issues"><b>Report Issues:</b> Use the "Problems Reported" screen to bulk copy diagnostic reports and app logs for easy troubleshooting and reporting via email or GitHub Issues.</string>

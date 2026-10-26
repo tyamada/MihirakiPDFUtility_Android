@@ -132,7 +132,8 @@ internal fun PdfHelpDialog(viewModel: PdfViewModel) {
                 stringResource(R.string.help_item_properties),
                 stringResource(R.string.help_item_security),
                 stringResource(R.string.help_item_options),
-                stringResource(R.string.help_item_support)
+                stringResource(R.string.help_item_support),
+                stringResource(R.string.help_item_privacy_policy)
             )
         ),
         HelpCategorySpec(
