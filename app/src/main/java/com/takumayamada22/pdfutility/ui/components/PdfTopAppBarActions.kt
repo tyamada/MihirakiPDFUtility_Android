@@ -553,3 +553,69 @@ internal fun PdfActionButtons(
         )
     }
 }
+
+@Composable
+internal fun MobileOverflowMenu(
+    uiState: PdfUiState,
+    viewModel: PdfViewModel,
+    onOpen: () -> Unit,
+    onOpenFolder: () -> Unit,
+    onOpenSamplePdf: () -> Unit,
+    onAppend: () -> Unit,
+    onSave: () -> Unit,
+    onExport: () -> Unit,
+    onSplitClick: () -> Unit,
+    onCropClick: () -> Unit,
+    onDeleteClick: () -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Box {
+        IconButton(onClick = { expanded = true }) {
+            Icon(Icons.Default.MoreVert, contentDescription = stringResource(R.string.action_settings))
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            DropdownMenuItem(text = { Text("--- ${stringResource(R.string.menu_file)} ---") }, onClick = {}, enabled = false)
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_open)) }, onClick = { expanded = false; onOpen() })
+            DropdownMenuItem(text = { Text(stringResource(R.string.menu_open_folder)) }, onClick = { expanded = false; onOpenFolder() })
+            DropdownMenuItem(text = { Text(stringResource(R.string.sample_pdf)) }, onClick = { expanded = false; onOpenSamplePdf() })
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_save)) }, onClick = { expanded = false; onSave() }, enabled = uiState.pages.isNotEmpty())
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_export_selected)) }, onClick = { expanded = false; onExport() }, enabled = uiState.selectedIndices.isNotEmpty())
+
+            HorizontalDivider()
+
+            DropdownMenuItem(text = { Text("--- ${stringResource(R.string.menu_edit)} ---") }, onClick = {}, enabled = false)
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_undo)) }, onClick = { expanded = false; viewModel.undo() }, enabled = uiState.canUndo)
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_redo)) }, onClick = { expanded = false; viewModel.redo() }, enabled = uiState.canRedo)
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_select_all)) }, onClick = { expanded = false; viewModel.selectAll() }, enabled = uiState.pages.isNotEmpty())
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_clear_selection)) }, onClick = { expanded = false; viewModel.clearSelection() }, enabled = uiState.selectedIndices.isNotEmpty())
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_invert_selection)) }, onClick = { expanded = false; viewModel.invertSelection() }, enabled = uiState.pages.isNotEmpty())
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_delete)) }, onClick = { expanded = false; onDeleteClick() }, enabled = uiState.selectedIndices.isNotEmpty())
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_split_pages)) }, onClick = { expanded = false; onSplitClick() }, enabled = uiState.selectedIndices.isNotEmpty())
+            DropdownMenuItem(text = { Text(stringResource(R.string.crop_title)) }, onClick = { expanded = false; onCropClick() }, enabled = uiState.selectedIndices.isNotEmpty())
+
+            HorizontalDivider()
+
+            DropdownMenuItem(text = { Text("--- ${stringResource(R.string.menu_insert)} ---") }, onClick = {}, enabled = false)
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_add_pdf)) }, onClick = { expanded = false; onAppend() })
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_insert_blank)) }, onClick = { expanded = false; viewModel.insertBlankAfterSelected() }, enabled = uiState.selectedIndices.isNotEmpty())
+
+            HorizontalDivider()
+
+            DropdownMenuItem(text = { Text("--- ${stringResource(R.string.menu_view)} / ${stringResource(R.string.menu_options)} ---") }, onClick = {}, enabled = false)
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_toggle_view)) }, onClick = { expanded = false; viewModel.toggleMihirakiView() }, enabled = uiState.pages.isNotEmpty())
+            DropdownMenuItem(text = { Text(stringResource(R.string.action_property)) }, onClick = { expanded = false; viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) }, enabled = uiState.pages.isNotEmpty())
+            DropdownMenuItem(text = { Text(stringResource(R.string.settings_options)) }, onClick = { expanded = false; viewModel.openSettingsDialog(SettingsDialogType.OPTIONS) })
+            DropdownMenuItem(text = { Text(stringResource(R.string.settings_password)) }, onClick = { expanded = false; viewModel.openSettingsDialog(SettingsDialogType.PASSWORD) }, enabled = uiState.pages.isNotEmpty())
+
+            HorizontalDivider()
+
+            DropdownMenuItem(text = { Text("--- ${stringResource(R.string.menu_help)} ---") }, onClick = {}, enabled = false)
+            DropdownMenuItem(text = { Text(stringResource(R.string.settings_version)) }, onClick = { expanded = false; viewModel.openSettingsDialog(SettingsDialogType.VERSION) })
+            DropdownMenuItem(text = { Text(stringResource(R.string.settings_help)) }, onClick = { expanded = false; viewModel.openSettingsDialog(SettingsDialogType.HELP) })
+            DropdownMenuItem(text = { Text(stringResource(R.string.privacy_policy_title)) }, onClick = { expanded = false; viewModel.openSettingsDialog(SettingsDialogType.PRIVACY_POLICY) })
+            DropdownMenuItem(text = { Text(stringResource(R.string.settings_diagnostics)) }, onClick = { expanded = false; viewModel.openSettingsDialog(SettingsDialogType.DIAGNOSTICS) })
+            DropdownMenuItem(text = { Text(stringResource(R.string.support)) }, onClick = { expanded = false; viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) })
+        }
+    }
+}

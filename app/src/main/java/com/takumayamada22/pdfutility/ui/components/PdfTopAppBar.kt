@@ -39,111 +39,134 @@ fun PdfTopAppBar(
         color = MaterialTheme.colorScheme.surface,
         tonalElevation = 3.dp
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 8.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+        BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+            val isDesktopOrLarge = maxWidth >= 840.dp
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
             ) {
-                Text(
-                    text = uiState.fileName ?: stringResource(R.string.app_name),
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f)
-                )
-            }
-
-            Spacer(modifier = Modifier.height(2.dp))
-
-            PdfMenuBar(
-                uiState = uiState,
-                viewModel = viewModel,
-                onOpen = onOpen,
-                onOpenFolder = onOpenFolder,
-                onOpenSamplePdf = onOpenSamplePdf,
-                onAppend = onAppend,
-                onSave = onSave,
-                onExport = onExport,
-                onSplitClick = onSplitClick,
-                onCropClick = onCropClick,
-                onDeleteClick = onDeleteClick
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            FlowRow(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start,
-                verticalArrangement = Arrangement.spacedBy(0.dp)
-            ) {
-                PdfActionButtons(
-                    uiState = uiState,
-                    viewModel = viewModel,
-                    isBusy = isBusy,
-                    displayType = displayType,
-                    onOpen = onOpen,
-                    onOpenFolder = onOpenFolder,
-                    onOpenSamplePdf = onOpenSamplePdf,
-                    onAppend = onAppend,
-                    onSave = onSave,
-                    onExport = onExport,
-                    onSplitClick = onSplitClick,
-                    onCropClick = onCropClick,
-                    onDeleteClick = onDeleteClick
-                )
-
-                // Settings button is always visible in both selected and unselected states
-                Box(modifier = Modifier.testTag("settingsButton")) {
-                    ActionButton(
-                        onClick = { viewModel.toggleSettingsMenu() },
-                        icon = { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.action_settings)) },
-                        text = stringResource(R.string.action_settings),
-                        displayType = displayType
+                if (isDesktopOrLarge) {
+                    PdfMenuBar(
+                        uiState = uiState,
+                        viewModel = viewModel,
+                        onOpen = onOpen,
+                        onOpenFolder = onOpenFolder,
+                        onOpenSamplePdf = onOpenSamplePdf,
+                        onAppend = onAppend,
+                        onSave = onSave,
+                        onExport = onExport,
+                        onSplitClick = onSplitClick,
+                        onCropClick = onCropClick,
+                        onDeleteClick = onDeleteClick
                     )
-                    DropdownMenu(
-                        expanded = uiState.showSettingsMenu,
-                        onDismissRequest = { viewModel.toggleSettingsMenu() }
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.settings_property)) },
-                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) },
-                            enabled = uiState.pages.isNotEmpty()
+                    Spacer(modifier = Modifier.height(2.dp))
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = uiState.fileName ?: stringResource(R.string.app_name),
+                        style = MaterialTheme.typography.titleMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    if (!isDesktopOrLarge) {
+                        MobileOverflowMenu(
+                            uiState = uiState,
+                            viewModel = viewModel,
+                            onOpen = onOpen,
+                            onOpenFolder = onOpenFolder,
+                            onOpenSamplePdf = onOpenSamplePdf,
+                            onAppend = onAppend,
+                            onSave = onSave,
+                            onExport = onExport,
+                            onSplitClick = onSplitClick,
+                            onCropClick = onCropClick,
+                            onDeleteClick = onDeleteClick
                         )
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.settings_password)) },
-                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.PASSWORD) },
-                            enabled = uiState.pages.isNotEmpty()
-                        )
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.settings_options)) },
-                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.OPTIONS) }
-                        )
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.settings_version)) },
-                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.VERSION) }
-                        )
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.settings_help)) },
-                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.HELP) }
-                        )
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.settings_diagnostics)) },
-                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.DIAGNOSTICS) },
-                            modifier = Modifier.testTag("diagnosticsMenuItem")
-                        )
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.support)) },
-                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }
-                        )
-                        DropdownMenuItem(
-                            text = { Text(stringResource(R.string.privacy_policy_title)) },
-                            onClick = { viewModel.openSettingsDialog(SettingsDialogType.PRIVACY_POLICY) }
-                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                FlowRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalArrangement = Arrangement.spacedBy(0.dp)
+                ) {
+                    PdfActionButtons(
+                        uiState = uiState,
+                        viewModel = viewModel,
+                        isBusy = isBusy,
+                        displayType = displayType,
+                        onOpen = onOpen,
+                        onOpenFolder = onOpenFolder,
+                        onOpenSamplePdf = onOpenSamplePdf,
+                        onAppend = onAppend,
+                        onSave = onSave,
+                        onExport = onExport,
+                        onSplitClick = onSplitClick,
+                        onCropClick = onCropClick,
+                        onDeleteClick = onDeleteClick
+                    )
+
+                    if (isDesktopOrLarge) {
+                        // Settings button is always visible in desktop mode
+                        Box(modifier = Modifier.testTag("settingsButton")) {
+                            ActionButton(
+                                onClick = { viewModel.toggleSettingsMenu() },
+                                icon = { Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.action_settings)) },
+                                text = stringResource(R.string.action_settings),
+                                displayType = displayType
+                            )
+                            DropdownMenu(
+                                expanded = uiState.showSettingsMenu,
+                                onDismissRequest = { viewModel.toggleSettingsMenu() }
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.settings_property)) },
+                                    onClick = { viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) },
+                                    enabled = uiState.pages.isNotEmpty()
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.settings_password)) },
+                                    onClick = { viewModel.openSettingsDialog(SettingsDialogType.PASSWORD) },
+                                    enabled = uiState.pages.isNotEmpty()
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.settings_options)) },
+                                    onClick = { viewModel.openSettingsDialog(SettingsDialogType.OPTIONS) }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.settings_version)) },
+                                    onClick = { viewModel.openSettingsDialog(SettingsDialogType.VERSION) }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.settings_help)) },
+                                    onClick = { viewModel.openSettingsDialog(SettingsDialogType.HELP) }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.settings_diagnostics)) },
+                                    onClick = { viewModel.openSettingsDialog(SettingsDialogType.DIAGNOSTICS) },
+                                    modifier = Modifier.testTag("diagnosticsMenuItem")
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.support)) },
+                                    onClick = { viewModel.openSettingsDialog(SettingsDialogType.SUPPORT) }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.privacy_policy_title)) },
+                                    onClick = { viewModel.openSettingsDialog(SettingsDialogType.PRIVACY_POLICY) }
+                                )
+                            }
+                        }
                     }
                 }
             }
