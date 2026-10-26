@@ -1,0 +1,4 @@
+v1.2.3
+- Implemented Material Design 3 adaptive UI, automatically switching between a horizontal menu bar for desktops/ChromeOS and a categorized bottom sheet menu for smartphones and tablets.
+- Enhanced mobile UX with a thumb-friendly modal bottom sheet menu.
+- Updated help guides, tutorials, documentation, and accessibility verifications.
