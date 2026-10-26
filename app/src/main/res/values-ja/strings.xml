@@ -84,6 +84,7 @@
     <string name="help_item_security"><b>セキュリティ・パスワード:</b> PDFの保存やエクスポート時に適用する暗号化パスワードを設定・クリアできます。</string>
     <string name="help_item_options"><b>オプション設定:</b> サムネイル画像のサイズ（小/中/大）や、ボタンの表示形式（アイコン＋テキスト／アイコンのみ／テキストのみ）をカスタマイズできます。</string>
     <string name="help_item_support"><b>サポート・応援:</b> アプリの開発を応援するための1回限りの応援アイテム（ブロンズ・シルバー・ゴールド）の購入や、Google Playプロモーションコードの利用ができます。</string>
+    <string name="help_item_privacy_policy">&lt;b&gt;プライバシーポリシー:&lt;/b&gt; アプリ内のプライバシーポリシーやデータの安全性に関する方針を確認できます。</string>
     <string name="help_item_diagnostics"><b>実機診断テスト:</b> PDFプロセッサの動作確認、メモリ使用量チェック、サンプルアセットのアクセス確認などのシステム診断を実行できます。</string>
     <string name="help_item_audit_logs"><b>ローカル監査ログ:</b> プライバシー保護されたローカル操作・エラー監査ログ（24時間自動保持・個人情報不含）の閲覧やコピーが行えます。</string>
     <string name="help_item_report_issues"><b>問題を報告:</b> 「問題を報告」画面から診断結果やアプリログを一括コピーし、スムーズに不具合報告や問い合わせを行うことができます。</string>
