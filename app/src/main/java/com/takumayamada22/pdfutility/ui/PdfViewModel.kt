@@ -616,6 +616,10 @@ class PdfViewModel(
                         }
 
                         val metadata = loadPdfUseCase.getMetadata()
+                        val layout = metadata["layout"] ?: "SinglePage"
+                        val direction = metadata["direction"] ?: "L2R"
+                        val isRtl = (direction == "R2L")
+                        val showCover = layout == "TwoColumnRight" || layout == "TwoPageRight"
                         
                         withContext(Dispatchers.Main) {
                             _uiState.value = _uiState.value.copy(
@@ -628,9 +632,10 @@ class PdfViewModel(
                                 subject = metadata["subject"] ?: "",
                                 keywords = metadata["keywords"] ?: "",
                                 pdfVersion = metadata["version"] ?: "",
-                                pageLayout = metadata["layout"] ?: "SinglePage",
-                                scrollDirection = metadata["direction"] ?: "L2R",
-                                showCover = metadata["layout"]?.let { it == "TwoColumnRight" || it == "TwoPageRight" } ?: false,
+                                pageLayout = layout,
+                                scrollDirection = direction,
+                                showCover = showCover,
+                                isRtl = isRtl,
                                 savePassword = "",
                                 isSamplePdf = isSample,
                                 ccByAcknowledged = enduranceExecutor.isRunning,
@@ -820,6 +825,7 @@ class PdfViewModel(
                 pageLayout = pageLayout,
                 scrollDirection = scrollDirection,
                 showCover = showCover,
+                isRtl = (scrollDirection == "R2L"),
                 isDirty = true
             )
         }
@@ -1056,7 +1062,12 @@ class PdfViewModel(
     }
 
     fun toggleRtl() {
-        _uiState.value = _uiState.value.copy(isRtl = !_uiState.value.isRtl)
+        val newIsRtl = !_uiState.value.isRtl
+        _uiState.value = _uiState.value.copy(
+            isRtl = newIsRtl,
+            scrollDirection = if (newIsRtl) "R2L" else "L2R",
+            isDirty = true
+        )
     }
 
     fun movePage(fromIndex: Int, toIndex: Int) {
