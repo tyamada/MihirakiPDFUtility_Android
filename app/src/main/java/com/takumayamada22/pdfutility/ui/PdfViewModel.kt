@@ -10,6 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.tom_roush.pdfbox.pdmodel.encryption.InvalidPasswordException
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.BillingManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.takumayamada22.pdfutility.data.SamplePdfCatalog
 import com.takumayamada22.pdfutility.domain.ExportPdfUseCase
 import com.takumayamada22.pdfutility.domain.ImageFileItem
@@ -315,6 +317,23 @@ class PdfViewModel(
     private val thumbnailProvider: ThumbnailProvider = ThumbnailProvider(application),
     val billing: BillingManager = BillingManager(application)
 ) : AndroidViewModel(application) {
+    private val appUpdateManager = AppUpdateManagerFactory.create(application)
+    private val _updateAvailable = MutableStateFlow(false)
+    val updateAvailable: StateFlow<Boolean> = _updateAvailable.asStateFlow()
+
+    fun checkForUpdates() {
+        try {
+            appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                    _updateAvailable.value = true
+                }
+            }.addOnFailureListener {
+                _updateAvailable.value = false
+            }
+        } catch (e: Exception) {
+            _updateAvailable.value = false
+        }
+    }
     companion object {
         fun provideFactory(
             application: Application,
@@ -776,6 +795,9 @@ class PdfViewModel(
     fun openSettingsDialog(type: SettingsDialogType) {
         if (type == SettingsDialogType.VERSION || type == SettingsDialogType.SUPPORT) {
             billing.queryExistingPurchases()
+        }
+        if (type == SettingsDialogType.VERSION) {
+            checkForUpdates()
         }
         _uiState.value = _uiState.value.copy(activeSettingsDialog = type, showSettingsMenu = false)
     }
