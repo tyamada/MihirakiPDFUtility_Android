@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.compose.ui.semantics.*
 import com.takumayamada22.pdfutility.ui.PageState
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
@@ -238,6 +239,9 @@ fun PageThumbnail(
                 width = if (isDropTarget) 6.dp else if (isSelected) 4.dp else 1.dp,
                 color = if (isDropTarget) MaterialTheme.colorScheme.tertiary else if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
             )
+            .semantics {
+                contentDescription = "Page $pageNumber${if (isSelected) ", selected" else ""}"
+            }
             .pointerInput(page.id) {
                 detectTapGestures(
                     onTap = { currentOnClick() },
