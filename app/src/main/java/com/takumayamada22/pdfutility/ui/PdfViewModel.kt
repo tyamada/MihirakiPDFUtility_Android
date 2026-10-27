@@ -344,17 +344,17 @@ class PdfViewModel(
     private val minDimensionPx = minOf(metrics.widthPixels, metrics.heightPixels)
     private val defaultThumbnailSize = if (minDimensionPx < 1280) ThumbnailSize.S else ThumbnailSize.M
 
-    private val initialFirstLaunch = PreferencesManager.isFirstLaunch(application)
+    private val shouldShow = PreferencesManager.shouldShowTutorial(application)
     private val _uiState = MutableStateFlow(
         PdfUiState(
-            dialog = PdfDialogState(showTutorial = initialFirstLaunch),
+            dialog = PdfDialogState(showTutorial = shouldShow),
             preference = PdfPreferenceState(thumbnailSize = defaultThumbnailSize)
         )
     )
     val uiState: StateFlow<PdfUiState> = _uiState
 
-    fun dismissTutorial() {
-        PreferencesManager.setFirstLaunchCompleted(getApplication<Application>())
+    fun dismissTutorial(dontShowAgain: Boolean = false) {
+        PreferencesManager.setTutorialDismissed(getApplication<Application>(), dontShowAgain)
         _uiState.value = _uiState.value.copy(dialog = _uiState.value.dialog.copy(showTutorial = false))
     }
 
@@ -362,8 +362,8 @@ class PdfViewModel(
         _uiState.value = _uiState.value.copy(dialog = _uiState.value.dialog.copy(showTutorial = true))
     }
 
-    fun trySamplePdfFromTutorial() {
-        dismissTutorial()
+    fun trySamplePdfFromTutorial(dontShowAgain: Boolean = false) {
+        dismissTutorial(dontShowAgain)
         openSamplePdf()
     }
 

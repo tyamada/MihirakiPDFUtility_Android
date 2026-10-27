@@ -1,6 +1,7 @@
 package com.takumayamada22.pdfutility.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -67,6 +68,7 @@ fun TutorialScreen(viewModel: PdfViewModel) {
     )
 
     val pagerState = rememberPagerState { pages.size }
+    var dontShowAgain by remember { mutableStateOf(false) }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -85,7 +87,7 @@ fun TutorialScreen(viewModel: PdfViewModel) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                TextButton(onClick = { viewModel.dismissTutorial() }) {
+                TextButton(onClick = { viewModel.dismissTutorial(dontShowAgain) }) {
                     Text(stringResource(R.string.tutorial_skip))
                 }
             }
@@ -168,7 +170,7 @@ fun TutorialScreen(viewModel: PdfViewModel) {
                     if ((index == pages.size - 1)) {
                         Spacer(modifier = Modifier.height(24.dp))
                         FilledTonalButton(
-                            onClick = { viewModel.trySamplePdfFromTutorial() }
+                            onClick = { viewModel.trySamplePdfFromTutorial(dontShowAgain) }
                         ) {
                             Icon(
                                 imageVector = Icons.Default.PlayArrow,
@@ -182,7 +184,30 @@ fun TutorialScreen(viewModel: PdfViewModel) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Don't show again checkbox
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Checkbox(
+                    checked = dontShowAgain,
+                    onCheckedChange = { dontShowAgain = it }
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = stringResource(R.string.tutorial_dont_show_again),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.clickable { dontShowAgain = !dontShowAgain }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Indicator dots and Next / Finish button
             Row(
@@ -218,7 +243,7 @@ fun TutorialScreen(viewModel: PdfViewModel) {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             }
                         } else {
-                            viewModel.dismissTutorial()
+                            viewModel.dismissTutorial(dontShowAgain)
                         }
                     }
                 ) {
