@@ -7,15 +7,16 @@ import java.io.File
 import java.security.MessageDigest
 
 class SamplePdfCatalogTest {
-    @Test fun catalogHasTwoEpisodesForEveryLanguageAndMatchingLocalCopies() {
+    @Test fun catalogHasEpisodesForEveryLanguageAndMatchingLocalCopies() {
         val root = listOf(File("."), File("..")).first { File(it, "docs").isDirectory }
         val items = SamplePdfCatalog.items
-        assertEquals(28, items.size)
+        assertEquals(30, items.size)
         assertEquals(items.size, items.map { it.id }.distinct().size)
         assertEquals(items.size, items.map { it.fileName }.distinct().size)
         assertEquals(setOf("ja", "en", "ko", "zh_cn", "zh_tw", "de", "fr", "es", "pt", "vi", "fil", "ne", "id", "it"), items.map { it.languageCode }.toSet())
         items.groupBy { it.languageCode }.forEach { (language, episodes) ->
-            assertEquals(language, 2, episodes.size)
+            val expectedSize = if (language == "en" || language == "ja") 3 else 2
+            assertEquals(language, expectedSize, episodes.size)
         }
         items.forEach { item ->
             assertEquals("https://tyamada.github.io/MihirakiPDFViewer_Android/sample/${item.fileName}", item.url)
