@@ -1,5 +1,5 @@
 v1.2.4
 - Added a "Don't show again" checkbox option to the interactive tutorial screen.
 - Fixed right-bound (RTL) PDF spread display order when toggling view.
-- Enhanced accessibility semantics across page thumbnails and UI components.
-- Further improved overall stability and performance.
+- Added Episode 3 sample PDFs ("The Try-It Club" / "Tameshibu") in English and Japanese.
+- Enhanced accessibility semantics and overall stability.
