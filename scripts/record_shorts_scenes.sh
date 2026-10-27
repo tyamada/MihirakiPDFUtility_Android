@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-YouTube Shorts Tutorial Video Scene Recording Script (English Edition - Optimized & Pre-installed)
+YouTube Shorts Tutorial Video Scene Recording Script (English Edition - Show Taps & Fast Startup)
 Usage:
   ./scripts/record_shorts_scenes.sh all
   ./scripts/record_shorts_scenes.sh 1
@@ -124,7 +124,7 @@ def record_scene(scene_num):
     print(f"SUCCESS: Saved English video {local_path} (Size: {os.path.getsize(local_path)} bytes)")
 
 def main():
-    parser = argparse.ArgumentParser(description="Record English YouTube Shorts scenes for MihirakiPDFUtility (Optimized)")
+    parser = argparse.ArgumentParser(description="Record English YouTube Shorts scenes for MihirakiPDFUtility")
     parser.add_argument("scenes", nargs="+", help="Scene numbers (1-5) or 'all'")
     args = parser.parse_args()
 
@@ -134,9 +134,11 @@ def main():
     # 1. Pre-install app and test APKs once to minimize startup time
     pre_install_app()
 
-    # 2. Enable touch visualization and prepare environment & test PDFs
-    print("Enabling touch visualization (show_touches)...")
+    # 2. Enable touch visualization ("show_touches" ON, "pointer_location" OFF to avoid clutter)
+    print("Enabling touch visualization (show_touches: ON, pointer_location: OFF)...")
     run_adb(["shell", "settings", "put", "system", "show_touches", "1"])
+    run_adb(["shell", "settings", "put", "system", "pointer_location", "0"])
+
     prepare_english_environment()
 
     requested_scenes = []
@@ -156,7 +158,7 @@ def main():
     for num in requested_scenes:
         record_scene(num)
 
-    print("\nAll requested English YouTube Shorts scenes recorded successfully with optimized startup!")
+    print("\nAll requested English YouTube Shorts scenes recorded successfully with clean touch taps and optimized startup!")
 
 if __name__ == "__main__":
     main()
