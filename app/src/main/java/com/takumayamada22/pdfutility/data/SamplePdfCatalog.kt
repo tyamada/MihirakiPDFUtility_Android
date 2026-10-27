@@ -276,6 +276,24 @@ object SamplePdfCatalog {
             fileSize = "24MB",
             languageCode = "ne",
             languageDisplayName = "Nepali"
+        ),
+        SamplePdfItem(
+            id = "ep3_en",
+            title = "THE TRY-IT CLUB EPISODE 3",
+            fileName = "tameshibu_episode3_en.pdf",
+            url = "${BASE_URL}tameshibu_episode3_en.pdf",
+            fileSize = "25MB",
+            languageCode = "en",
+            languageDisplayName = "English"
+        ),
+        SamplePdfItem(
+            id = "ep3_ja",
+            title = "ためし部 第３話",
+            fileName = "tameshibu_episode3_ja.pdf",
+            url = "${BASE_URL}tameshibu_episode3_ja.pdf",
+            fileSize = "25MB",
+            languageCode = "ja",
+            languageDisplayName = "Japanese"
         )
     )
 

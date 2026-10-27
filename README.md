@@ -56,6 +56,8 @@ You can download and test sample PDFs (Manga) to try out Mihiraki PDF Utility:
 - [DER PROBIERCLUB FOLGE 2 (German) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_de.pdf)
 - [LE CLUB DES ESSAIS EPISODE 1 (French) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_fr.pdf)
 - [LE CLUB DES ESSAIS EPISODE 2 (French) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_fr.pdf)
+- [THE TRY-IT CLUB EPISODE 3 (English) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode3_en.pdf)
+- [ためし部 第３話 (Japanese) - こまいろ日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode3_ja.pdf)
 
 ### Sample PDF License (CC BY 4.0)
 
