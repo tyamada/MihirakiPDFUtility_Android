@@ -1,5 +1,7 @@
 package com.takumayamada22.pdfutility.ui.components
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -171,6 +173,10 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
     val context = LocalContext.current
     val manager = viewModel.billing
     val purchasedTiers by manager.purchasedTiers.collectAsState()
+    val updateAvailable by viewModel.updateAvailable.collectAsState()
+    LaunchedEffect(Unit) {
+        viewModel.checkForUpdates()
+    }
     val packageInfo = remember {
         context.packageManager.getPackageInfo(context.packageName, 0)
     }
@@ -208,6 +214,26 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
                     Text(stringResource(R.string.version_build, if (Build.VERSION.SDK_INT >= 28) packageInfo.longVersionCode.toString() else packageInfo.versionCode.toString()))
                     Spacer(Modifier.height(8.dp))
                     Text(stringResource(R.string.version_copyright), style = MaterialTheme.typography.bodySmall)
+
+                    if (updateAvailable) {
+                        Spacer(Modifier.height(8.dp))
+                        Button(
+                            onClick = {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${context.packageName}")).apply {
+                                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                }
+                                try {
+                                    context.startActivity(intent)
+                                } catch (_: Exception) {
+                                    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}"))
+                                    context.startActivity(webIntent)
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(stringResource(R.string.update_app))
+                        }
+                    }
 
                     if (purchasedTiers.isNotEmpty()) {
                         Spacer(Modifier.height(8.dp))
