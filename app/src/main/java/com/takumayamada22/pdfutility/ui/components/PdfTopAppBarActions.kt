@@ -9,7 +9,10 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -549,6 +552,27 @@ internal fun PdfActionButtons(
                 )
             },
             text = stringResource(R.string.action_toggle_rtl),
+            displayType = displayType
+        )
+    }
+
+    if (uiState.updateAvailable) {
+        val context = LocalContext.current
+        ActionButton(
+            onClick = {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${context.packageName}")).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                try {
+                    context.startActivity(intent)
+                } catch (_: Exception) {
+                    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}"))
+                    context.startActivity(webIntent)
+                }
+            },
+            enabled = true,
+            icon = { Icon(Icons.Default.SystemUpdate, contentDescription = stringResource(R.string.update_app)) },
+            text = stringResource(R.string.update_app),
             displayType = displayType
         )
     }

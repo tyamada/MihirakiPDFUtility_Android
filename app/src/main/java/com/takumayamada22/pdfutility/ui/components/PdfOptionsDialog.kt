@@ -215,10 +215,10 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
                     Spacer(Modifier.height(8.dp))
                     Text(stringResource(R.string.version_copyright), style = MaterialTheme.typography.bodySmall)
 
-                    if (updateAvailable) {
-                        Spacer(Modifier.height(8.dp))
-                        Button(
-                            onClick = {
+                    Spacer(Modifier.height(8.dp))
+                    Button(
+                        onClick = {
+                            if (updateAvailable) {
                                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${context.packageName}")).apply {
                                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 }
@@ -228,11 +228,13 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
                                     val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}"))
                                     context.startActivity(webIntent)
                                 }
-                            },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text(stringResource(R.string.update_app))
-                        }
+                            } else {
+                                viewModel.checkForUpdatesManual()
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(if (updateAvailable) R.string.update_app else R.string.check_for_updates))
                     }
 
                     if (purchasedTiers.isNotEmpty()) {
