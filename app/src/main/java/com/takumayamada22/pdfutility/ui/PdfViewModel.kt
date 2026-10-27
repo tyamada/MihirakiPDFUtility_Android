@@ -181,7 +181,8 @@ data class PdfUiState(
     val dialog: PdfDialogState = PdfDialogState(),
     val history: PdfHistoryState = PdfHistoryState(),
     val preference: PdfPreferenceState = PdfPreferenceState(),
-    val folderImageState: FolderImageState = FolderImageState()
+    val folderImageState: FolderImageState = FolderImageState(),
+    val updateAvailable: Boolean = false
 ) {
     val pages: List<PageState> get() = document.pages
     val isLoading: Boolean get() = document.isLoading
@@ -258,7 +259,8 @@ data class PdfUiState(
         isRtl: Boolean? = null,
         thumbnailSize: ThumbnailSize? = null,
         buttonDisplayType: ButtonDisplayType? = null,
-        visibleActionButtons: Set<ActionButtonType>? = null
+        visibleActionButtons: Set<ActionButtonType>? = null,
+        updateAvailable: Boolean? = null
     ): PdfUiState {
         return PdfUiState(
             document = document.copy(
@@ -305,7 +307,8 @@ data class PdfUiState(
                 thumbnailSize = thumbnailSize ?: preference.thumbnailSize,
                 buttonDisplayType = buttonDisplayType ?: preference.buttonDisplayType,
                 visibleActionButtons = visibleActionButtons ?: preference.visibleActionButtons
-            )
+            ),
+            updateAvailable = updateAvailable ?: this.updateAvailable
         )
     }
 }
@@ -320,18 +323,63 @@ class PdfViewModel(
     private val appUpdateManager = AppUpdateManagerFactory.create(application)
     private val _updateAvailable = MutableStateFlow(false)
     val updateAvailable: StateFlow<Boolean> = _updateAvailable.asStateFlow()
+    private var lastUpdateCheckTimestamp = 0L
+
+    init {
+        checkForUpdates()
+    }
 
     fun checkForUpdates() {
         try {
             appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
-                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-                    _updateAvailable.value = true
-                }
-            }.addOnFailureListener {
+                val available = appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                _updateAvailable.value = available
+                _uiState.value = _uiState.value.copy(updateAvailable = available)
+            }.addOnFailureListener { e ->
+                AppLogger.log(getApplication(), "ERROR", "Background update check failed: ${e.message}")
                 _updateAvailable.value = false
+                _uiState.value = _uiState.value.copy(updateAvailable = false)
             }
         } catch (e: Exception) {
+            AppLogger.log(getApplication(), "ERROR", "Background update check exception: ${e.message}")
             _updateAvailable.value = false
+            _uiState.value = _uiState.value.copy(updateAvailable = false)
+        }
+    }
+
+    fun checkForUpdatesManual() {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastUpdateCheckTimestamp < 10000L) {
+            val app = getApplication<Application>()
+            _uiState.value = _uiState.value.copy(errorMessage = app.getString(R.string.update_check_rate_limit))
+            return
+        }
+        lastUpdateCheckTimestamp = currentTime
+
+        try {
+            appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+                val available = appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                _updateAvailable.value = available
+                val app = getApplication<Application>()
+                val msg = if (available) null else app.getString(R.string.update_not_found)
+                _uiState.value = _uiState.value.copy(updateAvailable = available, errorMessage = msg)
+            }.addOnFailureListener { e ->
+                val app = getApplication<Application>()
+                AppLogger.log(app, "ERROR", "Manual update check failed: ${e.message}")
+                _updateAvailable.value = false
+                _uiState.value = _uiState.value.copy(
+                    updateAvailable = false,
+                    errorMessage = app.getString(R.string.update_check_error, e.localizedMessage ?: e.message ?: "Unknown error")
+                )
+            }
+        } catch (e: Exception) {
+            val app = getApplication<Application>()
+            AppLogger.log(app, "ERROR", "Manual update check exception: ${e.message}")
+            _updateAvailable.value = false
+            _uiState.value = _uiState.value.copy(
+                updateAvailable = false,
+                errorMessage = app.getString(R.string.update_check_error, e.localizedMessage ?: e.message ?: "Unknown error")
+            )
         }
     }
     companion object {

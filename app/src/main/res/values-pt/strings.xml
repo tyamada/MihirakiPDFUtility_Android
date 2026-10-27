@@ -166,4 +166,8 @@
     <string name="privacy_policy_content">Mihiraki PDF Utility respects your privacy and is committed to protecting your personal data.\n\n• Local Processing: All PDF operations are performed entirely on your device.\n• No External Transmission: Document contents, filenames, and personal information are never transmitted to external servers.\n• Audit Logs: Local operation logs are stored temporarily on-device and do not include personal data.\n• Analytics / Ads: We adhere strictly to Google Play data safety standards.</string>
     <string name="tutorial_dont_show_again">Não mostrar novamente</string>
     <string name="update_app">Atualizar aplicativo</string>
+    <string name="check_for_updates">Verificar atualizações</string>
+    <string name="update_not_found">O aplicativo está atualizado.</string>
+    <string name="update_check_error">Falha ao verificar atualizações: %1$s</string>
+    <string name="update_check_rate_limit">Aguarde antes de verificar novamente.</string>
 </resources>

@@ -291,4 +291,8 @@
     <string name="privacy_policy_title">プライバシーポリシー</string>
     <string name="privacy_policy_content">見開きPDFユーティリティ（Mihiraki PDF Utility）はお客様のプライバシーを尊重し、個人情報の保護に努めます。\n\n• 端末内処理: すべてのPDF操作（読み込み、編集、保存、レンダリング）は端末内でのみ行われます。\n• 外部送信なし: ドキュメントの内容、ファイル名、個人情報は外部サーバーに一切送信されません。\n• 監査ログ: ローカル操作ログは端末内にのみ一時保存され、個人情報は含まれません。\n• データ安全性: Google Playのデータセーフティ基準を厳格に遵守しています。</string>
     <string name="update_app">アプリを更新</string>
+    <string name="check_for_updates">更新を確認</string>
+    <string name="update_not_found">アプリは最新バージョンです。</string>
+    <string name="update_check_error">更新の確認に失敗しました: %1$s</string>
+    <string name="update_check_rate_limit">しばらく待ってから再度更新を確認してください。</string>
 </resources>
