@@ -196,6 +196,7 @@
     <string name="tutorial_next">下一步</string>
     <string name="tutorial_finish">开始使用</string>
     <string name="tutorial_try_sample">尝试示例 PDF</string>
+    <string name="tutorial_dont_show_again">不再显示</string>
     <string name="tutorial_title_1">欢迎使用双页PDF工具箱</string>
     <string name="tutorial_desc_1">专为扫描书籍和漫画优化，支持双页跨页视图（RTL/LTR），支持14种语言。</string>
     <string name="tutorial_title_2">打开与示例 PDF</string>
