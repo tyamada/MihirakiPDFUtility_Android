@@ -25,6 +25,9 @@ import androidx.compose.ui.unit.dp
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.ui.PdfViewModel
 import kotlinx.coroutines.launch
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
 
 internal data class TutorialPageData(
     val icon: ImageVector,
@@ -137,6 +140,29 @@ fun TutorialScreen(viewModel: PdfViewModel) {
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    val context = LocalContext.current
+                    OutlinedButton(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=MihirakiPDFUtility+tutorial"))
+                            context.startActivity(intent)
+                        },
+                        modifier = Modifier.height(38.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.PlayArrow,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = "Watch English Video Guide",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
 
                     // On the last slide, add a direct "Try Sample PDF" button
                     if ((index == pages.size - 1)) {
