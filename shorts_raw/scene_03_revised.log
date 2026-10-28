@@ -1,3 +1,0 @@
-/Users/tyamada22/src/MihirakiPDFUtility_Android/docs/sample/tameshibu_episode1_2_en.pdf: 1 file pushed, 0 skipped. 104.5 MB/s (24108800 bytes in 0.220s)
-/sdcard/shorts_scene_3.mp4: 1 file pulled, 0 skipped. 188.3 MB/s (4485059 bytes in 0.023s)
-{"scene": 3, "file": "/Users/tyamada22/src/MihirakiPDFUtility_Android/shorts_output/scene_03_final.mp4", "duration": 20.0, "narration_duration": 12.455556, "source_duration": 47.439311, "source_caption_starts": {"0": 0.0, "1": 8.559, "2": 32.352}, "caption_starts": {"0": 0, "1": 5, "2": 14}, "bytes": 1316820, "video": "h264", "audio": "aac"}
