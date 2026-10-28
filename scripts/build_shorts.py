@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / 'shorts_raw'
 OUT = ROOT / 'shorts_output'
 PKG = 'com.takumayamada22.pdfutility'
-SPECS = {'1': {'vo': 'Meet Mihiraki PDF Utility—the dedicated editor designed specifically for scanned books and manga. Preview your layout in authentic two-page spreads while you edit. Getting started is completely effortless.', 'texts': [[0.0, 5.0, 'Mihiraki PDF Utility: Manga PDF Editor'], [5.0, 15.0, 'Authentic Two-Page Spread Preview']]}, '2': {'vo': 'Import your scanned files in a snap. The streamlined interface keeps powerful tools right within reach. Access essential edit actions instantly, making adjustments quick and painless even on mobile.', 'texts': [[0.0, 6.0, 'Instant File Import'], [6.0, 15.0, 'Fast & Intuitive Menu Controls']]}, '3': {'vo': 'Fix imperfect scans with precision. Rotate misoriented pages, split wide scans into single leaves, and insert blank pages to re-align your spreads perfectly. Need to clean up? Remove unwanted pages with a single tap.', 'texts': [[0.0, 4.5, '1. Rotate Orientation'], [4.5, 9.0, '2. Split Wide Spreads'], [9.0, 14.5, '3. Insert Blank (Fix Spread Alignment!)'], [14.5, 20.0, '4. Delete Pages']]}, '4': {'vo': 'Switch between a comprehensive grid view to manage whole chapters and spread preview to inspect every detail. You can even customize your toolbar to keep your most-used editing features exactly where you want them.', 'texts': [[0.0, 6.5, 'Grid View vs Spread Preview'], [6.5, 15.0, 'Fully Customizable Toolbar']]}, '5': {'vo': 'Export your newly organized PDF instantly with zero quality loss. Best of all, all processing happens entirely on your device—no cloud uploads, no account required, complete privacy. Download Mihiraki PDF Utility on Google Play today!', 'texts': [[0.0, 6.5, 'Instant Lossless Export'], [6.5, 12.0, '100% Offline & Private'], [12.0, 17.0, 'Get It on Google Play!']]}}
+SPECS = {'1': {'vo': 'Meet Mihiraki PDF Utility—the dedicated editor designed specifically for scanned books and manga. Preview your layout in authentic two-page spreads while you edit. Getting started is completely effortless.', 'texts': [[0.0, 5.0, 'Mihiraki PDF Utility: Manga PDF Editor'], [5.0, 15.0, 'Authentic Two-Page Spread Preview']]}, '2': {'vo': 'Import your scanned files in a snap. The streamlined interface keeps powerful tools right within reach. Access essential edit actions instantly, making adjustments quick and painless even on mobile.', 'texts': [[0.0, 6.0, 'Instant File Import'], [6.0, 15.0, 'Fast & Intuitive Menu Controls']]}, '3': {'vo': 'Put your pages in order. Rotate a page to change its orientation. Insert a blank page to shift the left and right spread positions, then preview the new layout. Remove unwanted pages to keep your PDF tidy.', 'texts': [[0, 5, '1. Rotate Page Orientation'], [5, 14, '2. Insert Blank & Align Spreads'], [14, 20, '3. Delete Unwanted Pages']]}, '4': {'vo': 'Switch between a comprehensive grid view to manage whole chapters and spread preview to inspect every detail. You can even customize your toolbar to keep your most-used editing features exactly where you want them.', 'texts': [[0.0, 6.5, 'Grid View vs Spread Preview'], [6.5, 15.0, 'Fully Customizable Toolbar']]}, '5': {'vo': 'Export your newly organized PDF instantly with zero quality loss. Best of all, all processing happens entirely on your device—no cloud uploads, no account required, complete privacy. Download Mihiraki PDF Utility on Google Play today!', 'texts': [[0.0, 6.5, 'Instant Lossless Export'], [6.5, 12.0, '100% Offline & Private'], [12.0, 17.0, 'Get It on Google Play!']]}}
 DEVICE = None
 
 def run(args, **kw):
@@ -74,14 +74,17 @@ def actions(scene, mark):
         mark(0);open_pdf();time.sleep(2);mark(1);click('Page 1');click('Settings')
         snapshot('scene_02_menu');time.sleep(3);shell('input','keyevent',4)
     elif scene==3:
-        mark(0);click('Page 1');click('Rotate Right');snapshot('scene_03_rotated');time.sleep(1)
-        mark(1);menu('Split Pages');snapshot('scene_03_split_menu');time.sleep(2)
-        shell('input','keyevent',4)
-        mark(2);menu('Insert Blank');time.sleep(1)
+        mark(0);click('Page 1');click('Rotate Right')
+        snapshot('scene_03_rotated');time.sleep(2)
+        mark(1);menu('Insert Blank');time.sleep(1)
         tree=snapshot('scene_03_blank')
         if not find('Page 9',tree): raise RuntimeError('Blank insertion did not produce 9 pages')
-        time.sleep(2)
-        mark(3);click('Page 1');click('Page 2');click('Delete');time.sleep(1)
+        click('Page 1')  # Clear the selected original page before previewing.
+        menu('Toggle View')
+        tree=snapshot('scene_03_blank_spread')
+        assert find('Page 2',tree)[1] == find('Page 3',tree)[1], 'Spread pair not aligned'
+        time.sleep(4)
+        mark(2);menu('Toggle View');click('Page 2');click('Delete');time.sleep(1)
         click('Delete');time.sleep(1);tree=snapshot('scene_03_deleted')
         if find('Page 9',tree) or not find('Page 8',tree):raise RuntimeError('Delete did not leave exactly 8 pages')
         time.sleep(3)
