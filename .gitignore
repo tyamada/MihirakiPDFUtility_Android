@@ -26,3 +26,8 @@ scripts/__pycache__/
 # Logs and local artifacts
 logs/
 .artifacts/
+
+# YouTube Shorts output and raw assets
+shorts_output/
+shorts_raw_assets/
+

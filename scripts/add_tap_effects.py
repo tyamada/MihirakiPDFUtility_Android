@@ -1,57 +1,68 @@
 #!/usr/bin/env python3
 """
-Post-processing script to overlay animated tap ripple effects on YouTube Shorts scene videos.
+Post-processing script to overlay animated tap ripple effects on YouTube Shorts scene videos,
+with comprehensive logging and diagnostics.
 """
 import os
 import cv2
 import numpy as np
 import subprocess
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS_DIR = ROOT / 'shorts_raw_assets'
+OUT_DIR = ROOT / 'shorts_output'
+LOG_FILE = OUT_DIR / 'shorts_recording_debug.log'
 
-# Define tap events for each scene: (timestamp_seconds, x, y)
+def log(msg):
+    print(msg)
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    with open(LOG_FILE, "a") as f:
+        f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')} [TapEffects]] {msg}\n")
+
+# Precisely synchronized tap events for each scene based on test automation timeline: (timestamp_seconds, x, y)
 TAP_EVENTS = {
     "scene_01": [
-        (4.0, 1010, 120),  # 3 dots menu
-        (5.2, 540, 300),   # Toggle view menu item
+        (3.5, 1010, 120),  # 3 dots overflow menu
+        (4.8, 540, 320),   # Toggle view menu item
     ],
     "scene_02": [
-        (3.0, 270, 400),   # Select page 0
-        (3.5, 540, 400),   # Select page 1
-        (6.0, 1010, 120),  # Open 3 dots menu to show editing accessibility
+        (2.5, 540, 500),   # Empty state / Dismiss dialogs / Import
+        (6.5, 1010, 120),  # 3 dots settings / menu controls
     ],
     "scene_03": [
-        (3.0, 270, 400),   # Select page
-        (6.0, 540, 120),   # Rotate
-        (10.0, 700, 120),  # Insert Blank
-        (15.0, 850, 120),  # Delete
+        (3.0, 270, 400),   # Select page 0
+        (6.0, 650, 120),   # Rotate button
+        (10.0, 750, 120),  # Insert Blank button
+        (14.5, 900, 120),  # Delete button
+        (16.5, 700, 1300), # Confirm delete dialog button
     ],
     "scene_04": [
-        (3.0, 1010, 120),  # 3 dots menu
-        (4.0, 540, 300),   # Toggle view
-        (10.0, 1010, 120), # 3 dots menu
-        (11.0, 540, 450),  # Options
+        (2.5, 1010, 120),  # 3 dots menu
+        (3.5, 540, 320),   # Toggle view to spread
+        (5.5, 1010, 120),  # 3 dots menu
+        (6.5, 540, 320),   # Toggle view back to grid
+        (8.5, 1010, 120),  # 3 dots menu
+        (9.5, 540, 420),   # Options dialog
     ],
     "scene_05": [
-        (3.0, 400, 120),   # Export / Save
-        (6.0, 540, 1300),  # Confirm dialog
+        (2.5, 800, 120),   # Save / Export action button
     ]
 }
 
 def add_taps_to_video(video_path, taps):
-    print(f"Processing {video_path.name}...")
+    log(f"Processing tap effects for {video_path.name}...")
     cap = cv2.VideoCapture(str(video_path))
     if not cap.isOpened():
-        print(f"Error opening video {video_path}")
+        log(f"ERROR: Error opening video {video_path}")
         return
 
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps = cap.get(cv2.CAP_PROP_FPS)
     if fps <= 0 or fps > 120:
-        fps = 30.0 # fallback
+        fps = 30.0
 
     temp_output = video_path.with_name(f"temp_{video_path.name}")
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -69,7 +80,7 @@ def add_taps_to_video(video_path, taps):
         for (tap_time, x, y) in taps:
             elapsed = current_time - tap_time
             if 0 <= elapsed <= 0.6: # ripple duration 600ms
-                progress = elapsed / 0.6 # 0.0 to 1.0
+                progress = elapsed / 0.6
                 radius = int(20 + 60 * progress)
                 alpha = max(0.0, 1.0 - progress)
 
@@ -87,16 +98,17 @@ def add_taps_to_video(video_path, taps):
     out.release()
 
     final_output = video_path
-    print(f"Re-encoding {final_output.name} with ffmpeg...")
+    log(f"Re-encoding {final_output.name} with ffmpeg...")
     cmd = [
         "ffmpeg", "-y", "-i", str(temp_output),
         "-c:v", "libx264", "-b:v", "16M", "-pix_fmt", "yuv420p",
         "-c:a", "aac", str(final_output)
     ]
-    subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    log(res.stdout)
     if temp_output.exists():
         temp_output.unlink()
-    print(f"Finished processing {final_output.name}")
+    log(f"Finished tap effects for {final_output.name}")
 
 def main():
     for scene_name, taps in TAP_EVENTS.items():
@@ -104,7 +116,7 @@ def main():
         if video_path.exists():
             add_taps_to_video(video_path, taps)
         else:
-            print(f"Video not found: {video_path}")
+            log(f"WARNING: Video not found: {video_path}")
 
 if __name__ == '__main__':
     main()

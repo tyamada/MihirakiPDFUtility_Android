@@ -4,6 +4,7 @@ import android.app.Application
 import android.net.Uri
 import android.os.Build
 import android.os.LocaleList
+import android.util.Log
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.lifecycle.ViewModelProvider
@@ -29,18 +30,27 @@ class ShortsRecordingTest {
     private fun main(action: () -> Unit) = compose.runOnUiThread(action)
 
     private fun waitForReady(count: Int? = null) {
+        Log.d("ShortsTest", "waitForReady: starting (target count = $count)")
         compose.waitUntil(90000) { !vm.uiState.value.isLoading && vm.uiState.value.pages.isNotEmpty() && (count == null || vm.uiState.value.pages.size == count) }
         assertNull(vm.uiState.value.errorMessage)
         compose.waitForIdle()
+        Log.d("ShortsTest", "waitForReady: completed (page count = ${vm.uiState.value.pages.size})")
     }
 
     private fun clickAction(id: Int) {
         val label = compose.activity.getString(id)
-        compose.onNodeWithContentDescription(label, useUnmergedTree = true).performClick()
+        Log.d("ShortsTest", "clickAction: clicking label = $label")
+        try {
+            compose.onNodeWithContentDescription(label, useUnmergedTree = true).performClick()
+        } catch (e: Exception) {
+            Log.w("ShortsTest", "clickAction: contentDescription '$label' not found, trying text search")
+            compose.onNodeWithText(label, useUnmergedTree = true).performClick()
+        }
         compose.waitForIdle()
     }
 
     private fun loadEnglishPdf(count: Int = 8): File {
+        Log.d("ShortsTest", "loadEnglishPdf: loading PDF with count = $count")
         if (Build.VERSION.SDK_INT >= 33) {
             val localeManager = app.getSystemService(android.app.LocaleManager::class.java)
             localeManager.applicationLocales = LocaleList.forLanguageTags("en-US")
@@ -81,12 +91,14 @@ class ShortsRecordingTest {
             main { vm.confirmCcByDialog() }
             compose.waitForIdle()
         }
+        Log.d("ShortsTest", "loadEnglishPdf: completed successfully")
         return pdfFile
     }
 
     @Test
     fun recordScene() {
         val scene = args.getString("scene") ?: "scene_01"
+        Log.d("ShortsTest", "recordScene: starting scene = $scene")
         compose.activityRule.scenario.onActivity { activity ->
             vm = ViewModelProvider(activity, PdfViewModel.provideFactory(app))[PdfViewModel::class.java]
         }
@@ -94,15 +106,14 @@ class ShortsRecordingTest {
             main { vm.dismissTutorial() }
             compose.waitForIdle()
         }
-        loadEnglishPdf(8)
 
         val settingsDesc = compose.activity.getString(R.string.action_settings)
         val toggleViewText = compose.activity.getString(R.string.action_toggle_view)
 
         when (scene) {
             "scene_01" -> {
-                // Scene 1: Starts cleanly on app main screen (thumbnail grid), taps 3 dots menu, toggles to spread view (~18s)
-                Thread.sleep(2500) // Show main screen thumbnail grid clearly
+                loadEnglishPdf(8)
+                Thread.sleep(3000)
                 assertFalse(vm.uiState.value.isMihirakiView)
                 Thread.sleep(1500)
 
@@ -122,64 +133,90 @@ class ShortsRecordingTest {
                 }
 
                 assertTrue(vm.uiState.value.isMihirakiView)
-                Thread.sleep(12000) // Hold spread view to showcase side-by-side pages thoroughly
+                Thread.sleep(15000)
             }
             "scene_02" -> {
-                // Scene 2: Fast import / append PDF with generous success confirmation pause (~18s)
-                Thread.sleep(2000)
-                val extraFile = File(app.filesDir, "tameshibu_episode2_2_en.pdf")
-                val beforeCount = vm.uiState.value.pages.size
-                main { vm.appendPdf(Uri.fromFile(extraFile)) }
-                compose.waitUntil(90000) { !vm.uiState.value.isLoading && vm.uiState.value.pages.size > beforeCount }
-                waitForReady()
-                
-                // Generous pause to visually confirm successful PDF addition in thumbnail grid
-                Thread.sleep(5000)
-                
+                main { vm.clearSelection() }
+                Thread.sleep(2500)
+
+                if (vm.uiState.value.showTutorial) {
+                    main { vm.dismissTutorial() }
+                    compose.waitForIdle()
+                }
+                if (vm.uiState.value.showCcByDialog) {
+                    main { vm.confirmCcByDialog() }
+                    compose.waitForIdle()
+                }
+                Thread.sleep(1500)
+
+                loadEnglishPdf(8)
+                Thread.sleep(2500)
+
                 try {
-                    compose.onAllNodes(hasScrollAction()).onFirst().performScrollToIndex(8)
+                    compose.onNodeWithContentDescription(settingsDesc, useUnmergedTree = true).performClick()
+                    compose.waitForIdle()
+                    Thread.sleep(2500)
                 } catch (e: Exception) {}
-                Thread.sleep(4000)
+
+                Thread.sleep(6000)
             }
             "scene_03" -> {
-                // Scene 3: Page editing with clear 2.5s+ pauses between each action (Rotate, Insert Blank, Delete) (~22s)
-                Thread.sleep(2000)
-                
-                // Step 1: Select target page
-                main { vm.toggleSelection(0) }
+                Log.d("ShortsTest", "Scene 3: Starting loadEnglishPdf")
+                loadEnglishPdf(8)
+                Thread.sleep(3000) // Clear initial view of thumbnail grid
+
+                Log.d("ShortsTest", "Scene 3: Step 1 - Selecting page 0")
+                main { vm.clearSelection(); vm.toggleSelection(0) }
                 Thread.sleep(2500)
+                assertTrue("Page 0 should be selected", vm.uiState.value.selectedIndices.contains(0))
                 
-                // Step 2: Rotate page
+                Log.d("ShortsTest", "Scene 3: Step 2 - Rotating page 90 degrees")
                 main { vm.rotateSelected(90) }
-                Thread.sleep(3000)
+                assertEquals("Page 0 rotation should be 90", 90, vm.uiState.value.pages[0].rotation)
+                Thread.sleep(5000) // Distinct pause highlighting rotation result alone
                 
-                // Step 3: Insert Blank page
+                Log.d("ShortsTest", "Scene 3: Step 3 - Inserting blank page after page 0")
+                main { vm.clearSelection(); vm.toggleSelection(0) }
+                Thread.sleep(2000)
                 main { vm.insertBlankAfterSelected() }
                 waitForReady()
-                Thread.sleep(3500)
+                assertEquals("Page count should be 9 after inserting blank page", 9, vm.uiState.value.pages.size)
+                assertTrue("Inserted page should be blank", vm.uiState.value.pages[1].isBlank)
+                Thread.sleep(5500) // Distinct pause highlighting blank page insertion result alone
                 
-                // Step 4: Select page and execute Delete with confirmation dialog
+                Log.d("ShortsTest", "Scene 3: Step 4 - Deleting page 2 with confirmation dialog")
                 main { vm.clearSelection(); vm.toggleSelection(2) }
                 Thread.sleep(2500)
                 
-                try {
-                    clickAction(R.string.action_delete)
-                    compose.waitForIdle()
-                    Thread.sleep(1000)
-                    compose.onNodeWithText(compose.activity.getString(R.string.action_delete), useUnmergedTree = true).performClick()
-                } catch (e: Exception) {
-                    main { vm.deleteSelected() }
-                }
+                clickAction(R.string.action_delete)
+                compose.onNodeWithText(compose.activity.getString(R.string.dialog_delete_title)).assertExists()
+                compose.waitForIdle()
+                Thread.sleep(1500) // Display confirmation dialog clearly on screen for the user
+                
+                main { vm.deleteSelected() }
                 waitForReady()
-                Thread.sleep(6000) // Extended hold time for final edited state
+                assertEquals("Page count should be 8 after deletion", 8, vm.uiState.value.pages.size)
+                Thread.sleep(7000) // Hold final edited result steady showing page successfully removed!
+                Log.d("ShortsTest", "Scene 3: Completed successfully")
             }
             "scene_04" -> {
-                // Scene 4: Display toggle & Options dialog with smooth swipe scroll through customization features (~20s)
-                Thread.sleep(2000)
+                loadEnglishPdf(8)
+                Thread.sleep(3000)
                 try {
                     compose.onNodeWithContentDescription(settingsDesc, useUnmergedTree = true).performClick()
                     compose.waitForIdle()
-                    Thread.sleep(800)
+                    Thread.sleep(1000)
+                    compose.onNodeWithText(toggleViewText, useUnmergedTree = true).performScrollTo().performClick()
+                    compose.waitForIdle()
+                } catch (e: Exception) {
+                    main { vm.toggleMihirakiView() }
+                }
+                Thread.sleep(3000)
+
+                try {
+                    compose.onNodeWithContentDescription(settingsDesc, useUnmergedTree = true).performClick()
+                    compose.waitForIdle()
+                    Thread.sleep(1000)
                     compose.onNodeWithText(toggleViewText, useUnmergedTree = true).performScrollTo().performClick()
                     compose.waitForIdle()
                 } catch (e: Exception) {
@@ -190,27 +227,14 @@ class ShortsRecordingTest {
                 try {
                     compose.onNodeWithContentDescription(settingsDesc, useUnmergedTree = true).performClick()
                     compose.waitForIdle()
-                    Thread.sleep(800)
-                    compose.onNodeWithText(toggleViewText, useUnmergedTree = true).performScrollTo().performClick()
-                    compose.waitForIdle()
-                } catch (e: Exception) {
-                    main { vm.toggleMihirakiView() }
-                }
-                Thread.sleep(2000)
-
-                // Open Options dialog
-                try {
-                    compose.onNodeWithContentDescription(settingsDesc, useUnmergedTree = true).performClick()
-                    compose.waitForIdle()
-                    Thread.sleep(800)
+                    Thread.sleep(1000)
                     compose.onNodeWithText(compose.activity.getString(R.string.settings_options), useUnmergedTree = true).performScrollTo().performClick()
                     compose.waitForIdle()
                 } catch (e: Exception) {
                     main { vm.openSettingsDialog(SettingsDialogType.OPTIONS) }
                 }
-                Thread.sleep(1500)
+                Thread.sleep(2000)
                 
-                // Perform smooth swipe up to scroll down inside options dialog slowly (using second scrollable node [1] which corresponds to dialog)
                 try {
                     compose.onAllNodes(hasScrollAction())[1].performTouchInput {
                         swipeUp()
@@ -222,16 +246,15 @@ class ShortsRecordingTest {
                         }
                     } catch (e2: Exception) {}
                 }
-                Thread.sleep(6000) // Hold customization view
+                Thread.sleep(8000)
                 
                 main { vm.closeSettingsDialog() }
-                Thread.sleep(2000)
+                Thread.sleep(3000)
             }
             "scene_05" -> {
-                // Scene 5: Save & Export with explicit action button click & hold (~18s)
-                Thread.sleep(2000)
+                loadEnglishPdf(8)
+                Thread.sleep(3000)
                 
-                // Explicitly click save action button on screen so user action is confirmed
                 try {
                     clickAction(R.string.action_save)
                 } catch (e: Exception) {
@@ -243,7 +266,7 @@ class ShortsRecordingTest {
                     }
                 }
                 waitForReady()
-                Thread.sleep(7000) // Extended hold time on completion state
+                Thread.sleep(9000)
             }
             else -> {
                 Thread.sleep(5000)
