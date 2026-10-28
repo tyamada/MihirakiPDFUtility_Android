@@ -1,0 +1,5 @@
+v1.2.5
+- Added Play Store automatic update check and manual "Check for Updates" button in the version dialog.
+- Added dynamic toolbar update button that appears when an app update is available.
+- Implemented rate limiting and robust error logging for update checks.
+- Enhanced accessibility semantics and overall stability.
