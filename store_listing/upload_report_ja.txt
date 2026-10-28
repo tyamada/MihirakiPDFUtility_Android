@@ -1,0 +1,63 @@
+YouTubeチャンネル作成・非公開アップロード完了
+実施日: 2026-10-28（日本時間）
+
+オーナーアカウント: takumayamada605@gmail.com
+チャンネル: Takuma Yamada Apps
+ハンドル: @TakumaYamadaApps
+チャンネルURL: https://www.youtube.com/@TakumaYamadaApps
+チャンネルID: UCkR6gMRqZ_OZYBSXShuJf_A
+
+ユーザーの明示承認後に、現在のGoogleプロフィール写真、指定名とハンドルで作成しました。
+チャンネルの説明（英日）とGoogle Playリンク2件を保存し、チャンネルページ上で反映を確認しました。
+公開連絡先メールは掲載していません。バナーや管理者権限、収益化設定は追加していません。
+
+非公開再生リスト
+Mihiraki PDF Utility — Quick Tutorials
+https://www.youtube.com/playlist?list=PLa-QGEwHSDRo
+動画はScene 1→5の順で追加しました。再生リストも非公開です。
+
+動画登録結果
+Scene 1: https://youtube.com/shorts/R_FD63c29E0
+状態: 非公開、保存完了、著作権チェックで問題検出なし
+Scene 2: https://youtube.com/shorts/K6er6-CY32I
+状態: 非公開、保存完了、著作権チェックで問題検出なし
+Scene 3: https://youtube.com/shorts/t8_PzfU4PKw
+状態: 非公開、保存完了、著作権チェックで問題検出なし
+Scene 4: https://youtube.com/shorts/qhTT88HtP68
+状態: 非公開、保存完了、著作権チェックで問題検出なし
+Scene 5: https://youtube.com/shorts/qlsm4jLVd8g
+状態: 非公開、保存完了、著作権チェックで問題検出なし
+
+確認内容
+- 最終一覧で動画5件すべてが「非公開」、ドラフトは0件。
+- 全5本でYouTube側の動画処理が完了。
+- 全5本で著作権チェック完了・問題は検出されませんでした。
+- タイトル・説明・クレジット・タグを各動画へ入力。
+- 修正版Scene 3を送信。タイトル/説明/字幕原稿に分割の実演は含まれません。
+- 英語のナレーション原稿を全5本の字幕に保存。YouTubeが「処理に数時間かかる場合があります」と表示するため、同期結果の最終タイミング確認は処理後の作業になります。
+
+反映した推奨設定
+- アップロードのデフォルト公開設定: 非公開
+- 動画言語: 英語
+- タイトルと説明の言語: 英語
+- カテゴリ: 科学と技術
+- ライセンス: 標準のYouTubeライセンス
+- コメント管理: 標準（不適切と思われるコメントを保留する通常設定）
+- チャンネルの視聴者: 動画ごとに確認
+- 今回の5本: 子ども向けではない
+- 有料プロモーション: なし（自身のアプリの紹介と説明文に明記）
+- AI使用の質問票: 実在人のなりすまし、現実の出来事/場所の改変、写実的な架空場面、中心となる生成音楽のいずれにも該当しないため「いいえ」。説明文には合成音声とサンプル漫画の生成AI使用を明記。
+- 公開や公開予約、非公開動画の他ユーザーへの共有は行っていません。
+
+補足
+外部リンクをクリック可能にする上級者向け機能について、YouTubeが追加の1回限りの確認を案内しました。この追加認証は完了していませんが、プロフィールへのリンク保存と今回の5本の非公開アップロードは完了しています。
+本人確認や電話番号、身分証の入力は行っていません。
+
+確認用Studio
+https://studio.youtube.com/playlist/PLa-QGEwHSDRo/videos
+非公開のため、オーナーのGoogleアカウントでログインして確認してください。
+
+証跡
+../youtube_upload_completed.png
+final_studio_state.txt
+upload_results.json

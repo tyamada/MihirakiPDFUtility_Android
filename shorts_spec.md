@@ -39,18 +39,17 @@ Androidエミュレータ上で `MihirakiPDFUtility` の編集動作を自動操
   - `0.0s - 6.0s`: "Instant File Import"
   - `6.0s - 15.0s`: "Fast & Intuitive Menu Controls"
 
-### Scene 3: ページ編集コア機能 (目標尺: 20秒 ※ハイライト)
-- **Voiceover**: "Fix imperfect scans with precision. Rotate misoriented pages, split wide scans into single leaves, and insert blank pages to re-align your spreads perfectly. Need to clean up? Remove unwanted pages with a single tap."
+### Scene 3: 回転・白紙挿入・削除 (目標尺: 20秒)
+- **Voiceover**: "Put your pages in order. Rotate a page to change its orientation. Insert a blank page to shift the left and right spread positions, then preview the new layout. Remove unwanted pages to keep your PDF tidy."
 - **タイムテーブル**:
-  - `0.0s - 4.5s`: ページ選択 →「回転」を実行
-  - `4.5s - 9.0s`: 分割メニューの表示または安全な分割アクションの提示
-  - `9.0s - 14.5s`: 「白紙挿入」を実行し、見開きの左右位置を調整（★最重要見せ場）
-  - `14.5s - 20.0s`: ページ選択 →「削除」を実行
-- **テロップ (drawtext)**:
-  - `0.0s - 4.5s`: "1. Rotate Orientation"
-  - `4.5s - 9.0s`: "2. Split Wide Spreads"
-  - `9.0s - 14.5s`: "3. Insert Blank (Fix Spread Alignment!)"
-  - `14.5s - 20.0s`: "4. Delete Pages"
+  - `0.0s - 5.0s`: ページ選択 →「回転」を実行し、向きの変化を表示
+  - `5.0s - 14.0s`: 「白紙挿入」で8→9ページ。見開き表示へ切り替え、白紙と左右の組み合わせの変化を確認
+  - `14.0s - 20.0s`: 一覧へ戻り、挿入した白紙を選択 →「削除」を確定。8ページへ戻った結果を表示
+- **テロップ**:
+  - `0.0s - 5.0s`: "1. Rotate Page Orientation"
+  - `5.0s - 14.0s`: "2. Insert Blank & Align Spreads"
+  - `14.0s - 20.0s`: "3. Delete Unwanted Pages"
+- サンプルPDFに分割向きのページがないため、分割の操作・メニュー提示・ナレーション・テロップは含めない。
 
 ### Scene 4: 表示切替とツールバーカスタム (目標尺: 15秒)
 - **Voiceover**: "Switch between a comprehensive grid view to manage whole chapters and spread preview to inspect every detail. You can even customize your toolbar to keep your most-used editing features exactly where you want them."
@@ -74,7 +73,7 @@ Androidエミュレータ上で `MihirakiPDFUtility` の編集動作を自動操
 
 ## 実装上の補足
 - UIAutomatorのtext/content-descとboundsから操作位置を取得する。
-- 分割はダイアログの提示のみ。通常ページは分割しない。
+- Scene 3は回転・白紙挿入・見開き確認・削除のみを扱い、分割は紹介しない。
 - カスタマイズは実操作後Cancelし、設定を維持する。
 - drawtext非対応環境ではPillowのテロップ画像を合成する。
 - 操作区間ごとに速度を調整し、テロップと目標尺15/15/20/15/17秒に合わせる。全ナレーションを保持する。
