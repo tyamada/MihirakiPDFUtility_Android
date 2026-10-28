@@ -9,7 +9,7 @@ import java.io.InputStream
 import java.io.OutputStream
 
 class LoadPdfUseCase(
-    private val processor: PdfProcessor,
+    internal val processor: PdfProcessor,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     fun load(inputStream: InputStream, password: String? = null): Int = runBlocking(ioDispatcher) {

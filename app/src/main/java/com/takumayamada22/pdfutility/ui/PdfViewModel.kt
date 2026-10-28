@@ -316,7 +316,7 @@ data class PdfUiState(
 class PdfViewModel(
     application: Application,
     private val loadPdfUseCase: LoadPdfUseCase = LoadPdfUseCase(PdfProcessor()),
-    private val exportPdfUseCase: ExportPdfUseCase = ExportPdfUseCase(PdfProcessor()),
+    private val exportPdfUseCase: ExportPdfUseCase = ExportPdfUseCase(loadPdfUseCase.processor),
     private val thumbnailProvider: ThumbnailProvider = ThumbnailProvider(application),
     val billing: BillingManager = BillingManager(application)
 ) : AndroidViewModel(application) {
@@ -386,7 +386,7 @@ class PdfViewModel(
         fun provideFactory(
             application: Application,
             loadPdfUseCase: LoadPdfUseCase = LoadPdfUseCase(PdfProcessor()),
-            exportPdfUseCase: ExportPdfUseCase = ExportPdfUseCase(PdfProcessor()),
+            exportPdfUseCase: ExportPdfUseCase = ExportPdfUseCase(loadPdfUseCase.processor),
             thumbnailProvider: ThumbnailProvider = ThumbnailProvider(application),
             billing: BillingManager = BillingManager(application)
         ): androidx.lifecycle.ViewModelProvider.Factory = object : androidx.lifecycle.ViewModelProvider.Factory {
