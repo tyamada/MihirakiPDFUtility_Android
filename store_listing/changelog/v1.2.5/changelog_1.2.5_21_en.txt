@@ -1,0 +1,3 @@
+v1.2.5
+- Refactored state management and shared PdfProcessor instance across use cases.
+- Enhanced accessibility semantics and stability.
