@@ -148,7 +148,7 @@ fun TutorialScreen(viewModel: PdfViewModel) {
                     val context = LocalContext.current
                     OutlinedButton(
                         onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=MihirakiPDFUtility+tutorial"))
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/playlist?list=PLa-QGEwHSDRo"))
                             context.startActivity(intent)
                         },
                         modifier = Modifier.height(38.dp)
