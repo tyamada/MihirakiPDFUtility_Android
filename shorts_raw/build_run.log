@@ -1,0 +1,20 @@
+/Users/tyamada22/src/MihirakiPDFUtility_Android/docs/sample/tameshibu_episode1_2_en.pdf: 1 file pushed, 0 skipped. 428.7 MB/s (24108800 bytes in 0.054s)
+/sdcard/shorts_scene_1.mp4: 1 file pulled, 0 skipped. 155.9 MB/s (1434839 bytes in 0.009s)
+{"scene": 1, "file": "/Users/tyamada22/src/MihirakiPDFUtility_Android/shorts_output/scene_01_final.mp4", "duration": 20.267098, "narration_duration": 11.556054, "caption_starts": {"0": 0.0, "1": 9.872}, "bytes": 971552, "video": "h264", "audio": "aac"}
+/sdcard/shorts_scene_2.mp4: 1 file pulled, 0 skipped. 173.4 MB/s (1919854 bytes in 0.011s)
+{"scene": 2, "file": "/Users/tyamada22/src/MihirakiPDFUtility_Android/shorts_output/scene_02_final.mp4", "duration": 22.270227, "narration_duration": 11.421134, "caption_starts": {"0": 0.0, "1": 12.289}, "bytes": 838067, "video": "h264", "audio": "aac"}
+/sdcard/shorts_scene_3.mp4: 1 file pulled, 0 skipped. 223.1 MB/s (4939034 bytes in 0.021s)
+{"scene": 3, "file": "/Users/tyamada22/src/MihirakiPDFUtility_Android/shorts_output/scene_03_final.mp4", "duration": 42.866667, "narration_duration": 13.759274, "caption_starts": {"0": 0.0, "1": 7.537, "2": 16.768, "3": 26.913}, "bytes": 1866734, "video": "h264", "audio": "aac"}
+/sdcard/shorts_scene_4.mp4: 1 file pulled, 0 skipped. 319.3 MB/s (4955330 bytes in 0.015s)
+{"scene": 4, "file": "/Users/tyamada22/src/MihirakiPDFUtility_Android/shorts_output/scene_04_final.mp4", "duration": 29.433333, "narration_duration": 11.717324, "caption_starts": {"0": 0.0, "1": 13.18}, "bytes": 1732692, "video": "h264", "audio": "aac"}
+Traceback (most recent call last):
+  File "/Users/tyamada22/src/MihirakiPDFUtility_Android/scripts/build_shorts.py", line 185, in <module>
+    time.sleep(.7);start=time.monotonic();marks={}
+                ^^^^^^
+  File "/Users/tyamada22/src/MihirakiPDFUtility_Android/scripts/build_shorts.py", line 177, in main
+    for scene in (range(1,6) if a.scene=='all' else [int(a.scene)]):
+            ^^^^^^^^^^^^^^^^^^^
+  File "/Users/tyamada22/src/MihirakiPDFUtility_Android/scripts/build_shorts.py", line 116, in actions
+    run(['adb','-s',DEVICE,'pull','/sdcard/Download/'+name,RAW/f'scene_05_export.pdf'],stdout=subprocess.DEVNULL)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Exported PDF not found in Downloads
