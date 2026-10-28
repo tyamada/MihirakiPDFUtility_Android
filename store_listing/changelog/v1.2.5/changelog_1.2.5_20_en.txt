@@ -1,0 +1,3 @@
+v1.2.5
+- Enhanced R8 full mode optimizations and ProGuard rules for improved DEX code optimization, obfuscation, and compression.
+- Refined accessibility semantics and overall stability.
