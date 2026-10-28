@@ -30,4 +30,5 @@ logs/
 # YouTube Shorts output and raw assets
 shorts_output/
 shorts_raw_assets/
+shorts_raw/
 
