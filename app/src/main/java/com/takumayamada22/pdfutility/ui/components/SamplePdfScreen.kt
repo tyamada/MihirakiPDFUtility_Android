@@ -138,13 +138,13 @@ fun SamplePdfScreen(
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
-                                "© 2026 Komairo Biyori / CC BY 4.0",
+                                "© 2026 Komairo Hiyori / CC BY 4.0",
                                 style = MaterialTheme.typography.titleSmall
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
                                 "Parts of this work are provided under the Creative Commons Attribution 4.0 International (CC BY 4.0) license.\n" +
-                                "Attribution: \"The Try-It Club\" by Komairo Biyori.",
+                                "Attribution: \"The Try-It Club\" by Komairo Hiyori.",
                                 style = MaterialTheme.typography.bodySmall
                             )
                         }
