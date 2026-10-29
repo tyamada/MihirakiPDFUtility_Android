@@ -1,0 +1,4 @@
+v1.2.6
+- Updated tutorial video guide links to point directly to the official YouTube Shorts tutorial playlist.
+- Enhanced R8 full mode optimizations and ProGuard rules for improved DEX optimization, obfuscation, and compression.
+- Enhanced accessibility semantics and overall stability.
