@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MihirakiPDFUtility</string>
+    <string name="action_open">Buka</string>
+    <string name="action_save">Simpan</string>
+    <string name="action_undo">Buat Asal</string>
+    <string name="action_redo">Buat Semula</string>
+    <string name="action_add_pdf">Tambah PDF</string>
+    <string name="action_toggle_rtl">Togel RTL</string>
+    <string name="action_toggle_view">Togel Paparan</string>
+    <string name="action_select_all">Pilih Semua</string>
+    <string name="action_invert_selection">Songsangkan Pilihan</string>
+    <string name="action_export_selected">Eksport Terpilih</string>
+    <string name="action_split_pages">Pisahkan Halaman</string>
+    <string name="action_rotate_left">Putar Kiri</string>
+    <string name="action_rotate_right">Putar Kanan</string>
+    <string name="action_insert_blank">Masukkan Kosong</string>
+    <string name="action_move_up">Alih ke Belakang</string>
+    <string name="action_move_down">Alih ke Hadapan</string>
+    <string name="action_delete">Padam</string>
+    <string name="action_clear_selection">Kosongkan Pilihan</string>
+    <string name="action_close">Tutup</string>
+    <string name="action_settings">Tetapan</string>
+    <string name="action_apply">Guna</string>
+    <string name="action_cancel">Batal</string>
+    <string name="action_unlock">Buka Kunci</string>
+    <string name="action_run">Jalankan</string>
+    <string name="action_clear">Kosongkan</string>
+    <string name="action_set">Tetapkan</string>
+    <string name="action_back">Kembali</string>
+    <string name="action_purchase">Beli</string>
+
+    <string name="dialog_password_title">Kata Laluan Diperlukan</string>
+    <string name="dialog_password_desc">PDF ini dilindungi kata laluan.</string>
+    <string name="dialog_password_label">Kata Laluan</string>
+    <string name="dialog_delete_title">Padam Halaman</string>
+    <string name="dialog_delete_desc">Adakah anda pasti mahu memadamkan %1$d halaman terpilih?</string>
+
+    <string name="error_load_failed">Gagal memuatkan PDF</string>
+    <string name="error_append_failed">Gagal menambah PDF</string>
+    <string name="error_export_failed">Gagal mengeksport halaman</string>
+    <string name="error_save_failed">Gagal menyimpan PDF</string>
+    <string name="error_incorrect_password">Kata laluan salah</string>
+
+    <string name="settings_title">Tetapan PDF</string>
+    <string name="settings_property">Ciri</string>
+    <string name="settings_password">Kata Laluan</string>
+    <string name="settings_options">Pilihan</string>
+    <string name="settings_version">Versi</string>
+    <string name="settings_help">Bantuan</string>
+    <string name="settings_diagnostics">Diagnosis</string>
+    <string name="diagnostics_screen_title">Diagnosis Apl &amp; Log Audit</string>
+    <string name="diagnostics_screen_desc">Jalankan diagnosis komprehensif dan ujian penanda aras (ujian fungsi, ujian pengeditan, ujian beban 1000 halaman, ujian prestasi carian menggunakan PDF ujian dinamik), semak log audit tempatan, dan laporkan isu.</string>
+    <string name="run_comprehensive_diagnostics">Jalankan Diagnosis &amp; Penanda Aras</string>
+    <string name="diagnostics_screen_privacy">Log mengandungi petua penyelesaian masalah teknikal (spesifikasi peranti, penggunaan memori, sejarah operasi, dan butiran ralat masa jalan) dan mengecualikan sebarang data peribadi dengan ketat.</string>
+    <string name="support">Sokongan</string>
+
+    <string name="prop_filename">Nama Fail</string>
+    <string name="prop_title">Tajuk</string>
+    <string name="prop_author">Pengarang</string>
+    <string name="prop_subtitle">Sub-tajuk</string>
+    <string name="prop_keywords">Kata Kunci</string>
+    <string name="prop_pdf_version">Versi PDF: %1$s</string>
+    <string name="prop_display_settings">Tetapan Paparan</string>
+    <string name="prop_page_layout">Susun Atur Halaman</string>
+    <string name="prop_show_cover">Tunjukkan Muka Depan</string>
+    <string name="prop_scroll_direction">Arah Tatal</string>
+    <string name="prop_page_display">Paparan Halaman</string>
+
+    <string name="layout_single">Halaman Tunggal</string>
+    <string name="layout_one_column">Satu Lajur</string>
+    <string name="layout_two_column_left">Dua Lajur Kiri</string>
+    <string name="layout_two_column_right">Dua Lajur Kanan</string>
+    <string name="layout_two_page_left">Dua Halaman Kiri</string>
+    <string name="layout_two_page_right">Dua Halaman Kanan</string>
+
+    <string name="display_single">Paparan Halaman Tunggal</string>
+    <string name="display_one_column">Halaman Tunggal, Tatal Aktif</string>
+    <string name="display_two_column_left">Paparan Bersebelahan, Tatal Aktif</string>
+    <string name="display_two_column_right">Paparan Bersebelahan, Dengan Muka Depan, Tatal Aktif</string>
+    <string name="display_two_page_left">Paparan Bersebelahan</string>
+    <string name="display_two_page_right">Paparan Bersebelahan, Dengan Muka Depan</string>
+
+    <string name="security_title">Keselamatan</string>
+    <string name="security_desc">Tetapkan kata laluan untuk menyimpan/eksport.</string>
+    <string name="security_password_label">Kata Laluan Pengeulitan</string>
+    <string name="security_not_set">Belum ditetapkan</string>
+    <string name="security_leave_empty">Biarkan kosong jika tiada kata laluan</string>
+
+    <string name="version_app_name">MihirakiPDFUtility</string>
+    <string name="version_number">Versi: %1$s</string>
+    <string name="version_build">Bina: %1$s</string>
+    <string name="version_copyright">© 2026 Takuma Yamada</string>
+
+    <string name="split_title">Pisahkan Halaman</string>
+    <string name="split_desc">Pilih arah pemisahan.</string>
+    <string name="split_vertical">Pemisahan Menegak (Kiri/Kanan)</string>
+    <string name="split_horizontal">Pemisahan Melintang (Atas/Bawah)</string>
+
+    <string name="crop_title">Potong Margin</string>
+    <string name="crop_desc">Tentukan peratusan untuk dipotong dari setiap sisi.</string>
+    <string name="crop_percent">%1$d%% Dipotong</string>
+
+    <string name="preview_page_counter">Halaman %1$d / %2$d</string>
+
+    <string name="tip_message">Jika anda menikmati apl ini, anda boleh menyokong pembangunannya.</string>
+    <string name="purchase_thanks">Terima kasih! Sokongan %1$s diterima.</string>
+    <string name="purchase_cancelled">Pembelian dibatalkan.</string>
+    <string name="purchase_failed">Pembelian gagal. Sila cuba lagi.</string>
+
+    <string name="privacy_policy_title">Dasar Privasi</string>
+    <string name="privacy_policy_content">Mihiraki PDF Utility menghormati privasi anda dan komited untuk melindungi data peribadi anda.\n\n• Pemprosesan Tempatan: Semua operasi PDF dilakukan sepenuhnya pada peranti anda.\n• Tiada Penghantaran Luaran: Kandungan dokumen, nama fail, dan maklumat peribadi tidak pernah dihantar ke pelayan luaran.\n• Log Audit: Log operasi tempatan disimpan sementara pada peranti dan tidak merangkumi data peribadi.\n• Analitis / Iklan: Kami mematuhi piawaian keselamatan data Google Play dengan ketat.</string>
+    <string name="tutorial_dont_show_again">Jangan tunjukkan lagi</string>
+    <string name="update_app">Kemas Kini Apl</string>
+    <string name="check_for_updates">Semak Kemas Kini</string>
+    <string name="update_not_found">Apl sudah berada pada versi terkini.</string>
+    <string name="update_check_error">Gagal menyemak kemas kini: %1$s</string>
+    <string name="update_check_rate_limit">Sila tunggu sebentar sebelum menyemak semula.</string>
+</resources>
