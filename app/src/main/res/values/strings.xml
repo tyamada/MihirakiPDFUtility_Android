@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">MihirakiPDFUtility</string>
+    <string name="app_name">Mihiraki: Two-Page PDF Utility</string>
     <string name="action_open">Open</string>
     <string name="action_save">Save</string>
     <string name="action_undo">Undo</string>
@@ -124,7 +124,7 @@
     <string name="security_not_set">Not set</string>
     <string name="security_leave_empty">Leave empty for no password</string>
 
-    <string name="version_app_name">MihirakiPDFUtility</string>
+    <string name="version_app_name">Mihiraki: Two-Page PDF Utility</string>
     <string name="version_number">Version: %1$s</string>
     <string name="version_build">Build: %1$s</string>
     <string name="version_copyright">© 2026 Takuma Yamada</string>
