@@ -1,5 +1,6 @@
 package com.takumayamada22.pdfutility.ui.components
 
+import androidx.core.net.toUri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -148,7 +149,7 @@ fun TutorialScreen(viewModel: PdfViewModel) {
                     val context = LocalContext.current
                     OutlinedButton(
                         onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/playlist?list=PLa-QGEwHSDRo"))
+                            val intent = Intent(Intent.ACTION_VIEW, "https://www.youtube.com/playlist?list=PLa-QGEwHSDRo".toUri())
                             context.startActivity(intent)
                         },
                         modifier = Modifier.height(38.dp)

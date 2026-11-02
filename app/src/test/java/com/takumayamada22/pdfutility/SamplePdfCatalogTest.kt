@@ -18,15 +18,19 @@ class SamplePdfCatalogTest {
             val expectedSize = if (language in listOf("en", "ja", "ko", "zh_cn", "zh_tw")) 3 else 2
             assertEquals(language, expectedSize, episodes.size)
         }
+        // Committed checksums remain independent of ignored local testdata in CI.
+        val checksums = File(root, "docs/sample/SHA256SUMS").readLines().associate {
+            val parts = it.split("  ", limit = 2)
+            parts[1] to parts[0]
+        }
+        assertEquals(items.map { it.fileName }.toSet(), checksums.keys)
         items.forEach { item ->
-            assertEquals("https://tyamada.github.io/MihirakiPDFViewer_Android/sample/${item.fileName}", item.url)
-            val sourceFile = File(root, "testdata/${item.fileName}")
+            assertEquals("https://tyamada.github.io/MihirakiPDFUtility_Android/sample/${item.fileName}", item.url)
             val published = File(root, "docs/sample/${item.fileName}")
-            val source = if (sourceFile.isFile) sourceFile else published
-            assertTrue("Missing source: $source", source.isFile && source.length() > 0)
             assertTrue("Missing distribution copy: $published", published.isFile && published.length() > 0)
-            val sha = MessageDigest.getInstance("SHA-256")
-            assertArrayEquals(item.fileName, sha.digest(source.readBytes()), sha.digest(published.readBytes()))
+            val actual = MessageDigest.getInstance("SHA-256").digest(published.readBytes())
+                .joinToString("") { "%02x".format(it.toInt() and 0xff) }
+            assertEquals(item.fileName, checksums[item.fileName], actual)
         }
     }
 }

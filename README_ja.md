@@ -2,9 +2,18 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-Android向けの強力で直感的なPDFユーティリティアプリです。**見開き（2ページスプレッド表示）**に特化しており、自炊した書籍、漫画、ビジネス文書の管理に最適です。
+Android向けの強力で直感的なPDFユーティリティアプリです。仕事・学業・提出書類のPDF整理や、**見開き（2ページスプレッド表示）**による自炊書籍・漫画の管理に最適です。
 
-[**Webサイト (日本語)**](https://tyamada.github.io/MihirakiPDFUtility_Android/) | [**English Website**](https://tyamada.github.io/MihirakiPDFUtility_Android/index_en.html) | [**English README (README.md)**](README.md)
+[**Webサイト (日本語)**](https://tyamada.github.io/MihirakiPDFUtility_Android/index_ja.html) | [**English Website**](https://tyamada.github.io/MihirakiPDFUtility_Android/) | [**English README (README.md)**](README.md)
+
+
+## リリース候補
+
+候補版：<!-- current-app-version:start -->1.2.7 (23)<!-- current-app-version:end -->。クローズドテスト公開とPlay経由の更新確認は未完了です。
+
+サンプルPDFは第1話順／最新話順に並べ替えでき、再起動後も選択した順序を保持します。ダウンロード元は本アプリ自身の公開サンプルです。
+
+開発用の `scripts/run_device_tests_and_save.py --serial <端末番号>` は既定で端末情報の収集だけを行います。Debug試験は専用端末で `--mode debug` を明示し、Play版のある端末は保護します。手動確認を自動で合格にしたり、検証一覧を書き換えたりしません。[リリース準備報告書](docs/CLOSED_TEST_RELEASE_PROGRESS_1.2.7_23.ja.md)も参照してください。
 
 ## 🚀 主な機能
 
@@ -14,7 +23,7 @@ Android向けの強力で直感的なPDFユーティリティアプリです。*
 | ✂️ **スマートページ分割** | 見開き1ページを2つのページに分割。垂直（左右）と水平（上下）の両方の分割方向をサポートします。 |
 | 🔀 **ドラッグ＆ドロップ並べ替え** | サムネイルをドラッグするだけでページ順序を整理。直感的なインターフェースで編集が捗ります。 |
 | ➕ **結合と追加** | 複数のPDFファイルを1つに結合したり、既存のPDFにページを追加したりできます。 |
-| 🖥️ **アダプティブメニューとカスタマイズ** | デスクトップやスマホ横画面向けの水平メニューバーと、スマホ縦画面向けのカテゴリ別ボトムシートメニューの自動切り替え、およびオプションからのツールバーボタンカスタマイズ。 |
+| 🖥️ **アダプティブメニューとカスタマイズ** | 画面幅840dp以上の水平メニューバーと、小さい画面向けのカテゴリ別オーバーフローメニューの自動切り替え、およびオプションからのツールバーボタンカスタマイズ。 |
 | 🔒 **セキュリティ＆プライバシー** | アプリ内プライバシーポリシー画面、パスワード保護、メタデータ編集、自動サニタイズ、ローカル監査ログ。 |
 | 🌟 **インタラクティブチュートリアル** | 初回起動時の分かりやすいガイド画面。サンプルPDFの即時試用や、ヘルプからのいつでも再確認に対応。 |
 | 🔍 **総合診断・ベンチマーク** | アプリ内で動的生成するテストPDFを活用した総合診断・ベンチマークテストの実行と、端末内ローカル監査ログ（24時間自動保持・外部送信なし）の確認が可能。 |
@@ -23,7 +32,7 @@ Android向けの強力で直感的なPDFユーティリティアプリです。*
 
 ### 機能紹介
 
-<img src="store_listing/MihirakiPDFUtility-feature-graphic.png" alt="Feature Showcase" width="100%" style="margin: 20px 0; border-radius: 8px;">
+<img src="docs/images/feature-graphic-ja.png" alt="Feature Showcase" width="100%" style="margin: 20px 0; border-radius: 8px;">
 
 ### 画面イメージ
 
@@ -31,9 +40,9 @@ Android向けの強力で直感的なPDFユーティリティアプリです。*
 
 | デバイス | 表示 | 画像 |
 | :--- | :--- | :--- |
-| **スマートフォン** | 見開き表示 | <img src="store_listing/screenshots/smartphone/2_mihiraki_view.png" width="300" height="auto" style="margin: 5px;"> |
-| **タブレット** | ページ分割 | <img src="store_listing/screenshots/tablet_10/1_main_grid.png" width="300" height="auto" style="margin: 5px;"> |
-| **ChromeOS** | デスクトップUI | <img src="store_listing/screenshots/chromebook/6_support_diarlog.png" width="300" height="auto" style="margin: 5px;"> |
+| **スマートフォン** | 見開き表示 | <img src="docs/screenshots/smartphone/ja_phone_02_spread_landscape.png" width="300" height="auto" style="margin: 5px;"> |
+| **タブレット** | ページ分割 | <img src="docs/screenshots/tablet_10/ja_tablet10_04_split_landscape.png" width="300" height="auto" style="margin: 5px;"> |
+| **ChromeOS** | デスクトップUI | <img src="docs/screenshots/chromebook/ja_desktop_02_spread_landscape.png" width="300" height="auto" style="margin: 5px;"> |
 
 ## 🌐 多言語サポート
 

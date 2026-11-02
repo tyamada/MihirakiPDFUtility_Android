@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <plurals name="dialog_delete_desc">
+    <item quantity="other">선택한 %1$d페이지를 삭제할까요?</item>
+  </plurals>
+</resources>

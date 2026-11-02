@@ -1,0 +1,5 @@
+v1.2.7
+- Beispiel-PDFs ab Kapitel 1 oder dem neuesten Kapitel sortieren.
+- Download-Adressen der Beispiel-PDFs korrigiert.
+- Übersetzungen, Symbole und die Unterstützungsansicht bei großer Schrift verbessert.
+- Stabilität und Fehlerprotokollierung verbessert.

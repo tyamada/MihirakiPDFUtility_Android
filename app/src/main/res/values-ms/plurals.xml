@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <plurals name="dialog_delete_desc">
+    <item quantity="other">Padam halaman dipilih (%1$d)?</item>
+  </plurals>
+</resources>

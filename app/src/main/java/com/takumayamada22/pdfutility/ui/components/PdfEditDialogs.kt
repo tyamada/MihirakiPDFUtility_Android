@@ -62,7 +62,7 @@ fun CropDialog(
     onConfirm: (Float) -> Unit
 ) {
     if (show) {
-        var sliderValue by remember { mutableStateOf(0.1f) }
+        var sliderValue by remember { mutableFloatStateOf(0.1f) }
         AlertDialog(
             onDismissRequest = onDismiss,
             title = { Text(stringResource(R.string.crop_title)) },

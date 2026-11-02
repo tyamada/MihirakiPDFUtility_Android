@@ -1,0 +1,5 @@
+v1.2.7
+- Sort sample PDFs from Chapter 1 or the latest chapter.
+- Fixed sample PDF download destinations.
+- Improved translations, icons, and large-text support screen layout.
+- Improved stability and error logging.

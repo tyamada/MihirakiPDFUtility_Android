@@ -34,15 +34,12 @@
     <string name="dialog_password_desc">このPDFはパスワードで保護されています。</string>
     <string name="dialog_password_label">パスワード</string>
     <string name="dialog_delete_title">ページの削除</string>
-    <string name="dialog_delete_desc">選択された %1$d ページを削除してもよろしいですか？</string>
 
     <string name="error_load_failed">PDFの読み込みに失敗しました</string>
     <string name="error_append_failed">PDFの追加に失敗しました</string>
     <string name="error_export_failed">ページの書き出しに失敗しました</string>
     <string name="error_save_failed">PDFの保存に失敗しました</string>
     <string name="error_incorrect_password">パスワードが正しくありません</string>
-
-    <string name="settings_title">PDF設定</string>
     <string name="settings_property">プロパティ</string>
     <string name="settings_password">パスワード</string>
     <string name="settings_options">オプション</string>
@@ -56,30 +53,17 @@
     <string name="run_comprehensive_diagnostics">総合診断・ベンチマークテストを実行</string>
     <string name="report_github">GitHub Issueを開く</string>
     <string name="diagnostics_screen_privacy">ログには個人情報は一切含まれません。問題特定のための技術的ヒント（デバイス情報、メモリ使用量、操作履歴、および実行時エラーの詳細）のみが記録されます。</string>
-
-    <string name="options_title">サムネイル画像サイズ</string>
     <string name="options_size_s">小 (S)</string>
     <string name="options_size_m">中 (M)</string>
     <string name="options_size_l">大 (L)</string>
     <string name="options_desc">サムネイル画像のサイズを3段階(S/M/L)から選択してください。</string>
 
     <string name="help_title">使い方ガイド</string>
-    <string name="help_overview_title">1. 概要</string>
-    <string name="help_overview_text">見開きPDFユーティリティは、PDFのページ並び替え、見開き表示（右開き/左開き）、ページ削除、回転、分割、余白カット、メタデータ・パスワード設定、実機診断、ローカル監査ログ確認などが行える多機能アプリです。</string>
-    <string name="help_open_title">2. PDFの読み込みと保存</string>
-    <string name="help_open_text">「開く」アイコン（またはCtrl+O）からPDFファイルを選択します。編集後は「保存」（Ctrl+S）ですべてのページを保存するか、選択したページだけを「選択ページを保存」（Ctrl+E）で書き出せます。</string>
-    <string name="help_page_ops_title">3. ページ操作</string>
-    <string name="help_page_ops_text">ページをタップして選択すると、トップツールバーのボタンが全体操作（保存、PDF追加、設定など）からページ編集操作（回転、移動、分割、空白挿入、削除、選択ページのエクスポートなど）に自動的に切り替わります。</string>
-    <string name="help_display_title">4. 表示切り替え・デバイス対応</string>
-    <string name="help_display_text">「表示切替」アイコンで一覧（グリッド）表示と見開き表示を切り替えられます。「右開き切替（Toggle RTL）」で右開き（マンガ・和本向け）と左開き（LTR）の読み方向を相互に切り替え可能です。スマートフォン、タブレット、ChromeOSに対応しています。</string>
-    <string name="help_settings_title">5. 設定・診断・サポート</string>
-    <string name="help_settings_text">設定メニュー（歯車アイコンや応援ハートボタン）から、プロパティ、パスワード、オプション、バージョン、ヘルプ、診断、サポートの各項目を設定・確認できます。</string>
     <string name="help_item_overview"><b>アプリの概要:</b> 14言語に対応し、自炊書籍や漫画の閲覧・整理に特化した見開き表示（右開き/左開きRTL）機能を提供する多機能PDFユーティリティです。</string>
     <string name="help_item_open_save"><b>PDFの読み込みと保存:</b> 「開く」アイコン（またはCtrl+O）からPDFを読み込みます。「保存」（Ctrl+S）ですべてのページを保存するか、「選択ページを保存」（Ctrl+E）で必要なページだけを書き出せます。</string>
     <string name="help_item_page_ops"><b>ページ操作:</b> ページをタップして選択すると、トップバーのボタンが動的に切り替わります（非選択時は保存や設定、選択時は回転、移動、分割、白紙挿入、削除、選択ページのエクスポートなど）。</string>
     <string name="help_item_display_modes"><b>表示切り替え:</b> グリッド表示と見開き表示の切り替え、右開き(RTL)と左開き(LTR)の読み方向切り替えをサポートします。</string>
     <string name="help_item_device_optimization"><b>デバイス対応:</b> スマートフォン、タブレット、Foldableデバイス（折りたたみ端末）、およびデスクトップ（ChromeOSなど）に最適化されています。</string>
-    <string name="help_item_button_reference"><b>主なボタン・アイコンの機能一覧:</b><br />• <b>ファイル操作:</b> 開く、保存、PDF追加（結合）<br />• <b>選択操作:</b> すべて選択、選択解除、選択反転<br />• <b>ページ編集:</b> 回転、上下移動、分割、白紙挿入、削除、選択ページ書き出し<br />• <b>表示・設定:</b> グリッド/見開き切替、右開き(RTL)/左開き(LTR)切替、表紙付き設定、プロパティ、パスワード設定</string>
     <string name="help_item_properties"><b>プロパティ・メタデータ:</b> 文書のタイトル、作成者、サブタイトル、キーワード、PDFバージョン、ページレイアウトを設定できます。</string>
     <string name="help_item_security"><b>セキュリティ・パスワード:</b> PDFの保存やエクスポート時に適用する暗号化パスワードを設定・クリアできます。</string>
     <string name="help_item_options"><b>オプション設定:</b> サムネイル画像のサイズ（小/中/大）や、ボタンの表示形式（アイコン＋テキスト／アイコンのみ／テキストのみ）をカスタマイズできます。</string>
@@ -89,14 +73,12 @@
     <string name="help_item_audit_logs"><b>ローカル監査ログ:</b> プライバシー保護されたローカル操作・エラー監査ログ（24時間自動保持・個人情報不含）の閲覧やコピーが行えます。</string>
     <string name="help_item_report_issues"><b>問題を報告:</b> 「問題を報告」画面から診断結果やアプリログを一括コピーし、スムーズに不具合報告や問い合わせを行うことができます。</string>
     <string name="help_purchased_items">購入した応援バッジ</string>
-    <string name="help_no_purchased_items">購入した応援アイテムはまだありません。</string>
 
     <string name="prop_filename">ファイル名</string>
     <string name="prop_title">タイトル</string>
     <string name="prop_author">作成者</string>
     <string name="prop_subtitle">サブタイトル</string>
     <string name="prop_keywords">キーワード</string>
-    <string name="prop_pdf_version">PDFバージョン: %1$s</string>
     <string name="prop_pdf_version_label">PDFバージョン</string>
     <string name="prop_display_settings">表示設定</string>
     <string name="prop_page_layout">ページレイアウト</string>
@@ -117,12 +99,9 @@
     <string name="display_two_column_right">見開きページ表示、表紙を表示、スクロール有効</string>
     <string name="display_two_page_left">見開きページ表示</string>
     <string name="display_two_page_right">見開きページ表示、表紙を表示</string>
-
-    <string name="security_title">セキュリティ</string>
     <string name="security_desc">保存/書き出し時の閲覧パスワードを設定します。</string>
     <string name="security_password_label">閲覧パスワード</string>
     <string name="security_not_set">未設定</string>
-    <string name="security_leave_empty">未設定の場合は空欄のままにしてください</string>
 
     <string name="version_app_name">見開きPDFユーティリティ</string>
     <string name="version_number">バージョン: %1$s</string>
@@ -151,11 +130,7 @@
     <string name="action_property">プロパティ</string>
     <string name="action_right_binding">右綴じ</string>
     <string name="action_right_binding_cover">右綴じ・表紙</string>
-    <string name="run_diagnostics">診断テストを実行</string>
-    <string name="diagnostics_title">診断テスト結果</string>
-    <string name="diagnostics_privacy">※テスト結果は端末内のみに表示され、外部に送信する機能はありません。</string>
     <string name="share_results">結果を共有</string>
-    <string name="bulk_copy">一括コピー (診断結果とログ)</string>
     <string name="bulk_copy_success">診断レポートとアプリログをクリップボードに一括コピーしました</string>
     <string name="report_issue">問題を報告</string>
     <string name="report_include_title">報告に含める内容</string>
@@ -169,25 +144,21 @@
     <string name="privacy_protection">プライバシー保護</string>
     <string name="privacy_note_1">• PDFファイル本体や文書の内容、ファイル名、氏名などの個人情報を含めないでください。</string>
     <string name="privacy_note_2">• スクリーンショットや診断情報を共有する前にご確認ください。データは自動送信されません。</string>
-    <string name="results_copied">テスト結果をクリップボードにコピーしました</string>
-    <string name="device_info_format">端末: %1$s %2$s (Android %3$s)</string>
-    <string name="test_timestamp_format">日時: %1$s</string>
     <string name="view_app_logs">アプリログを表示</string>
-    <string name="logs_dialog_title">アプリ監査ログ</string>
-    <string name="logs_privacy">※ログは端末内のみに保存され、外部に送信する機能はありません。</string>
-    <string name="copy_logs">ログをクリップボードにコピー</string>
-    <string name="logs_copied">ログをクリップボードにコピーしました</string>
     <string name="share_logs">ログを共有</string>
     <string name="promo_code_help_title">プロモーションコードの利用方法</string>
     <string name="promo_code_help_message">プロモーションコードは、「応援」画面を開きいずれかの購入ボタンをタップ後、Google Play決済画面のお支払い方法メニューから「コードの利用」を選択して入力してください。</string>
     <string name="go_to_support">応援画面へ移動</string>
     <string name="sample_pdf">サンプルPDF</string>
     <string name="sample_pdfs">サンプルPDF</string>
+    <string name="sample_pdf_order_label">表示順: %1$s</string>
+    <string name="sample_pdf_order_from_episode_1">1話から</string>
+    <string name="sample_pdf_order_from_latest">最新話から</string>
     <string name="language_filter">言語フィルター</string>
     <string name="all_languages">すべて</string>
     <string name="sample_pdf_download">ダウンロード</string>
-    <string name="sample_pdf_downloading">ダウンロード中...</string>
-    <string name="sample_pdf_downloading_progress">ダウンロード中... %d%%</string>
+    <string name="sample_pdf_downloading">ダウンロード中…</string>
+    <string name="sample_pdf_downloading_progress">ダウンロード中… %d%%</string>
     <string name="sample_pdf_open">開く</string>
     <string name="sample_pdf_delete">削除</string>
     <string name="cellular_data_warning">モバイル通信の確認</string>
@@ -211,9 +182,6 @@
     <string name="btn_create_pdf_from_images">PDFを作成</string>
     <string name="menu_open_folder">フォルダを開く</string>
     <string name="commemorative_badge_title">製品版リリース記念 こよみバッジ</string>
-    <string name="commemorative_badge_desc">製品版リリースを記念して、公式作品「ためし部」のこよみバッジを無料で受け取れます！</string>
-    <string name="claim_free_badge">無料で受け取る</string>
-    <string name="badge_claimed_success">こよみバッジを受け取りました！</string>
     <string name="action_owned">購入済み</string>
 
     <string name="help_show_tutorial">使い方チュートリアルを見る</string>
@@ -231,8 +199,7 @@
     <string name="tutorial_title_4">表示モードとツールバーカスタマイズ</string>
     <string name="tutorial_desc_4">グリッド一覧と見開き表示を即座に切り替え。オプションからメインツールバーに表示するボタンを自由にカスタマイズできます。</string>
     <string name="tutorial_title_5">保存・エクスポートとプライバシー</string>
-    <string name="tutorial_desc_5">編集結果を保存（Ctrl+S）したり選択ページを書き出し。すべての処理は端末内で安全に行われ、プライバシーが保護されます。</string>
-<string name="help_item_devices" /><string name="diagnostics_endurance_title">Long-Running Stress Test</string><string name="diagnostics_endurance_desc">Select test duration and run continuous stress tests including 14-manga merge, 1100-page 9x append, editing stress, rotation, and foldable simulation.</string><string name="endurance_progress_text">Progress: Elapsed %1$d min / Target %2$d min</string><string name="endurance_iteration_text">Iteration: #%1$d</string><string name="endurance_course_text">Current Course: %1$s</string><string name="endurance_memory_text">Memory Usage: %1$d MB</string><string name="endurance_pattern_select">Test Course &amp; Pattern Selection:</string><string name="endurance_stop_test">Stop Test</string><string name="endurance_start_test">Start Test (%1$d min)</string><string name="download_all_test_files">Download All Test PDFs &amp; Samples</string><string name="cancel_download">Cancel Download</string><string name="endurance_running_banner">⚡ [Endurance Test Running] Elapsed: %1$d min / Target: %2$d min (#%3$d)</string><string name="endurance_stop_button">Stop</string><string name="processing_pdf_message">Processing &amp; merging PDF files…\nPlease wait.</string><string name="course_option_all">All Courses (Patterns 1–10)</string><string name="course_option_pattern_1">Pattern 1 (Multi-File Merge)</string><string name="course_option_pattern_2">Pattern 2 (1100p Append 9x)</string><string name="course_option_pattern_3">Pattern 3 (Merge + Editing Stress)</string><string name="course_option_pattern_4">Pattern 4 (Append + Editing Stress)</string><string name="course_option_pattern_5">Pattern 5 (Merge + Screen Rotation)</string><string name="course_option_pattern_6">Pattern 6 (Append + Screen Rotation)</string><string name="course_option_pattern_7">Pattern 7 (Merge + Foldable Simulation)</string><string name="course_option_pattern_8">Pattern 8 (Append + Foldable Simulation)</string><string name="course_option_pattern_9">Pattern 9 (Full Combination A)</string><string name="course_option_pattern_10">Pattern 10 (Full Combination B)</string>    <string name="help_category_getting_started">はじめての使い方</string>
+    <string name="tutorial_desc_5">編集結果を保存（Ctrl+S）したり選択ページを書き出し。すべての処理は端末内で安全に行われ、プライバシーが保護されます。</string><string name="diagnostics_endurance_title">長時間ストレステスト</string><string name="diagnostics_endurance_desc">時間を選択して、漫画14冊の結合、1100ページの9回追加、編集負荷、画面回転、折りたたみ状態のシミュレーションを連続実行します。</string><string name="endurance_progress_text">進捗：経過 %1$d 分／目標 %2$d 分</string><string name="endurance_iteration_text">繰り返し：%1$d 回目</string><string name="endurance_course_text">実行中のコース：%1$s</string><string name="endurance_memory_text">メモリ使用量：%1$d MB</string><string name="endurance_pattern_select">テストコースとパターンの選択：</string><string name="endurance_stop_test">テストを停止</string><string name="endurance_start_test">テストを開始（%1$d 分）</string><string name="download_all_test_files">テスト・サンプルPDFをすべてダウンロード</string><string name="cancel_download">ダウンロードをキャンセル</string><string name="endurance_running_banner">⚡【耐久テスト実行中】経過 %1$d 分／目標 %2$d 分（%3$d 回目）</string><string name="endurance_stop_button">停止</string><string name="processing_pdf_message">PDFを処理・結合しています…\nしばらくお待ちください。</string><string name="course_option_all">すべてのコース（パターン1〜10）</string><string name="course_option_pattern_1">パターン1（複数ファイルの結合）</string><string name="course_option_pattern_2">パターン2（1100ページを9回追加）</string><string name="course_option_pattern_3">パターン3（結合と編集負荷）</string><string name="course_option_pattern_4">パターン4（追加と編集負荷）</string><string name="course_option_pattern_5">パターン5（結合と画面回転）</string><string name="course_option_pattern_6">パターン6（追加と画面回転）</string><string name="course_option_pattern_7">パターン7（結合と折りたたみシミュレーション）</string><string name="course_option_pattern_8">パターン8（追加と折りたたみシミュレーション）</string><string name="course_option_pattern_9">パターン9（全機能組み合わせA）</string><string name="course_option_pattern_10">パターン10（全機能組み合わせB）</string>    <string name="help_category_getting_started">はじめての使い方</string>
     <string name="help_category_editing_features">編集を快適にする機能</string>
     <string name="help_category_toolbar_cheat_sheet">ボタン・アイコン一覧</string>
     <string name="help_category_settings_guide">設定とカスタマイズ</string>
@@ -295,4 +262,6 @@
     <string name="update_not_found">アプリは最新バージョンです。</string>
     <string name="update_check_error">更新の確認に失敗しました: %1$s</string>
     <string name="update_check_rate_limit">しばらく待ってから再度更新を確認してください。</string>
+    <string name="page_number_description">%1$dページ</string>
+    <string name="page_preview_action">ページをプレビュー</string>
 </resources>

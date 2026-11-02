@@ -9,6 +9,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Download
+import com.takumayamada22.pdfutility.data.SamplePdfSortOrder
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -106,6 +107,26 @@ fun SamplePdfScreen(
                             )
                         }
                     }
+                }
+            }
+
+            // Sort Order Link / Button
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 0.dp),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextButton(
+                    onClick = { viewModel.toggleSortOrder() },
+                    modifier = Modifier.testTag("btn_toggle_order")
+                ) {
+                    val orderText = when (uiState.sortOrder) {
+                        SamplePdfSortOrder.ASCENDING -> stringResource(R.string.sample_pdf_order_from_episode_1)
+                        SamplePdfSortOrder.DESCENDING -> stringResource(R.string.sample_pdf_order_from_latest)
+                    }
+                    Text(stringResource(R.string.sample_pdf_order_label, orderText))
                 }
             }
 

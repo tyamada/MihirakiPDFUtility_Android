@@ -14,8 +14,8 @@ android {
         applicationId = "com.takumayamada22.pdfutility"
         minSdk = 26
         targetSdk = 36
-        versionCode = 22
-        versionName = "1.2.6"
+        versionCode = 23
+        versionName = "1.2.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,10 +28,10 @@ android {
         }
 
         create("release") {
-            storeFile = rootProject.file("release-key.jks")
-            storePassword = props.getProperty("signing.storePassword") ?: "password123"
-            keyAlias = props.getProperty("signing.keyAlias") ?: "my-alias"
-            keyPassword = props.getProperty("signing.keyPassword") ?: "password123"
+            storeFile = rootProject.file(props.getProperty("signing.storeFile") ?: "release-key.jks")
+            storePassword = props.getProperty("signing.storePassword")
+            keyAlias = props.getProperty("signing.keyAlias")
+            keyPassword = props.getProperty("signing.keyPassword")
         }
     }
 
@@ -125,7 +125,8 @@ tasks.register("preBundleDocumentationCheck") {
         val requiredLocales = listOf(
             "values", "values-de", "values-es", "values-fr", "values-in",
             "values-it", "values-ja", "values-ko", "values-ne", "values-pt",
-            "values-tl", "values-vi", "values-zh-rCN", "values-zh-rTW"
+            "values-tl", "values-vi", "values-zh-rCN", "values-zh-rTW",
+            "values-ms", "values-zh-rHK"
         )
         val missingLocales = requiredLocales.filter { locale ->
             !File(resDir, "$locale/strings.xml").exists()
@@ -139,8 +140,13 @@ tasks.register("preBundleDocumentationCheck") {
         val baseStringsFile = File(resDir, "values/strings.xml")
         if (baseStringsFile.exists()) {
             val baseContent = baseStringsFile.readText()
+            val tagRegex = Regex("<string\\s+name=\"([^\"]+)\"([^>]*?)>")
+            val ignoredKeys = tagRegex.findAll(baseContent)
+                .filter { it.groupValues[2].contains("tools:ignore=\"MissingTranslation\"") }
+                .map { it.groupValues[1] }
+                .toSet()
             val nameRegex = Regex("<string\\s+name=\"([^\"]+)\"")
-            val baseKeys = nameRegex.findAll(baseContent).map { it.groupValues[1] }.toSet()
+            val baseKeys = nameRegex.findAll(baseContent).map { it.groupValues[1] }.toSet() - ignoredKeys
 
             requiredLocales.filter { it != "values" }.forEach { locale ->
                 val localeFile = File(resDir, "$locale/strings.xml")
@@ -163,7 +169,7 @@ tasks.register("preBundleDocumentationCheck") {
         val stringsFile = File(resDir, "values/strings.xml")
         if (stringsFile.exists()) {
             val content = stringsFile.readText()
-            val requiredHelpKeys = listOf("help_title", "help_overview_text", "help_page_ops_text", "help_display_text", "help_settings_text")
+            val requiredHelpKeys = listOf("help_title", "help_item_overview", "help_item_open_save", "help_item_page_ops", "help_item_display_modes", "help_item_properties", "help_item_diagnostics")
             val missingKeys = requiredHelpKeys.filter { !content.contains(it) }
             if (missingKeys.isNotEmpty()) {
                 throw GradleException("Missing required help screen string keys in strings.xml: $missingKeys")
