@@ -84,7 +84,7 @@ fun PdfPagePreview(
 @Composable
 fun ZoomableImage(bitmapProvider: suspend () -> Bitmap?) {
     var bitmap by remember { mutableStateOf<Bitmap?>(null) }
-    var scale by remember { mutableStateOf(1f) }
+    var scale by remember { mutableFloatStateOf(1f) }
     var offset by remember { mutableStateOf(Offset.Zero) }
 
     LaunchedEffect(bitmapProvider) {

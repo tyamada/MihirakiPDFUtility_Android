@@ -1,5 +1,6 @@
 package com.takumayamada22.pdfutility.domain
 
+import androidx.core.graphics.createBitmap
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -36,7 +37,7 @@ class ThumbnailProvider(private val context: Context) {
                 if (width <= 0 || height <= 0) {
                     return null
                 }
-                val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                val bmp = createBitmap(width, height, Bitmap.Config.ARGB_8888)
                 bmp.eraseColor(Color.WHITE)
                 page.render(bmp, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
                 bmp

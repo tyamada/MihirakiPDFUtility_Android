@@ -7,10 +7,13 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+// Persisted timestamps must remain parseable after a system language change.
+internal fun newLogDateFormat() = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT)
+
 object AppLogger {
     private const val LOG_FILE_NAME = "app_audit_logs.txt"
     private const val MAX_RETENTION_HOURS = 24L
-    private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    private val dateFormat = newLogDateFormat()
 
     @Synchronized
     fun log(context: Context, level: String, message: String) {

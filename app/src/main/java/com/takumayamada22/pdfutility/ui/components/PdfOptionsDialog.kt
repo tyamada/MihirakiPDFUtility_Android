@@ -1,5 +1,6 @@
 package com.takumayamada22.pdfutility.ui.components
 
+import androidx.core.net.toUri
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -219,13 +220,13 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
                     Button(
                         onClick = {
                             if (updateAvailable) {
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${context.packageName}")).apply {
+                                val intent = Intent(Intent.ACTION_VIEW, "market://details?id=${context.packageName}".toUri()).apply {
                                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 }
                                 try {
                                     context.startActivity(intent)
                                 } catch (_: Exception) {
-                                    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}"))
+                                    val webIntent = Intent(Intent.ACTION_VIEW, "https://play.google.com/store/apps/details?id=${context.packageName}".toUri())
                                     context.startActivity(webIntent)
                                 }
                             } else {

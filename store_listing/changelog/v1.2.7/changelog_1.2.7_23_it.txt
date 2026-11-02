@@ -1,0 +1,5 @@
+v1.2.7
+- Ordina i PDF di esempio dal primo capitolo o dal più recente.
+- Corretti gli indirizzi di download dei PDF di esempio.
+- Migliorati traduzioni, icone e schermata di supporto con caratteri grandi.
+- Migliorate stabilità e registrazione degli errori.

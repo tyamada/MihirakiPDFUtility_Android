@@ -24,8 +24,8 @@ internal fun PdfDiagnosticsDialog(viewModel: PdfViewModel) {
     var testResults by remember { mutableStateOf<String?>(null) }
     var showLogs by remember { mutableStateOf(false) }
     var logsText by remember { mutableStateOf("") }
-    var enduranceMinutes by remember { mutableStateOf(3) }
-    var selectedCourseIndex by remember { mutableStateOf(0) }
+    var enduranceMinutes by remember { mutableIntStateOf(3) }
+    var selectedCourseIndex by remember { mutableIntStateOf(0) }
     var courseDropdownExpanded by remember { mutableStateOf(false) }
     val courseOptions = listOf(
         stringResource(R.string.course_option_all),

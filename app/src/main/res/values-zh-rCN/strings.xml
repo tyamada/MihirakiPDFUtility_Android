@@ -32,15 +32,12 @@
     <string name="dialog_password_desc">此 PDF 受密码保护。</string>
     <string name="dialog_password_label">密码</string>
     <string name="dialog_delete_title">删除页面</string>
-    <string name="dialog_delete_desc">您确定要删除所选的 %1$d 页吗？</string>
 
     <string name="error_load_failed">加载 PDF 失败</string>
     <string name="error_append_failed">附加 PDF 失败</string>
     <string name="error_export_failed">导出页面失败</string>
     <string name="error_save_failed">保存PDF失败</string>
     <string name="error_incorrect_password">密码错误</string>
-
-    <string name="settings_title">PDF 设置</string>
     <string name="settings_property">属性</string>
     <string name="settings_password">密码</string>
     <string name="settings_version">版本</string>
@@ -56,7 +53,6 @@
     <string name="prop_author">作者</string>
     <string name="prop_subtitle">副标题</string>
     <string name="prop_keywords">关键字</string>
-    <string name="prop_pdf_version">PDF 版本: %1$s</string>
     <string name="prop_display_settings">显示设置</string>
     <string name="prop_page_layout">页面布局</string>
     <string name="prop_show_cover">显示封面</string>
@@ -76,12 +72,9 @@
     <string name="display_two_column_right">跨页视图，显示封面，启用滚动</string>
     <string name="display_two_page_left">跨页视图</string>
     <string name="display_two_page_right">跨页视图，显示封面</string>
-
-    <string name="security_title">安全性</string>
     <string name="security_desc">设置保存/导出时的密码。</string>
     <string name="security_password_label">加密密码</string>
     <string name="security_not_set">未设置</string>
-    <string name="security_leave_empty">如不设密码请留空</string>
 
     <string name="version_app_name">MihirakiPDFUtility</string>
     <string name="version_number">版本: %1$s</string>
@@ -106,11 +99,7 @@
     <string name="action_property">属性</string>
     <string name="action_right_binding">右翻页（右绑定）</string>
     <string name="action_right_binding_cover">右翻页与封面</string>
-    <string name="run_diagnostics">运行诊断测试</string>
-    <string name="diagnostics_title">诊断测试结果</string>
-    <string name="diagnostics_privacy">注意：测试结果仅在本地显示。没有外部传输测试结果的功能。</string>
     <string name="share_results">分享结果</string>
-    <string name="bulk_copy">批量复制（诊断与日志）</string>
     <string name="bulk_copy_success">诊断报告和日志已复制到剪贴板。</string>
     <string name="report_issue">报告问题</string>
     <string name="report_include_title">报告中包含的内容</string>
@@ -124,30 +113,23 @@
     <string name="privacy_protection">保护您的隐私</string>
     <string name="privacy_note_1">• 请勿包含实际PDF文件、文档内容、文件名或姓名等个人信息。</string>
     <string name="privacy_note_2">• 分享前请检查截图和诊断信息。数据不会自动发送。</string>
-    <string name="results_copied">结果已复制到剪贴板</string>
-    <string name="device_info_format">设备: %1$s %2$s (Android %3$s)</string>
-    <string name="test_timestamp_format">时间戳: %1$s</string>
     <string name="view_app_logs">查看应用日志</string>
-    <string name="logs_dialog_title">应用审计日志</string>
-    <string name="logs_privacy">注意：日志仅存储在本地设备上。没有外部传输日志的功能。</string>
-    <string name="copy_logs">复制日志到剪贴板</string>
-    <string name="logs_copied">日志已复制到剪贴板</string>
     <string name="share_logs">分享日志</string>
     <string name="promo_code_help_title">如何兑换优惠码</string>
     <string name="promo_code_help_message">要兑换优惠码，请打开“支持”画面，点击购买按钮，然后从Google Play付款方式菜单中选择“兑换”。</string>
     <string name="go_to_support">前往支持</string>
     <string name="sample_pdf">示例 PDF</string>
-    <string name="sample_pdfs" translatable="false">Sample PDFs</string>
-    <string name="language_filter" translatable="false">Language Filter</string>
-    <string name="all_languages" translatable="false">All</string>
-    <string name="sample_pdf_download" translatable="false">Download</string>
-    <string name="sample_pdf_downloading" translatable="false">Downloading...</string>
-    <string name="sample_pdf_downloading_progress" translatable="false">Downloading... %d%%</string>
-    <string name="sample_pdf_open" translatable="false">Open</string>
-    <string name="sample_pdf_delete" translatable="false">Delete</string>
-    <string name="cellular_data_warning" translatable="false">Cellular Data Warning</string>
-    <string name="cellular_data_message" translatable="false">You are currently on a cellular network. Downloading \"%1$s\" (%2$s) may consume a significant amount of mobile data. Do you want to proceed?</string>
-    <string name="error_prefix" translatable="false">Error: %s</string>
+    <string name="sample_pdfs">示例 PDF</string>
+    <string name="language_filter">语言筛选</string>
+    <string name="all_languages">全部</string>
+    <string name="sample_pdf_download">下载</string>
+    <string name="sample_pdf_downloading">下载中…</string>
+    <string name="sample_pdf_downloading_progress">下载中… %d%%</string>
+    <string name="sample_pdf_open">打开</string>
+    <string name="sample_pdf_delete">删除</string>
+    <string name="cellular_data_warning">移动数据提示</string>
+    <string name="cellular_data_message">您正在使用移动网络，下载“%1$s”（%2$s）可能消耗大量数据。是否继续？</string>
+    <string name="error_prefix">错误：%s</string>
     <string name="cc_by_dialog_title">示例 PDF 许可证 (CC BY 4.0)</string>
     <string name="cc_by_dialog_text">在修改或保存示例 PDF 之前，请阅读知识共享署名 4.0 国际（CC BY 4.0）条款：\n\n• 作者：Komairo Hiyori\n• 许可证：CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• 重复使用、修改或保存时，请显示标题、作者名、许可证链接，并注明所做的任何修改。\n\n注意：您完全可以自由修改和保存示例 PDF，不受限制。</string>
     <string name="cc_by_dialog_confirm">同意并继续</string>
@@ -166,13 +148,9 @@
     <string name="btn_create_pdf_from_images">创建 PDF</string>
     <string name="menu_open_folder">打开文件夹</string>
     <string name="commemorative_badge_title">发售纪念 Koyomi 徽章</string>
-    <string name="commemorative_badge_desc">免费领取官方“试阅部”Koyomi 徽章，以庆祝商业发售！</string>
-    <string name="claim_free_badge">免费领取</string>
-    <string name="badge_claimed_success">成功领取 Koyomi 徽章！</string>
     <string name="help_item_overview"><b>概述:</b> 支持14种语言，双页跨页视图（RTL/LTR），专为扫描书籍和漫画优化。</string>
     <string name="help_item_open_save"><b>打开与保存:</b> 点击打开图标（或Ctrl+O）加载PDF。使用保存（Ctrl+S）保存所有页面。</string>
     <string name="help_item_page_ops"><b>页面操作:</b> 拖放重排页面、旋转、删除、插入空白页、分割和裁剪边距。</string>
-    <string name="help_item_devices"><b>显示与设备:</b> 在网格视图和跨页视图之间切换。支持从右到左（RTL）阅读模式。</string>
     <string name="help_item_properties"><b>属性与元数据:</b> 配置文档标题、作者、主题、关键词、PDF版本和页面布局。</string>
     <string name="help_item_security"><b>安全与密码:</b> 设置或清除保存/导出受保护PDF的加密密码。</string>
     <string name="help_item_options"><b>选项与显示:</b> 自定义缩略图大小（小/中/大）和按钮显示类型。</string>
@@ -181,7 +159,6 @@
     <string name="help_item_audit_logs"><b>审计日志:</b> 查看受隐私保护的本地操作和运行时错误审计日志（自动保留24小时）。</string>
     <string name="help_item_report_issues"><b>报告问题:</b> 使用“报告问题”屏幕批量复制诊断报告和应用日志。</string>
     <string name="help_purchased_items">已购支持徽章</string>
-    <string name="help_no_purchased_items">尚未购买任何支持项目。</string>
     <string name="prop_pdf_version_label">PDF 版本</string>
     <string name="version_license_title">许可证与开源</string>
     <string name="version_license_text">在 Apache License 2.0 下分发。</string>
@@ -189,7 +166,6 @@
     <string name="purchase_badge_shown">支持徽章已显示在版本画面上。</string>
     <string name="help_item_display_modes"><b>显示模式:</b> 在网格视图和跨页视图之间切换。支持在从右到左（RTL）和从左到右（LTR）阅读方向之间切换。</string>
     <string name="help_item_device_optimization"><b>设备支持:</b> 完全针对智能手机、平板电脑、折叠屏设备以及桌面端（ChromeOS等，支持键盘快捷键和右键点击）进行了优化。</string>
-    <string name="help_item_button_reference"><b>工具栏按钮参考:</b><br />• <b>打开 / 保存 / 添加:</b> 加载PDF、保存所有页面、合并PDF。<br />• <b>选择:</b> 全选、清除选择或反向选择。<br />• <b>页面编辑:</b> 旋转、移动（上/下）、拆分、插入空白页、删除或导出所选页面。<br />• <b>视图与设置:</b> 切换视图（网格/跨页）、RTL/LTR阅读方向、封面布局、属性和密码安全。</string>
 
     <string name="help_show_tutorial">查看使用教程</string>
     <string name="tutorial_skip">跳过</string>
@@ -207,54 +183,54 @@
     <string name="tutorial_desc_4">在网格视图和跨页视图之间即时切换。支持从右到左（RTL）阅读模式。</string>
     <string name="tutorial_title_5">保存与导出</string>
     <string name="tutorial_desc_5">将所有页面保存为新PDF（Ctrl+S）或仅导出选定页面。一切准备就绪！</string>
-<string name="action_rotate_left">Rotate Left</string><string name="action_settings">Settings</string><string name="settings_options">Options</string><string name="settings_help">Help</string><string name="report_github">Report Issue on GitHub</string><string name="options_title">Thumbnail Image Size</string><string name="options_size_s">Small (S)</string><string name="options_size_m">Medium (M)</string><string name="options_size_l">Large (L)</string><string name="options_desc">Select thumbnail image size (S/M/L).</string><string name="help_title">App Guide &amp; Help</string><string name="help_overview_title">1. Overview</string><string name="help_overview_text">Mihiraki PDF Utility supports 14 languages, page reordering, spread view (RTL/LTR), deleting, rotating, splitting, margin cropping, metadata/password settings, diagnostics, and local audit logs.</string><string name="help_open_title">2. Opening &amp; Saving PDFs</string><string name="help_open_text">Tap the Open icon (or Ctrl+O) to load a PDF. Use Save (Ctrl+S) to save all pages, or Export Selected (Ctrl+E) to save selected pages.</string><string name="help_page_ops_title">3. Page Operations</string><string name="help_page_ops_text">Tap pages to select them. When pages are selected, the top toolbar buttons automatically switch from general controls (Save, Add, Settings) to page editing actions (Rotate, Move, Split, Insert Blank, Delete, Export Selected).</string><string name="help_display_title">4. Display Modes &amp; Devices</string><string name="help_display_text">Toggle between Grid and Spread views. Use Toggle RTL to switch between Right-to-Left (RTL) and Left-to-Right (LTR) reading directions (manga/books). Optimized for smartphones, tablets, and ChromeOS.</string><string name="help_settings_title">5. Settings, Diagnostics &amp; Support</string><string name="help_settings_text">From the settings menu (gear icon or support heart button), you can configure and view properties, password, options, version, help, diagnostics, and support items.</string><string name="action_owned">Owned</string><string name="diagnostics_endurance_title">Long-Running Stress Test</string><string name="diagnostics_endurance_desc">Select test duration and run continuous stress tests including 14-manga merge, 1100-page 9x append, editing stress, rotation, and foldable simulation.</string><string name="endurance_progress_text">Progress: Elapsed %1$d min / Target %2$d min</string><string name="endurance_iteration_text">Iteration: #%1$d</string><string name="endurance_course_text">Current Course: %1$s</string><string name="endurance_memory_text">Memory Usage: %1$d MB</string><string name="endurance_pattern_select">Test Course &amp; Pattern Selection:</string><string name="endurance_stop_test">Stop Test</string><string name="endurance_start_test">Start Test (%1$d min)</string><string name="download_all_test_files">Download All Test PDFs &amp; Samples</string><string name="cancel_download">Cancel Download</string><string name="endurance_running_banner">⚡ [Endurance Test Running] Elapsed: %1$d min / Target: %2$d min (#%3$d)</string><string name="endurance_stop_button">Stop</string><string name="processing_pdf_message">Processing &amp; merging PDF files…\nPlease wait.</string><string name="course_option_all">All Courses (Patterns 1–10)</string><string name="course_option_pattern_1">Pattern 1 (Multi-File Merge)</string><string name="course_option_pattern_2">Pattern 2 (1100p Append 9x)</string><string name="course_option_pattern_3">Pattern 3 (Merge + Editing Stress)</string><string name="course_option_pattern_4">Pattern 4 (Append + Editing Stress)</string><string name="course_option_pattern_5">Pattern 5 (Merge + Screen Rotation)</string><string name="course_option_pattern_6">Pattern 6 (Append + Screen Rotation)</string><string name="course_option_pattern_7">Pattern 7 (Merge + Foldable Simulation)</string><string name="course_option_pattern_8">Pattern 8 (Append + Foldable Simulation)</string><string name="course_option_pattern_9">Pattern 9 (Full Combination A)</string><string name="course_option_pattern_10">Pattern 10 (Full Combination B)</string>    <string name="help_category_getting_started">Getting Started</string>
-    <string name="help_category_editing_features">Editing Features</string>
-    <string name="help_category_toolbar_cheat_sheet">Toolbar Cheat Sheet</string>
-    <string name="help_category_settings_guide">Settings Guide</string>
-    <string name="help_category_diagnostics">Diagnostics</string>
+<string name="action_rotate_left">向左旋转</string><string name="action_settings">设置</string><string name="settings_options">选项</string><string name="settings_help">帮助</string><string name="report_github">报告问题（GitHub）</string><string name="options_size_s">小 (S)</string><string name="options_size_m">中 (M)</string><string name="options_size_l">大 (L)</string><string name="options_desc">选择缩略图尺寸（小/中/大）。</string><string name="help_title">应用指南与帮助</string><string name="action_owned">已拥有</string><string name="diagnostics_endurance_title">长时间压力测试</string><string name="diagnostics_endurance_desc">选择测试时长并执行持续压力测试，内容涵盖：14 份漫画合并、1100 页 9x 拼接、编辑压力测试、旋转操作以及折叠模拟。</string><string name="endurance_progress_text">进度：已用时 %1$d 分钟 / 目标时长 %2$d 分钟</string><string name="endurance_iteration_text">迭代次数：#%1$d</string><string name="endurance_course_text">当前任务：%1$s</string><string name="endurance_memory_text">内存占用：%1$d MB</string><string name="endurance_pattern_select">测试任务与模式选择：</string><string name="endurance_stop_test">停止测试</string><string name="endurance_start_test">开始测试（%1$d 分钟）</string><string name="download_all_test_files">下载所有测试 PDF 及示例文件</string><string name="cancel_download">取消下载</string><string name="endurance_running_banner">⚡ [耐久性测试运行中] 已耗时：%1$d 分钟 / 目标时长：%2$d 分钟 (#%3$d)</string><string name="endurance_stop_button">停止</string><string name="processing_pdf_message">正在处理并合并 PDF 文件……\n 请稍候。</string><string name="course_option_all">所有流程（模式 1–10）</string><string name="course_option_pattern_1">模式 1（多文件合并）</string><string name="course_option_pattern_2">模式 2（1100p 追加 9 次）</string><string name="course_option_pattern_3">模式 3（合并 + 编辑压力测试）</string><string name="course_option_pattern_4">模式 4（追加 + 编辑压力测试）</string><string name="course_option_pattern_5">模式 5（合并 + 屏幕旋转）</string><string name="course_option_pattern_6">模式 6（追加 + 屏幕旋转）</string><string name="course_option_pattern_7">模式 7（合并 + 折叠设备模拟）</string><string name="course_option_pattern_8">模式 8（追加 + 折叠设备模拟）</string><string name="course_option_pattern_9">模式 9（完整组合 A）</string><string name="course_option_pattern_10">模式 10（完整组合 B）</string>    <string name="help_category_getting_started">开始使用</string>
+    <string name="help_category_editing_features">编辑功能</string>
+    <string name="help_category_toolbar_cheat_sheet">工具栏速查表</string>
+    <string name="help_category_settings_guide">设置指南</string>
+    <string name="help_category_diagnostics">诊断</string>
 
-    <string name="help_toolbar_cheat_sheet_desc">A list of primary buttons and icons in the top toolbar.</string>
-    <string name="help_tool_open_title">Open</string>
-    <string name="help_tool_open_desc">Loads a PDF file.</string>
-    <string name="help_tool_save_title">Save</string>
-    <string name="help_tool_save_desc">Saves all pages as a PDF.</string>
-    <string name="help_tool_add_title">Add PDF</string>
-    <string name="help_tool_add_desc">Appends another PDF to the end.</string>
-    <string name="help_tool_select_all_title">Select All</string>
-    <string name="help_tool_select_all_desc">Selects all pages.</string>
-    <string name="help_tool_clear_title">Clear</string>
-    <string name="help_tool_clear_desc">Clears all page selections.</string>
-    <string name="help_tool_invert_title">Invert</string>
-    <string name="help_tool_invert_desc">Inverts the selection state.</string>
-    <string name="help_tool_rotate_title">Rotate</string>
-    <string name="help_tool_rotate_desc">Rotates selected pages in 90-degree increments.</string>
-    <string name="help_tool_move_title">Move</string>
-    <string name="help_tool_move_desc">Moves selected pages forward or backward.</string>
-    <string name="help_tool_split_title">Split</string>
-    <string name="help_tool_split_desc">Splits spread pages into left and right.</string>
-    <string name="help_tool_insert_blank_title">Insert Blank</string>
-    <string name="help_tool_insert_blank_desc">Inserts a blank page at the selected position.</string>
-    <string name="help_tool_delete_title">Delete</string>
-    <string name="help_tool_delete_desc">Deletes selected pages.</string>
-    <string name="help_tool_export_title">Export Selected</string>
-    <string name="help_tool_export_desc">Exports only selected pages.</string>
-    <string name="help_tool_toggle_view_title">Toggle View</string>
-    <string name="help_tool_toggle_view_desc">Switches between grid view and spread view.</string>
+    <string name="help_toolbar_cheat_sheet_desc">顶部工具栏中主要按钮和图标的列表。</string>
+    <string name="help_tool_open_title">打开</string>
+    <string name="help_tool_open_desc">加载 PDF 文件。</string>
+    <string name="help_tool_save_title">保存</string>
+    <string name="help_tool_save_desc">将所有页面保存为 PDF 文件。</string>
+    <string name="help_tool_add_title">添加 PDF</string>
+    <string name="help_tool_add_desc">在末尾追加另一个 PDF 文件。</string>
+    <string name="help_tool_select_all_title">全选</string>
+    <string name="help_tool_select_all_desc">选择所有页面。</string>
+    <string name="help_tool_clear_title">清除</string>
+    <string name="help_tool_clear_desc">清除所有页面选择。</string>
+    <string name="help_tool_invert_title">反选</string>
+    <string name="help_tool_invert_desc">反转选择状态。</string>
+    <string name="help_tool_rotate_title">旋转</string>
+    <string name="help_tool_rotate_desc">将所选页面按 90 度增量进行旋转。</string>
+    <string name="help_tool_move_title">移动</string>
+    <string name="help_tool_move_desc">向前或向后移动所选页面。</string>
+    <string name="help_tool_split_title">拆分</string>
+    <string name="help_tool_split_desc">将跨页拆分为左页和右页。</string>
+    <string name="help_tool_insert_blank_title">插入空白页</string>
+    <string name="help_tool_insert_blank_desc">在所选位置插入空白页。</string>
+    <string name="help_tool_delete_title">删除</string>
+    <string name="help_tool_delete_desc">删除所选页面。</string>
+    <string name="help_tool_export_title">导出所选页面</string>
+    <string name="help_tool_export_desc">仅导出所选页面。</string>
+    <string name="help_tool_toggle_view_title">切换视图</string>
+    <string name="help_tool_toggle_view_desc">在网格视图和跨页视图之间切换。</string>
     <string name="help_tool_rtl_title">RTL</string>
-    <string name="help_tool_rtl_desc">Switches between Right-to-Left (RTL) and Left-to-Right (LTR).</string>
-    <string name="help_tool_properties_title">Properties</string>
-    <string name="help_tool_properties_desc">Edits title and metadata.</string>
-    <string name="help_tool_settings_title">Settings</string>
-    <string name="help_tool_settings_desc">Configures password protection and options.</string>
+    <string name="help_tool_rtl_desc">在“从右向左”（RTL）和“从左向右”（LTR）阅读方向之间切换。</string>
+    <string name="help_tool_properties_title">属性</string>
+    <string name="help_tool_properties_desc">编辑标题和元数据。</string>
+    <string name="help_tool_settings_title">设置</string>
+    <string name="help_tool_settings_desc">配置密码保护及其他选项。</string>
 
-    <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
-    <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
-    <string name="help_category_menu_bar">Menu Bar &amp; Toolbar</string>
-    <string name="help_item_menu_bar">&lt;b&gt;Menu Bar:&lt;/b&gt; Access all file, edit, insert, view, options, and help functions via top menus.</string>
-    <string name="help_item_mobile_bottom_sheet">&lt;b&gt;Mobile Menu:&lt;/b&gt; On smartphones and tablets, tap the top-right 3-dot menu icon to open the categorized bottom sheet menu containing all functions.</string>
-    <string name="help_item_landscape_desktop_mode">&lt;b&gt;Landscape Mode:&lt;/b&gt; Rotating smartphones or tablets to landscape automatically switches to the desktop-like horizontal menu bar mode on wider screens.</string>
-    <string name="help_item_toolbar_customization">&lt;b&gt;Toolbar Customization:&lt;/b&gt; Go to Options > Toolbar Buttons to choose which action buttons appear in the main toolbar.</string>
-    <string name="help_item_privacy_policy">&lt;b&gt;Privacy Policy:&lt;/b&gt; View the in-app privacy policy and data safety commitments.</string>
+    <string name="report_intro_text">如果遇到任何问题，请查看以下信息。</string>
+    <string name="report_github_note">注意：需要 GitHub 账号。提交的信息可能会被公开可见。</string>
+    <string name="help_category_menu_bar">菜单栏与工具栏</string>
+    <string name="help_item_menu_bar">菜单栏：通过顶部菜单即可访问文件、编辑、插入、视图、选项及帮助等各项功能。</string>
+    <string name="help_item_mobile_bottom_sheet">&lt;b&gt;移动端菜单：&lt;/b&gt; 在智能手机和平板电脑上，点击右上角的“三点”菜单图标，即可打开包含各项功能的分类底部菜单。</string>
+    <string name="help_item_landscape_desktop_mode">&lt;b&gt;横屏模式：&lt;/b&gt; 将智能手机或平板电脑旋转至横屏状态时，界面会自动切换为类似桌面端的横向菜单栏模式。</string>
+    <string name="help_item_toolbar_customization">&lt;b&gt;工具栏自定义：&lt;/b&gt; 前往“选项” &gt; “工具栏按钮”，即可选择要在主工具栏中显示哪些功能按钮。</string>
+    <string name="help_item_privacy_policy">&lt;b&gt;隐私政策：&lt;/b&gt; 查看应用内的隐私政策及数据安全承诺。</string>
     <string name="menu_file">文件</string>
     <string name="menu_edit">编辑</string>
     <string name="menu_insert">插入</string>
@@ -263,11 +239,16 @@
     <string name="menu_help">帮助</string>
     <string name="options_visible_buttons_title">工具栏按钮</string>
     <string name="options_visible_buttons_desc">选择要在主工具栏中显示的按钮</string>
-    <string name="privacy_policy_title">Privacy Policy</string>
-    <string name="privacy_policy_content">Mihiraki PDF Utility respects your privacy and is committed to protecting your personal data.\n\n• Local Processing: All PDF operations are performed entirely on your device.\n• No External Transmission: Document contents, filenames, and personal information are never transmitted to external servers.\n• Audit Logs: Local operation logs are stored temporarily on-device and do not include personal data.\n• Analytics / Ads: We adhere strictly to Google Play data safety standards.</string>
+    <string name="privacy_policy_title">隐私政策</string>
+    <string name="privacy_policy_content">Mihiraki PDF Utility 尊重您的隐私，并致力于保护您的个人数据。\n\n• 本地处理：所有 PDF 操作（加载、编辑、保存、渲染）均完全在您的设备上完成。\n• 无外部传输：文档内容、文件名及个人信息绝不会被传输至外部服务器。\n• 审计日志：本地操作日志仅临时存储于设备端，且不包含任何个人数据。\n• 分析/广告：我们严格遵守 Google Play 的数据安全标准。</string>
     <string name="update_app">更新应用</string>
     <string name="check_for_updates">检查更新</string>
     <string name="update_not_found">应用已是最新版本。</string>
     <string name="update_check_error">检查更新失败：%1$s</string>
     <string name="update_check_rate_limit">请稍后再试。</string>
+    <string name="sample_pdf_order_label">顺序：%1$s</string>
+    <string name="sample_pdf_order_from_episode_1">从第1话开始</string>
+    <string name="sample_pdf_order_from_latest">从最新话开始</string>
+    <string name="page_number_description">第%1$d页</string>
+    <string name="page_preview_action">预览页面</string>
 </resources>

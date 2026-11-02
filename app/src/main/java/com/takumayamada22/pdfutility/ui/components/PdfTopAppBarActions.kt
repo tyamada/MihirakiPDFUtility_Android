@@ -1,5 +1,6 @@
 package com.takumayamada22.pdfutility.ui.components
 
+import androidx.core.net.toUri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
@@ -475,7 +476,7 @@ internal fun PdfActionButtons(
         ActionButton(
             onClick = { viewModel.rotateSelected(90) },
             enabled = !isBusy && uiState.selectedIndices.isNotEmpty(),
-            icon = { Icon(Icons.Default.RotateRight, contentDescription = stringResource(R.string.action_rotate_right)) },
+            icon = { Icon(Icons.AutoMirrored.Filled.RotateRight, contentDescription = stringResource(R.string.action_rotate_right)) },
             text = stringResource(R.string.action_rotate_right),
             displayType = displayType
         )
@@ -560,13 +561,13 @@ internal fun PdfActionButtons(
         val context = LocalContext.current
         ActionButton(
             onClick = {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${context.packageName}")).apply {
+                val intent = Intent(Intent.ACTION_VIEW, "market://details?id=${context.packageName}".toUri()).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }
                 try {
                     context.startActivity(intent)
                 } catch (_: Exception) {
-                    val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}"))
+                    val webIntent = Intent(Intent.ACTION_VIEW, "https://play.google.com/store/apps/details?id=${context.packageName}".toUri())
                     context.startActivity(webIntent)
                 }
             },

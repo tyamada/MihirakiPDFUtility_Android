@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <plurals name="dialog_delete_desc">
+    <item quantity="one">Excluir a página selecionada (%1$d)?</item>
+    <item quantity="other">Excluir as páginas selecionadas (%1$d)?</item>
+    <item quantity="many">Excluir as páginas selecionadas (%1$d)?</item>
+  </plurals>
+</resources>

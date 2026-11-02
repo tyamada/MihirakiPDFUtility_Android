@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <plurals name="dialog_delete_desc">
+    <item quantity="one">Delete the selected page (%1$d)?</item>
+    <item quantity="other">Delete the selected pages (%1$d)?</item>
+  </plurals>
+</resources>

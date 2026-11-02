@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,13 +31,14 @@ internal fun PdfSupportDialog(viewModel: PdfViewModel) {
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
+                .heightIn(max = LocalConfiguration.current.screenHeightDp.dp * 0.85f)
                 .imePadding(),
             shape = MaterialTheme.shapes.extraLarge,
             tonalElevation = AlertDialogDefaults.TonalElevation
         ) {
             Column(
                 modifier = Modifier
+                    .verticalScroll(rememberScrollState())
                     .padding(24.dp)
                     .fillMaxWidth()
             ) {
@@ -48,8 +50,6 @@ internal fun PdfSupportDialog(viewModel: PdfViewModel) {
 
                 Column(
                     modifier = Modifier
-                        .heightIn(max = 450.dp)
-                        .verticalScroll(rememberScrollState())
                         .fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
@@ -67,11 +67,14 @@ internal fun PdfSupportDialog(viewModel: PdfViewModel) {
                         val isOwned = purchasedTiers.contains(tier)
 
                         ElevatedCard(modifier = Modifier.fillMaxWidth()) {
-                            Row(
-                                modifier = Modifier.padding(12.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            Column(
+                                modifier = Modifier.padding(12.dp).fillMaxWidth(),
+                                verticalArrangement = Arrangement.spacedBy(12.dp)
                             ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                                ) {
                                 val iconRes = when (tier) {
                                     TipTier.BRONZE -> R.drawable.tip_bronze
                                     TipTier.SILVER -> R.drawable.tip_silver
@@ -90,7 +93,9 @@ internal fun PdfSupportDialog(viewModel: PdfViewModel) {
                                     )
                                     Text(priceText, style = MaterialTheme.typography.bodySmall)
                                 }
+                                }
                                 Button(
+                                    modifier = Modifier.align(Alignment.End),
                                     onClick = {
                                         product?.let { manager.purchase(context as Activity, it) }
                                     },

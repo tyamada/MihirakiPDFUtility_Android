@@ -1,5 +1,6 @@
 package com.takumayamada22.pdfutility.billing
 
+import androidx.core.content.edit
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
@@ -39,7 +40,7 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
 
     private fun savePurchasedTiers(tiers: Set<TipTier>) {
         val names = tiers.map { it.name }.toSet()
-        prefs.edit().putStringSet("purchased_tiers", names).apply()
+        prefs.edit { putStringSet("purchased_tiers", names) }
     }
 
     fun connect() {

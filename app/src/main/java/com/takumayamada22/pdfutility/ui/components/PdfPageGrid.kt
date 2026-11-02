@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.compose.ui.semantics.*
+import androidx.compose.ui.res.stringResource
+import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.ui.PageState
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
@@ -229,6 +231,8 @@ fun PageThumbnail(
     onDoubleTap: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val pageDescription = stringResource(R.string.page_number_description, pageNumber)
+    val previewLabel = stringResource(R.string.page_preview_action)
     val currentOnClick by rememberUpdatedState(onClick)
     val currentOnDoubleTap by rememberUpdatedState(onDoubleTap)
 
@@ -240,7 +244,12 @@ fun PageThumbnail(
                 color = if (isDropTarget) MaterialTheme.colorScheme.tertiary else if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
             )
             .semantics {
-                contentDescription = "Page $pageNumber${if (isSelected) ", selected" else ""}"
+                contentDescription = pageDescription
+                selected = isSelected
+                onClick { currentOnClick(); true }
+                customActions = listOf(CustomAccessibilityAction(previewLabel) {
+                    currentOnDoubleTap(); true
+                })
             }
             .pointerInput(page.id) {
                 detectTapGestures(

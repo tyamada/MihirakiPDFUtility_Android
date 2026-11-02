@@ -45,3 +45,17 @@ jobs:
 
     - name: Run unit tests
       run: ./gradlew testDebugUnitTest
+
+    - name: Validate translations, store metadata and public pages
+      run: |
+        python3 scripts/validate_localized_strings.py
+        python3 scripts/validate_plurals.py
+        python3 scripts/audit_english_residue.py
+        python3 scripts/validate_store_metadata.py
+        python3 scripts/validate_public_pages.py
+        python3 scripts/update_docs_and_listings.py
+
+    - name: Test safe device and document scripts
+      run: |
+        python3 -m unittest discover -s scripts -p 'test_run_device_tests_and_save.py'
+        python3 -m unittest discover -s scripts -p 'test_update_docs_and_listings.py'

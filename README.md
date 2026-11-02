@@ -2,9 +2,18 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-A powerful and intuitive PDF utility for Android, specializing in **Mihiraki (two-page spread view)**. It is optimized for managing scanned books, manga, and professional documents.
+A powerful and intuitive PDF utility for Android, specializing in organizing work, studies, submission documents, scanned books, and manga with **Mihiraki (two-page spread view)**.
 
-[**日本語サイト**](https://tyamada.github.io/MihirakiPDFUtility_Android/) | [**English Website**](https://tyamada.github.io/MihirakiPDFUtility_Android/index_en.html) | [**日本語 README (README_ja.md)**](README_ja.md)
+[**日本語サイト**](https://tyamada.github.io/MihirakiPDFUtility_Android/index_ja.html) | [**English Website**](https://tyamada.github.io/MihirakiPDFUtility_Android/) | [**日本語 README (README_ja.md)**](README_ja.md)
+
+
+## Release candidate
+
+Candidate: <!-- current-app-version:start -->1.2.7 (23)<!-- current-app-version:end -->. Closed-test publication and Play update verification are pending.
+
+Sample PDFs can be sorted from Chapter 1 or the latest chapter. The selected order is retained after restarting the app. Downloads use this app's own published sample files.
+
+For developers, `scripts/run_device_tests_and_save.py --serial <serial>` only collects installed-app information. Debug tests require `--mode debug` on a dedicated device; Play installations are protected. This tool does not certify manual checks or rewrite the verification list. See [the release preparation report](docs/CLOSED_TEST_RELEASE_PROGRESS_1.2.7_23.ja.md).
 
 ## 🚀 Key Features
 
@@ -14,7 +23,7 @@ A powerful and intuitive PDF utility for Android, specializing in **Mihiraki (tw
 | ✂️ **Smart Splitting** | Split double-page spreads into individual pages. Supports vertical and horizontal splitting. |
 | 🔀 **Drag & Drop Reordering** | Easily organize your PDF by dragging and dropping thumbnails. Intuitive page management. |
 | ➕ **Merge & Append** | Combine multiple PDF files into one, or add pages to existing documents. |
-| 🖥️ **Adaptive Menu & Customization** | Adaptive layout: horizontal menu bar for desktops and mobile landscape, and categorized bottom sheet menu for mobile portrait, plus customizable toolbar buttons via Options. |
+| 🖥️ **Adaptive Menu & Customization** | Adaptive layout: horizontal menu bar at widths of 840 dp or more, and a categorized overflow menu on smaller screens, plus customizable toolbar buttons via Options. |
 | 🔒 **Security & Privacy** | Dedicated in-app privacy policy, password protection, metadata editing, automatic active content sanitization, and local audit logs. |
 | 🌟 **Interactive Tutorial** | Guided step-by-step tutorial screen for first-time users with instant sample PDF trial and re-triggerable help. |
 | 🔍 **Diagnostics & Benchmarks** | Run in-app comprehensive diagnostics and benchmark tests using dynamic test PDFs, and review local audit logs (24-hour retention, offline/privacy-protected). |
@@ -23,7 +32,7 @@ A powerful and intuitive PDF utility for Android, specializing in **Mihiraki (tw
 
 ### Feature Showcase
 
-<img src="store_listing/MihirakiPDFUtility-feature-graphic.png" alt="Feature Showcase" width="100%" style="margin: 20px 0; border-radius: 8px;">
+<img src="docs/images/feature-graphic-en.png" alt="Feature Showcase" width="100%" style="margin: 20px 0; border-radius: 8px;">
 
 ### Visual Examples
 
@@ -31,9 +40,9 @@ Explore how the application functions across different device types:
 
 | Device | View | Image |
 | :--- | :--- | :--- |
-| **Smartphone** | Spread View | <img src="store_listing/screenshots/smartphone/2_mihiraki_view.png" width="300" height="auto" style="margin: 5px;"> |
-| **Tablet** | Smart Splitting | <img src="store_listing/screenshots/tablet_10/1_main_grid.png" width="300" height="auto" style="margin: 5px;"> |
-| **ChromeOS** | Desktop Interface | <img src="store_listing/screenshots/chromebook/6_support_diarlog.png" width="300" height="auto" style="margin: 5px;"> |
+| **Smartphone** | Spread View | <img src="docs/screenshots/smartphone/en_phone_02_spread_landscape.png" width="300" height="auto" style="margin: 5px;"> |
+| **Tablet** | Smart Splitting | <img src="docs/screenshots/tablet_10/en_tablet10_04_split_landscape.png" width="300" height="auto" style="margin: 5px;"> |
+| **ChromeOS** | Desktop Interface | <img src="docs/screenshots/chromebook/en_desktop_02_spread_landscape.png" width="300" height="auto" style="margin: 5px;"> |
 
 ## 🌐 Multi-language Support
 

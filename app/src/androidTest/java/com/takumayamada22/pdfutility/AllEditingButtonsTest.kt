@@ -40,6 +40,9 @@ class AllEditingButtonsTest {
         out.close()
 
         main {
+            vm.dismissTutorial()
+            vm.setButtonDisplayType(ButtonDisplayType.ICON_ONLY)
+            vm.setVisibleActionButtons(ActionButtonType.entries.toSet())
             vm.clearSelection()
             vm.loadPdf(Uri.fromFile(testFile))
         }
@@ -53,8 +56,15 @@ class AllEditingButtonsTest {
     }
 
     private fun clickAction(id: Int) {
-        val label = compose.activity.getString(id)
-        compose.onNodeWithContentDescription(label, useUnmergedTree = true).performClick()
+        if (id == R.string.settings_password) {
+            compose.onNodeWithContentDescription(compose.activity.getString(R.string.action_settings))
+                .performClick()
+            compose.onNode(hasText(compose.activity.getString(id)) and hasAnyAncestor(isPopup()))
+                .performScrollTo().performClick()
+        } else {
+            compose.onNodeWithContentDescription(compose.activity.getString(id), useUnmergedTree = true)
+                .performClick()
+        }
         compose.waitForIdle()
     }
 
@@ -63,11 +73,14 @@ class AllEditingButtonsTest {
         val state = { vm.uiState.value }
 
         // --- Phase 1: Unselected state buttons (Save, Undo, Redo, View, Property, Binding, Settings) ---
+        val beforeView = state().isMihirakiView
         clickAction(R.string.action_toggle_view)
-        assertTrue(state().isMihirakiView)
+        assertEquals(!beforeView, state().isMihirakiView)
+        if (!state().isMihirakiView) clickAction(R.string.action_toggle_view)
 
+        val beforeRtl = state().isRtl
         clickAction(R.string.action_toggle_rtl)
-        assertTrue(state().isRtl)
+        assertEquals(!beforeRtl, state().isRtl)
 
         clickAction(R.string.action_right_binding_cover)
         assertTrue(state().showCover)
@@ -77,8 +90,7 @@ class AllEditingButtonsTest {
         compose.onNodeWithText(compose.activity.getString(R.string.prop_title)).assertExists()
         main { vm.closeSettingsDialog() }
 
-        clickAction(R.string.action_settings)
-        compose.onNodeWithText(compose.activity.getString(R.string.settings_password)).performClick()
+        clickAction(R.string.settings_password)
         assertEquals(SettingsDialogType.PASSWORD, state().activeSettingsDialog)
         main { vm.closeSettingsDialog() }
 
@@ -130,7 +142,7 @@ class AllEditingButtonsTest {
         main { vm.clearSelection(); vm.toggleSelection(0) }
         clickAction(R.string.action_delete)
         compose.onNodeWithText(compose.activity.getString(R.string.dialog_delete_title)).assertExists()
-        compose.onAllNodesWithText(compose.activity.getString(R.string.action_delete)).get(1).performClick()
+        compose.onNode(hasText(compose.activity.getString(R.string.action_delete)) and hasClickAction()).performClick()
         waitForReady()
 
         // Clear Selection
@@ -156,7 +168,11 @@ class AllEditingButtonsTest {
         main {
             vm.savePdf(Uri.fromFile(saveFile))
         }
-        waitForReady()
-        assertTrue(saveFile.exists())
+        compose.waitUntil(90000) { saveFile.exists() && saveFile.length() > 0 && !state().isLoading }
+        assertNull(state().errorMessage)
+        PDDocument.load(saveFile).use { saved ->
+            assertEquals(state().pages.size, saved.numberOfPages)
+            state().pages.forEachIndexed { index, page -> assertEquals(page.rotation, saved.getPage(index).rotation) }
+        }
     }
 }

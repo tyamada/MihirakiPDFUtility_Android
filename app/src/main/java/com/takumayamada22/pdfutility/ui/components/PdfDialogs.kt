@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.ui.PdfUiState
@@ -58,7 +59,7 @@ fun DeleteConfirmationDialog(
         AlertDialog(
             onDismissRequest = onDismiss,
             title = { Text(stringResource(R.string.dialog_delete_title)) },
-            text = { Text(stringResource(R.string.dialog_delete_desc, selectedCount)) },
+            text = { Text(pluralStringResource(R.plurals.dialog_delete_desc, selectedCount, selectedCount)) },
             confirmButton = {
                 Button(
                     onClick = onConfirm,

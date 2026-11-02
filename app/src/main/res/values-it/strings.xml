@@ -34,15 +34,12 @@
     <string name="dialog_password_desc">Questo PDF è protetto da password.</string>
     <string name="dialog_password_label">Password</string>
     <string name="dialog_delete_title">Elimina pagine</string>
-    <string name="dialog_delete_desc">Sei sicuro di voler eliminare le %1$d pagine selezionate?</string>
 
     <string name="error_load_failed">Impossibile caricare il PDF</string>
     <string name="error_append_failed">Impossibile aggiungere il PDF</string>
     <string name="error_export_failed">Impossibile esportare le pagine</string>
     <string name="error_save_failed">Impossibile salvare il PDF</string>
     <string name="error_incorrect_password">Password errata</string>
-
-    <string name="settings_title">Impostazioni PDF</string>
     <string name="settings_property">Proprietà</string>
     <string name="settings_password">Password</string>
     <string name="settings_options">Opzioni</string>
@@ -56,33 +53,19 @@
     <string name="run_comprehensive_diagnostics">Esegui diagnostica completa e benchmark</string>
     <string name="report_github">Segnala problema su GitHub</string>
     <string name="diagnostics_screen_privacy">I log contengono suggerimenti tecnici per la risoluzione dei problemi (specifiche del dispositivo, utilizzo della memoria, cronologia delle operazioni e dettagli sugli errori di runtime) ed escludono rigorosamente qualsiasi dato personale.</string>
-
-    <string name="options_title">Dimensione immagine miniatura</string>
     <string name="options_size_s">Piccola (S)</string>
     <string name="options_size_m">Media (M)</string>
     <string name="options_size_l">Grande (L)</string>
     <string name="options_desc">Seleziona la dimensione dell\'immagine miniatura (S/M/L).</string>
 
     <string name="help_title">Guida e aiuto dell\'app</string>
-    <string name="help_overview_title">1. Panoramica</string>
-    <string name="help_overview_text">Mihiraki PDF Utility supporta 14 lingue, riordinamento delle pagine, vista affiancata (RTL/LTR), eliminazione, rotazione, divisione, ritaglio dei margini, impostazioni di metadati/password, diagnostica e log di audit locali.</string>
-    <string name="help_open_title">2. Apertura e salvataggio di PDF</string>
-    <string name="help_open_text">Tocca l\'icona Apri (o Ctrl+O) per caricare un PDF. Usa Salva (Ctrl+S) per salvare tutte le pagine, o Esporta selezionate (Ctrl+E) per salvare le pagine selezionate.</string>
-    <string name="help_page_ops_title">3. Operazioni sulle pagine</string>
-    <string name="help_page_ops_text">Tocca le pagine per selezionarle. Le pagine selezionate possono essere ruotate, eliminate, spostate, inserite con pagine vuote, divise (verticalmente/orizzontalmente) o ritagliate (ritaglio dei margini).</string>
-    <string name="help_display_title">4. Modalità di visualizzazione e dispositivi</string>
-    <string name="help_display_text">Passa dalla vista Griglia alla vista Affiancata. Usa Attiva/disattiva RTL per la modalità di lettura da destra a sinistra (manga/libri). Ottimizzato per smartphone, tablet e ChromeOS.</string>
-    <string name="help_settings_title">5. Impostazioni, diagnostica e supporto</string>
-    <string name="help_settings_text">Dal menu delle impostazioni (icona a forma di ingranaggio o pulsante cuore di supporto), puoi configurare e visualizzare i seguenti elementi:\n\n    • Proprietà: Configura titolo del documento, autore, oggetto, parole chiave, versione PDF e layout di pagina.\n    • Password: Imposta o cancella la password di crittografia per il salvataggio e l\'esportazione.\n    • Opzioni: Seleziona la dimensione della miniatura (Piccola/Media/Grande).\n    • Versione: Visualizza la versione dell\'app, il numero di build, le licenze, i badge acquistati e riscatta i codici promozionali.\n    • Aiuto: Mostra questa guida dell\'app.\n    • Diagnostica: Esegui test diagnostici di sistema, rivedi i log di audit operativi locali e di errore di runtime protetti da privacy (conservati automaticamente per 24 ore, escludendo rigorosamente i dati personali), condividi report e segnala problemi su GitHub.\n    • Supporto: Acquista elementi di supporto una tantum (Bronzo, Argento, Oro) o riscatta i codici promozionali di Google Play per sostenere lo sviluppo dell\'app.</string>
     <string name="help_purchased_items">Badge di supporto acquistati</string>
-    <string name="help_no_purchased_items">Nessun elemento di supporto ancora acquistato.</string>
 
     <string name="prop_filename">Nome file</string>
     <string name="prop_title">Titolo</string>
     <string name="prop_author">Autore</string>
     <string name="prop_subtitle">Sottotitolo</string>
     <string name="prop_keywords">Parole chiave</string>
-    <string name="prop_pdf_version">Versione PDF: %1$s</string>
     <string name="prop_pdf_version_label">Versione PDF</string>
     <string name="prop_display_settings">Impostazioni di visualizzazione</string>
     <string name="prop_page_layout">Layout pagina</string>
@@ -103,16 +86,13 @@
     <string name="display_two_column_right">Vista affiancata, mostra copertina, scorrimento abilitato</string>
     <string name="display_two_page_left">Vista affiancata</string>
     <string name="display_two_page_right">Vista affiancata, mostra copertina</string>
-
-    <string name="security_title">Sicurezza</string>
     <string name="security_desc">Imposta una password per il salvataggio/esportazione.</string>
     <string name="security_password_label">Password di crittografia</string>
     <string name="security_not_set">Non impostata</string>
-    <string name="security_leave_empty">Lascia vuoto per nessuna password</string>
 
     <string name="version_app_name">MihirakiPDFUtility</string>
     <string name="version_number">Versione: %1$s</string>
-    <string name="version_build">Build: %1$s</string>
+    <string name="version_build">Numero build: %1$s</string>
     <string name="version_copyright">© 2026 Takuma Yamada</string>
     <string name="version_license_title">Licenza e Open Source</string>
     <string name="version_license_text">Distribuito sotto Licenza Apache 2.0.\n\nSoftware di terze parti:\n• Apache PDFBox-Android (Copyright The Apache Software Foundation, Apache License 2.0)\n• AndroidX &amp; Jetpack Compose (Google LLC, Apache License 2.0)</string>
@@ -137,34 +117,24 @@
     <string name="action_property">Proprietà</string>
     <string name="action_right_binding">Rilegatura a destra</string>
     <string name="action_right_binding_cover">Rilegatura a destra e copertina</string>
-    <string name="run_diagnostics">Esegui test diagnostici</string>
-    <string name="diagnostics_title">Risultati dei test diagnostici</string>
-    <string name="diagnostics_privacy">Nota: I risultati dei test vengono visualizzati solo localmente. Non vi è alcuna funzione per trasmettere i risultati dei test esternamente.</string>
     <string name="share_results">Condividi risultati</string>
-    <string name="results_copied">Risultati copiati negli appunti</string>
-    <string name="device_info_format">Dispositivo: %1$s %2$s (Android %3$s)</string>
-    <string name="test_timestamp_format">Timestamp: %1$s</string>
     <string name="view_app_logs">Visualizza log dell\'app</string>
-    <string name="logs_dialog_title">Log di audit dell\'app</string>
-    <string name="logs_privacy">Nota: I log sono memorizzati solo localmente sul dispositivo. Non vi è alcuna funzione per trasmettere i log esternamente.</string>
-    <string name="copy_logs">Copia log negli appunti</string>
-    <string name="logs_copied">Log copiati negli appunti</string>
     <string name="share_logs">Condividi log</string>
     <string name="promo_code_help_title">Come riscattare il codice promozionale</string>
     <string name="promo_code_help_message">Per riscattare un codice promozionale, apri la schermata Supporto, tocca il pulsante di acquisto e seleziona "Riscatta" dal menu dei metodi di pagamento di Google Play.</string>
     <string name="go_to_support">Vai al supporto</string>
     <string name="sample_pdf">PDF di esempio</string>
-    <string name="sample_pdfs" translatable="false">Sample PDFs</string>
-    <string name="language_filter" translatable="false">Language Filter</string>
-    <string name="all_languages" translatable="false">All</string>
-    <string name="sample_pdf_download" translatable="false">Download</string>
-    <string name="sample_pdf_downloading" translatable="false">Downloading...</string>
-    <string name="sample_pdf_downloading_progress" translatable="false">Downloading... %d%%</string>
-    <string name="sample_pdf_open" translatable="false">Open</string>
-    <string name="sample_pdf_delete" translatable="false">Delete</string>
-    <string name="cellular_data_warning" translatable="false">Cellular Data Warning</string>
-    <string name="cellular_data_message" translatable="false">You are currently on a cellular network. Downloading \"%1$s\" (%2$s) may consume a significant amount of mobile data. Do you want to proceed?</string>
-    <string name="error_prefix" translatable="false">Error: %s</string>
+    <string name="sample_pdfs">PDF di esempio</string>
+    <string name="language_filter">Filtro lingua</string>
+    <string name="all_languages">Tutte</string>
+    <string name="sample_pdf_download">Scarica</string>
+    <string name="sample_pdf_downloading">Download in corso…</string>
+    <string name="sample_pdf_downloading_progress">Download… %d%%</string>
+    <string name="sample_pdf_open">Apri</string>
+    <string name="sample_pdf_delete">Elimina</string>
+    <string name="cellular_data_warning">Avviso dati mobili</string>
+    <string name="cellular_data_message">Stai usando la rete mobile. Scaricare «%1$s» (%2$s) può consumare molti dati. Continuare?</string>
+    <string name="error_prefix">Errore: %s</string>
     <string name="cc_by_dialog_title">Licenza PDF di esempio (CC BY 4.0)</string>
     <string name="cc_by_dialog_text">Prima di modificare o salvare il PDF di esempio, rivedi i termini della licenza Creative Commons Attribution 4.0 International (CC BY 4.0):\n\n• Autore: Komairo Hiyori\n• Licenza: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)\n• Quando riutilizzi, modifichi o salvi, mostra il titolo, il nome dell\'autore, il link della licenza e indica eventuali modifiche apportate.\n\nNota: Hai la totale libertà di modificare e salvare il PDF di esempio senza restrizioni.</string>
     <string name="cc_by_dialog_confirm">Accetta e procedi</string>
@@ -183,13 +153,9 @@
     <string name="btn_create_pdf_from_images">Crea PDF</string>
     <string name="menu_open_folder">Apri cartella</string>
     <string name="commemorative_badge_title">Badge Koyomi commemorativo del rilascio</string>
-    <string name="commemorative_badge_desc">Riscatta gratuitamente il badge ufficiale Koyomi "Tameshibu" per celebrare il rilascio commerciale!</string>
-    <string name="claim_free_badge">Riscatta badge gratuito</string>
-    <string name="badge_claimed_success">Badge Koyomi riscosso con successo!</string>
     <string name="help_item_overview">Panoramica: Supporta 14 lingue, viste a doppia pagina affiancate (RTL/LTR) ed è particolarmente ottimizzato per libri scansionati e manga.</string>
     <string name="help_item_open_save">Apertura e salvataggio: Tocca l icona Apri (o Ctrl+O) per caricare un PDF. Usa Salva (Ctrl+S) per salvare tutte le pagine o Esporta selezionate (Ctrl+E) per esportare le pagine desiderate.</string>
     <string name="help_item_page_ops">Operazioni sulle pagine: Riordina le pagine tramite trascina e rilascia, ruota, elimina, inserisci pagine vuote, dividi doppie pagine (verticale/orizzontale) e ritaglia i margini.</string>
-    <string name="help_item_devices">Visualizzazione e dispositivi: Passa dalla vista griglia alla vista affiancata. Supporta la modalità di lettura da destra a sinistra (RTL). Ottimizzato per smartphone, tablet, dispositivi pieghevoli e desktop (ChromeOS con scorciatoie da tastiera e clic destro).</string>
     <string name="help_item_properties">Proprietà e metadati: Configura titolo del documento, autore, oggetto, parole chiave, versione PDF e layout di pagina.</string>
     <string name="help_item_security">Sicurezza e password: Imposta o cancella le password di crittografia per il salvataggio e l esportazione di PDF protetti.</string>
     <string name="help_item_options">Opzioni e visualizzazione: Personalizza le dimensioni delle miniature (Piccola/Media/Grande) e i tipi di visualizzazione dei pulsanti (Icona + Testo / Solo icona / Solo testo).</string>
@@ -197,7 +163,6 @@
     <string name="help_item_diagnostics">Diagnostica: Esegui test diagnostici di sistema per verificare la funzionalità del processore PDF, l utilizzo della memoria e l accessibilità degli asset di esempio.</string>
     <string name="help_item_audit_logs">Log di audit: Rivedi i log di audit operativi locali e di errore di runtime protetti da privacy (conservati automaticamente per 24 ore).</string>
     <string name="help_item_report_issues">Segnala problemi: Usa la schermata "Segnala problemi" per copiare in blocco i report di diagnostica e i log dell app.</string>
-    <string name="bulk_copy">Copia in blocco (Diagnostica e log)</string>
     <string name="bulk_copy_success">Report diagnostico e log copiati negli appunti.</string>
     <string name="report_issue">Segnala problema</string>
     <string name="report_include_title">Includi nella tua segnalazione</string>
@@ -213,55 +178,54 @@
     <string name="privacy_note_2">• Si prega di verificare gli screenshot e le informazioni di diagnostica prima di condividerli. I dati non vengono inviati automaticamente.</string>
     <string name="help_item_display_modes"><b>Modalità di visualizzazione:</b> Passa dalla vista a griglia alla vista affiancata. Supporta l\'alternanza tra direzioni di lettura da destra a sinistra (RTL) e da sinistra a destra (LTR).</string>
     <string name="help_item_device_optimization"><b>Supporto dispositivi:</b> Completamente ottimizzato per smartphone, tablet, dispositivi pieghevoli e desktop (ChromeOS, ecc. con scorciatoie da tastiera e clic destro).</string>
-    <string name="help_item_button_reference"><b>Riferimento pulsanti della barra degli strumenti:</b><br />• <b>Apri / Salva / Aggiungi:</b> Carica PDF, salva tutte le pagine, unisci PDF.<br />• <b>Selezione:</b> Seleziona tutto, pulisci o inverti selezione.<br />• <b>Modifica pagine:</b> Ruota, sposta (su/giù), dividi, inserisci pagina vuota, elimina o esporta selezionate.<br />• <b>Visualizzazione &amp; Impostazioni:</b> Cambia vista (griglia/affiancata), direzione RTL/LTR, copertina, proprietà e protezione con password.</string>
-<string name="action_owned">Owned</string><string name="diagnostics_endurance_title">Long-Running Stress Test</string><string name="diagnostics_endurance_desc">Select test duration and run continuous stress tests including 14-manga merge, 1100-page 9x append, editing stress, rotation, and foldable simulation.</string><string name="endurance_progress_text">Progress: Elapsed %1$d min / Target %2$d min</string><string name="endurance_iteration_text">Iteration: #%1$d</string><string name="endurance_course_text">Current Course: %1$s</string><string name="endurance_memory_text">Memory Usage: %1$d MB</string><string name="endurance_pattern_select">Test Course &amp; Pattern Selection:</string><string name="endurance_stop_test">Stop Test</string><string name="endurance_start_test">Start Test (%1$d min)</string><string name="download_all_test_files">Download All Test PDFs &amp; Samples</string><string name="cancel_download">Cancel Download</string><string name="endurance_running_banner">⚡ [Endurance Test Running] Elapsed: %1$d min / Target: %2$d min (#%3$d)</string><string name="endurance_stop_button">Stop</string><string name="processing_pdf_message">Processing &amp; merging PDF files…\nPlease wait.</string><string name="course_option_all">All Courses (Patterns 1–10)</string><string name="course_option_pattern_1">Pattern 1 (Multi-File Merge)</string><string name="course_option_pattern_2">Pattern 2 (1100p Append 9x)</string><string name="course_option_pattern_3">Pattern 3 (Merge + Editing Stress)</string><string name="course_option_pattern_4">Pattern 4 (Append + Editing Stress)</string><string name="course_option_pattern_5">Pattern 5 (Merge + Screen Rotation)</string><string name="course_option_pattern_6">Pattern 6 (Append + Screen Rotation)</string><string name="course_option_pattern_7">Pattern 7 (Merge + Foldable Simulation)</string><string name="course_option_pattern_8">Pattern 8 (Append + Foldable Simulation)</string><string name="course_option_pattern_9">Pattern 9 (Full Combination A)</string><string name="course_option_pattern_10">Pattern 10 (Full Combination B)</string><string name="help_show_tutorial">Show Tutorial Guide</string><string name="tutorial_skip">Skip</string><string name="tutorial_next">Next</string><string name="tutorial_finish">Get Started</string><string name="tutorial_try_sample">Try Sample PDF</string><string name="tutorial_title_1">Welcome to Mihiraki PDF Utility</string><string name="tutorial_desc_1">Optimized for reading and organizing scanned books and manga with double-page spread views and RTL/LTR support across 14 languages.</string><string name="tutorial_title_2">Open &amp; Sample PDFs</string><string name="tutorial_desc_2">Tap Open (Ctrl+O) to load any PDF file, or try out the built-in sample PDF catalog right away.</string><string name="tutorial_title_3">Page Operations &amp; Editing</string><string name="tutorial_desc_3">Select pages with a tap to reorder, rotate, split spreads, insert blank pages, or delete unwanted pages easily.</string><string name="tutorial_title_4">Display Modes &amp; RTL Reading</string><string name="tutorial_desc_4">Switch between grid view and spread view instantly. Toggle right-to-left (RTL) reading mode for manga and traditional books.</string><string name="tutorial_title_5">Save &amp; Export</string><string name="tutorial_desc_5">Save all pages as a new PDF (Ctrl+S) or export selected pages only. You are all set to start!</string>    <string name="help_category_getting_started">Getting Started</string>
-    <string name="help_category_editing_features">Editing Features</string>
-    <string name="help_category_toolbar_cheat_sheet">Toolbar Cheat Sheet</string>
-    <string name="help_category_settings_guide">Settings Guide</string>
-    <string name="help_category_diagnostics">Diagnostics</string>
+<string name="action_owned">Di proprietà</string><string name="diagnostics_endurance_title">Stress test prolungato</string><string name="diagnostics_endurance_desc">Seleziona la durata del test ed esegui stress test continui, tra cui l\'unione di 14 manga, l\'aggiunta di 1100 pagine (9x), stress durante la modifica, rotazione e simulazione di dispositivi pieghevoli.</string><string name="endurance_progress_text">Avanzamento: Trascorso %1$d min / Obiettivo %2$d min</string><string name="endurance_iteration_text">Iterazione: #%1$d</string><string name="endurance_course_text">Fase corrente: %1$s</string><string name="endurance_memory_text">Utilizzo memoria: %1$d MB</string><string name="endurance_pattern_select">Selezione fase e sequenza del test:</string><string name="endurance_stop_test">Interrompi test</string><string name="endurance_start_test">Avvia test (%1$d min)</string><string name="download_all_test_files">Scarica tutti i PDF e i campioni del test</string><string name="cancel_download">Annulla download</string><string name="endurance_running_banner">⚡ [Test di resistenza in corso] Trascorso: %1$d min / Obiettivo: %2$d min (#%3$d)</string><string name="endurance_stop_button">Interrompi</string><string name="processing_pdf_message">Elaborazione e unione di PDF file…\nAttendere prego.</string><string name="course_option_all">Tutti i percorsi (Modelli 1–10)</string><string name="course_option_pattern_1">Modello 1 (Unione di più file)</string><string name="course_option_pattern_2">Modello 2 (Aggiunta di 1100 pagine, 9 volte)</string><string name="course_option_pattern_3">Modello 3 (Unione + Stress da modifica)</string><string name="course_option_pattern_4">Modello 4 (Aggiunta + Stress da modifica)</string><string name="course_option_pattern_5">Modello 5 (Unione + Rotazione dello schermo)</string><string name="course_option_pattern_6">Modello 6 (Aggiunta + Rotazione dello schermo)</string><string name="course_option_pattern_7">Modello 7 (Unione + Simulazione dispositivo pieghevole)</string><string name="course_option_pattern_8">Modello 8 (Aggiunta + Simulazione dispositivo pieghevole)</string><string name="course_option_pattern_9">Modello 9 (Combinazione completa A)</string><string name="course_option_pattern_10">Modello 10 (Combinazione completa B)</string><string name="help_show_tutorial">Mostra guida introduttiva</string><string name="tutorial_skip">Salta</string><string name="tutorial_next">Avanti</string><string name="tutorial_finish">Inizia</string><string name="tutorial_try_sample">Prova l\'esempio PDF</string><string name="tutorial_title_1">Benvenuti in Mihiraki PDF Utility</string><string name="tutorial_desc_1">Ottimizzato per la lettura e l\'organizzazione di libri e manga scansionati, con visualizzazione a doppia pagina e supporto per RTL/LTR in 14 lingue.</string><string name="tutorial_title_2">Open &amp; Sample PDFs</string><string name="tutorial_desc_2">Accedi a tutti gli strumenti tramite le barre dei menu in alto (su desktop o dispositivi mobili in orientamento orizzontale) oppure, se utilizzi un dispositivo mobile in orientamento verticale, tocca il menu con i tre puntini in alto a destra per aprire il pannello inferiore.</string><string name="tutorial_title_3">Operazioni sulle pagine e modifica</string><string name="tutorial_desc_3">Seleziona le pagine con un tocco per riordinarle, ruotarle, separare le doppie pagine, inserire pagine vuote o eliminare facilmente quelle indesiderate.</string><string name="tutorial_title_4">Modalità di visualizzazione e personalizzazione della barra degli strumenti</string><string name="tutorial_desc_4">Passa istantaneamente dalla visualizzazione a griglia a quella a doppia pagina (affiancata). Personalizza i pulsanti di azione da mostrare nella barra degli strumenti principale tramite le Opzioni.</string><string name="tutorial_title_5">Save &amp; Export</string><string name="tutorial_desc_5">Salva tutte le pagine come nuovo file PDF (Ctrl+S) oppure esporta solo le pagine selezionate. L\'intera elaborazione avviene localmente sul dispositivo, garantendo la massima tutela della privacy.</string>    <string name="help_category_getting_started">Primi passi</string>
+    <string name="help_category_editing_features">Funzioni di modifica</string>
+    <string name="help_category_toolbar_cheat_sheet">Riferimento barra strumenti</string>
+    <string name="help_category_settings_guide">Guida alle impostazioni</string>
+    <string name="help_category_diagnostics">Diagnostica</string>
 
-    <string name="help_toolbar_cheat_sheet_desc">A list of primary buttons and icons in the top toolbar.</string>
-    <string name="help_tool_open_title">Open</string>
-    <string name="help_tool_open_desc">Loads a PDF file.</string>
-    <string name="help_tool_save_title">Save</string>
-    <string name="help_tool_save_desc">Saves all pages as a PDF.</string>
-    <string name="help_tool_add_title">Add PDF</string>
-    <string name="help_tool_add_desc">Appends another PDF to the end.</string>
-    <string name="help_tool_select_all_title">Select All</string>
-    <string name="help_tool_select_all_desc">Selects all pages.</string>
-    <string name="help_tool_clear_title">Clear</string>
-    <string name="help_tool_clear_desc">Clears all page selections.</string>
-    <string name="help_tool_invert_title">Invert</string>
-    <string name="help_tool_invert_desc">Inverts the selection state.</string>
-    <string name="help_tool_rotate_title">Rotate</string>
-    <string name="help_tool_rotate_desc">Rotates selected pages in 90-degree increments.</string>
-    <string name="help_tool_move_title">Move</string>
-    <string name="help_tool_move_desc">Moves selected pages forward or backward.</string>
-    <string name="help_tool_split_title">Split</string>
-    <string name="help_tool_split_desc">Splits spread pages into left and right.</string>
-    <string name="help_tool_insert_blank_title">Insert Blank</string>
-    <string name="help_tool_insert_blank_desc">Inserts a blank page at the selected position.</string>
-    <string name="help_tool_delete_title">Delete</string>
-    <string name="help_tool_delete_desc">Deletes selected pages.</string>
-    <string name="help_tool_export_title">Export Selected</string>
-    <string name="help_tool_export_desc">Exports only selected pages.</string>
-    <string name="help_tool_toggle_view_title">Toggle View</string>
-    <string name="help_tool_toggle_view_desc">Switches between grid view and spread view.</string>
+    <string name="help_toolbar_cheat_sheet_desc">Pulsanti e icone principali della barra degli strumenti superiore.</string>
+    <string name="help_tool_open_title">Apri</string>
+    <string name="help_tool_open_desc">Carica un file PDF.</string>
+    <string name="help_tool_save_title">Salva</string>
+    <string name="help_tool_save_desc">Salva tutte le pagine in PDF.</string>
+    <string name="help_tool_add_title">Aggiungi PDF</string>
+    <string name="help_tool_add_desc">Aggiunge un altro PDF alla fine.</string>
+    <string name="help_tool_select_all_title">Seleziona tutto</string>
+    <string name="help_tool_select_all_desc">Seleziona tutte le pagine.</string>
+    <string name="help_tool_clear_title">Cancella</string>
+    <string name="help_tool_clear_desc">Deseleziona tutte le pagine.</string>
+    <string name="help_tool_invert_title">Inverti selezione</string>
+    <string name="help_tool_invert_desc">Inverte lo stato di selezione delle pagine.</string>
+    <string name="help_tool_rotate_title">Ruota</string>
+    <string name="help_tool_rotate_desc">Ruota le pagine selezionate a incrementi di 90 gradi.</string>
+    <string name="help_tool_move_title">Sposta</string>
+    <string name="help_tool_move_desc">Sposta le pagine selezionate avanti o indietro.</string>
+    <string name="help_tool_split_title">Dividi</string>
+    <string name="help_tool_split_desc">Divide le doppie pagine in sinistra e destra.</string>
+    <string name="help_tool_insert_blank_title">Inserisci pagina vuota</string>
+    <string name="help_tool_insert_blank_desc">Inserisce una pagina vuota nella posizione selezionata.</string>
+    <string name="help_tool_delete_title">Elimina</string>
+    <string name="help_tool_delete_desc">Elimina le pagine selezionate.</string>
+    <string name="help_tool_export_title">Esporta selezionate</string>
+    <string name="help_tool_export_desc">Esporta solo le pagine selezionate.</string>
+    <string name="help_tool_toggle_view_title">Cambia visualizzazione</string>
+    <string name="help_tool_toggle_view_desc">Alterna tra griglia e doppia pagina.</string>
     <string name="help_tool_rtl_title">RTL</string>
-    <string name="help_tool_rtl_desc">Switches between Right-to-Left (RTL) and Left-to-Right (LTR).</string>
-    <string name="help_tool_properties_title">Properties</string>
-    <string name="help_tool_properties_desc">Edits title and metadata.</string>
-    <string name="help_tool_settings_title">Settings</string>
-    <string name="help_tool_settings_desc">Configures password protection and options.</string>
+    <string name="help_tool_rtl_desc">Alterna tra lettura da destra a sinistra e da sinistra a destra.</string>
+    <string name="help_tool_properties_title">Proprietà</string>
+    <string name="help_tool_properties_desc">Modifica titolo e metadati.</string>
+    <string name="help_tool_settings_title">Impostazioni</string>
+    <string name="help_tool_settings_desc">Configura protezione con password e opzioni.</string>
 
-    <string name="report_intro_text">If you encounter any issues, please review the following information below.</string>
-    <string name="report_github_note">Note: A GitHub account is required. Submitted information may be publicly visible.</string>
-    <string name="help_category_menu_bar">Menu Bar &amp; Toolbar</string>
-    <string name="help_item_menu_bar">&lt;b&gt;Menu Bar:&lt;/b&gt; Access all file, edit, insert, view, options, and help functions via top menus.</string>
-    <string name="help_item_mobile_bottom_sheet">&lt;b&gt;Mobile Menu:&lt;/b&gt; On smartphones and tablets, tap the top-right 3-dot menu icon to open the categorized bottom sheet menu containing all functions.</string>
-    <string name="help_item_landscape_desktop_mode">&lt;b&gt;Landscape Mode:&lt;/b&gt; Rotating smartphones or tablets to landscape automatically switches to the desktop-like horizontal menu bar mode on wider screens.</string>
-    <string name="help_item_toolbar_customization">&lt;b&gt;Toolbar Customization:&lt;/b&gt; Go to Options > Toolbar Buttons to choose which action buttons appear in the main toolbar.</string>
-    <string name="help_item_privacy_policy">&lt;b&gt;Privacy Policy:&lt;/b&gt; View the in-app privacy policy and data safety commitments.</string>
+    <string name="report_intro_text">In caso di problemi, consulta le informazioni seguenti.</string>
+    <string name="report_github_note">Serve un account GitHub. Le informazioni inviate possono essere pubbliche.</string>
+    <string name="help_category_menu_bar">Barra dei menu e degli strumenti</string>
+    <string name="help_item_menu_bar">Barra dei menu: accedi a file, modifica, inserimento, vista, opzioni e guida.</string>
+    <string name="help_item_mobile_bottom_sheet">Menu mobile: tocca i tre punti in alto a destra per aprire le funzioni per categoria.</string>
+    <string name="help_item_landscape_desktop_mode">Modalità orizzontale: gli schermi più larghi mostrano automaticamente una barra dei menu orizzontale.</string>
+    <string name="help_item_toolbar_customization">Personalizza: scegli le azioni visibili in Opzioni &gt; Pulsanti barra strumenti.</string>
+    <string name="help_item_privacy_policy">Privacy: consulta l’informativa e gli impegni sulla sicurezza dei dati.</string>
     <string name="menu_file">File</string>
     <string name="menu_edit">Modifica</string>
     <string name="menu_insert">Inserisci</string>
@@ -270,12 +234,17 @@
     <string name="menu_help">Aiuto</string>
     <string name="options_visible_buttons_title">Pulsanti della barra degli strumenti</string>
     <string name="options_visible_buttons_desc">Seleziona quali pulsanti appaiono nella barra degli strumenti principale</string>
-    <string name="privacy_policy_title">Privacy Policy</string>
-    <string name="privacy_policy_content">Mihiraki PDF Utility respects your privacy and is committed to protecting your personal data.\n\n• Local Processing: All PDF operations are performed entirely on your device.\n• No External Transmission: Document contents, filenames, and personal information are never transmitted to external servers.\n• Audit Logs: Local operation logs are stored temporarily on-device and do not include personal data.\n• Analytics / Ads: We adhere strictly to Google Play data safety standards.</string>
+    <string name="privacy_policy_title">Informativa sulla privacy</string>
+    <string name="privacy_policy_content">Mihiraki PDF Utility rispetta la tua privacy e si impegna a proteggere i tuoi dati personali.\n\n• Elaborazione locale: tutte le operazioni sui file PDF (caricamento, modifica, salvataggio, rendering) vengono eseguite esclusivamente sul tuo dispositivo.\n• Nessuna trasmissione esterna: il contenuto dei documenti, i nomi dei file e le informazioni personali non vengono mai trasmessi a server esterni.\n• Log delle operazioni: i registri delle operazioni vengono memorizzati temporaneamente sul dispositivo e non contengono dati personali.\n• Analisi / Pubblicità: ci atteniamo rigorosamente agli standard di sicurezza dei dati di Google Play.</string>
     <string name="tutorial_dont_show_again">Non mostrare più</string>
     <string name="update_app">Aggiorna app</string>
     <string name="check_for_updates">Verifica aggiornamenti</string>
     <string name="update_not_found">L\'applicazione è aggiornata.</string>
     <string name="update_check_error">Impossibile verificare gli aggiornamenti: %1$s</string>
     <string name="update_check_rate_limit">Attendere prima di effettuare un nuovo controllo.</string>
+    <string name="sample_pdf_order_label">Ordine: %1$s</string>
+    <string name="sample_pdf_order_from_episode_1">Dal capitolo 1</string>
+    <string name="sample_pdf_order_from_latest">Dal capitolo più recente</string>
+    <string name="page_number_description">Pagina %1$d</string>
+    <string name="page_preview_action">Anteprima della pagina</string>
 </resources>

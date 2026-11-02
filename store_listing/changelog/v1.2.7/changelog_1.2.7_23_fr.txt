@@ -1,0 +1,5 @@
+v1.2.7
+- Triez les PDF exemples à partir du premier chapitre ou du plus récent.
+- Correction des adresses de téléchargement des PDF exemples.
+- Amélioration des traductions, des icônes et de l’écran de soutien avec de grands caractères.
+- Amélioration de la stabilité et des journaux d’erreurs.

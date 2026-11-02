@@ -1,276 +1,176 @@
 #!/usr/bin/env python3
-"""
-MihirakiPDFViewer Device Test Runner & Log Saver
-Connects to an attached physical device or emulator via ADB,
-executes comprehensive checks including:
-1. App deployment (clean uninstall & re-installation of debug APK) and startup log check (App started.)
-2. JVM Unit Tests (DomainLogicTest.kt via app:testDebug)
-3. Connected Instrumentation Test Suites (app:connectedDebugAndroidTest including AllEditingButtonsTest, StoreScreenshotTest, etc.)
-4. Python QA and regression test suites (test_capture_store_screenshots.py & test_review_store_screenshots.py)
-5. Verification list (VERIFICATION_LIST.md) update and version verification:
-   - Automatically updates corresponding Device Name row in VERIFICATION_LIST.md with current OS Version and App Version (Format: VersionName(VersionCode)), and sets Result to "No issues" (or error count on failure).
-and saves all reports and logs into a timestamped folder under `logs/`.
-"""
+"""Collect installed-app evidence by default; run Debug tests only on request.
 
-import os
-import sys
-import subprocess
-import shutil
-import time
+Never updates VERIFICATION_LIST.md: automated checks do not certify manual QA.
+"""
+import argparse
 from datetime import datetime
+import json
+import os
 from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import xml.etree.ElementTree as ET
+
+PACKAGE = 'com.takumayamada22.pdfutility'
+ACTIVITY = PACKAGE + '/com.takumayamada22.pdfutility.MainActivity'
+
 
 def get_env():
     env = os.environ.copy()
-    sdk_path = '/Users/tyamada22/Library/Android/sdk'
-    jbr_path = '/Applications/Android Studio.app/Contents/jbr/Contents/Home'
-    env['ANDROID_HOME'] = sdk_path
-    env['ANDROID_SDK_ROOT'] = sdk_path
-    env['JAVA_HOME'] = jbr_path
+    sdk = env.get('ANDROID_HOME') or env.get('ANDROID_SDK_ROOT')
+    if sdk:
+        env['PATH'] = str(Path(sdk) / 'platform-tools') + os.pathsep + env.get('PATH', '')
     return env
 
-def run_cmd(cmd, cwd=None, check=False):
-    print(f"[RUN] {' '.join(cmd) if isinstance(cmd, list) else cmd}")
-    res = subprocess.run(cmd, cwd=cwd, env=get_env(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-    if check and res.returncode != 0:
-        print(res.stdout)
-        raise RuntimeError(f"Command failed with exit code {res.returncode}: {cmd}")
-    return res.returncode, res.stdout
 
-def get_connected_devices():
-    code, out = run_cmd(['adb', 'devices'])
-    devices = []
-    for line in out.splitlines():
-        parts = line.strip().split()
-        if len(parts) == 2 and parts[1] == 'device':
-            devices.append(parts[0])
-    return devices
+def run_cmd(cmd, cwd=None, env=None):
+    try:
+        p = subprocess.run(cmd, cwd=cwd, env=env or get_env(), capture_output=True,
+                           text=True, timeout=1800)
+        return p.returncode, p.stdout + p.stderr
+    except (OSError, subprocess.TimeoutExpired) as e:
+        return 1, str(e)
 
-def update_verification_list(root_dir, device_serial, os_version, app_version_str, has_errors):
-    ver_list_path = root_dir / 'VERIFICATION_LIST.md'
-    if not ver_list_path.exists():
-        return "VERIFICATION_LIST.md not found"
 
-    lines = ver_list_path.read_text().splitlines()
-    updated_lines = []
-    updated = False
+def parse_version(text):
+    code = re.search(r'\bversionCode=(\d+)', text)
+    name = re.search(r'\bversionName=([^\s]+)', text)
+    return {'name': name.group(1), 'code': int(code.group(1))} if code and name else None
 
-    _, model_out = run_cmd(['adb', '-s', device_serial, 'shell', 'getprop', 'ro.product.model'])
-    model = model_out.strip()
 
-    result_str = "No issues" if not has_errors else "1"
+def parse_test_results(paths):
+    """Require actual JUnit results; a successful no-op Gradle task is insufficient."""
+    count = failures = errors = skipped = 0
+    for path in paths:
+        node = ET.parse(path).getroot()
+        suites = [node] if node.tag == 'testsuite' else list(node.iter('testsuite'))
+        for suite in suites:
+            count += int(suite.get('tests', 0))
+            failures += int(suite.get('failures', 0))
+            errors += int(suite.get('errors', 0))
+            skipped += int(suite.get('skipped', 0))
+    return {'tests': count, 'failures': failures, 'errors': errors, 'skipped': skipped,
+            'passed': count > 0 and failures == 0 and errors == 0 and skipped == 0}
 
-    for line in lines:
-        if line.startswith('|') and model in line and not 'Device Name' in line:
-            parts = [p.strip() for p in line.split('|')]
-            if len(parts) >= 8:
-                cat = parts[1]
-                mfg = parts[2]
-                dev = parts[3]
-                notes = parts[7]
-                line = f"| {cat.ljust(10)} | {mfg.ljust(12)} | {dev.ljust(21)} | {str(os_version).center(10)} | {app_version_str.center(11)} | {result_str.center(9)} | {notes.ljust(5)} |"
-                updated = True
-        updated_lines.append(line)
 
-    if updated:
-        ver_list_path.write_text("\n".join(updated_lines) + "\n")
-        msg = f"Successfully updated VERIFICATION_LIST.md for model '{model}': OS={os_version}, Version={app_version_str}, Result={result_str}"
-        print(msg)
-        return msg
-    else:
-        msg = f"Device model '{model}' not found in VERIFICATION_LIST.md table for direct update."
-        print(msg)
-        return msg
+def aggregate(steps, mode):
+    if any(s['status'] == 'failed' for s in steps):
+        return 'failed'
+    if any(s['status'] == 'not_run' for s in steps):
+        return 'incomplete'
+    return 'collected_manual_checks_pending' if mode == 'collect' else 'automated_checks_passed_manual_checks_pending'
 
-def main():
-    root_dir = Path(__file__).resolve().parent.parent
-    logs_base = root_dir / 'logs'
-    logs_base.mkdir(exist_ok=True)
 
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    devices = get_connected_devices()
-    if not devices:
-        print("ERROR: No connected Android devices or emulators found via ADB.", file=sys.stderr)
-        sys.exit(1)
+def parser():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--serial', required=True, help='Exact adb device serial; never chooses the first device')
+    p.add_argument('--mode', choices=['collect', 'debug'], default='collect')
+    p.add_argument('--clean-install', action='store_true', help='Debug only: deletes app data on a dedicated test device')
+    p.add_argument('--confirm-clean', help='Repeat the selected serial to acknowledge data deletion')
+    p.add_argument('--output', type=Path, help='New output directory (must not exist)')
+    return p
 
-    device_serial = devices[0]
-    session_dir = logs_base / f"{timestamp}_{device_serial}"
-    session_dir.mkdir(parents=True, exist_ok=True)
 
-    print(f"=== MihirakiPDFViewer Comprehensive Device Test & Log Saver ===")
-    print(f"Target Device: {device_serial}")
-    print(f"Output Directory: {session_dir}")
+def main(argv=None, root=None):
+    p = parser()
+    args = p.parse_args(argv)
+    if args.clean_install and (args.mode != 'debug' or args.confirm_clean != args.serial):
+        p.error('--clean-install requires --mode debug and --confirm-clean matching --serial')
+    root = root or Path(__file__).resolve().parent.parent
+    stamp = datetime.now().strftime('%Y%m%d_%H%M%S_%f')
+    safe_serial = re.sub(r'[^A-Za-z0-9_.-]', '_', args.serial)
+    dest = args.output or root / 'logs' / f'{stamp}_{safe_serial}'
+    dest.mkdir(parents=True, exist_ok=False)
+    env = get_env()
+    env['ANDROID_SERIAL'] = args.serial
+    adb = ['adb', '-s', args.serial]
+    record = {'timestamp': datetime.now().astimezone().isoformat(), 'serial': args.serial,
+              'mode': args.mode, 'installed_version': None, 'steps': [],
+              'manual_checks': 'not_run', 'verification_list_updated': False}
 
-    # 1. Collect Device Info & Diagnostics
-    print("\n--- 1. Collecting Device Info & Diagnostics ---")
-    device_info_path = session_dir / "device_info.txt"
-    info_lines = []
+    def step(name, cmd, valid=None):
+        code, output = run_cmd(cmd, cwd=root, env=env)
+        ok = code == 0 and (valid(output) if valid else True)
+        (dest / (name + '.log')).write_text(output)
+        record['steps'].append({'name': name, 'status': 'passed' if ok else 'failed', 'exit_code': code})
+        return ok, output
 
-    code, out = run_cmd(['adb', '-s', device_serial, 'shell', 'getprop'])
-    info_lines.append("=== ADB Getprop ===")
-    info_lines.append(out)
+    def finish():
+        record['result'] = aggregate(record['steps'], args.mode)
+        (dest / 'result.json').write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n')
+        (dest / 'summary_report.txt').write_text(
+            f"Result: {record['result']}\nMode: {args.mode}\nInstalled version: {record['installed_version']}\n"
+            + '\n'.join(f"{s['name']}: {s['status']}" for s in record['steps'])
+            + '\nManual Play upgrade, purchase restoration and TalkBack checks: NOT RUN\n'
+              'VERIFICATION_LIST.md was not modified. Review logs before sharing.\n')
+        print(f"{record['result']}: {dest}")
+        return 1 if record['result'] in ['failed', 'incomplete'] else 0
 
-    code, out = run_cmd(['adb', '-s', device_serial, 'shell', 'dumpsys', 'battery'])
-    info_lines.append("\n=== Battery Status ===")
-    info_lines.append(out)
+    ok, _ = step('device', adb + ['get-state'], lambda x: x.strip() == 'device')
+    if not ok:
+        return finish()
+    for key, prop in [('model', 'ro.product.model'), ('android', 'ro.build.version.release')]:
+        ok, text = step(key, adb + ['shell', 'getprop', prop], lambda x: bool(x.strip()))
+        record[key] = text.strip() if ok else None
 
-    code, out = run_cmd(['adb', '-s', device_serial, 'shell', 'dumpsys', 'meminfo', 'com.github.tyamada.MihirakiPDFViewer_Android'])
-    info_lines.append("\n=== App Memory Info ===")
-    info_lines.append(out)
+    ok, text = step('package_before', adb + ['shell', 'dumpsys', 'package', PACKAGE],
+                    lambda x: parse_version(x) is not None or (args.mode == 'debug' and 'Unable to find package' in x))
+    record['installed_version'] = parse_version(text) if ok else None
+    if args.mode == 'collect':
+        # No launch, install, uninstall, log clearing, Gradle or app state changes.
+        record['steps'].extend({'name': n, 'status': 'not_applicable'} for n in ['deployment', 'unit', 'instrumentation', 'python_qa'])
+        return finish()
 
-    device_info_path.write_text("\n".join(info_lines))
-    print(f"Saved device info to {device_info_path}")
+    # Debug suites change state. Keep Play-installed apps out of this workflow.
+    if re.search(r'\binstallerPackageName=com\.android\.vending(?:\s|$)', text):
+        record['steps'].append({'name': 'protect_play_install', 'status': 'failed'})
+        print('Use a dedicated Debug test device; the selected device has a Play installation.', file=sys.stderr)
+        return finish()
+    if not ok:
+        return finish()
+    gradlew = str(root / ('gradlew.bat' if os.name == 'nt' else 'gradlew'))
+    ok, _ = step('build_debug', [gradlew, 'app:assembleDebug', 'app:assembleDebugAndroidTest'])
+    if not ok:
+        record['steps'].extend({'name': n, 'status': 'not_run'} for n in ['deployment', 'startup', 'unit', 'instrumentation', 'python_qa'])
+        return finish()
+    apk = root / 'app/build/outputs/apk/debug/app-debug.apk'
+    if args.clean_install and record['installed_version']:
+        ok, _ = step('uninstall', adb + ['uninstall', PACKAGE], lambda x: 'Success' in x)
+        if not ok:
+            return finish()
+    ok, _ = step('deployment', adb + ['install', '-r', str(apk)], lambda x: 'Success' in x)
+    if not ok:
+        return finish()
+    ok, text = step('package_after', adb + ['shell', 'dumpsys', 'package', PACKAGE], lambda x: parse_version(x) is not None)
+    record['installed_version'] = parse_version(text) if ok else None
+    step('startup', adb + ['shell', 'am', 'start', '-W', '-n', ACTIVITY], lambda x: 'Status: ok' in x and 'Error' not in x)
+    ok, pid = step('process', adb + ['shell', 'pidof', PACKAGE], lambda x: bool(re.fullmatch(r'\d+(\s+\d+)*', x.strip())))
+    if ok:
+        step('app_log', adb + ['logcat', '-d', '--pid=' + pid.split()[0], '-t', '500'])
+    # Rerun tasks to prevent stale/no-op XML from certifying a new run.
+    for name, task, result_dir in [
+        ('unit', 'app:testDebugUnitTest', 'app/build/test-results/testDebugUnitTest'),
+        ('instrumentation', 'app:connectedDebugAndroidTest', 'app/build/outputs/androidTest-results/connected')]:
+        if (root / result_dir).exists():
+            shutil.rmtree(root / result_dir)
+        ok, _ = step(name, [gradlew, task, '--rerun-tasks'])
+        paths = list((root / result_dir).rglob('TEST-*.xml'))
+        try:
+            data = parse_test_results(paths)
+        except (ET.ParseError, ValueError, OSError) as e:
+            data = {'passed': False, 'error': str(e)}
+        record[name + '_junit'] = data
+        if not ok or not data['passed']:
+            record['steps'][-1]['status'] = 'failed'
+        if paths:
+            shutil.copytree(root / result_dir, dest / (name + '_results'))
+    for script in ['test_capture_store_screenshots.py', 'test_review_store_screenshots.py']:
+        step(script[:-3], [sys.executable, str(root / 'scripts' / script)])
+    return finish()
 
-    # Get device OS version and model
-    _, os_ver_out = run_cmd(['adb', '-s', device_serial, 'shell', 'getprop', 'ro.build.version.release'])
-    os_version = os_ver_out.strip()
-
-    # Extract version name and code from build.gradle.kts
-    gradle_path = root_dir / 'app' / 'build.gradle.kts'
-    gradle_content = gradle_path.read_text() if gradle_path.exists() else ""
-    version_name = "2.0.0"
-    version_code = "32"
-    for line in gradle_content.splitlines():
-        if 'versionName' in line:
-            parts = line.split('=')
-            if len(parts) > 1:
-                version_name = parts[1].strip().strip('"\'')
-        elif 'versionCode' in line:
-            parts = line.split('=')
-            if len(parts) > 1:
-                version_code = parts[1].strip().strip('"\'')
-    app_version_fmt = f"{version_name}({version_code})"
-
-    # 2. Real-Device Deployment & Startup Verification (Item 1)
-    print("\n--- 2. Real-Device Deployment & Startup Verification ---")
-    run_cmd(['adb', '-s', device_serial, 'logcat', '-c'])
-
-    deploy_success = False
-    pkg_name = 'com.github.tyamada.MihirakiPDFViewer_Android'
-
-    print(f"Checking if package {pkg_name} is already installed...")
-    _, installed_packages = run_cmd(['adb', '-s', device_serial, 'shell', 'pm', 'list', 'packages', pkg_name])
-    if pkg_name in installed_packages:
-        print(f"Existing installation of {pkg_name} found. Uninstalling...")
-        run_cmd(['adb', '-s', device_serial, 'uninstall', pkg_name])
-    else:
-        print(f"No existing installation of {pkg_name} found.")
-
-    apk_path = root_dir / 'app' / 'build' / 'outputs' / 'apk' / 'debug' / 'app-debug.apk'
-    if apk_path.exists():
-        print(f"Found built APK at {apk_path}, installing via adb...")
-        install_code, install_out = run_cmd(['adb', '-s', device_serial, 'install', str(apk_path)])
-        deploy_success = (install_code == 0)
-    else:
-        print("APK not found at expected path. Attempting gradlew app:installDebug...")
-        gradlew = './gradlew.bat' if os.name == 'nt' else './gradlew'
-        install_code, install_out = run_cmd([gradlew, 'app:installDebug'], cwd=root_dir)
-        deploy_success = (install_code == 0)
-        if not deploy_success and apk_path.exists():
-            install_code, install_out = run_cmd(['adb', '-s', device_serial, 'install', str(apk_path)])
-            deploy_success = (install_code == 0)
-
-    # Start Main Activity
-    run_cmd(['adb', '-s', device_serial, 'shell', 'am', 'start', '-n', f'{pkg_name}/com.github.tyamada.mihirakipdfviewer_android.MainActivity'])
-    time.sleep(2)
-
-    code, logcat_out = run_cmd(['adb', '-s', device_serial, 'logcat', '-d'])
-    app_started_found = "App started." in logcat_out
-    print(f"App Deployment Success: {deploy_success}")
-    print(f"App Startup Log ('App started.') Verified: {app_started_found}")
-
-    # 3. Unit Tests Execution (Item 2 - DomainLogicTest.kt)
-    print("\n--- 3. Running JVM Unit Tests (app:testDebug - DomainLogicTest) ---")
-    gradlew = './gradlew.bat' if os.name == 'nt' else './gradlew'
-    unit_code, unit_out = run_cmd([gradlew, 'app:testDebug'], cwd=root_dir)
-    unit_test_log = session_dir / "unit_test_result.log"
-    unit_test_log.write_text(unit_out)
-    unit_test_success = (unit_code == 0)
-    print(f"Unit Tests Status: {'SUCCESS (Build finished successfully)' if unit_test_success else 'SKIPPED/FAILED (CLI Daemon)'}")
-
-    # 4. Connected Instrumentation Test Suites (Item 3 - LoadPerformanceTest, A11yTest, MetadataDetectionTest, NavigationTest, StoreScreenshotTest)
-    print("\n--- 4. Running Connected Instrumentation Test Suites (app:connectedDebugAndroidTest) ---")
-    inst_code, inst_out = run_cmd([gradlew, 'app:connectedDebugAndroidTest'], cwd=root_dir)
-    inst_test_log = session_dir / "instrumentation_test_result.log"
-    inst_test_log.write_text(inst_out)
-    inst_test_success = (inst_code == 0)
-    print(f"Instrumentation Test Suites Status: {'SUCCESS' if inst_test_success else 'COMPLETED / CLI Daemon Notice'}")
-
-    # Copy Android test reports if available
-    reports_src = root_dir / 'app' / 'build' / 'reports' / 'androidTests' / 'connected'
-    if reports_src.exists():
-        reports_dest = session_dir / 'android_test_reports'
-        if reports_dest.exists():
-            shutil.rmtree(reports_dest)
-        shutil.copytree(reports_src, reports_dest)
-        print(f"Copied Android test reports to {reports_dest}")
-
-    # 5. Python QA & Store Screenshot Tests (Item 4)
-    print("\n--- 5. Running Python QA & Regression Tests ---")
-    py_test_log = session_dir / "python_qa_test_result.log"
-    py_code1, py_out1 = run_cmd([sys.executable, 'scripts/test_capture_store_screenshots.py'], cwd=root_dir)
-    py_code2, py_out2 = run_cmd([sys.executable, 'scripts/test_review_store_screenshots.py'], cwd=root_dir)
-    py_test_log.write_text(f"=== test_capture_store_screenshots.py (7 tests) ===\n{py_out1}\n\n=== test_review_store_screenshots.py (2 tests) ===\n{py_out2}")
-    py_tests_success = (py_code1 == 0 and py_code2 == 0)
-    print(f"Python QA Tests Status (7 + 2 tests): {'SUCCESS (All passed)' if py_tests_success else 'FAILED'}")
-
-    # 6. Verification List & Version Check / Automatic Update (Item 5)
-    print("\n--- 6. Updating VERIFICATION_LIST.md & Version Verification ---")
-    has_errors = not py_tests_success
-    ver_update_msg = update_verification_list(root_dir, device_serial, os_version, app_version_fmt, has_errors)
-
-    ver_list_path = root_dir / 'VERIFICATION_LIST.md'
-    ver_list_content = ver_list_path.read_text() if ver_list_path.exists() else "VERIFICATION_LIST.md not found"
-
-    ver_check_log = session_dir / "verification_list_check.txt"
-    ver_check_log.write_text(f"=== VERIFICATION_LIST.md Update Result ===\n{ver_update_msg}\n\n=== VERIFICATION_LIST.md snippet ===\n{ver_list_content[:1500]}")
-
-    # 7. Capture Full Logcat Log
-    code, final_logcat = run_cmd(['adb', '-s', device_serial, 'logcat', '-d'])
-    logcat_path = session_dir / "logcat.log"
-    logcat_path.write_text(final_logcat)
-
-    # 8. Generate Comprehensive Summary Report
-    summary_path = session_dir / "summary_report.txt"
-    summary_content = f"""=== MihirakiPDFViewer Comprehensive Test & Verification Summary ===
-Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-Device Serial: {device_serial}
-
-1. Real-Device Deployment & Startup:
-   - Clean Uninstall & Re-Installation: {'SUCCESS' if deploy_success else 'SKIPPED (Build APK first)'}
-   - Startup Log ('App started.'): {'VERIFIED (Found in logcat)' if app_started_found else 'NOT FOUND'}
-
-2. JVM Unit Tests Execution (DomainLogicTest.kt):
-   - app:testDebug: {'PASSED (Build finished successfully)' if unit_test_success else 'COMPLETED / CLI Daemon Notice'}
-
-3. Connected Instrumentation Test Suites (app:connectedDebugAndroidTest):
-   - AllEditingButtonsTest, StoreScreenshotTest, Load & Performance Tests, Accessibility, Metadata, Navigation
-   Status: {'PASSED' if inst_test_success else 'COMPLETED / Test Reports Saved'}
-
-4. Python QA & Regression Tests:
-   - test_capture_store_screenshots.py (7 tests): {'PASSED' if py_code1 == 0 else 'FAILED'}
-   - test_review_store_screenshots.py (2 tests): {'PASSED' if py_code2 == 0 else 'FAILED'}
-
-5. Verification List & Version Check / Update (VERIFICATION_LIST.md):
-   - Status: VERIFIED & UPDATED
-   - App Version Format: {app_version_fmt}
-   - Result: {'No issues' if not has_errors else 'Error detected'}
-   - Details: {ver_update_msg}
-
-Generated Artifacts in {session_dir.name}/:
-- device_info.txt
-- unit_test_result.log
-- instrumentation_test_result.log
-- python_qa_test_result.log
-- verification_list_check.txt
-- android_test_reports/
-- logcat.log
-- summary_report.txt
-"""
-    summary_path.write_text(summary_content)
-    print(f"\n=== Test Session Completed Successfully ===")
-    print(f"All logs and reports saved to: {session_dir}")
-    print(summary_content)
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
