@@ -32,15 +32,30 @@ class PageThumbnailAccessibilityTest {
         } }
         val node = compose.onNodeWithContentDescription(compose.activity.getString(R.string.page_number_description, 1))
         node.assertIsNotSelected().assertHasClickAction()
+        val primary = node.fetchSemanticsNode().config[SemanticsActions.OnClick]
+        assertEquals(compose.activity.getString(R.string.page_preview_action), primary.label)
         node.performSemanticsAction(SemanticsActions.OnClick) { assertTrue(it()) }
-        node.assertIsSelected()
+        assertTrue(previewed)
+        node.assertIsNotSelected()
         val actions = node.fetchSemanticsNode().config[SemanticsActions.CustomActions]
+        assertEquals(2, actions.size)
+        val selection = actions.single { it.label == compose.activity.getString(R.string.page_selection_action) }
+        compose.runOnIdle { assertTrue(selection.action()) }
+        node.assertIsSelected()
+        previewed = false
         compose.runOnIdle {
-            assertEquals(compose.activity.getString(R.string.page_preview_action), actions.single().label)
-            assertTrue(actions.single().action())
+            assertTrue(actions.single { it.label == compose.activity.getString(R.string.page_preview_action) }.action())
         }
         assertTrue(previewed)
-        node.performSemanticsAction(SemanticsActions.OnClick) { assertTrue(it()) }
+        compose.runOnIdle { assertTrue(selection.action()) }
         node.assertIsNotSelected()
+        // Ordinary touch retains single-tap selection and double-tap preview.
+        node.performTouchInput { click() }
+        compose.waitUntil(5000) { selected }
+        node.assertIsSelected()
+        compose.runOnIdle { previewed = false }
+        node.performTouchInput { doubleClick() }
+        compose.waitUntil(5000) { previewed }
+        node.assertIsSelected()
     }
 }

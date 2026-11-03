@@ -48,12 +48,13 @@ class MetadataSecurityTest {
         // Verify metadata and encryption
         val verifier = PdfProcessor()
         
-        // Try loading without password (should fail or return 0 pages depending on impl)
-        // Actually, PdfBox .load throws an exception if password is required but not provided.
-        // My PdfProcessor.load catches it and returns 0.
-        val countNoPass = verifier.load(saveFile.inputStream())
-        assertEquals(0, countNoPass)
-        
+        try {
+            verifier.load(saveFile.inputStream())
+            org.junit.Assert.fail("Encrypted input must request a password")
+        } catch (_: com.tom_roush.pdfbox.pdmodel.encryption.InvalidPasswordException) {
+            // Authentication errors must be propagated, not converted to an empty PDF.
+        }
+
         // Load with correct password
         val countWithPass = verifier.load(saveFile.inputStream(), password = password)
         assertEquals(1, countWithPass)

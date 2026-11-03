@@ -43,7 +43,7 @@ class SamplePdfViewModel(application: Application) : AndroidViewModel(applicatio
         _sortOrder,
         _refreshTrigger
     ) { states, lang, dialogItem, sortOrder, _ ->
-        val allLangs = SamplePdfCatalog.items.map { it.languageCode }.distinct()
+        val allLangs = SamplePdfCatalog.getAvailableLanguages()
         val mappedItems = SamplePdfCatalog.items.map { item ->
             val dlState = states[item.id] ?: DownloadState.Idle
             val isDownloaded = repository.isDownloaded(item.fileName)

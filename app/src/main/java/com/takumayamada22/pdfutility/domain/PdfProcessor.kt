@@ -79,7 +79,9 @@ class PdfProcessor {
             sourceDocs.add(doc)
             doc
         } catch (e: Exception) {
-            null
+            // Authentication and malformed-file errors must reach the UI.
+            document = null
+            throw e
         }
         return document?.numberOfPages ?: 0
     }

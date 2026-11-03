@@ -264,4 +264,5 @@
     <string name="update_check_rate_limit">しばらく待ってから再度更新を確認してください。</string>
     <string name="page_number_description">%1$dページ</string>
     <string name="page_preview_action">ページをプレビュー</string>
+    <string name="page_selection_action">ページの選択／解除</string>
 </resources>

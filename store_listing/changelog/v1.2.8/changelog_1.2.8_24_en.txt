@@ -1,0 +1,5 @@
+v1.2.8
+- Fixed password prompts and loading for encrypted PDFs.
+- Made all portrait menu actions, including Support, reachable.
+- Unified and sorted language names and expanded manga samples to 42 files.
+- Improved TalkBack preview activation and rotation undo/redo.

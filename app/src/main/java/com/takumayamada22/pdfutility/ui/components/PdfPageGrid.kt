@@ -233,6 +233,7 @@ fun PageThumbnail(
 ) {
     val pageDescription = stringResource(R.string.page_number_description, pageNumber)
     val previewLabel = stringResource(R.string.page_preview_action)
+    val selectionLabel = stringResource(R.string.page_selection_action)
     val currentOnClick by rememberUpdatedState(onClick)
     val currentOnDoubleTap by rememberUpdatedState(onDoubleTap)
 
@@ -246,10 +247,13 @@ fun PageThumbnail(
             .semantics {
                 contentDescription = pageDescription
                 selected = isSelected
-                onClick { currentOnClick(); true }
-                customActions = listOf(CustomAccessibilityAction(previewLabel) {
-                    currentOnDoubleTap(); true
-                })
+                // TalkBack activation (focus, then double-tap) opens the page.
+                // Ordinary touch gestures below keep single-tap selection.
+                onClick(label = previewLabel) { currentOnDoubleTap(); true }
+                customActions = listOf(
+                    CustomAccessibilityAction(previewLabel) { currentOnDoubleTap(); true },
+                    CustomAccessibilityAction(selectionLabel) { currentOnClick(); true }
+                )
             }
             .pointerInput(page.id) {
                 detectTapGestures(

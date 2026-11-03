@@ -35,7 +35,7 @@ internal fun MobileBottomSheetMenu(
     onDeleteClick: () -> Unit,
 ) {
     var sheetVisible by remember { mutableStateOf(value = false) }
-    val sheetState = rememberModalBottomSheetState()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     Box {
         IconButton(onClick = { sheetVisible = true }) {
@@ -101,6 +101,9 @@ internal fun MobileBottomSheetMenu(
                 MenuSectionHeader("${stringResource(R.string.menu_view)} / ${stringResource(R.string.menu_options)}")
                 MenuItemRow(Icons.Default.GridView, stringResource(R.string.action_toggle_view), uiState.pages.isNotEmpty()) { sheetVisible = false; viewModel.toggleMihirakiView() }
                 MenuItemRow(Icons.Default.Description, stringResource(R.string.action_property), uiState.pages.isNotEmpty()) { sheetVisible = false; viewModel.openSettingsDialog(SettingsDialogType.PROPERTY) }
+                MenuItemRow(Icons.AutoMirrored.Filled.MenuBook, stringResource(R.string.action_right_binding), uiState.pages.isNotEmpty()) { sheetVisible = false; viewModel.setRightBinding() }
+                MenuItemRow(Icons.Default.AutoStories, stringResource(R.string.action_right_binding_cover), uiState.pages.isNotEmpty()) { sheetVisible = false; viewModel.setRightBindingWithCover() }
+                MenuItemRow(Icons.AutoMirrored.Filled.ArrowForward, stringResource(R.string.action_toggle_rtl), uiState.pages.isNotEmpty() && uiState.isMihirakiView) { sheetVisible = false; viewModel.toggleRtl() }
                 MenuItemRow(Icons.Default.Settings, stringResource(R.string.settings_options), true) { sheetVisible = false; viewModel.openSettingsDialog(SettingsDialogType.OPTIONS) }
                 MenuItemRow(Icons.Default.Lock, stringResource(R.string.settings_password), uiState.pages.isNotEmpty()) { sheetVisible = false; viewModel.openSettingsDialog(SettingsDialogType.PASSWORD) }
 
