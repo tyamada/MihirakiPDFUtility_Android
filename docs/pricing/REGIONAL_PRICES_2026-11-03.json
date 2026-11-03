@@ -1,0 +1,6455 @@
+{
+  "schema_version": 1,
+  "verified_date": "2026-11-03",
+  "application": "Utility",
+  "price_order": [
+    "tip_100",
+    "tip_500",
+    "tip_1000",
+    "tip_koyomi"
+  ],
+  "registered_regions_per_product": 174,
+  "verified_prices": 696,
+  "changed_prices": 664,
+  "unchanged_prices": 32,
+  "phase1_changed_prices": 180,
+  "phase2_changed_prices": 484,
+  "new_regions": 0,
+  "new_products": 0,
+  "sources": [
+    "https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups",
+    "https://api.worldbank.org/v2/country?format=json&per_page=400",
+    "https://support.google.com/googleplay/android-developer/answer/6334373?hl=en",
+    "https://support.google.com/googleplay/android-developer/answer/138000?hl=en",
+    "https://support.google.com/googleplay/android-developer/answer/11950272?hl=en",
+    "https://cbcg.me/en/core-functions/financial-and-banking-operations/fx-reference-rates",
+    "https://www.cbc.gov.tw/en/mp-2.html",
+    "https://www.trade.gov/country-commercial-guides/hong-kong-market-overview-hong-kong-and-macau",
+    "https://google.play/business/price-experiments/"
+  ],
+  "regions": [
+    {
+      "country": "アイスランド",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.45",
+        "tip_1000": "EUR 6.88",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "24%",
+        "tip_500": "24%",
+        "tip_1000": "24%",
+        "tip_koyomi": "24%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "欧州の近隣ユーロ価格と同じ税込表示に統一。バチカンは世界銀行分類なしのため近隣価格を採用。",
+      "iso2": "IS",
+      "worldbank_income_level": "HIC",
+      "group": "EUR_neighbours",
+      "reference_currency": "EUR",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": true
+    },
+    {
+      "country": "アイルランド",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.39",
+        "tip_1000": "EUR 6.99",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "23%",
+        "tip_500": "23%",
+        "tip_1000": "23%",
+        "tip_koyomi": "23%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "アゼルバイジャン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "AZN 1.07",
+        "tip_500": "AZN 5.37",
+        "tip_1000": "AZN 10.73",
+        "tip_koyomi": "AZN 1.09"
+      },
+      "after": {
+        "tip_100": "AZN 2.19",
+        "tip_500": "AZN 5.49",
+        "tip_1000": "AZN 10.99",
+        "tip_koyomi": "AZN 2.19"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "AZ",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "アメリカ合衆国",
+      "phase": "維持",
+      "before": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし（地域別のオーバーライド 7 件）",
+        "tip_500": "VAT なし（地域別のオーバーライド 7 件）",
+        "tip_1000": "VAT なし（地域別のオーバーライド 7 件）",
+        "tip_koyomi": "VAT なし（地域別のオーバーライド 7 件）"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "直近に決定した現行価格を維持。米国は基準価格、日本・韓国は既決定の地域価格。"
+    },
+    {
+      "country": "アラブ首長国連邦",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "AED 2.39",
+        "tip_500": "AED 11.99",
+        "tip_1000": "AED 23.99",
+        "tip_koyomi": "AED 2.39"
+      },
+      "after": {
+        "tip_100": "AED 5.69",
+        "tip_500": "AED 14.99",
+        "tip_1000": "AED 30.99",
+        "tip_koyomi": "AED 5.69"
+      },
+      "tax": {
+        "tip_100": "5%",
+        "tip_500": "5%",
+        "tip_1000": "5%",
+        "tip_koyomi": "5%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "高所得分類でも地域内所得差や応援購入の入口を考慮し、米国等価より低い約75～80%の初期価格を採用。所得差は国別の購入実績で未検証。",
+      "iso2": "AE",
+      "worldbank_income_level": "HIC",
+      "group": "regional75",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.49,
+        3.99,
+        7.99,
+        1.49
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "アルジェリア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "DZD 84.00",
+        "tip_500": "DZD 425.00",
+        "tip_1000": "DZD 850.00",
+        "tip_koyomi": "DZD 85.00"
+      },
+      "after": {
+        "tip_100": "DZD 175.00",
+        "tip_500": "DZD 450.00",
+        "tip_1000": "DZD 875.00",
+        "tip_koyomi": "DZD 175.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "DZ",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "アルゼンチン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "ARS 941.85",
+        "tip_500": "ARS 4,724.20",
+        "tip_1000": "ARS 9,433.45",
+        "tip_koyomi": "ARS 960.00"
+      },
+      "after": {
+        "tip_100": "ARS 2,000.00",
+        "tip_500": "ARS 5,100.00",
+        "tip_1000": "ARS 10,000.00",
+        "tip_koyomi": "ARS 2,000.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "AR",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "アルバ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "AW",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "アルバニア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.76",
+        "tip_500": "USD 3.79",
+        "tip_1000": "USD 7.57",
+        "tip_koyomi": "USD 0.76"
+      },
+      "after": {
+        "tip_100": "USD 1.55",
+        "tip_500": "USD 3.95",
+        "tip_1000": "USD 7.79",
+        "tip_koyomi": "USD 1.55"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "AL",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "アルメニア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "AM",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "アンゴラ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "AO",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "アンティグア・バーブーダ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "AG",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "イエメン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 1.49",
+        "tip_1000": "USD 2.99",
+        "tip_koyomi": "USD 0.59"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "YE",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "イギリス",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "GBP 0.59",
+        "tip_500": "GBP 2.89",
+        "tip_1000": "GBP 5.49",
+        "tip_koyomi": "GBP 0.59"
+      },
+      "after": {
+        "tip_100": "GBP 1.79",
+        "tip_500": "GBP 4.49",
+        "tip_1000": "GBP 8.99",
+        "tip_koyomi": "GBP 1.79"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "米国税抜基準の為替換算とVATを踏まえ末尾99/49へ丸める。"
+    },
+    {
+      "country": "イスラエル",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "ILS 1.90",
+        "tip_500": "ILS 9.60",
+        "tip_1000": "ILS 19.00",
+        "tip_koyomi": "ILS 2.00"
+      },
+      "after": {
+        "tip_100": "ILS 6.30",
+        "tip_500": "ILS 15.90",
+        "tip_1000": "ILS 31.90",
+        "tip_koyomi": "ILS 6.30"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "IL",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "イタリア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.39",
+        "tip_1000": "EUR 6.99",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "22%",
+        "tip_500": "22%",
+        "tip_1000": "22%",
+        "tip_koyomi": "22%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "イラク",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "IQD 827",
+        "tip_500": "IQD 4,150",
+        "tip_1000": "IQD 8,250",
+        "tip_koyomi": "IQD 956"
+      },
+      "after": {
+        "tip_100": "IQD 1,950",
+        "tip_500": "IQD 4,950",
+        "tip_1000": "IQD 9,800",
+        "tip_koyomi": "IQD 1,950"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "IQ",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "インド",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "INR 70.00",
+        "tip_500": "INR 360.00",
+        "tip_1000": "INR 720.00",
+        "tip_koyomi": "INR 70.00"
+      },
+      "after": {
+        "tip_100": "INR 99.00",
+        "tip_500": "INR 249.00",
+        "tip_1000": "INR 499.00",
+        "tip_koyomi": "INR 99.00"
+      },
+      "tax": {
+        "tip_100": "18%",
+        "tip_500": "18%",
+        "tip_1000": "18%",
+        "tip_koyomi": "18%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "購買力調整を重視した約半額帯の試行案。最適性を断定しない。"
+    },
+    {
+      "country": "インドネシア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "IDR 11,000",
+        "tip_500": "IDR 56,000",
+        "tip_1000": "IDR 109,000",
+        "tip_koyomi": "IDR 11,000"
+      },
+      "after": {
+        "tip_100": "IDR 19,000",
+        "tip_500": "IDR 49,000",
+        "tip_1000": "IDR 99,000",
+        "tip_koyomi": "IDR 19,000"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "少額応援の入口と分かりやすい階層を優先した試行案。Silver/Goldは現行より下がる。"
+    },
+    {
+      "country": "ウガンダ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.74",
+        "tip_500": "USD 3.73",
+        "tip_1000": "USD 7.45",
+        "tip_koyomi": "USD 0.74"
+      },
+      "after": {
+        "tip_100": "USD 0.70",
+        "tip_500": "USD 1.76",
+        "tip_1000": "USD 3.53",
+        "tip_koyomi": "USD 0.70"
+      },
+      "tax": {
+        "tip_100": "18%",
+        "tip_500": "18%",
+        "tip_1000": "18%",
+        "tip_koyomi": "18%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "UG",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ウクライナ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "UAH 33.99",
+        "tip_500": "UAH 169.99",
+        "tip_1000": "UAH 339.99",
+        "tip_koyomi": "UAH 33.99"
+      },
+      "after": {
+        "tip_100": "UAH 37.99",
+        "tip_500": "UAH 99.99",
+        "tip_1000": "UAH 189.99",
+        "tip_koyomi": "UAH 37.99"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "所得・生活環境の不確実性を踏まえ、支援購入の入口を低く保つ運用判断。最適化を実証した値ではない。",
+      "iso2": "UA",
+      "worldbank_income_level": "UMC",
+      "group": "regional35",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.69,
+        1.79,
+        3.49,
+        0.69
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ウズベキスタン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "UZS 8,520.00",
+        "tip_500": "UZS 42,480.00",
+        "tip_1000": "UZS 84,840.00",
+        "tip_koyomi": "UZS 8,540.00"
+      },
+      "after": {
+        "tip_100": "UZS 11,900.00",
+        "tip_500": "UZS 30,610.00",
+        "tip_1000": "UZS 60,020.00",
+        "tip_koyomi": "UZS 11,900.00"
+      },
+      "tax": {
+        "tip_100": "12%",
+        "tip_500": "12%",
+        "tip_1000": "12%",
+        "tip_koyomi": "12%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "UZ",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ウルグアイ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.49",
+        "tip_500": "USD 3.99",
+        "tip_1000": "USD 7.99",
+        "tip_koyomi": "USD 1.49"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "高所得分類でも地域内所得差や応援購入の入口を考慮し、米国等価より低い約75～80%の初期価格を採用。所得差は国別の購入実績で未検証。",
+      "iso2": "UY",
+      "worldbank_income_level": "HIC",
+      "group": "regional75",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.49,
+        3.99,
+        7.99,
+        1.49
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "エクアドル",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "EC",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "エジプト",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EGP 36.99",
+        "tip_500": "EGP 189.99",
+        "tip_1000": "EGP 369.99",
+        "tip_koyomi": "EGP 38.99"
+      },
+      "after": {
+        "tip_100": "EGP 55.99",
+        "tip_500": "EGP 139.99",
+        "tip_1000": "EGP 279.99",
+        "tip_koyomi": "EGP 55.99"
+      },
+      "tax": {
+        "tip_100": "14%",
+        "tip_500": "14%",
+        "tip_1000": "14%",
+        "tip_koyomi": "14%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "EG",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "エストニア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.49",
+        "tip_1000": "EUR 6.99",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "24%",
+        "tip_500": "24%",
+        "tip_1000": "24%",
+        "tip_koyomi": "24%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "エチオピア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "ETB 99.84",
+        "tip_500": "ETB 500.80",
+        "tip_1000": "ETB 1,000.01",
+        "tip_koyomi": "ETB 100.00"
+      },
+      "after": {
+        "tip_100": "ETB 95.00",
+        "tip_500": "ETB 250.00",
+        "tip_1000": "ETB 500.00",
+        "tip_koyomi": "ETB 95.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "ET",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "エリトリア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 1.49",
+        "tip_1000": "USD 2.99",
+        "tip_koyomi": "USD 0.59"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "ER",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "エルサルバドル",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "SV",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "オマーン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.69",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.69"
+      },
+      "after": {
+        "tip_100": "USD 1.59",
+        "tip_500": "USD 4.19",
+        "tip_1000": "USD 8.49",
+        "tip_koyomi": "USD 1.59"
+      },
+      "tax": {
+        "tip_100": "5%",
+        "tip_500": "5%",
+        "tip_1000": "5%",
+        "tip_koyomi": "5%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "高所得分類でも地域内所得差や応援購入の入口を考慮し、米国等価より低い約75～80%の初期価格を採用。所得差は国別の購入実績で未検証。",
+      "iso2": "OM",
+      "worldbank_income_level": "HIC",
+      "group": "regional75",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.49,
+        3.99,
+        7.99,
+        1.49
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "オランダ",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.39",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "21%",
+        "tip_500": "21%",
+        "tip_1000": "21%",
+        "tip_koyomi": "21%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "オーストラリア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "AUD 0.99",
+        "tip_500": "AUD 4.89",
+        "tip_1000": "AUD 9.99",
+        "tip_koyomi": "AUD 0.99"
+      },
+      "after": {
+        "tip_100": "AUD 2.99",
+        "tip_500": "AUD 7.99",
+        "tip_1000": "AUD 15.99",
+        "tip_koyomi": "AUD 2.99"
+      },
+      "tax": {
+        "tip_100": "10%",
+        "tip_500": "10%",
+        "tip_1000": "10%",
+        "tip_koyomi": "10%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "為替とGST込みの表示を踏まえ、読みやすい末尾99へ。"
+    },
+    {
+      "country": "オーストリア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.29",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "カザフスタン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "KZT 330.00",
+        "tip_500": "KZT 1,590.00",
+        "tip_1000": "KZT 3,290.00",
+        "tip_koyomi": "KZT 330.00"
+      },
+      "after": {
+        "tip_100": "KZT 690.00",
+        "tip_500": "KZT 1,690.00",
+        "tip_1000": "KZT 3,390.00",
+        "tip_koyomi": "KZT 690.00"
+      },
+      "tax": {
+        "tip_100": "16%",
+        "tip_500": "16%",
+        "tip_1000": "16%",
+        "tip_koyomi": "16%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "KZ",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "カタール",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "QAR 2.50",
+        "tip_500": "QAR 12.00",
+        "tip_1000": "QAR 23.00",
+        "tip_koyomi": "QAR 2.50"
+      },
+      "after": {
+        "tip_100": "QAR 5.50",
+        "tip_500": "QAR 15.00",
+        "tip_1000": "QAR 29.00",
+        "tip_koyomi": "QAR 5.50"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "高所得分類でも地域内所得差や応援購入の入口を考慮し、米国等価より低い約75～80%の初期価格を採用。所得差は国別の購入実績で未検証。",
+      "iso2": "QA",
+      "worldbank_income_level": "HIC",
+      "group": "regional75",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.49,
+        3.99,
+        7.99,
+        1.49
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "カナダ",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "CAD 0.89",
+        "tip_500": "CAD 4.49",
+        "tip_1000": "CAD 8.99",
+        "tip_koyomi": "CAD 0.89"
+      },
+      "after": {
+        "tip_100": "CAD 2.79",
+        "tip_500": "CAD 6.99",
+        "tip_1000": "CAD 13.99",
+        "tip_koyomi": "CAD 2.79"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "米国の税抜基準を為替換算して丸める。州別の購入時税はGoogleの既存税処理に従う。"
+    },
+    {
+      "country": "カメルーン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "XAF 450",
+        "tip_500": "XAF 2,200",
+        "tip_1000": "XAF 4,300",
+        "tip_koyomi": "XAF 450"
+      },
+      "after": {
+        "tip_100": "XAF 600",
+        "tip_500": "XAF 1,600",
+        "tip_1000": "XAF 3,100",
+        "tip_koyomi": "XAF 600"
+      },
+      "tax": {
+        "tip_100": "19.25%",
+        "tip_500": "19.25%",
+        "tip_1000": "19.25%",
+        "tip_koyomi": "19.25%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "CM",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "カンボジア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "KH",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "カーボベルデ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "CV",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ガボン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.56",
+        "tip_500": "EUR 2.78",
+        "tip_1000": "EUR 5.55",
+        "tip_koyomi": "EUR 0.56"
+      },
+      "after": {
+        "tip_100": "EUR 1.15",
+        "tip_500": "EUR 2.94",
+        "tip_1000": "EUR 5.79",
+        "tip_koyomi": "EUR 1.15"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "GA",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ガンビア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 1.49",
+        "tip_1000": "USD 2.99",
+        "tip_koyomi": "USD 0.59"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "GM",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ガーナ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "GHS 9.00",
+        "tip_500": "GHS 45.00",
+        "tip_1000": "GHS 90.00",
+        "tip_koyomi": "GHS 9.00"
+      },
+      "after": {
+        "tip_100": "GHS 10.00",
+        "tip_500": "GHS 30.00",
+        "tip_1000": "GHS 65.00",
+        "tip_koyomi": "GHS 10.00"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "GH",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "キプロス",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.29",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "19%",
+        "tip_500": "19%",
+        "tip_1000": "19%",
+        "tip_koyomi": "19%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "キルギス",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "KG",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ギニア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "GN",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ギニアビサウ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.56",
+        "tip_500": "EUR 2.78",
+        "tip_1000": "EUR 5.55",
+        "tip_koyomi": "EUR 0.56"
+      },
+      "after": {
+        "tip_100": "EUR 0.53",
+        "tip_500": "EUR 1.33",
+        "tip_1000": "EUR 2.67",
+        "tip_koyomi": "EUR 0.53"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "GW",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ギリシャ",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.49",
+        "tip_1000": "EUR 6.99",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "24%",
+        "tip_500": "24%",
+        "tip_1000": "24%",
+        "tip_koyomi": "24%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "クウェート",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 1.49",
+        "tip_500": "USD 3.99",
+        "tip_1000": "USD 7.99",
+        "tip_koyomi": "USD 1.49"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "高所得分類でも地域内所得差や応援購入の入口を考慮し、米国等価より低い約75～80%の初期価格を採用。所得差は国別の購入実績で未検証。",
+      "iso2": "KW",
+      "worldbank_income_level": "HIC",
+      "group": "regional75",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.49,
+        3.99,
+        7.99,
+        1.49
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "クロアチア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.49",
+        "tip_1000": "EUR 6.99",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "25%",
+        "tip_500": "25%",
+        "tip_1000": "25%",
+        "tip_koyomi": "25%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "グアテマラ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "GT",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "グレナダ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "GD",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ケイマン諸島",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "KY",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ケニア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "KES 90.00",
+        "tip_500": "KES 500.00",
+        "tip_1000": "KES 900.00",
+        "tip_koyomi": "KES 100.00"
+      },
+      "after": {
+        "tip_100": "KES 100.00",
+        "tip_500": "KES 300.00",
+        "tip_1000": "KES 700.00",
+        "tip_koyomi": "KES 100.00"
+      },
+      "tax": {
+        "tip_100": "16%",
+        "tip_500": "16%",
+        "tip_1000": "16%",
+        "tip_koyomi": "16%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "KE",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "コスタリカ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "CRC 280.00",
+        "tip_500": "CRC 1,400.00",
+        "tip_1000": "CRC 2,800.00",
+        "tip_koyomi": "CRC 280.00"
+      },
+      "after": {
+        "tip_100": "CRC 670.00",
+        "tip_500": "CRC 1,800.00",
+        "tip_1000": "CRC 3,600.00",
+        "tip_koyomi": "CRC 670.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "高所得分類でも地域内所得差や応援購入の入口を考慮し、米国等価より低い約75～80%の初期価格を採用。所得差は国別の購入実績で未検証。",
+      "iso2": "CR",
+      "worldbank_income_level": "HIC",
+      "group": "regional75",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.49,
+        3.99,
+        7.99,
+        1.49
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "コモロ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "KM",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "コロンビア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "COP 2,000",
+        "tip_500": "COP 10,500",
+        "tip_1000": "COP 21,000",
+        "tip_koyomi": "COP 2,000"
+      },
+      "after": {
+        "tip_100": "COP 4,000",
+        "tip_500": "COP 10,500",
+        "tip_1000": "COP 21,000",
+        "tip_koyomi": "COP 4,000"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "CO",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "コンゴ共和国(ブラザビル)",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "CG",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "コンゴ民主共和国(キンシャサ)",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 1.49",
+        "tip_1000": "USD 2.99",
+        "tip_koyomi": "USD 0.59"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "CD",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "コートジボワール",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "XOF 450",
+        "tip_500": "XOF 2,100",
+        "tip_1000": "XOF 4,300",
+        "tip_koyomi": "XOF 450"
+      },
+      "after": {
+        "tip_100": "XOF 600",
+        "tip_500": "XOF 1,600",
+        "tip_1000": "XOF 3,100",
+        "tip_koyomi": "XOF 600"
+      },
+      "tax": {
+        "tip_100": "18%",
+        "tip_500": "18%",
+        "tip_1000": "18%",
+        "tip_koyomi": "18%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "CI",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "サウジアラビア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "SAR 2.69",
+        "tip_500": "SAR 13.99",
+        "tip_1000": "SAR 26.99",
+        "tip_koyomi": "SAR 2.69"
+      },
+      "after": {
+        "tip_100": "SAR 6.39",
+        "tip_500": "SAR 16.99",
+        "tip_1000": "SAR 33.99",
+        "tip_koyomi": "SAR 6.39"
+      },
+      "tax": {
+        "tip_100": "15%",
+        "tip_500": "15%",
+        "tip_1000": "15%",
+        "tip_koyomi": "15%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "高所得分類でも地域内所得差や応援購入の入口を考慮し、米国等価より低い約75～80%の初期価格を採用。所得差は国別の購入実績で未検証。",
+      "iso2": "SA",
+      "worldbank_income_level": "HIC",
+      "group": "regional75",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.49,
+        3.99,
+        7.99,
+        1.49
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "サモア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "WS",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "サンマリノ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.59",
+        "tip_500": "EUR 2.79",
+        "tip_1000": "EUR 5.49",
+        "tip_koyomi": "EUR 0.59"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "欧州の近隣ユーロ価格と同じ税込表示に統一。バチカンは世界銀行分類なしのため近隣価格を採用。",
+      "iso2": "SM",
+      "worldbank_income_level": "HIC",
+      "group": "EUR_neighbours",
+      "reference_currency": "EUR",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": true
+    },
+    {
+      "country": "ザンビア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "ZM",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "シエラレオネ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 1.49",
+        "tip_1000": "USD 2.99",
+        "tip_koyomi": "USD 0.59"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "SL",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "シンガポール",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "SGD 0.98",
+        "tip_500": "SGD 4.48",
+        "tip_1000": "SGD 8.98",
+        "tip_koyomi": "SGD 0.98"
+      },
+      "after": {
+        "tip_100": "SGD 2.98",
+        "tip_500": "SGD 6.98",
+        "tip_1000": "SGD 13.98",
+        "tip_koyomi": "SGD 2.98"
+      },
+      "tax": {
+        "tip_100": "9%",
+        "tip_500": "9%",
+        "tip_1000": "9%",
+        "tip_koyomi": "9%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "USD換算とGSTを踏まえて端数を統一。末尾98は現在の表にもある形式を採用した案で、優位性は未検証。"
+    },
+    {
+      "country": "ジブチ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "DJ",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ジブラルタル",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "GBP 0.49",
+        "tip_500": "GBP 2.39",
+        "tip_1000": "GBP 4.79",
+        "tip_koyomi": "GBP 0.49"
+      },
+      "after": {
+        "tip_100": "GBP 1.49",
+        "tip_500": "GBP 3.69",
+        "tip_1000": "GBP 7.49",
+        "tip_koyomi": "GBP 1.49"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "GI",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ジャマイカ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "JM",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ジョージア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "GEL 2.00",
+        "tip_500": "GEL 9.00",
+        "tip_1000": "GEL 19.00",
+        "tip_koyomi": "GEL 2.00"
+      },
+      "after": {
+        "tip_100": "GEL 4.00",
+        "tip_500": "GEL 9.00",
+        "tip_1000": "GEL 19.00",
+        "tip_koyomi": "GEL 4.00"
+      },
+      "tax": {
+        "tip_100": "18%",
+        "tip_500": "18%",
+        "tip_1000": "18%",
+        "tip_koyomi": "18%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "GE",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ジンバブエ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "ZW",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "スイス",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "CHF 0.50",
+        "tip_500": "CHF 2.60",
+        "tip_1000": "CHF 5.20",
+        "tip_koyomi": "CHF 0.50"
+      },
+      "after": {
+        "tip_100": "CHF 1.79",
+        "tip_500": "CHF 4.49",
+        "tip_1000": "CHF 8.99",
+        "tip_koyomi": "CHF 1.79"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "少額支援と分かりやすい階層を優先する候補。既存税設定は変更せず、受取差は許容。"
+    },
+    {
+      "country": "スウェーデン",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "SEK 8.00",
+        "tip_500": "SEK 39.00",
+        "tip_1000": "SEK 79.00",
+        "tip_koyomi": "SEK 8.00"
+      },
+      "after": {
+        "tip_100": "SEK 19.00",
+        "tip_500": "SEK 49.00",
+        "tip_1000": "SEK 99.00",
+        "tip_koyomi": "SEK 19.00"
+      },
+      "tax": {
+        "tip_100": "25%",
+        "tip_500": "25%",
+        "tip_1000": "25%",
+        "tip_koyomi": "25%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "整数表示と分かりやすい価格階層を優先。税込単純換算より約20%低い初期案。"
+    },
+    {
+      "country": "スペイン",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.39",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "21%（地域別のオーバーライド 4 件）",
+        "tip_500": "21%（地域別のオーバーライド 4 件）",
+        "tip_1000": "21%（地域別のオーバーライド 4 件）",
+        "tip_koyomi": "21%（地域別のオーバーライド 4 件）"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "スリナム",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "SR",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "スリランカ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "LKR 200.00",
+        "tip_500": "LKR 1,050.00",
+        "tip_1000": "LKR 2,075.00",
+        "tip_koyomi": "LKR 200.00"
+      },
+      "after": {
+        "tip_100": "LKR 425.00",
+        "tip_500": "LKR 1,100.00",
+        "tip_1000": "LKR 2,150.00",
+        "tip_koyomi": "LKR 425.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "LK",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "スロバキア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.39",
+        "tip_1000": "EUR 6.99",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "23%",
+        "tip_500": "23%",
+        "tip_1000": "23%",
+        "tip_koyomi": "23%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "スロベニア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.39",
+        "tip_1000": "EUR 6.99",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "22%",
+        "tip_500": "22%",
+        "tip_1000": "22%",
+        "tip_koyomi": "22%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "セネガル",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "XOF 450",
+        "tip_500": "XOF 2,100",
+        "tip_1000": "XOF 4,300",
+        "tip_koyomi": "XOF 450"
+      },
+      "after": {
+        "tip_100": "XOF 600",
+        "tip_500": "XOF 1,600",
+        "tip_1000": "XOF 3,100",
+        "tip_koyomi": "XOF 600"
+      },
+      "tax": {
+        "tip_100": "18%",
+        "tip_500": "18%",
+        "tip_1000": "18%",
+        "tip_koyomi": "18%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "SN",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "セルビア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "RSD 99",
+        "tip_500": "RSD 399",
+        "tip_1000": "RSD 799",
+        "tip_koyomi": "RSD 99"
+      },
+      "after": {
+        "tip_100": "RSD 149",
+        "tip_500": "RSD 399",
+        "tip_1000": "RSD 799",
+        "tip_koyomi": "RSD 149"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "RS",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "セントクリストファー・ネーヴィス",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "KN",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "セントルシア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "LC",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "セーシェル",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "SC",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ソマリア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 1.49",
+        "tip_1000": "USD 2.99",
+        "tip_koyomi": "USD 0.59"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "SO",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ソロモン諸島",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "SB",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "タイ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "THB 23.00",
+        "tip_500": "THB 110.00",
+        "tip_1000": "THB 225.00",
+        "tip_koyomi": "THB 23.00"
+      },
+      "after": {
+        "tip_100": "THB 47.00",
+        "tip_500": "THB 125.00",
+        "tip_1000": "THB 225.00",
+        "tip_koyomi": "THB 47.00"
+      },
+      "tax": {
+        "tip_100": "7%",
+        "tip_500": "7%",
+        "tip_1000": "7%",
+        "tip_koyomi": "7%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TH",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "タジキスタン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TJ",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "タンザニア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "TZS 1,700.00",
+        "tip_500": "TZS 8,500.00",
+        "tip_1000": "TZS 17,000.00",
+        "tip_koyomi": "TZS 1,700.00"
+      },
+      "after": {
+        "tip_100": "TZS 2,400.00",
+        "tip_500": "TZS 6,000.00",
+        "tip_1000": "TZS 12,000.00",
+        "tip_koyomi": "TZS 2,400.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TZ",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "タークス・カイコス諸島",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TC",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "チェコ",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "CZK 15.99",
+        "tip_500": "CZK 79.99",
+        "tip_1000": "CZK 159.99",
+        "tip_koyomi": "CZK 16.99"
+      },
+      "after": {
+        "tip_100": "CZK 39.00",
+        "tip_500": "CZK 99.00",
+        "tip_1000": "CZK 199.00",
+        "tip_koyomi": "CZK 39.00"
+      },
+      "tax": {
+        "tip_100": "21%",
+        "tip_500": "21%",
+        "tip_1000": "21%",
+        "tip_koyomi": "21%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "整数・99単位で読みやすくし、単純換算より約25%低い地域価格。"
+    },
+    {
+      "country": "チャド",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 1.49",
+        "tip_1000": "USD 2.99",
+        "tip_koyomi": "USD 0.59"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TD",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "チュニジア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TN",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "チリ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "CLP 720",
+        "tip_500": "CLP 3,600",
+        "tip_1000": "CLP 7,200",
+        "tip_koyomi": "CLP 740"
+      },
+      "after": {
+        "tip_100": "CLP 1,700",
+        "tip_500": "CLP 4,600",
+        "tip_1000": "CLP 9,300",
+        "tip_koyomi": "CLP 1,700"
+      },
+      "tax": {
+        "tip_100": "19%",
+        "tip_500": "19%",
+        "tip_1000": "19%",
+        "tip_koyomi": "19%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "高所得分類でも地域内所得差や応援購入の入口を考慮し、米国等価より低い約75～80%の初期価格を採用。所得差は国別の購入実績で未検証。",
+      "iso2": "CL",
+      "worldbank_income_level": "HIC",
+      "group": "regional75",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.49,
+        3.99,
+        7.99,
+        1.49
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "デンマーク",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "DKK 5.00",
+        "tip_500": "DKK 26.00",
+        "tip_1000": "DKK 49.00",
+        "tip_koyomi": "DKK 5.00"
+      },
+      "after": {
+        "tip_100": "DKK 15.00",
+        "tip_500": "DKK 39.00",
+        "tip_1000": "DKK 79.00",
+        "tip_koyomi": "DKK 15.00"
+      },
+      "tax": {
+        "tip_100": "25%（地域別のオーバーライド 2 件）",
+        "tip_500": "25%（地域別のオーバーライド 2 件）",
+        "tip_1000": "25%（地域別のオーバーライド 2 件）",
+        "tip_koyomi": "25%（地域別のオーバーライド 2 件）"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "整数表示と分かりやすい価格階層を優先。税込単純換算より約5～10%低い初期案。"
+    },
+    {
+      "country": "トリニダード・トバゴ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TT",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "トルクメニスタン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TM",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "トルコ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "TRY 36.99",
+        "tip_500": "TRY 184.99",
+        "tip_1000": "TRY 369.99",
+        "tip_koyomi": "TRY 37.99"
+      },
+      "after": {
+        "tip_100": "TRY 76.99",
+        "tip_500": "TRY 194.99",
+        "tip_1000": "TRY 389.99",
+        "tip_koyomi": "TRY 76.99"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TR",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "トンガ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TO",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "トーゴ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.56",
+        "tip_500": "EUR 2.78",
+        "tip_1000": "EUR 5.55",
+        "tip_koyomi": "EUR 0.56"
+      },
+      "after": {
+        "tip_100": "EUR 0.79",
+        "tip_500": "EUR 2.04",
+        "tip_1000": "EUR 4.01",
+        "tip_koyomi": "EUR 0.79"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "TG",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ドイツ",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.29",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "19%",
+        "tip_500": "19%",
+        "tip_1000": "19%",
+        "tip_koyomi": "19%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "ドミニカ共和国",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "DO",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ドミニカ国",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "DM",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ナイジェリア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "NGN 900.00",
+        "tip_500": "NGN 4,510.00",
+        "tip_1000": "NGN 9,010.00",
+        "tip_koyomi": "NGN 910.00"
+      },
+      "after": {
+        "tip_100": "NGN 1,290.00",
+        "tip_500": "NGN 3,310.00",
+        "tip_1000": "NGN 6,490.00",
+        "tip_koyomi": "NGN 1,290.00"
+      },
+      "tax": {
+        "tip_100": "7.5%",
+        "tip_500": "7.5%",
+        "tip_1000": "7.5%",
+        "tip_koyomi": "7.5%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "NG",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ナミビア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "NA",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ニカラグア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "NI",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ニジェール",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.56",
+        "tip_500": "EUR 2.78",
+        "tip_1000": "EUR 5.55",
+        "tip_koyomi": "EUR 0.56"
+      },
+      "after": {
+        "tip_100": "EUR 0.53",
+        "tip_500": "EUR 1.33",
+        "tip_1000": "EUR 2.67",
+        "tip_koyomi": "EUR 0.53"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "NE",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ニュージーランド",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "NZD 1.29",
+        "tip_500": "NZD 6.49",
+        "tip_1000": "NZD 12.99",
+        "tip_koyomi": "NZD 1.29"
+      },
+      "after": {
+        "tip_100": "NZD 3.99",
+        "tip_500": "NZD 9.99",
+        "tip_1000": "NZD 19.99",
+        "tip_koyomi": "NZD 3.99"
+      },
+      "tax": {
+        "tip_100": "15%",
+        "tip_500": "15%",
+        "tip_1000": "15%",
+        "tip_koyomi": "15%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "為替とGSTを踏まえ末尾99で統一する候補。"
+    },
+    {
+      "country": "ネパール",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "USD 0.71",
+        "tip_500": "USD 3.57",
+        "tip_1000": "USD 7.13",
+        "tip_koyomi": "USD 0.71"
+      },
+      "after": {
+        "tip_100": "USD 0.99",
+        "tip_500": "USD 2.49",
+        "tip_1000": "USD 4.99",
+        "tip_koyomi": "USD 0.99"
+      },
+      "tax": {
+        "tip_100": "13%",
+        "tip_500": "13%",
+        "tip_1000": "13%",
+        "tip_koyomi": "13%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "登録通貨がUSDでも米国と同額にはしない。地域調整した半額帯の試行案。"
+    },
+    {
+      "country": "ノルウェー",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "NOK 8.00",
+        "tip_500": "NOK 38.00",
+        "tip_1000": "NOK 75.00",
+        "tip_koyomi": "NOK 7.00"
+      },
+      "after": {
+        "tip_100": "NOK 19.00",
+        "tip_500": "NOK 49.00",
+        "tip_1000": "NOK 99.00",
+        "tip_koyomi": "NOK 19.00"
+      },
+      "tax": {
+        "tip_100": "25%（地域別のオーバーライド 1 件）",
+        "tip_500": "25%（地域別のオーバーライド 1 件）",
+        "tip_1000": "25%（地域別のオーバーライド 1 件）",
+        "tip_koyomi": "25%（地域別のオーバーライド 1 件）"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "整数の階層を優先し、税込単純換算より控えめにする候補。"
+    },
+    {
+      "country": "ハイチ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "HT",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ハンガリー",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "HUF 259",
+        "tip_500": "HUF 1,290",
+        "tip_1000": "HUF 2,590",
+        "tip_koyomi": "HUF 259"
+      },
+      "after": {
+        "tip_100": "HUF 590",
+        "tip_500": "HUF 1,490",
+        "tip_1000": "HUF 2,990",
+        "tip_koyomi": "HUF 590"
+      },
+      "tax": {
+        "tip_100": "27%",
+        "tip_500": "27%",
+        "tip_1000": "27%",
+        "tip_koyomi": "27%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "整数で統一し、税込単純換算より約27%低い地域価格。"
+    },
+    {
+      "country": "バチカン市国",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.59",
+        "tip_500": "EUR 2.79",
+        "tip_1000": "EUR 5.49",
+        "tip_koyomi": "EUR 0.59"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "欧州の近隣ユーロ価格と同じ税込表示に統一。バチカンは世界銀行分類なしのため近隣価格を採用。",
+      "iso2": "VA",
+      "worldbank_income_level": null,
+      "group": "EUR_neighbours",
+      "reference_currency": "EUR",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": true
+    },
+    {
+      "country": "バヌアツ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "VU",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "バハマ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "BS",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "バミューダ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "BM",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "バングラデシュ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "BDT 90.00",
+        "tip_500": "BDT 450.00",
+        "tip_1000": "BDT 900.00",
+        "tip_koyomi": "BDT 90.00"
+      },
+      "after": {
+        "tip_100": "BDT 120.00",
+        "tip_500": "BDT 320.00",
+        "tip_1000": "BDT 650.00",
+        "tip_koyomi": "BDT 120.00"
+      },
+      "tax": {
+        "tip_100": "15%",
+        "tip_500": "15%",
+        "tip_1000": "15%",
+        "tip_koyomi": "15%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "BD",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "バーレーン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.69",
+        "tip_500": "USD 3.49",
+        "tip_1000": "USD 6.99",
+        "tip_koyomi": "USD 0.69"
+      },
+      "after": {
+        "tip_100": "USD 1.59",
+        "tip_500": "USD 4.39",
+        "tip_1000": "USD 8.99",
+        "tip_koyomi": "USD 1.59"
+      },
+      "tax": {
+        "tip_100": "10%",
+        "tip_500": "10%",
+        "tip_1000": "10%",
+        "tip_koyomi": "10%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "高所得分類でも地域内所得差や応援購入の入口を考慮し、米国等価より低い約75～80%の初期価格を採用。所得差は国別の購入実績で未検証。",
+      "iso2": "BH",
+      "worldbank_income_level": "HIC",
+      "group": "regional75",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.49,
+        3.99,
+        7.99,
+        1.49
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "パキスタン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "PKR 170.00",
+        "tip_500": "PKR 890.00",
+        "tip_1000": "PKR 1,750.00",
+        "tip_koyomi": "PKR 170.00"
+      },
+      "after": {
+        "tip_100": "PKR 250.00",
+        "tip_500": "PKR 620.00",
+        "tip_1000": "PKR 1,250.00",
+        "tip_koyomi": "PKR 250.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "PK",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "パナマ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 1.49",
+        "tip_500": "USD 3.99",
+        "tip_1000": "USD 7.99",
+        "tip_koyomi": "USD 1.49"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "高所得分類でも地域内所得差や応援購入の入口を考慮し、米国等価より低い約75～80%の初期価格を採用。所得差は国別の購入実績で未検証。",
+      "iso2": "PA",
+      "worldbank_income_level": "HIC",
+      "group": "regional75",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.49,
+        3.99,
+        7.99,
+        1.49
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "パプアニューギニア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "PG",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "パラグアイ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "PYG 3,734",
+        "tip_500": "PYG 20,000",
+        "tip_1000": "PYG 40,000",
+        "tip_koyomi": "PYG 3,641"
+      },
+      "after": {
+        "tip_100": "PYG 10,000",
+        "tip_500": "PYG 20,000",
+        "tip_1000": "PYG 40,000",
+        "tip_koyomi": "PYG 10,000"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "PY",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "フィジー",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "FJ",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "フィリピン",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "PHP 44.00",
+        "tip_500": "PHP 220.00",
+        "tip_1000": "PHP 445.00",
+        "tip_koyomi": "PHP 45.00"
+      },
+      "after": {
+        "tip_100": "PHP 69.00",
+        "tip_500": "PHP 179.00",
+        "tip_1000": "PHP 349.00",
+        "tip_koyomi": "PHP 69.00"
+      },
+      "tax": {
+        "tip_100": "12%",
+        "tip_500": "12%",
+        "tip_1000": "12%",
+        "tip_koyomi": "12%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "少額応援を維持する試行案。Silver/Goldは現行より下がる。"
+    },
+    {
+      "country": "フィンランド",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.49",
+        "tip_1000": "EUR 6.99",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "25.5%（地域別のオーバーライド 1 件）",
+        "tip_500": "25.5%（地域別のオーバーライド 1 件）",
+        "tip_1000": "25.5%（地域別のオーバーライド 1 件）",
+        "tip_koyomi": "25.5%（地域別のオーバーライド 1 件）"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "フランス",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.29",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "20%（地域別のオーバーライド 11 件）",
+        "tip_500": "20%（地域別のオーバーライド 11 件）",
+        "tip_1000": "20%（地域別のオーバーライド 11 件）",
+        "tip_koyomi": "20%（地域別のオーバーライド 11 件）"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "ブラジル",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "BRL 3.29",
+        "tip_500": "BRL 15.99",
+        "tip_1000": "BRL 32.99",
+        "tip_koyomi": "BRL 3.19"
+      },
+      "after": {
+        "tip_100": "BRL 6.90",
+        "tip_500": "BRL 16.90",
+        "tip_1000": "BRL 34.90",
+        "tip_koyomi": "BRL 6.90"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "米国等価より低い地域価格を維持し、末尾90に統一する試行案。"
+    },
+    {
+      "country": "ブルガリア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.29",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "ブルキナファソ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.56",
+        "tip_500": "EUR 2.78",
+        "tip_1000": "EUR 5.55",
+        "tip_koyomi": "EUR 0.56"
+      },
+      "after": {
+        "tip_100": "EUR 0.53",
+        "tip_500": "EUR 1.33",
+        "tip_1000": "EUR 2.67",
+        "tip_koyomi": "EUR 0.53"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "BF",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ベトナム",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "VND 16,000",
+        "tip_500": "VND 82,000",
+        "tip_1000": "VND 164,000",
+        "tip_koyomi": "VND 16,000"
+      },
+      "after": {
+        "tip_100": "VND 29,000",
+        "tip_500": "VND 69,000",
+        "tip_1000": "VND 139,000",
+        "tip_koyomi": "VND 29,000"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "現地の小額単位に丸めた試行案。Silver/Goldは現行より下がる。換算比較の最終更新は適用直前に行う。"
+    },
+    {
+      "country": "ベナン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.56",
+        "tip_500": "EUR 2.78",
+        "tip_1000": "EUR 5.55",
+        "tip_koyomi": "EUR 0.56"
+      },
+      "after": {
+        "tip_100": "EUR 0.79",
+        "tip_500": "EUR 2.04",
+        "tip_1000": "EUR 4.01",
+        "tip_koyomi": "EUR 0.79"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "BJ",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ベネズエラ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "VE",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ベラルーシ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.76",
+        "tip_500": "USD 3.79",
+        "tip_1000": "USD 7.57",
+        "tip_koyomi": "USD 0.76"
+      },
+      "after": {
+        "tip_100": "USD 1.55",
+        "tip_500": "USD 3.95",
+        "tip_1000": "USD 7.79",
+        "tip_koyomi": "USD 1.55"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "BY",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ベリーズ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "BZ",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ベルギー",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.39",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "21%",
+        "tip_500": "21%",
+        "tip_1000": "21%",
+        "tip_koyomi": "21%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "ペルー",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "PEN 2.09",
+        "tip_500": "PEN 10.99",
+        "tip_1000": "PEN 20.99",
+        "tip_koyomi": "PEN 2.19"
+      },
+      "after": {
+        "tip_100": "PEN 4.49",
+        "tip_500": "PEN 10.99",
+        "tip_1000": "PEN 21.99",
+        "tip_koyomi": "PEN 4.49"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "PE",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ホンジュラス",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "HN",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ボスニア・ヘルツェゴビナ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "BA",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ボツワナ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "BW",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ボリビア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "BOB 7.49",
+        "tip_500": "BOB 37.99",
+        "tip_1000": "BOB 75.99",
+        "tip_koyomi": "BOB 7.49"
+      },
+      "after": {
+        "tip_100": "BOB 10.99",
+        "tip_500": "BOB 27.99",
+        "tip_1000": "BOB 53.99",
+        "tip_koyomi": "BOB 10.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "BO",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ポルトガル",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.39",
+        "tip_1000": "EUR 6.99",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "23%",
+        "tip_500": "23%",
+        "tip_1000": "23%",
+        "tip_koyomi": "23%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "ポーランド",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "PLN 2.99",
+        "tip_500": "PLN 14.99",
+        "tip_1000": "PLN 29.99",
+        "tip_koyomi": "PLN 2.99"
+      },
+      "after": {
+        "tip_100": "PLN 6.99",
+        "tip_500": "PLN 17.99",
+        "tip_1000": "PLN 34.99",
+        "tip_koyomi": "PLN 6.99"
+      },
+      "tax": {
+        "tip_100": "23%",
+        "tip_500": "23%",
+        "tip_1000": "23%",
+        "tip_koyomi": "23%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "税込の単純換算より控えめな地域価格。約25～30%の調整で入口を維持する仮説。"
+    },
+    {
+      "country": "マカオ",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "MOP 4.99",
+        "tip_500": "MOP 25.88",
+        "tip_1000": "MOP 50.99",
+        "tip_koyomi": "MOP 4.99"
+      },
+      "after": {
+        "tip_100": "MOP 16.00",
+        "tip_500": "MOP 40.00",
+        "tip_1000": "MOP 80.00",
+        "tip_koyomi": "MOP 16.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "香港ドル連動を踏まえ香港と実質的に近い価格。市場規模・実績未確認なので優先度は後。"
+    },
+    {
+      "country": "マリ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.56",
+        "tip_500": "EUR 2.78",
+        "tip_1000": "EUR 5.55",
+        "tip_koyomi": "EUR 0.56"
+      },
+      "after": {
+        "tip_100": "EUR 0.53",
+        "tip_500": "EUR 1.33",
+        "tip_1000": "EUR 2.67",
+        "tip_koyomi": "EUR 0.53"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "ML",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "マルタ",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.66",
+        "tip_500": "EUR 3.28",
+        "tip_1000": "EUR 6.55",
+        "tip_koyomi": "EUR 0.66"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "18%",
+        "tip_500": "18%",
+        "tip_1000": "18%",
+        "tip_koyomi": "18%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "マレーシア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "MYR 2.99",
+        "tip_500": "MYR 13.99",
+        "tip_1000": "MYR 27.99",
+        "tip_koyomi": "MYR 2.99"
+      },
+      "after": {
+        "tip_100": "MYR 5.90",
+        "tip_500": "MYR 14.90",
+        "tip_1000": "MYR 29.90",
+        "tip_koyomi": "MYR 5.90"
+      },
+      "tax": {
+        "tip_100": "8%",
+        "tip_500": "8%",
+        "tip_1000": "8%",
+        "tip_koyomi": "8%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "米国換算の税抜価格より約27%低く、税調整後は約32%低い。購買しやすさを優先する初期仮説。"
+    },
+    {
+      "country": "ミクロネシア連邦",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "FM",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ミャンマー (ビルマ)",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "MMK 1,000",
+        "tip_500": "MMK 7,000",
+        "tip_1000": "MMK 13,000",
+        "tip_koyomi": "MMK 1,000"
+      },
+      "after": {
+        "tip_100": "MMK 1,000",
+        "tip_500": "MMK 4,000",
+        "tip_1000": "MMK 7,000",
+        "tip_koyomi": "MMK 1,000"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "所得・生活環境の不確実性を踏まえ、支援購入の入口を低く保つ運用判断。最適化を実証した値ではない。",
+      "iso2": "MM",
+      "worldbank_income_level": "LMC",
+      "group": "regional35",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.69,
+        1.79,
+        3.49,
+        0.69
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "メキシコ",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "MXN 13.00",
+        "tip_500": "MXN 65.00",
+        "tip_1000": "MXN 129.00",
+        "tip_koyomi": "MXN 14.00"
+      },
+      "after": {
+        "tip_100": "MXN 25.00",
+        "tip_500": "MXN 59.00",
+        "tip_1000": "MXN 119.00",
+        "tip_koyomi": "MXN 25.00"
+      },
+      "tax": {
+        "tip_100": "16%",
+        "tip_500": "16%",
+        "tip_1000": "16%",
+        "tip_koyomi": "16%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "米国等価より低い地域価格を維持した整数の試行案。"
+    },
+    {
+      "country": "モザンビーク",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 1.49",
+        "tip_1000": "USD 2.99",
+        "tip_koyomi": "USD 0.59"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "MZ",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "モナコ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.29",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "欧州の近隣ユーロ価格と同じ税込表示に統一。バチカンは世界銀行分類なしのため近隣価格を採用。",
+      "iso2": "MC",
+      "worldbank_income_level": "HIC",
+      "group": "EUR_neighbours",
+      "reference_currency": "EUR",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": true
+    },
+    {
+      "country": "モルディブ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "MV",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "モルドバ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.76",
+        "tip_500": "USD 3.79",
+        "tip_1000": "USD 7.57",
+        "tip_koyomi": "USD 0.76"
+      },
+      "after": {
+        "tip_100": "USD 1.55",
+        "tip_500": "USD 3.95",
+        "tip_1000": "USD 7.79",
+        "tip_koyomi": "USD 1.55"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "MD",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "モロッコ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "MAD 7.29",
+        "tip_500": "MAD 35.99",
+        "tip_1000": "MAD 72.99",
+        "tip_koyomi": "MAD 7.39"
+      },
+      "after": {
+        "tip_100": "MAD 9.99",
+        "tip_500": "MAD 26.99",
+        "tip_1000": "MAD 52.99",
+        "tip_koyomi": "MAD 9.99"
+      },
+      "tax": {
+        "tip_100": "20%",
+        "tip_500": "20%",
+        "tip_1000": "20%",
+        "tip_koyomi": "20%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "MA",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "モンゴル",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "MNT 2,270.00",
+        "tip_500": "MNT 11,300.00",
+        "tip_1000": "MNT 22,700.00",
+        "tip_koyomi": "MNT 2,270.00"
+      },
+      "after": {
+        "tip_100": "MNT 4,640.00",
+        "tip_500": "MNT 11,800.00",
+        "tip_1000": "MNT 23,300.00",
+        "tip_koyomi": "MNT 4,640.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "MN",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "モーリシャス",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "MU",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ヨルダン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "JOD 0.450",
+        "tip_500": "JOD 2.250",
+        "tip_1000": "JOD 4.500",
+        "tip_koyomi": "JOD 0.450"
+      },
+      "after": {
+        "tip_100": "JOD 0.900",
+        "tip_500": "JOD 2.350",
+        "tip_1000": "JOD 4.600",
+        "tip_koyomi": "JOD 0.900"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "JO",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ラオス",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.89",
+        "tip_500": "USD 2.29",
+        "tip_1000": "USD 4.49",
+        "tip_koyomi": "USD 0.89"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "LA",
+      "worldbank_income_level": "LMC",
+      "group": "LMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.89,
+        2.29,
+        4.49,
+        0.89
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ラトビア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.39",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "21%",
+        "tip_500": "21%",
+        "tip_1000": "21%",
+        "tip_koyomi": "21%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "リトアニア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.39",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "21%",
+        "tip_500": "21%",
+        "tip_1000": "21%",
+        "tip_koyomi": "21%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "リヒテンシュタイン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "CHF 0.60",
+        "tip_500": "CHF 2.80",
+        "tip_1000": "CHF 5.60",
+        "tip_koyomi": "CHF 0.60"
+      },
+      "after": {
+        "tip_100": "CHF 1.79",
+        "tip_500": "CHF 4.49",
+        "tip_1000": "CHF 8.99",
+        "tip_koyomi": "CHF 1.79"
+      },
+      "tax": {
+        "tip_100": "8.1%",
+        "tip_500": "8.1%",
+        "tip_1000": "8.1%",
+        "tip_koyomi": "8.1%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "近隣スイスの確定済み表示価格に合わせる。",
+      "iso2": "LI",
+      "worldbank_income_level": "HIC",
+      "group": "CHF_neighbour",
+      "reference_currency": "CHF",
+      "reference_prices": [
+        1.79,
+        4.49,
+        8.99,
+        1.79
+      ],
+      "reference_includes_tax": true
+    },
+    {
+      "country": "リビア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 1.29",
+        "tip_500": "USD 3.29",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 1.29"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "LY",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "リベリア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 1.49",
+        "tip_1000": "USD 2.99",
+        "tip_koyomi": "USD 0.59"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "LR",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ルクセンブルク",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "EUR 0.69",
+        "tip_500": "EUR 3.29",
+        "tip_1000": "EUR 6.49",
+        "tip_koyomi": "EUR 0.69"
+      },
+      "after": {
+        "tip_100": "EUR 1.99",
+        "tip_500": "EUR 4.99",
+        "tip_1000": "EUR 9.99",
+        "tip_koyomi": "EUR 1.99"
+      },
+      "tax": {
+        "tip_100": "17%",
+        "tip_500": "17%",
+        "tip_1000": "17%",
+        "tip_koyomi": "17%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "ユーロ圏の税込表示価格を統一。VAT差による受取額差は許容。購買力に応じた国別割引は実績確認後の選択肢。"
+    },
+    {
+      "country": "ルワンダ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 1.49",
+        "tip_1000": "USD 2.99",
+        "tip_koyomi": "USD 0.59"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "RW",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ルーマニア",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "RON 3.59",
+        "tip_500": "RON 17.99",
+        "tip_1000": "RON 34.99",
+        "tip_koyomi": "RON 3.59"
+      },
+      "after": {
+        "tip_100": "RON 7.99",
+        "tip_500": "RON 19.99",
+        "tip_1000": "RON 39.99",
+        "tip_koyomi": "RON 7.99"
+      },
+      "tax": {
+        "tip_100": "21%",
+        "tip_500": "21%",
+        "tip_1000": "21%",
+        "tip_koyomi": "21%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "税込単純換算より約30%低い地域価格。"
+    },
+    {
+      "country": "レバノン",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.63",
+        "tip_500": "USD 3.16",
+        "tip_1000": "USD 6.31",
+        "tip_koyomi": "USD 0.63"
+      },
+      "after": {
+        "tip_100": "USD 0.69",
+        "tip_500": "USD 1.79",
+        "tip_1000": "USD 3.49",
+        "tip_koyomi": "USD 0.69"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "所得・生活環境の不確実性を踏まえ、支援購入の入口を低く保つ運用判断。最適化を実証した値ではない。",
+      "iso2": "LB",
+      "worldbank_income_level": "LMC",
+      "group": "regional35",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.69,
+        1.79,
+        3.49,
+        0.69
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "ロシア",
+      "phase": "維持",
+      "before": {
+        "tip_100": "RUB 55.00",
+        "tip_500": "RUB 269.00",
+        "tip_1000": "RUB 499.00",
+        "tip_koyomi": "RUB 55.00"
+      },
+      "after": {
+        "tip_100": "RUB 55.00",
+        "tip_500": "RUB 269.00",
+        "tip_1000": "RUB 499.00",
+        "tip_koyomi": "RUB 55.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "Google Play Billingが停止中のため現行登録価格を維持。販売可否は変更しない。",
+      "iso2": "RU",
+      "worldbank_income_level": "HIC"
+    },
+    {
+      "country": "中央アフリカ共和国",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "EUR 0.56",
+        "tip_500": "EUR 2.78",
+        "tip_1000": "EUR 5.55",
+        "tip_koyomi": "EUR 0.56"
+      },
+      "after": {
+        "tip_100": "EUR 0.53",
+        "tip_500": "EUR 1.33",
+        "tip_1000": "EUR 2.67",
+        "tip_koyomi": "EUR 0.53"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "CF",
+      "worldbank_income_level": "LIC",
+      "group": "LIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        0.59,
+        1.49,
+        2.99,
+        0.59
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "北マケドニア",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.74",
+        "tip_500": "USD 3.73",
+        "tip_1000": "USD 7.45",
+        "tip_koyomi": "USD 0.74"
+      },
+      "after": {
+        "tip_100": "USD 1.52",
+        "tip_500": "USD 3.88",
+        "tip_1000": "USD 7.66",
+        "tip_koyomi": "USD 1.52"
+      },
+      "tax": {
+        "tip_100": "18%",
+        "tip_500": "18%",
+        "tip_1000": "18%",
+        "tip_koyomi": "18%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "MK",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "南アフリカ",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "ZAR 11.99",
+        "tip_500": "ZAR 59.99",
+        "tip_1000": "ZAR 119.99",
+        "tip_koyomi": "ZAR 11.99"
+      },
+      "after": {
+        "tip_100": "ZAR 24.99",
+        "tip_500": "ZAR 62.99",
+        "tip_1000": "ZAR 124.99",
+        "tip_koyomi": "ZAR 24.99"
+      },
+      "tax": {
+        "tip_100": "15%",
+        "tip_500": "15%",
+        "tip_1000": "15%",
+        "tip_koyomi": "15%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "ZA",
+      "worldbank_income_level": "UMC",
+      "group": "UMC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.29,
+        3.29,
+        6.49,
+        1.29
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "台湾",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "TWD 21.00",
+        "tip_500": "TWD 100.00",
+        "tip_1000": "TWD 210.00",
+        "tip_koyomi": "TWD 22.00"
+      },
+      "after": {
+        "tip_100": "TWD 60.00",
+        "tip_500": "TWD 150.00",
+        "tip_1000": "TWD 300.00",
+        "tip_koyomi": "TWD 60.00"
+      },
+      "tax": {
+        "tip_100": "5%",
+        "tip_500": "5%",
+        "tip_1000": "5%",
+        "tip_koyomi": "5%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "整数で表示し、米国単純換算64.86/162.63/325.59より控えめな応援価格。税込で約12%の地域調整。"
+    },
+    {
+      "country": "日本",
+      "phase": "維持",
+      "before": {
+        "tip_100": "JPY 200",
+        "tip_500": "JPY 500",
+        "tip_1000": "JPY 1,000",
+        "tip_koyomi": "JPY 200"
+      },
+      "after": {
+        "tip_100": "JPY 200",
+        "tip_500": "JPY 500",
+        "tip_1000": "JPY 1,000",
+        "tip_koyomi": "JPY 200"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "直近に決定した現行価格を維持。米国は基準価格、日本・韓国は既決定の地域価格。"
+    },
+    {
+      "country": "英領ヴァージン諸島",
+      "phase": "残り125地域",
+      "before": {
+        "tip_100": "USD 0.59",
+        "tip_500": "USD 3.19",
+        "tip_1000": "USD 6.49",
+        "tip_koyomi": "USD 0.59"
+      },
+      "after": {
+        "tip_100": "USD 1.99",
+        "tip_500": "USD 4.99",
+        "tip_1000": "USD 9.99",
+        "tip_koyomi": "USD 1.99"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "世界銀行所得分類を購買力の参考にした初期係数。直接的な家計購買力やアプリ需要の測定値ではない。",
+      "iso2": "VG",
+      "worldbank_income_level": "HIC",
+      "group": "HIC",
+      "reference_currency": "USD",
+      "reference_prices": [
+        1.99,
+        4.99,
+        9.99,
+        1.99
+      ],
+      "reference_includes_tax": false
+    },
+    {
+      "country": "韓国",
+      "phase": "維持",
+      "before": {
+        "tip_100": "KRW 1,900",
+        "tip_500": "KRW 4,900",
+        "tip_1000": "KRW 9,900",
+        "tip_koyomi": "KRW 1,900"
+      },
+      "after": {
+        "tip_100": "KRW 1,900",
+        "tip_500": "KRW 4,900",
+        "tip_1000": "KRW 9,900",
+        "tip_koyomi": "KRW 1,900"
+      },
+      "tax": {
+        "tip_100": "10%",
+        "tip_500": "10%",
+        "tip_1000": "10%",
+        "tip_koyomi": "10%"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "直近に決定した現行価格を維持。米国は基準価格、日本・韓国は既決定の地域価格。"
+    },
+    {
+      "country": "香港",
+      "phase": "先行45地域",
+      "before": {
+        "tip_100": "HKD 4.95",
+        "tip_500": "HKD 24.90",
+        "tip_1000": "HKD 49.90",
+        "tip_koyomi": "HKD 4.97"
+      },
+      "after": {
+        "tip_100": "HKD 15.00",
+        "tip_500": "HKD 39.00",
+        "tip_1000": "HKD 79.00",
+        "tip_koyomi": "HKD 15.00"
+      },
+      "tax": {
+        "tip_100": "VAT なし",
+        "tip_500": "VAT なし",
+        "tip_1000": "VAT なし",
+        "tip_koyomi": "VAT なし"
+      },
+      "availability": {
+        "tip_100": "利用可能",
+        "tip_500": "利用可能",
+        "tip_1000": "利用可能",
+        "tip_koyomi": "利用可能"
+      },
+      "reason": "USD換算15.61/39.15/78.38を読みやすく丸める。アプリ間・Bronze/こよみ差を解消。"
+    }
+  ]
+}
