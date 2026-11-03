@@ -1,0 +1,5 @@
+v1.2.9
+- Updated sample manga to 51 PDFs.
+- Added Latin American Spanish, European Portuguese and Hong Kong standard written Chinese editions.
+- Improved regional filters and sorting.
+- Added download integrity checks and safer retries while preserving older files.

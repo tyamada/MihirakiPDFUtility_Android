@@ -221,4 +221,5 @@
     <string name="page_number_description">Page %1$d</string>
     <string name="page_preview_action">Aperçu de la page</string>
     <string name="page_selection_action">Sélectionner ou désélectionner la page</string>
+    <string name="sample_pdf_integrity_error">Impossible de vérifier le PDF téléchargé. Veuillez réessayer.</string>
 </resources>

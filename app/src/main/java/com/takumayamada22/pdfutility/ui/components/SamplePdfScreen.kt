@@ -128,7 +128,7 @@ fun SamplePdfScreen(
                         itemState = itemState,
                         onDownload = { viewModel.requestDownload(itemState.item) },
                         onOpen = {
-                            itemState.localFile?.let { file ->
+                            viewModel.openDownloadedPdf(itemState.item) { file ->
                                 onOpenPdf(Uri.fromFile(file))
                             }
                         },

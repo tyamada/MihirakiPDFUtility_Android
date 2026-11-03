@@ -1684,7 +1684,7 @@ class PdfViewModel(
                 val sampleRepo = SamplePdfRepository(context)
                 
                 // Check missing sample catalog PDFs
-                val missingSamples = SamplePdfCatalog.items.filter { !sampleRepo.isDownloaded(it.fileName) }
+                val missingSamples = SamplePdfCatalog.items.filter { !sampleRepo.isDownloaded(it) }
                 
                 // Check missing testdata files
                 val testDataDir = File(context.getExternalFilesDir(null), "testdata")

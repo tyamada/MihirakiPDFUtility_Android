@@ -265,4 +265,5 @@
     <string name="page_number_description">%1$dページ</string>
     <string name="page_preview_action">ページをプレビュー</string>
     <string name="page_selection_action">ページの選択／解除</string>
+    <string name="sample_pdf_integrity_error">取得したPDFを検証できませんでした。もう一度お試しください。</string>
 </resources>

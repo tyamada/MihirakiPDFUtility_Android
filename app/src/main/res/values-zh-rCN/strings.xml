@@ -252,4 +252,5 @@
     <string name="page_number_description">第%1$d页</string>
     <string name="page_preview_action">预览页面</string>
     <string name="page_selection_action">选择或取消选择页面</string>
+    <string name="sample_pdf_integrity_error">无法验证下载的PDF。请重试。</string>
 </resources>
