@@ -49,3 +49,7 @@ PDF配布用Releasesは公開済み。アプリ本体のPlay配信・公開ペ�
 ## ユーティリティ固有の注意
 
 既存Pages用33件は保持。新たな第3話9件は公開済み旧版の参照対象ではなく、`docs/_config.yml`でPages公開対象から除外し、Releasesで配布する。暫定的なraw.githubusercontent.com配布案は廃止し、全42件をReleasesへ統一した。9件のローカルPDF・チェックサム・設定・検証スクリプトをコミット対象に含める必要がある。その他の未追跡テストPDFはこの移行の対象外。
+
+## 後続作業
+
+Releases移行を含む修正は5f0b1aeでコミット・pushし、CIとPagesの成功を確認。新URL42件を含む署名付きApp Bundleを再作成しAlphaへアップロードした。最新状況は[1.2.8（24）の配信状況](CLOSED_TEST_RELEASE_PROGRESS_1.2.8_24.ja.md)を参照。旧Pagesの33件は維持する。
