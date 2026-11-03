@@ -7,6 +7,12 @@ A powerful and intuitive PDF utility for Android, specializing in organizing wor
 [**日本語サイト**](https://tyamada.github.io/MihirakiPDFUtility_Android/index_ja.html) | [**English Website**](https://tyamada.github.io/MihirakiPDFUtility_Android/) | [**日本語 README (README_ja.md)**](README_ja.md)
 
 
+## Video guides
+
+These videos are in English and open on YouTube.
+
+- [Tutorial playlist (5 videos)](https://www.youtube.com/playlist?list=PLa-QGEwHSDRo)
+
 ## Release candidate
 
 Candidate: <!-- current-app-version:start -->1.2.9 (25)<!-- current-app-version:end -->. This update includes all 51 sample manga PDFs from sample-manga-v2, with Latin American Spanish, European Portuguese and Hong Kong standard written Chinese editions. Downloads are verified before use, and older PDFs are retained. Closed-test distribution is being prepared.
