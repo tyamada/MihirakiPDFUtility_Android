@@ -53,6 +53,7 @@ jobs:
         python3 scripts/audit_english_residue.py
         python3 scripts/validate_store_metadata.py
         python3 scripts/validate_public_pages.py
+        python3 scripts/verify_sample_release_assets.py
         python3 scripts/update_docs_and_listings.py
 
     - name: Test safe device and document scripts

@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.takumayamada22.pdfutility.R
+import com.takumayamada22.pdfutility.data.SamplePdfLanguages
 import com.takumayamada22.pdfutility.data.SamplePdfItemState
 import com.takumayamada22.pdfutility.ui.SamplePdfViewModel
 
@@ -61,17 +62,8 @@ fun SamplePdfScreen(
                     onExpandedChange = { expanded = !expanded },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    val selectedLabel = when (uiState.selectedLanguage) {
-                        "ALL" -> allLabel
-                        "en" -> "English"
-                        "ja" -> "Japanese (日本語)"
-                        "ko" -> "Korean (한국어)"
-                        "zh_cn" -> "Chinese (Simplified) (中国語(簡体字))"
-                        "zh_tw" -> "Chinese (Traditional) (中国語(繁体字))"
-                        "de" -> "German (Deutsch)"
-                        "fr" -> "French (Français)"
-                        else -> uiState.selectedLanguage.uppercase()
-                    }
+                    val selectedLabel = if (uiState.selectedLanguage == "ALL") allLabel
+                        else SamplePdfLanguages.displayName(uiState.selectedLanguage)
                     OutlinedTextField(
                         value = selectedLabel,
                         onValueChange = {},
@@ -80,6 +72,7 @@ fun SamplePdfScreen(
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
                         modifier = Modifier
                             .menuAnchor(MenuAnchorType.PrimaryNotEditable, true)
+                            .testTag("sample-language-filter")
                             .fillMaxWidth()
                     )
                     ExposedDropdownMenu(
@@ -87,18 +80,10 @@ fun SamplePdfScreen(
                         onDismissRequest = { expanded = false }
                     ) {
                         uiState.availableLanguages.forEach { lang ->
-                            val labelText = when (lang) {
-                                "ALL" -> allLabel
-                                "en" -> "English"
-                                "ja" -> "Japanese (日本語)"
-                                "ko" -> "Korean (한국어)"
-                                "zh_cn" -> "Chinese (Simplified) (中国語(簡体字))"
-                                "zh_tw" -> "Chinese (Traditional) (中国語(繁体字))"
-                                "de" -> "German (Deutsch)"
-                                "fr" -> "French (Français)"
-                                else -> lang.uppercase()
-                            }
+                            val labelText = if (lang == "ALL") allLabel
+                                else SamplePdfLanguages.displayName(lang)
                             DropdownMenuItem(
+                                modifier = Modifier.testTag("sample-language-$lang"),
                                 text = { Text(labelText) },
                                 onClick = {
                                     viewModel.setLanguage(lang)

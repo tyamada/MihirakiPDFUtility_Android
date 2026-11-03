@@ -1,0 +1,12 @@
+# Preserve the 33 existing Pages PDF URLs. New episodes use GitHub Releases download URLs.
+# Keeping the site below the GitHub Pages published-site size limit.
+exclude:
+  - sample/tameshibu_episode3_de.pdf
+  - sample/tameshibu_episode3_fr.pdf
+  - sample/tameshibu_episode3_es.pdf
+  - sample/tameshibu_episode3_it.pdf
+  - sample/tameshibu_episode3_pt.pdf
+  - sample/tameshibu_episode3_vi.pdf
+  - sample/tameshibu_episode3_id.pdf
+  - sample/tameshibu_episode3_tl.pdf
+  - sample/tameshibu_episode3_ne.pdf

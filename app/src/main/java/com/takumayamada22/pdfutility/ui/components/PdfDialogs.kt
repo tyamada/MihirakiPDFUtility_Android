@@ -28,7 +28,11 @@ fun PasswordDialog(viewModel: PdfViewModel, uiState: PdfUiState) {
                         value = password,
                         onValueChange = { password = it },
                         label = { Text(stringResource(R.string.dialog_password_label)) },
-                        singleLine = true
+                        singleLine = true,
+                        visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
+                        keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                            keyboardType = androidx.compose.ui.text.input.KeyboardType.Password
+                        )
                     )
                 }
             },

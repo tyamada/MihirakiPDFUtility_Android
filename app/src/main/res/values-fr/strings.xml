@@ -220,4 +220,5 @@
     <string name="sample_pdf_order_from_latest">Depuis le chapitre le plus récent</string>
     <string name="page_number_description">Page %1$d</string>
     <string name="page_preview_action">Aperçu de la page</string>
+    <string name="page_selection_action">Sélectionner ou désélectionner la page</string>
 </resources>

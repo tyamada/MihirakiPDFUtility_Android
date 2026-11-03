@@ -285,4 +285,5 @@
     <string name="sample_pdf_order_from_latest">Dari bab terkini</string>
     <string name="page_number_description">Halaman %1$d</string>
     <string name="page_preview_action">Pratonton halaman</string>
+    <string name="page_selection_action">Pilih atau nyahpilih halaman</string>
 </resources>

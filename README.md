@@ -9,11 +9,11 @@ A powerful and intuitive PDF utility for Android, specializing in organizing wor
 
 ## Release candidate
 
-Candidate: <!-- current-app-version:start -->1.2.7 (23)<!-- current-app-version:end -->. Closed-test publication and Play update verification are pending.
+Candidate: <!-- current-app-version:start -->1.2.8 (24)<!-- current-app-version:end -->. This update fixes encrypted-PDF password prompts, portrait menus, sample language filters, preview accessibility and rotation undo/redo. Closed-test publication and device retesting are pending.
 
-Sample PDFs can be sorted from Chapter 1 or the latest chapter. The selected order is retained after restarting the app. Downloads use this app's own published sample files.
+Sample PDFs include all 42 manga files (14 languages, three chapters each). Language filters use native and English names, sorted by English name. The selected chapter order is retained after restarting the app.
 
-For developers, `scripts/run_device_tests_and_save.py --serial <serial>` only collects installed-app information. Debug tests require `--mode debug` on a dedicated device; Play installations are protected. This tool does not certify manual checks or rewrite the verification list. See [the release preparation report](docs/CLOSED_TEST_RELEASE_PROGRESS_1.2.7_23.ja.md).
+[Release preparation report](docs/CLOSED_TEST_RELEASE_PROGRESS_1.2.8_24.ja.md) · [Device retest checklist](docs/CLOSED_TEST_DEVICE_CHECKLIST_1.2.8_24.ja.md).
 
 ## 🚀 Key Features
 
@@ -23,7 +23,7 @@ For developers, `scripts/run_device_tests_and_save.py --serial <serial>` only co
 | ✂️ **Smart Splitting** | Split double-page spreads into individual pages. Supports vertical and horizontal splitting. |
 | 🔀 **Drag & Drop Reordering** | Easily organize your PDF by dragging and dropping thumbnails. Intuitive page management. |
 | ➕ **Merge & Append** | Combine multiple PDF files into one, or add pages to existing documents. |
-| 🖥️ **Adaptive Menu & Customization** | Adaptive layout: horizontal menu bar at widths of 840 dp or more, and a categorized overflow menu on smaller screens, plus customizable toolbar buttons via Options. |
+| 🖥️ **Adaptive Menu & Customization** | Adaptive layout: horizontal menu bar at widths of 840 dp or more, and a categorized, scrollable bottom sheet menu on smaller screens, plus customizable toolbar buttons via Options. |
 | 🔒 **Security & Privacy** | Dedicated in-app privacy policy, password protection, metadata editing, automatic active content sanitization, and local audit logs. |
 | 🌟 **Interactive Tutorial** | Guided step-by-step tutorial screen for first-time users with instant sample PDF trial and re-triggerable help. |
 | 🔍 **Diagnostics & Benchmarks** | Run in-app comprehensive diagnostics and benchmark tests using dynamic test PDFs, and review local audit logs (24-hour retention, offline/privacy-protected). |
@@ -52,39 +52,39 @@ Explore how the application functions across different device types:
 
 You can download and test sample PDFs (Manga) to try out Mihiraki PDF Utility:
 
-- [THE TRY-IT CLUB EPISODE 1: THE BREAK-TIME MAP (English) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_en.pdf)
-- [THE TRY-IT CLUB EPISODE 2: ROOM TO GROW (English) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_en.pdf)
-- [ためし部 第１話 ひと息マップ (Japanese) - こまいろ日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_ja.pdf)
-- [ためし部 第２話 机、ひろがる。 (Japanese) - こまいろ日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_ja.pdf)
-- [해봄부 제1화 한숨 돌림 지도 (Korean) - 코마이로 히요리](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_ko.pdf)
-- [해봄부제2화 책상이 넓어지다 (Korean) - 코마이로 히요리](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_ko.pdf)
-- [试试社 第1话 歇口气地图 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_zh_cn.pdf)
-- [试试社 第2话 桌子变大了 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_zh_cn.pdf)
-- [試試社 第1話 (Chinese (Traditional)) - 小舞樓日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_zh_tw.pdf)
-- [試試社 第2話 (Chinese (Traditional)) - 小舞樓日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_zh_tw.pdf)
-- [DER PROBIERCLUB FOLGE 1 (German) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_de.pdf)
-- [DER PROBIERCLUB FOLGE 2 (German) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_de.pdf)
-- [LE CLUB DES ESSAIS EPISODE 1 (French) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_fr.pdf)
-- [LE CLUB DES ESSAIS EPISODE 2 (French) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_fr.pdf)
-- [EL CLUB DE PRUEBA EPISODIO 1 (Spanish) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_es.pdf)
-- [EL CLUB DE PRUEBA EPISODIO 2 (Spanish) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_es.pdf)
-- [IL CLUB DI PROVA EPISODIO 1 (Italian) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_it.pdf)
-- [IL CLUB DI PROVA EPISODIO 2 (Italian) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_it.pdf)
-- [O CLUBE DE TESTE EPISÓDIO 1 (Portuguese) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_pt.pdf)
-- [O CLUBE DE TESTE EPISÓDIO 2 (Portuguese) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_pt.pdf)
-- [CÂU LẠC BỘ THỬ NGHIỆM TẬP 1 (Vietnamese) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_vi.pdf)
-- [CÂU LẠC BỘ THỬ NGHIỆM TẬP 2 (Vietnamese) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_vi.pdf)
-- [KLUB PERCOBAAN EPISODE 1 (Indonesian) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_id.pdf)
-- [KLUB PERCOBAAN EPISODE 2 (Indonesian) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_id.pdf)
-- [ANG SUBOK CLUB EPISODE 1 (Filipino) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_fil.pdf)
-- [ANG SUBOK CLUB EPISODE 2 (Filipino) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_fil.pdf)
-- [परीक्षण क्लब एपिसोड १ (Nepali) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode1_2_ne.pdf)
-- [परीक्षण क्लब एपिसोड २ (Nepali) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode2_2_ne.pdf)
-- [THE TRY-IT CLUB EPISODE 3 (English) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode3_en.pdf)
-- [ためし部 第３話 (Japanese) - こまいろ日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode3_ja.pdf)
-- [해봄부 제3화 (Korean) - 코마이로 히요리](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode3_ko.pdf)
-- [试试社 第3话 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode3_zh_cn.pdf)
-- [試試社 第3話 (Chinese (Traditional)) - 小舞樓日和](https://github.com/tyamada/MihirakiPDFUtility_Android/raw/main/sample/tameshibu_episode3_zh_tw.pdf)
+- [THE TRY-IT CLUB EPISODE 1: THE BREAK-TIME MAP (English) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_en.pdf)
+- [THE TRY-IT CLUB EPISODE 2: ROOM TO GROW (English) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_en.pdf)
+- [ためし部 第１話 ひと息マップ (Japanese) - こまいろ日和](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_ja.pdf)
+- [ためし部 第２話 机、ひろがる。 (Japanese) - こまいろ日和](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_ja.pdf)
+- [해봄부 제1화 한숨 돌림 지도 (Korean) - 코마이로 히요리](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_ko.pdf)
+- [해봄부제2화 책상이 넓어지다 (Korean) - 코마이로 히요리](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_ko.pdf)
+- [试试社 第1话 歇口气地图 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_zh_cn.pdf)
+- [试试社 第2话 桌子变大了 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_zh_cn.pdf)
+- [試試社 第1話 (Chinese (Traditional)) - 小舞樓日和](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_zh_tw.pdf)
+- [試試社 第2話 (Chinese (Traditional)) - 小舞樓日和](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_zh_tw.pdf)
+- [DER PROBIERCLUB FOLGE 1 (German) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_de.pdf)
+- [DER PROBIERCLUB FOLGE 2 (German) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_de.pdf)
+- [LE CLUB DES ESSAIS EPISODE 1 (French) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_fr.pdf)
+- [LE CLUB DES ESSAIS EPISODE 2 (French) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_fr.pdf)
+- [EL CLUB DE PRUEBA EPISODIO 1 (Spanish) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_es.pdf)
+- [EL CLUB DE PRUEBA EPISODIO 2 (Spanish) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_es.pdf)
+- [IL CLUB DI PROVA EPISODIO 1 (Italian) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_it.pdf)
+- [IL CLUB DI PROVA EPISODIO 2 (Italian) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_it.pdf)
+- [O CLUBE DE TESTE EPISÓDIO 1 (Portuguese) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_pt.pdf)
+- [O CLUBE DE TESTE EPISÓDIO 2 (Portuguese) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_pt.pdf)
+- [CÂU LẠC BỘ THỬ NGHIỆM TẬP 1 (Vietnamese) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_vi.pdf)
+- [CÂU LẠC BỘ THỬ NGHIỆM TẬP 2 (Vietnamese) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_vi.pdf)
+- [KLUB PERCOBAAN EPISODE 1 (Indonesian) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_id.pdf)
+- [KLUB PERCOBAAN EPISODE 2 (Indonesian) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_id.pdf)
+- [ANG SUBOK CLUB EPISODE 1 (Filipino) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_fil.pdf)
+- [ANG SUBOK CLUB EPISODE 2 (Filipino) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_fil.pdf)
+- [परीक्षण क्लब एपिसोड १ (Nepali) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode1_2_ne.pdf)
+- [परीक्षण क्लब एपिसोड २ (Nepali) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode2_2_ne.pdf)
+- [THE TRY-IT CLUB EPISODE 3 (English) - Komairo Hiyori](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode3_en.pdf)
+- [ためし部 第３話 (Japanese) - こまいろ日和](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode3_ja.pdf)
+- [해봄부 제3화 (Korean) - 코마이로 히요리](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode3_ko.pdf)
+- [试试社 第3话 (Chinese (Simplified)) - 小真彩日和](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode3_zh_cn.pdf)
+- [試試社 第3話 (Chinese (Traditional)) - 小舞樓日和](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/tameshibu_episode3_zh_tw.pdf)
 
 ### Sample PDF License (CC BY 4.0)
 
@@ -111,3 +111,7 @@ Apache License 2.0
 ## Release & Documentation Rules
 
 Before building the App Bundle, ensure that `README.md`, `LICENSE`, `docs/*.html`, and `store_listing/metadata*.txt` are updated in accordance with the latest specifications. See [RELEASE_RULES.md](RELEASE_RULES.md) for details. Automated pre-bundle checks are enforced via Gradle (`preBundleDocumentationCheck`).
+
+### Sample PDF distribution
+
+The 42 sample manga PDFs are distributed through [GitHub Releases](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/tag/sample-manga-v1). Existing GitHub Pages PDF URLs remain available for older app versions. See [migration and verification notes](docs/SAMPLE_PDF_RELEASE_MIGRATION.ja.md).

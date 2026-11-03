@@ -10,12 +10,12 @@ class SamplePdfCatalogTest {
     @Test fun catalogHasEpisodesForEveryLanguageAndMatchingLocalCopies() {
         val root = listOf(File("."), File("..")).first { File(it, "docs").isDirectory }
         val items = SamplePdfCatalog.items
-        assertEquals(33, items.size)
+        assertEquals(42, items.size)
         assertEquals(items.size, items.map { it.id }.distinct().size)
         assertEquals(items.size, items.map { it.fileName }.distinct().size)
         assertEquals(setOf("ja", "en", "ko", "zh_cn", "zh_tw", "de", "fr", "es", "pt", "vi", "fil", "ne", "id", "it"), items.map { it.languageCode }.toSet())
         items.groupBy { it.languageCode }.forEach { (language, episodes) ->
-            val expectedSize = if (language in listOf("en", "ja", "ko", "zh_cn", "zh_tw")) 3 else 2
+            val expectedSize = 3
             assertEquals(language, expectedSize, episodes.size)
         }
         // Committed checksums remain independent of ignored local testdata in CI.
@@ -25,7 +25,7 @@ class SamplePdfCatalogTest {
         }
         assertEquals(items.map { it.fileName }.toSet(), checksums.keys)
         items.forEach { item ->
-            assertEquals("https://tyamada.github.io/MihirakiPDFUtility_Android/sample/${item.fileName}", item.url)
+            assertEquals("https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/${item.fileName}", item.url)
             val published = File(root, "docs/sample/${item.fileName}")
             assertTrue("Missing distribution copy: $published", published.isFile && published.length() > 0)
             val actual = MessageDigest.getInstance("SHA-256").digest(published.readBytes())

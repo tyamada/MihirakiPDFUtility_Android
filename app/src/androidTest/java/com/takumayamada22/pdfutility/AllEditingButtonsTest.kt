@@ -59,7 +59,7 @@ class AllEditingButtonsTest {
         if (id == R.string.settings_password) {
             compose.onNodeWithContentDescription(compose.activity.getString(R.string.action_settings))
                 .performClick()
-            compose.onNode(hasText(compose.activity.getString(id)) and hasAnyAncestor(isPopup()))
+            compose.onNodeWithText(compose.activity.getString(id))
                 .performScrollTo().performClick()
         } else {
             compose.onNodeWithContentDescription(compose.activity.getString(id), useUnmergedTree = true)

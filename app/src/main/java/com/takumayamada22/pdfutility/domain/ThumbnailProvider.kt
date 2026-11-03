@@ -14,6 +14,35 @@ import java.io.File
 class ThumbnailProvider(private val context: Context) {
     private val renderers = mutableMapOf<Uri, PdfRenderer>()
     private val pfds = mutableMapOf<Uri, ParcelFileDescriptor>()
+    private val unlockedCopies = mutableMapOf<Uri, File>()
+
+    /** PdfRenderer on older Android versions cannot open password-protected PDFs.
+     * Keep a decrypted rendering copy only in private cache, without retaining passwords.
+     */
+    fun prepare(uri: Uri, password: String?) {
+        renderers.remove(uri)?.close()
+        pfds.remove(uri)?.close()
+        unlockedCopies.remove(uri)?.delete()
+        memoryCache.evictAll()
+        if (password == null) return
+        val copy = File.createTempFile("pdf-render-", ".pdf", context.cacheDir)
+        try {
+            val stream = if (uri.scheme == "file") File(uri.path!!).inputStream()
+                else context.contentResolver.openInputStream(uri)
+                    ?: throw java.io.IOException("Cannot open PDF")
+            stream.use { input ->
+                com.tom_roush.pdfbox.pdmodel.PDDocument.load(input, password,
+                    com.tom_roush.pdfbox.io.MemoryUsageSetting.setupTempFileOnly()).use { doc ->
+                    doc.isAllSecurityToBeRemoved = true
+                    doc.save(copy)
+                }
+            }
+            unlockedCopies[uri] = copy
+        } catch (e: Exception) {
+            copy.delete()
+            throw e
+        }
+    }
     
     private val cacheSize = 50 // max 50 thumbnails in memory cache
     private val memoryCache = object : LruCache<String, Bitmap>(cacheSize) {
@@ -59,7 +88,10 @@ class ThumbnailProvider(private val context: Context) {
         renderers[uri]?.let { return it }
         
         return try {
-            val pfd = if (uri.scheme == "file" && uri.path != null) {
+            val unlocked = unlockedCopies[uri]
+            val pfd = if (unlocked != null) {
+                ParcelFileDescriptor.open(unlocked, ParcelFileDescriptor.MODE_READ_ONLY)
+            } else if (uri.scheme == "file" && uri.path != null) {
                 ParcelFileDescriptor.open(File(uri.path!!), ParcelFileDescriptor.MODE_READ_ONLY)
             } else {
                 context.contentResolver.openFileDescriptor(uri, "r")
@@ -93,6 +125,8 @@ class ThumbnailProvider(private val context: Context) {
         }
         renderers.clear()
         pfds.clear()
+        unlockedCopies.values.forEach { it.delete() }
+        unlockedCopies.clear()
     }
     
     // Legacy support or internal use

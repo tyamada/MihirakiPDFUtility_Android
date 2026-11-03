@@ -167,4 +167,5 @@
     <string name="sample_pdf_order_from_latest">Từ chương mới nhất</string>
     <string name="page_number_description">Trang %1$d</string>
     <string name="page_preview_action">Xem trước trang</string>
+    <string name="page_selection_action">Chọn hoặc bỏ chọn trang</string>
 </resources>

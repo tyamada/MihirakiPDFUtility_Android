@@ -167,4 +167,5 @@
     <string name="sample_pdf_order_from_latest">Dari bab terbaru</string>
     <string name="page_number_description">Halaman %1$d</string>
     <string name="page_preview_action">Pratinjau halaman</string>
+    <string name="page_selection_action">Pilih atau batalkan pilihan halaman</string>
 </resources>

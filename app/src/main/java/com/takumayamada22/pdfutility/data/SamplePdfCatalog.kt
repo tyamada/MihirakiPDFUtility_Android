@@ -22,7 +22,7 @@ data class SamplePdfItemState(
 )
 
 object SamplePdfCatalog {
-    private const val BASE_URL = "https://tyamada.github.io/MihirakiPDFUtility_Android/sample/"
+    private const val BASE_URL = "https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v1/"
 
     val items = listOf(
         SamplePdfItem(
@@ -321,10 +321,91 @@ object SamplePdfCatalog {
             fileSize = "25MB",
             languageCode = "zh_tw",
             languageDisplayName = "Chinese (Traditional)"
+        ),
+        SamplePdfItem(
+            id = "ep3_de",
+            title = "DER PROBIERCLUB FOLGE 3",
+            fileName = "tameshibu_episode3_de.pdf",
+            url = "${BASE_URL}tameshibu_episode3_de.pdf",
+            fileSize = "22.1 MB",
+            languageCode = "de",
+            languageDisplayName = "German"
+        ),
+        SamplePdfItem(
+            id = "ep3_fr",
+            title = "LE CLUB DES ESSAIS EPISODE 3",
+            fileName = "tameshibu_episode3_fr.pdf",
+            url = "${BASE_URL}tameshibu_episode3_fr.pdf",
+            fileSize = "22.1 MB",
+            languageCode = "fr",
+            languageDisplayName = "French"
+        ),
+        SamplePdfItem(
+            id = "ep3_es",
+            title = "EL CLUB DE PRUEBA EPISODIO 3",
+            fileName = "tameshibu_episode3_es.pdf",
+            url = "${BASE_URL}tameshibu_episode3_es.pdf",
+            fileSize = "22.1 MB",
+            languageCode = "es",
+            languageDisplayName = "Spanish"
+        ),
+        SamplePdfItem(
+            id = "ep3_it",
+            title = "IL CLUB DI PROVA EPISODIO 3",
+            fileName = "tameshibu_episode3_it.pdf",
+            url = "${BASE_URL}tameshibu_episode3_it.pdf",
+            fileSize = "22.1 MB",
+            languageCode = "it",
+            languageDisplayName = "Italian"
+        ),
+        SamplePdfItem(
+            id = "ep3_pt",
+            title = "O CLUBE DE TESTE EPISÓDIO 3",
+            fileName = "tameshibu_episode3_pt.pdf",
+            url = "${BASE_URL}tameshibu_episode3_pt.pdf",
+            fileSize = "22.1 MB",
+            languageCode = "pt",
+            languageDisplayName = "Portuguese"
+        ),
+        SamplePdfItem(
+            id = "ep3_vi",
+            title = "CÂU LẠC BỘ THỬ NGHIỆM TẬP 3",
+            fileName = "tameshibu_episode3_vi.pdf",
+            url = "${BASE_URL}tameshibu_episode3_vi.pdf",
+            fileSize = "22.9 MB",
+            languageCode = "vi",
+            languageDisplayName = "Vietnamese"
+        ),
+        SamplePdfItem(
+            id = "ep3_id",
+            title = "KLUB PERCOBAAN EPISODE 3",
+            fileName = "tameshibu_episode3_id.pdf",
+            url = "${BASE_URL}tameshibu_episode3_id.pdf",
+            fileSize = "22.8 MB",
+            languageCode = "id",
+            languageDisplayName = "Indonesian"
+        ),
+        SamplePdfItem(
+            id = "ep3_fil",
+            title = "ANG SUBOK CLUB EPISODE 3",
+            fileName = "tameshibu_episode3_tl.pdf",
+            url = "${BASE_URL}tameshibu_episode3_tl.pdf",
+            fileSize = "22.9 MB",
+            languageCode = "fil",
+            languageDisplayName = "Filipino"
+        ),
+        SamplePdfItem(
+            id = "ep3_ne",
+            title = "परीक्षण क्लब एपिसोड ३",
+            fileName = "tameshibu_episode3_ne.pdf",
+            url = "${BASE_URL}tameshibu_episode3_ne.pdf",
+            fileSize = "22.9 MB",
+            languageCode = "ne",
+            languageDisplayName = "Nepali"
         )
     )
 
     fun getAvailableLanguages(): List<String> {
-        return items.map { it.languageCode }.distinct()
+        return SamplePdfLanguages.entries.filter { language -> items.any { it.languageCode == language.code } }.map { it.code }
     }
 }

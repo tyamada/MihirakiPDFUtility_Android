@@ -587,7 +587,11 @@ class PdfViewModel(
         val restoredPages = historyState.pageSnapshots.map { snapshot ->
             val existing = currentPagesMap[snapshot.id]
             if (existing != null) {
+                val delta = snapshot.rotation - existing.rotation
                 existing.copy(
+                    thumbnail = existing.thumbnail?.let { bitmap ->
+                        if (delta % 360 == 0) bitmap else rotateBitmap(bitmap, delta.toFloat())
+                    },
                     rotation = snapshot.rotation,
                     originalIndex = snapshot.originalIndex,
                     isBlank = snapshot.isBlank,
@@ -601,7 +605,9 @@ class PdfViewModel(
                 PageState(
                     id = snapshot.id,
                     thumbnail = snapshot.sourceUri?.let { uri ->
-                        thumbnailProvider.getThumbnail(uri, snapshot.originalIndex, getThumbnailWidth(_uiState.value.thumbnailSize))
+                        thumbnailProvider.getThumbnail(uri, snapshot.originalIndex, getThumbnailWidth(_uiState.value.thumbnailSize))?.let { bitmap ->
+                            if (snapshot.rotation % 360 == 0) bitmap else rotateBitmap(bitmap, snapshot.rotation.toFloat())
+                        }
                     },
                     rotation = snapshot.rotation,
                     originalIndex = snapshot.originalIndex,
@@ -638,6 +644,8 @@ class PdfViewModel(
         AppLogger.log(getApplication(), "INFO", "Operation cancelled by user, state rolled back.")
     }
 
+    private var pendingPasswordIsAppend = false
+
     fun loadPdf(uri: Uri, password: String? = null, isSamplePdf: Boolean? = null) {
         activeOperationJob?.cancel()
         activeOperationJob = viewModelScope.launch {
@@ -670,9 +678,12 @@ class PdfViewModel(
                         val locationDesc = getFileLocationDescription(uri, isSample)
                         AppLogger.log(getApplication(), "INFO", "Opening PDF from location: $locationDesc")
 
-                        loadPdfUseCase.load(inputStream, password)
-                        
+                        val loadedPages = inputStream.use { loadPdfUseCase.load(it, password) }
+                        if (loadedPages <= 0) throw java.io.IOException("PDF has no pages")
+                        thumbnailProvider.close()
+                        thumbnailProvider.prepare(uri, password)
                         val pageCount = thumbnailProvider.getPageCount(uri)
+                        if (pageCount != loadedPages) throw java.io.IOException("PDF rendering page count mismatch")
                         val generateThumbnailsNow = true
                         val pages = (0 until pageCount).map { index ->
                             PageState(
@@ -715,6 +726,7 @@ class PdfViewModel(
                     }
                 }
             } catch (_: InvalidPasswordException) {
+                pendingPasswordIsAppend = false
                 AppLogger.log(getApplication(), "WARN", "PDF load failed: Invalid password")
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
@@ -739,6 +751,10 @@ class PdfViewModel(
     }
 
     fun appendPdf(uri: Uri, password: String? = null) {
+        if (_uiState.value.pages.isEmpty()) {
+            loadPdf(uri, password)
+            return
+        }
         activeOperationJob?.cancel()
         activeOperationJob = viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
@@ -763,9 +779,11 @@ class PdfViewModel(
                     }
                     if (inputStream != null) {
                         saveToHistory()
-                        val startIndex = loadPdfUseCase.append(inputStream, password) - thumbnailProvider.getPageCount(uri)
-                        
+                        val totalPages = inputStream.use { loadPdfUseCase.append(it, password) }
+                        thumbnailProvider.prepare(uri, password)
                         val pageCount = thumbnailProvider.getPageCount(uri)
+                        if (pageCount <= 0) throw java.io.IOException("PDF has no renderable pages")
+                        val startIndex = totalPages - pageCount
                         val newPages = (0 until pageCount).map { index ->
                             PageState(
                                 thumbnail = thumbnailProvider.getThumbnail(uri, index, getThumbnailWidth(_uiState.value.thumbnailSize)),
@@ -795,6 +813,7 @@ class PdfViewModel(
                     }
                 }
             } catch (e: InvalidPasswordException) {
+                pendingPasswordIsAppend = true
                 AppLogger.log(getApplication(), "WARN", "PDF load failed: Invalid password")
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
@@ -821,7 +840,7 @@ class PdfViewModel(
 
     fun handlePassword(password: String) {
         val uri = _uiState.value.pendingUri ?: return
-        if (_uiState.value.isAppending) {
+        if (pendingPasswordIsAppend) {
             appendPdf(uri, password)
         } else {
             loadPdf(uri, password)
@@ -829,6 +848,7 @@ class PdfViewModel(
     }
 
     fun cancelPasswordDialog() {
+        pendingPasswordIsAppend = false
         _uiState.value = _uiState.value.copy(showPasswordDialog = false, pendingUri = null)
     }
 
@@ -866,7 +886,8 @@ class PdfViewModel(
         val page = _uiState.value.pages.getOrNull(index) ?: return null
         val uri = page.sourceUri ?: return null
         // 1024 or similar for high res
-        return thumbnailProvider.getThumbnail(uri, page.originalIndex, 1024)
+        val bitmap = thumbnailProvider.getThumbnail(uri, page.originalIndex, 1024) ?: return null
+        return if (page.rotation % 360 == 0) bitmap else rotateBitmap(bitmap, page.rotation.toFloat())
     }
 
     fun updateMetadata(
@@ -943,7 +964,7 @@ class PdfViewModel(
             selected.forEach { index ->
                 if (index in currentPages.indices) {
                     val page = currentPages[index]
-                    val newRotation = (page.rotation + degrees) % 360
+                    val newRotation = ((page.rotation + degrees) % 360 + 360) % 360
                     val rotatedBitmap = page.thumbnail?.let { rotateBitmap(it, degrees.toFloat()) }
                     currentPages[index] = page.copy(rotation = newRotation, thumbnail = rotatedBitmap)
                 }
