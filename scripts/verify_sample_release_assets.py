@@ -14,6 +14,8 @@ import re
 import subprocess
 import tempfile
 
+from sample_public_catalog import verify_public_lists
+
 
 def verify(root, remote=False, download_dir=None):
     evidence = root / 'docs/sample-releases/sample-manga-v2'
@@ -59,15 +61,8 @@ def verify(root, remote=False, download_dir=None):
         check = public_checks[entry['filename']]
         assert check['passed'] and check['final_http_status'] == 200 and check['https_only_redirects_enforced']
         assert check['actual_sha256'] == entry['sha256'] and check['actual_bytes'] == entry['bytes']
-    links = 0
-    expected_urls = {e['fixed_download_url'] for e in entries}
-    for page in list((root / 'docs').rglob('*.html')) + list(root.glob('README*.md')):
-        urls = re.findall(r'https?://[^\s"<>\)]+tameshibu[^\s"<>\)]*\.pdf', page.read_text())
-        if urls:
-            assert len(urls) == 51 and set(urls) == expected_urls, page
-        for url in urls:
-            assert url in expected_urls, (page, url)
-            links += 1
+    public_lists = verify_public_lists(root)
+    links = public_lists['public_pdf_links']
 
     def check(entry):
         result = dict(name=entry['filename'], bytes=entry['bytes'], sha256=entry['sha256'])
@@ -90,7 +85,9 @@ def verify(root, remote=False, download_dir=None):
     with ThreadPoolExecutor(max_workers=4) as pool:
         results = list(pool.map(check, entries))
     return dict(repository=manifest['repository'], tag=manifest['fixed_tag'], pdf_count=51,
-                region_count=17, public_pdf_links=links, remote=remote, files=results)
+                region_count=17, public_pdf_links=links,
+                public_pages_checked=public_lists['public_pages_checked'],
+                public_list_order=public_lists['public_list_order'], remote=remote, files=results)
 
 
 if __name__ == '__main__':
