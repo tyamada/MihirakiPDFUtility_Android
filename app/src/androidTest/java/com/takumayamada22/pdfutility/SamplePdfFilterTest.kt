@@ -6,6 +6,8 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.takumayamada22.pdfutility.data.SamplePdfCatalog
+import com.takumayamada22.pdfutility.data.SamplePdfLanguages
+import com.takumayamada22.pdfutility.data.SamplePdfSortOrder
 import com.takumayamada22.pdfutility.ui.SamplePdfViewModel
 import com.takumayamada22.pdfutility.ui.components.SamplePdfScreen
 import org.junit.Assert.*
@@ -22,9 +24,9 @@ class SamplePdfFilterTest {
         compose.runOnUiThread { compose.activity.setContent {
             MaterialTheme { SamplePdfScreen(vm, back = {}, onOpenPdf = {}) }
         } }
-        compose.waitUntil(10000) { vm.uiState.value.availableLanguages.size == 15 }
+        compose.waitUntil(10000) { vm.uiState.value.availableLanguages.size == 18 }
         assertEquals(listOf("ALL") + SamplePdfCatalog.getAvailableLanguages(), vm.uiState.value.availableLanguages)
-        for ((code, label) in listOf("es" to "Español (Spanish)", "it" to "Italiano (Italian)")) {
+        for ((code, label) in SamplePdfLanguages.entries.map { it.code to it.displayName }) {
             compose.onNodeWithTag("sample-language-filter").performClick()
             compose.onNodeWithTag("sample-language-$code").performScrollTo()
                 .assertTextContains(label).performClick()
@@ -34,8 +36,17 @@ class SamplePdfFilterTest {
         }
         compose.onNodeWithTag("sample-language-filter").performClick()
         compose.onNodeWithTag("sample-language-ALL").performScrollTo().performClick()
-        compose.waitUntil(10000) { vm.uiState.value.selectedLanguage == "ALL" && vm.uiState.value.items.size == 42 }
+        compose.waitUntil(10000) { vm.uiState.value.selectedLanguage == "ALL" && vm.uiState.value.items.size == 51 }
         assertEquals(SamplePdfCatalog.items.toSet(), vm.uiState.value.items.map { it.item }.toSet())
         vm.uiState.value.items.groupBy { it.item.languageCode }.forEach { (_, items) -> assertEquals(3, items.size) }
+        val originalOrder = vm.uiState.value.sortOrder
+        for (order in listOf(SamplePdfSortOrder.DESCENDING, SamplePdfSortOrder.ASCENDING)) {
+            if (vm.uiState.value.sortOrder != order) compose.onNodeWithTag("btn_toggle_order").performClick()
+            compose.waitUntil(10000) { vm.uiState.value.sortOrder == order }
+            val episodes = if (order == SamplePdfSortOrder.DESCENDING) listOf(3, 2, 1) else listOf(1, 2, 3)
+            val expected = episodes.flatMap { episode -> SamplePdfCatalog.getAvailableLanguages().map { "ep${episode}_$it" } }
+            assertEquals(expected, vm.uiState.value.items.map { it.item.id })
+        }
+        if (vm.uiState.value.sortOrder != originalOrder) compose.onNodeWithTag("btn_toggle_order").performClick()
     }
 }

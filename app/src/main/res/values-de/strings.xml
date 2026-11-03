@@ -221,4 +221,5 @@
     <string name="page_number_description">Seite %1$d</string>
     <string name="page_preview_action">Seitenvorschau</string>
     <string name="page_selection_action">Seite auswählen oder abwählen</string>
+    <string name="sample_pdf_integrity_error">Die heruntergeladene PDF konnte nicht überprüft werden. Bitte erneut versuchen.</string>
 </resources>

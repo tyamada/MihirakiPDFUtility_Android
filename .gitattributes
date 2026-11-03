@@ -1,1 +1,4 @@
 *.pdf binary
+
+# Preserve published handoff evidence byte-for-byte, including CRLF.
+docs/sample-releases/**/android-handoff.csv -text whitespace=cr-at-eol

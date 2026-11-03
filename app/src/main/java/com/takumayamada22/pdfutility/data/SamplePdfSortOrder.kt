@@ -7,5 +7,5 @@ enum class SamplePdfSortOrder {
     fun comparator(): Comparator<SamplePdfItem> = compareBy<SamplePdfItem> {
         val episode = it.id.removePrefix("ep").takeWhile(Char::isDigit).toIntOrNull() ?: 1
         if (this == ASCENDING) episode else -episode
-    }.thenBy { it.languageDisplayName }
+    }.thenBy { SamplePdfLanguages.englishName(it.languageCode) }
 }

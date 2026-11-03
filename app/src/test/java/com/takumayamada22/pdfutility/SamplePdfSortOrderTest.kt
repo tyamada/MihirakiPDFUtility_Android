@@ -13,7 +13,7 @@ class SamplePdfSortOrderTest {
             assertEquals(if (order == SamplePdfSortOrder.ASCENDING) episodes.sorted() else episodes.sortedDescending(), episodes)
             assertEquals(SamplePdfCatalog.items.toSet(), sorted.toSet())
             sorted.groupBy { it.id.substringBefore('_') }.values.forEach {
-                assertEquals(it.map { item -> item.languageDisplayName }.sorted(), it.map { item -> item.languageDisplayName })
+                assertEquals(SamplePdfCatalog.getAvailableLanguages(), it.map { item -> item.languageCode })
             }
             val japanese = sorted.filter { it.languageCode == "ja" }
             assertEquals(if (order == SamplePdfSortOrder.ASCENDING) listOf("ep1_ja", "ep2_ja", "ep3_ja") else listOf("ep3_ja", "ep2_ja", "ep1_ja"), japanese.map { it.id })

@@ -17,6 +17,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
+import java.io.File
+import com.takumayamada22.pdfutility.data.SamplePdfLanguages
+import com.takumayamada22.pdfutility.R
 import java.util.Locale
 
 data class SamplePdfUiState(
@@ -36,21 +43,28 @@ class SamplePdfViewModel(application: Application) : AndroidViewModel(applicatio
     private val _sortOrder = MutableStateFlow(PreferencesManager.getSamplePdfSortOrder(application))
     private val _refreshTrigger = MutableStateFlow(0)
 
+    // Full hashes are checked on refresh, not on each download progress tick.
+    private val verifiedFiles = _refreshTrigger.map {
+        SamplePdfCatalog.items.associate { item -> item.id to repository.getDownloadedFile(item) }
+    }.flowOn(Dispatchers.IO)
+
     val uiState: StateFlow<SamplePdfUiState> = combine(
         _downloadStates,
         _selectedLanguage,
         _cellularDialogItem,
         _sortOrder,
-        _refreshTrigger
-    ) { states, lang, dialogItem, sortOrder, _ ->
+        verifiedFiles
+    ) { states, lang, dialogItem, sortOrder, files ->
         val allLangs = SamplePdfCatalog.getAvailableLanguages()
         val mappedItems = SamplePdfCatalog.items.map { item ->
             val dlState = states[item.id] ?: DownloadState.Idle
-            val isDownloaded = repository.isDownloaded(item.fileName)
+            val localFile = files[item.id]
+            val isDownloaded = localFile != null
             val isDownloading = dlState is DownloadState.Downloading
             val progress = (dlState as? DownloadState.Downloading)?.progress ?: 0f
-            val err = (dlState as? DownloadState.Error)?.message
-            val localFile = if (isDownloaded) repository.getLocalFile(item.fileName) else null
+            val err = (dlState as? DownloadState.Error)?.let {
+                if (it.integrityFailure) getApplication<Application>().getString(R.string.sample_pdf_integrity_error) else it.message
+            }
 
             SamplePdfItemState(
                 item = item,
@@ -73,16 +87,14 @@ class SamplePdfViewModel(application: Application) : AndroidViewModel(applicatio
             cellularDialogItem = dialogItem,
             sortOrder = sortOrder
         )
-    }.stateIn(
+    }.flowOn(Dispatchers.IO).stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = SamplePdfUiState()
     )
 
     private fun getDefaultLanguage(): String {
-        val deviceLang = Locale.getDefault().language
-        val available = SamplePdfCatalog.items.map { it.languageCode }.distinct()
-        return if (available.contains(deviceLang)) deviceLang else "en"
+        return SamplePdfLanguages.defaultCode(Locale.getDefault())
     }
 
     fun setLanguage(lang: String) {
@@ -136,9 +148,24 @@ class SamplePdfViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    fun deletePdf(item: SamplePdfItem) {
+    fun openDownloadedPdf(item: SamplePdfItem, onOpen: (File) -> Unit) {
         viewModelScope.launch {
-            repository.deletePdf(item.fileName)
+            // Recheck immediately before opening, even if the list was already shown.
+            val file = withContext(Dispatchers.IO) { repository.getDownloadedFile(item) }
+            if (file != null) {
+                onOpen(file)
+            } else {
+                _downloadStates.value = _downloadStates.value + (item.id to DownloadState.Error(
+                    getApplication<Application>().getString(R.string.sample_pdf_integrity_error), true
+                ))
+                _refreshTrigger.value++
+            }
+        }
+    }
+
+    fun deletePdf(item: SamplePdfItem) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deletePdf(item)
             AppLogger.log(getApplication(), "INFO", "Deleted sample PDF: ${item.title} (${item.fileName})")
             _downloadStates.value = _downloadStates.value - item.id
             _refreshTrigger.value++

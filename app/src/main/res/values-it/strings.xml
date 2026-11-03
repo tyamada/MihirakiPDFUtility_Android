@@ -248,4 +248,5 @@
     <string name="page_number_description">Pagina %1$d</string>
     <string name="page_preview_action">Anteprima della pagina</string>
     <string name="page_selection_action">Seleziona o deseleziona la pagina</string>
+    <string name="sample_pdf_integrity_error">Impossibile verificare il PDF scaricato. Riprova.</string>
 </resources>

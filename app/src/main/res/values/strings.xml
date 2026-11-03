@@ -293,4 +293,5 @@
     <string name="page_number_description">Page %1$d</string>
     <string name="page_preview_action">Preview page</string>
     <string name="page_selection_action">Select or deselect page</string>
+    <string name="sample_pdf_integrity_error">The downloaded PDF could not be verified. Please try again.</string>
 </resources>
