@@ -7,6 +7,12 @@ Android向けの強力で直感的なPDFユーティリティアプリです。�
 [**Webサイト (日本語)**](https://tyamada.github.io/MihirakiPDFUtility_Android/index_ja.html) | [**English Website**](https://tyamada.github.io/MihirakiPDFUtility_Android/) | [**English README (README.md)**](README.md)
 
 
+## 動画ガイド
+
+英語の動画です。YouTubeで開きます。
+
+- [説明動画の再生リスト（5本）](https://www.youtube.com/playlist?list=PLa-QGEwHSDRo)
+
 ## リリース候補
 
 候補版：<!-- current-app-version:start -->1.2.9 (25)<!-- current-app-version:end -->。公開済みのサンプル漫画v2を全51冊へ更新し、中南米スペイン語・ポルトガル・香港標準書面語版を追加しました。取得時と開く前に内容を検証し、旧PDFを保持します。クローズドテスト配信の準備中です。
