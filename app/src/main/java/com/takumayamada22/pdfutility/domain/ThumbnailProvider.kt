@@ -77,7 +77,7 @@ class ThumbnailProvider(private val context: Context) {
             memoryCache.put(cacheKey, bitmap)
             bitmap
         } catch (e: Exception) {
-            Log.e("ThumbnailProvider", "Failed to render thumbnail for $uri page $pageIndex", e)
+            Log.e("ThumbnailProvider", "Failed to render thumbnail for page $pageIndex")
             null
         }
     }
@@ -110,7 +110,7 @@ class ThumbnailProvider(private val context: Context) {
                 renderer
             } else null
         } catch (e: Exception) {
-            Log.e("ThumbnailProvider", "Failed to open renderer for $uri", e)
+            Log.e("ThumbnailProvider", "Failed to open renderer")
             null
         }
     }

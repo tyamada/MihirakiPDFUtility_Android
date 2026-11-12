@@ -28,7 +28,7 @@ object AppLogger {
             // Clean up logs older than 24 hours
             cleanOldLogs(file)
         } catch (e: Exception) {
-            Log.e("AppLogger", "Failed to write log", e)
+            Log.e("AppLogger", "Failed to write log")
         }
     }
 
@@ -40,7 +40,7 @@ object AppLogger {
             cleanOldLogs(file)
             return file.readText().ifEmpty { "No logs recorded." }
         } catch (e: Exception) {
-            return "Failed to read logs: ${e.message}"
+            return "Failed to read logs: ${e.javaClass.simpleName}"
         }
     }
 
@@ -69,7 +69,7 @@ object AppLogger {
 
             file.writeText(validLines.joinToString("\n") + if (validLines.isNotEmpty()) "\n" else "")
         } catch (e: Exception) {
-            Log.e("AppLogger", "Failed to clean old logs", e)
+            Log.e("AppLogger", "Failed to clean old logs")
         }
     }
 }

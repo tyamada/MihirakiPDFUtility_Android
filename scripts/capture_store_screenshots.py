@@ -29,6 +29,14 @@ ADB = str(SDK / 'platform-tools/adb')
 EMULATOR = str(SDK / 'emulator/emulator')
 
 
+def require_matching_application():
+    build = (ROOT / 'app/build.gradle.kts').read_text()
+    match = re.search(r'applicationId\s*=\s*"([^"]+)"', build)
+    if not match or match.group(1) != PACKAGE:
+        raise RuntimeError('Legacy capture configuration targets a different application; '
+                           'capture/upload is disabled until Utility capture settings are reviewed.')
+
+
 def run(argv, *, data=None, timeout=120, check=True):
     result = subprocess.run([str(x) for x in argv], input=data, capture_output=True, timeout=timeout, cwd=ROOT)
     if check and result.returncode:
@@ -349,6 +357,7 @@ def main():
     parser.add_argument('--compatible-fingerprint', action='append', default=[], help='Allow verified records from an equivalent capture runner revision')
     parser.add_argument('--retries', type=int, default=3)
     options = parser.parse_args()
+    require_matching_application()
     selections = {avd: selected_scenes(avd, options.scene) for avd in options.device}
     # Required before build, launch, or any adb action, including on resume.
     pdfs = {lang: ROOT / f'testdata/tameshibu_episode1_2_{lang}.pdf' for lang in options.language}

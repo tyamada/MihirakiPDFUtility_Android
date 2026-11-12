@@ -2,6 +2,7 @@
 """Validate local assets, fragments and language destinations of public HTML."""
 from html.parser import HTMLParser
 import json
+import re
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
@@ -36,6 +37,17 @@ def validate(root):
             elif u.fragment and target.suffix=='.html':
                 parsed=pages.get(target) or Page(target.read_text())
                 if unquote(u.fragment) not in parsed.ids: errors.append(f'{path.name}: missing fragment {link}')
+    for readme in (root/'README.md', root/'README_ja.md'):
+        text = readme.read_text()
+        destinations = re.findall(r'\]\(([^)\s]+)\)', text)
+        destinations += re.findall(r'(?:src|href)=["\']([^"\']+)["\']', text)
+        for link in destinations:
+            u = urlsplit(link)
+            if u.scheme or u.netloc or not u.path:
+                continue
+            links += 1
+            if not (root/unquote(u.path)).is_file():
+                errors.append(f'{readme.name}: missing {link}')
     return {'pages':len(pages),'local_references':links,'errors':errors,'external_links_checked':False}
 
 if __name__=='__main__':

@@ -141,8 +141,8 @@ object LongRunningTestManager {
                 _progressFlow.value = null
                 handler.post { callback?.onCompleted(summary) }
             } catch (e: Exception) {
-                Log.e(TAG, "Endurance test failed", e)
-                AppLogger.log(context, "ERROR", "Endurance test failed: ${e.message}")
+                Log.e(TAG, "Endurance test failed")
+                AppLogger.log(context, "ERROR", "Endurance test failed: ${e.javaClass.simpleName}")
                 _progressFlow.value = null
                 handler.post { callback?.onError(e.message ?: "Unknown error") }
             } finally {

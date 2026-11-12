@@ -58,7 +58,7 @@ class PdfProcessor {
                 } catch (_: Exception) {}
             }
         } catch (e: Exception) {
-            android.util.Log.w("PdfProcessor", "Failed to sanitize active content: ${e.message}")
+            android.util.Log.w("PdfProcessor", "Failed to sanitize active content: ${e.javaClass.simpleName}")
         }
     }
 

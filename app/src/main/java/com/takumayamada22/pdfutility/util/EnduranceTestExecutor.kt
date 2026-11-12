@@ -71,7 +71,7 @@ class EnduranceTestExecutor(
             1 -> { // Course 1: UI Simulation (Open 1st file -> Display thumbnails for 3s -> Append subsequent files one by one)
                 withContext(Dispatchers.Main) {
                     if (!isEnduranceRunning.get()) return@withContext
-                    AppLogger.log(application, "INFO", "Pattern 1: UI Simulation - Opening first file: ${filesToProcess[0].name}")
+                    AppLogger.log(application, "INFO", "Pattern 1: UI Simulation - Opening first test PDF")
                     _enduranceStatusMessage.value = "コース1: 最初のファイルを開いています..."
                     viewModelActions.loadPdf(Uri.fromFile(filesToProcess[0]))
                 }
@@ -87,7 +87,7 @@ class EnduranceTestExecutor(
                     if (!isEnduranceRunning.get()) break
                     withContext(Dispatchers.Main) {
                         if (!isEnduranceRunning.get()) return@withContext
-                        AppLogger.log(application, "INFO", "Pattern 1: UI Simulation - Appending file #${i + 1}/${filesToProcess.size}: ${filesToProcess[i].name}")
+                        AppLogger.log(application, "INFO", "Pattern 1: UI Simulation - Appending test PDF #${i + 1}/${filesToProcess.size}")
                         _enduranceStatusMessage.value = "コース1: PDFを追加中 (${i + 1}/${filesToProcess.size})..."
                         viewModelActions.appendPdf(Uri.fromFile(filesToProcess[i]))
                     }
@@ -423,7 +423,7 @@ class EnduranceTestExecutor(
                 }
             } catch (e: Exception) {
                 val errorMsg = "FATALEROR: ${e.message}"
-                AppLogger.log(application, "FATAL", "$errorMsg\n${e.stackTraceToString()}")
+                AppLogger.log(application, "FATAL", "Endurance test failed: ${e.javaClass.simpleName}")
                 _enduranceProgress.value = null
                 _enduranceStatusMessage.value = errorMsg
                 isEnduranceRunning.set(false)

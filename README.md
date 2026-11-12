@@ -132,6 +132,49 @@ Generative AI was used in the production of text and images, as well as the tran
 *   **PDF Processing**: [PdfBox-Android](https://github.com/TomRoush/PdfBox-Android)
 *   **Language**: Kotlin
 
+## Getting started
+
+### Development setup, build and installation
+
+- JDK 21. The Gradle daemon selects JetBrains JDK 21; the toolchain resolver downloads it if needed.
+- Android SDK Platform 36, Build Tools 36.0.0 and Platform Tools.
+- For IDE use, select Android Studio compatible with this repository's Gradle/AGP versions.
+- Install the SDK using Android Studio's SDK Manager or the [official command-line tools](https://developer.android.com/tools/sdkmanager), and accept the SDK licenses.
+
+```bash
+git clone https://github.com/tyamada/MihirakiPDFUtility_Android.git
+cd MihirakiPDFUtility_Android
+# Set JAVA_HOME to JDK 21 and ANDROID_HOME to your Android SDK directory.
+sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"
+sdkmanager --licenses
+./gradlew assembleDebug lintDebug testDebugUnitTest
+# Connect one test device with USB debugging enabled, or start one emulator.
+./gradlew installDebug
+```
+
+Use `gradlew.bat` on Windows. Set the SDK location through `ANDROID_HOME` or `sdk.dir=/absolute/path/to/Android/sdk` in the ignored `local.properties`. In Android Studio, open the project, sync Gradle and select Run. Android 8.0 (API 26) or later is required.
+
+The APK is `app/build/outputs/apk/debug/app-debug.apk`. Debug builds use an automatically generated development key; the author's signing key is unnecessary. A Debug APK cannot replace the Play app with the same application ID and a different signature. Use a dedicated test device.
+
+### Release signing
+
+Generate your own distribution key. The author's private key is not distributed.
+
+```bash
+keytool -genkeypair -v -keystore /absolute/private/path/release-key.jks -alias release -keyalg RSA -keysize 3072 -validity 10000
+```
+
+Enter passwords interactively. Add the following to the ignored `local.properties`, replacing password placeholders with your own values:
+
+```properties
+signing.storeFile=/absolute/private/path/release-key.jks
+signing.storePassword=YOUR_STORE_PASSWORD
+signing.keyAlias=release
+signing.keyPassword=YOUR_KEY_PASSWORD
+```
+
+Run `./gradlew bundleRelease` to create `app/build/outputs/bundle/release/app-release.aab`. Keep keys, passwords, `local.properties` and signed artifacts out of Git. Optional Python tooling dependencies are listed in `requirements-play-console.txt`; normal app builds do not require Play Console credentials.
+
 ## License
 
 Apache License 2.0

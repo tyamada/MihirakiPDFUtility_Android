@@ -7,6 +7,7 @@ cleans up device testdata, and transfers them from PC/Mac testdata/ to the conne
 """
 
 import os
+import argparse
 import sys
 import subprocess
 import re
@@ -14,13 +15,9 @@ import urllib.request
 from pathlib import Path
 
 def get_env():
-    env = os.environ.copy()
-    sdk_path = '/Users/tyamada22/Library/Android/sdk'
-    jbr_path = '/Applications/Android Studio.app/Contents/jbr/Contents/Home'
-    env['ANDROID_HOME'] = sdk_path
-    env['ANDROID_SDK_ROOT'] = sdk_path
-    env['JAVA_HOME'] = jbr_path
-    return env
+    # Respect the caller's SDK/JDK configuration (see README).
+    return os.environ.copy()
+
 
 def run_cmd(cmd, cwd=None):
     res = subprocess.run(cmd, cwd=cwd, env=get_env(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -46,6 +43,9 @@ def get_sample_filenames_from_catalog(root_dir):
     return filenames
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--serial", required=True, help="Explicit ADB test-device serial")
+    args = parser.parse_args()
     root_dir = Path(__file__).resolve().parent.parent
     testdata_dir = root_dir / 'testdata'
     testdata_dir.mkdir(parents=True, exist_ok=True)
@@ -55,7 +55,10 @@ def main():
         print("ERROR: No connected Android devices or emulators found via ADB.", file=sys.stderr)
         sys.exit(1)
 
-    device_serial = devices[0]
+    if args.serial not in devices:
+        print("ERROR: Selected device is not connected or authorized.", file=sys.stderr)
+        sys.exit(1)
+    device_serial = args.serial
     print(f"=== MihirakiPDFUtility Dynamic Test Data Transfer Tool ===")
     print(f"Target Device: {device_serial}")
 

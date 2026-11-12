@@ -28,7 +28,7 @@ object TestPdfGenerator {
             val stat = StatFs(cacheDir.absolutePath)
             stat.availableBlocksLong * stat.blockSizeLong
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to get available storage", e)
+            Log.e(TAG, "Failed to get available storage")
             0L
         }
     }
@@ -76,7 +76,7 @@ object TestPdfGenerator {
             document.close()
             return file
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to create functional test PDF", e)
+            Log.e(TAG, "Failed to create functional test PDF")
             return null
         }
     }
@@ -114,7 +114,7 @@ object TestPdfGenerator {
             document.close()
             return file
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to create load test PDF", e)
+            Log.e(TAG, "Failed to create load test PDF")
             return null
         }
     }
@@ -153,7 +153,7 @@ object TestPdfGenerator {
             document.close()
             return file
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to create search test PDF", e)
+            Log.e(TAG, "Failed to create search test PDF")
             return null
         }
     }
@@ -167,7 +167,7 @@ object TestPdfGenerator {
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to cleanup test PDFs", e)
+            Log.e(TAG, "Failed to cleanup test PDFs")
         }
     }
 }

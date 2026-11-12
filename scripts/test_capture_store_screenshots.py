@@ -11,11 +11,21 @@ import capture_store_screenshots as capture
 
 
 class CaptureSafetyTest(unittest.TestCase):
+    def test_wrong_application_is_fatal_before_build_or_device_operations(self):
+        with patch.object(sys, 'argv', ['capture']), \
+                patch.object(capture, 'run') as run, \
+                patch.object(capture.subprocess, 'run') as subprocess_run:
+            with self.assertRaisesRegex(RuntimeError, 'different application'):
+                capture.main()
+            run.assert_not_called()
+            subprocess_run.assert_not_called()
+
     def test_missing_source_is_fatal_before_build_or_device_operations(self):
         original = Path.is_file
         def is_file(path):
             return False if path.name == 'tameshibu_episode1_2_ko.pdf' else original(path)
-        with patch.object(sys, 'argv', ['capture', '--device', 'Smartphone_6.3', '--language', 'ko']), \
+        with patch.object(capture, 'require_matching_application'), \
+                patch.object(sys, 'argv', ['capture', '--device', 'Smartphone_6.3', '--language', 'ko']), \
                 patch.object(Path, 'is_file', is_file), patch.object(capture, 'run') as run, \
                 patch.object(capture.subprocess, 'run') as subprocess_run:
             with self.assertRaisesRegex(RuntimeError, 'FATAL: source PDFs missing.*ko.pdf'):
@@ -27,7 +37,8 @@ class CaptureSafetyTest(unittest.TestCase):
         original = Path.is_file
         def is_file(path):
             return path.name == 'tameshibu_episode1_2_fr.pdf' if path.suffix == '.pdf' else original(path)
-        with patch.object(sys, 'argv', ['capture', '--device', 'Smartphone_6.3', '--language', 'fr']), \
+        with patch.object(capture, 'require_matching_application'), \
+                patch.object(sys, 'argv', ['capture', '--device', 'Smartphone_6.3', '--language', 'fr']), \
                 patch.object(Path, 'is_file', is_file), \
                 patch.object(Path, 'read_text', side_effect=RuntimeError('reached AVD preflight')), \
                 patch.object(capture, 'run') as run:

@@ -96,7 +96,7 @@ object DiagnosticTestManager {
         } catch (e: Exception) {
             functionalStatus = "FAILED (${e.message})"
             detailsBuilder.append("1. Core Loading & Functional Test: $functionalStatus\n")
-            Log.e(TAG, "Functional test error", e)
+            Log.e(TAG, "Functional test error")
         }
 
         // 3. Editing & Export Simulation Test (Testing rotation, crop, blank insertion, metadata editing, password protection)
@@ -137,7 +137,7 @@ object DiagnosticTestManager {
         } catch (e: Exception) {
             editingStatus = "FAILED (${e.message})"
             detailsBuilder.append("2. Editing Features & Export Test: $editingStatus\n")
-            Log.e(TAG, "Editing test error", e)
+            Log.e(TAG, "Editing test error")
         }
 
         // 4. Load Test (1000 Pages)
@@ -165,7 +165,7 @@ object DiagnosticTestManager {
             } catch (e: Exception) {
                 loadStatus = "FAILED (${e.message})"
                 detailsBuilder.append("3. Load Test (1000 pages): $loadStatus\n")
-                Log.e(TAG, "Load test error", e)
+                Log.e(TAG, "Load test error")
             }
         }
 
@@ -190,7 +190,7 @@ object DiagnosticTestManager {
         } catch (e: Exception) {
             searchStatus = "FAILED (${e.message})"
             detailsBuilder.append("4. Search & Performance Test: $searchStatus\n")
-            Log.e(TAG, "Search test error", e)
+            Log.e(TAG, "Search test error")
         }
 
         // Cleanup test PDFs

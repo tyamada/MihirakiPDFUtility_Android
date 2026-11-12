@@ -14,14 +14,9 @@ from datetime import datetime
 from pathlib import Path
 
 def get_env():
-    env = os.environ.copy()
-    sdk_path = '/Users/tyamada22/Library/Android/sdk'
-    jbr_path = '/Applications/Android Studio.app/Contents/jbr/Contents/Home'
-    env['ANDROID_HOME'] = sdk_path
-    env['ANDROID_SDK_ROOT'] = sdk_path
-    env['JAVA_HOME'] = jbr_path
-    env['HOME'] = os.path.expanduser('~')
-    return env
+    # Respect the caller's SDK/JDK configuration (see README).
+    return os.environ.copy()
+
 
 def run_cmd(cmd, cwd=None):
     res = subprocess.run(cmd, cwd=cwd, env=get_env(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -39,6 +34,7 @@ def get_connected_devices():
 def main():
     parser = argparse.ArgumentParser(description="Run UI-Emulated Endurance Test for MihirakiPDFUtility")
     parser.add_argument("--duration", type=int, default=3, help="Test duration indicator (mins)")
+    parser.add_argument("--serial", required=True, help="Explicit ADB test-device serial")
     args = parser.parse_args()
 
     root_dir = Path(__file__).resolve().parent.parent
@@ -51,7 +47,10 @@ def main():
         print("ERROR: No connected Android devices or emulators found via ADB.", file=sys.stderr)
         sys.exit(1)
 
-    device_serial = devices[0]
+    if args.serial not in devices:
+        print("ERROR: Selected device is not connected or authorized.", file=sys.stderr)
+        sys.exit(1)
+    device_serial = args.serial
     session_dir = logs_base / f"{timestamp}_{device_serial}_ui_endurance"
     session_dir.mkdir(parents=True, exist_ok=True)
 
@@ -76,7 +75,11 @@ def main():
 
     print(f"\n[RUNNING] Executing Instrumented UI Endurance Tests via Gradle...")
     start_time = time.time()
-    code, out = run_cmd(test_cmd, cwd=root_dir)
+    test_env = get_env()
+    test_env['ANDROID_SERIAL'] = device_serial
+    result = subprocess.run(test_cmd, cwd=root_dir, env=test_env,
+                            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    code, out = result.returncode, result.stdout
     elapsed = int(time.time() - start_time)
 
     test_log = session_dir / "ui_endurance_test_result.log"
@@ -105,6 +108,7 @@ Generated Artifacts in {session_dir.name}/:
     print(f"\n=== UI Endurance Test Session Completed (Status: {status}) ===")
     print(f"All logs and reports saved to: {session_dir}")
     print(summary_content)
+    return 0 if code == 0 else 1
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

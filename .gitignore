@@ -32,3 +32,23 @@ shorts_output/
 shorts_raw_assets/
 shorts_raw/
 
+
+# Local generated files and credentials
+__pycache__/
+*.py[cod]
+*.log
+/debug_frames/
+*.apk
+*.aab
+*.jks
+*.keystore
+.venv-play-console/
+
+# Local OAuth / service-account credentials
+client_secret*.json
+service-account*.json
+credentials.json
+token.json
+.env
+.env.*
+!.env.example

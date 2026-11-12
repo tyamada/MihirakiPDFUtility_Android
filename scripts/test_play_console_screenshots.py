@@ -10,16 +10,9 @@ import play_console_screenshots as play
 
 
 class PlayConsoleScreenshotTests(unittest.TestCase):
-    def test_manifest_separates_api_and_chromebook_images(self):
-        manifest = play.build_manifest()
-        groups = play.locale_groups(manifest)
-        self.assertEqual(manifest['apiImageCount'], 294)
-        self.assertEqual(manifest['chromebookManualImageCount'], 84)
-        self.assertEqual(len(groups), 42)
-        self.assertEqual({image_type for _, image_type in groups}, set(play.DEVICE_TYPES.values()))
-        self.assertTrue(all(len(images) == 7 for images in groups.values()))
-        self.assertEqual({language for language, _ in groups},
-                         set(play.PLAY_LANGUAGE_BY_CAPTURE_LOCALE.values()))
+    def test_legacy_viewer_configuration_cannot_stage_utility_images(self):
+        with self.assertRaisesRegex(RuntimeError, 'different application'):
+            play.build_manifest()
 
     def test_png_preflight_accepts_rgb_and_rejects_alpha(self):
         signature = b'\x89PNG\r\n\x1a\n'
@@ -46,8 +39,9 @@ class PlayConsoleScreenshotTests(unittest.TestCase):
 
     def test_missing_locale_drafts_cover_required_store_locales(self):
         drafts = play.missing_listing_content()
-        required = {'es-ES', 'fil', 'id', 'it-IT', 'ne-NP', 'vi'}
-        self.assertTrue(required <= drafts.keys())
+        required = {'en-US', 'ja-JP', 'ko-KR', 'de-DE', 'fr-FR', 'it-IT', 'zh-CN', 'zh-TW', 'zh-HK'}
+        self.assertEqual(required, drafts.keys())
+        self.assertIn("Utility", drafts["en-US"]["title"])
         for locale in required:
             self.assertLessEqual(len(drafts[locale]['title']), 30, locale)
             self.assertLessEqual(len(drafts[locale]['shortDescription']), 80, locale)

@@ -6,7 +6,6 @@ Android Publisher API has no Chromebook image type. They remain a manual
 Play Console task. Staged edits are never committed unless explicitly requested.
 """
 import argparse
-import csv
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -59,6 +58,7 @@ def png_info(path):
 
 
 def build_manifest():
+    capture.require_matching_application()
     entries = []
     issues = []
     expected_langs = set(capture.LANGUAGES)
@@ -173,19 +173,21 @@ def read_markdown_listing(path):
 
 
 def missing_listing_content():
-    """Load reviewed local listing drafts for all screenshot locales."""
-    locale_aliases = {'fil': 'fil', 'id': 'id', 'ne': 'ne-NP', 'vi': 'vi'}
-    csv_path = ROOT / 'store_listing/PLAY_STORE_TRANSLATIONS.csv'
+    """Load only Utility's reviewed metadata; do not borrow Viewer translations."""
+    aliases = {'en': 'en-US', 'ja': 'ja-JP', 'ko': 'ko-KR', 'de': 'de-DE',
+               'fr': 'fr-FR', 'it': 'it-IT', 'zh-CN': 'zh-CN',
+               'zh-TW': 'zh-TW', 'zh-HK': 'zh-HK'}
     listings = {}
-    with csv_path.open(encoding='utf-8', newline='') as stream:
-        for row in csv.DictReader(stream):
-            locale = locale_aliases.get(row['Locale'], row['Locale'])
-            listings[locale] = {
-                'title': row['Title'],
-                'shortDescription': row['Short Description'],
-                'fullDescription': row['Full Description'],
-            }
-    listings['it-IT'] = read_markdown_listing(ROOT / 'store_listing/STORE_LISTING.it.md')
+    for path in sorted((ROOT / 'store_listing').glob('metadata_*.txt')):
+        locale = path.stem.removeprefix('metadata_')
+        lines = path.read_text().splitlines()
+        if len(lines) < 8:
+            raise ValueError(f'Invalid listing metadata: {path.name}')
+        listings[aliases.get(locale, locale)] = {
+            'title': lines[1].strip(),
+            'shortDescription': lines[4].strip(),
+            'fullDescription': '\n'.join(lines[7:]).strip(),
+        }
     return listings
 
 

@@ -336,12 +336,12 @@ class PdfViewModel(
                 _updateAvailable.value = available
                 _uiState.value = _uiState.value.copy(updateAvailable = available)
             }.addOnFailureListener { e ->
-                AppLogger.log(getApplication(), "ERROR", "Background update check failed: ${e.message}")
+                AppLogger.log(getApplication(), "ERROR", "Background update check failed: ${e.javaClass.simpleName}")
                 _updateAvailable.value = false
                 _uiState.value = _uiState.value.copy(updateAvailable = false)
             }
         } catch (e: Exception) {
-            AppLogger.log(getApplication(), "ERROR", "Background update check exception: ${e.message}")
+            AppLogger.log(getApplication(), "ERROR", "Background update check exception: ${e.javaClass.simpleName}")
             _updateAvailable.value = false
             _uiState.value = _uiState.value.copy(updateAvailable = false)
         }
@@ -365,7 +365,7 @@ class PdfViewModel(
                 _uiState.value = _uiState.value.copy(updateAvailable = available, errorMessage = msg)
             }.addOnFailureListener { e ->
                 val app = getApplication<Application>()
-                AppLogger.log(app, "ERROR", "Manual update check failed: ${e.message}")
+                AppLogger.log(app, "ERROR", "Manual update check failed: ${e.javaClass.simpleName}")
                 _updateAvailable.value = false
                 _uiState.value = _uiState.value.copy(
                     updateAvailable = false,
@@ -374,7 +374,7 @@ class PdfViewModel(
             }
         } catch (e: Exception) {
             val app = getApplication<Application>()
-            AppLogger.log(app, "ERROR", "Manual update check exception: ${e.message}")
+            AppLogger.log(app, "ERROR", "Manual update check exception: ${e.javaClass.simpleName}")
             _updateAvailable.value = false
             _uiState.value = _uiState.value.copy(
                 updateAvailable = false,
@@ -487,7 +487,7 @@ class PdfViewModel(
     }
 
     fun openSamplePdfUri(uri: Uri) {
-        AppLogger.log(getApplication(), "INFO", "Opened sample PDF from catalog: ${uri.lastPathSegment}")
+        AppLogger.log(getApplication(), "INFO", "Opened sample PDF from catalog")
         closeSamplePdfScreen()
         loadPdf(uri, isSamplePdf = true)
     }
@@ -737,7 +737,7 @@ class PdfViewModel(
                 )
             } catch (e: Exception) {
                 if (e !is java.util.concurrent.CancellationException) {
-                    AppLogger.log(getApplication(), "ERROR", "PDF load failed: ${e.message}")
+                    AppLogger.log(getApplication(), "ERROR", "PDF load failed: ${e.javaClass.simpleName}")
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         errorResId = R.string.error_load_failed
@@ -824,7 +824,7 @@ class PdfViewModel(
                 )
             } catch (e: Exception) {
                 if (e !is java.util.concurrent.CancellationException) {
-                    AppLogger.log(getApplication(), "ERROR", "PDF load failed: ${e.message}")
+                    AppLogger.log(getApplication(), "ERROR", "PDF load failed: ${e.javaClass.simpleName}")
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         isAppending = false,
@@ -1295,7 +1295,7 @@ class PdfViewModel(
                     AppLogger.log(getApplication(), "INFO", "PDF saved successfully")
                     _uiState.value = _uiState.value.copy(isDirty = false)
                 } catch (e: Exception) {
-                    AppLogger.log(getApplication(), "ERROR", "PDF save failed: ${e.message}")
+                    AppLogger.log(getApplication(), "ERROR", "PDF save failed: ${e.javaClass.simpleName}")
                     _uiState.value = _uiState.value.copy(errorResId = R.string.error_save_failed)
                 } finally {
                     _uiState.value = _uiState.value.copy(isLoading = false)
@@ -1333,7 +1333,7 @@ class PdfViewModel(
                     }
                     AppLogger.log(getApplication(), "INFO", "PDF export successfully")
                 } catch (e: Exception) {
-                    AppLogger.log(getApplication(), "ERROR", "PDF export failed: ${e.message}")
+                    AppLogger.log(getApplication(), "ERROR", "PDF export failed: ${e.javaClass.simpleName}")
                     _uiState.value = _uiState.value.copy(errorResId = R.string.error_export_failed)
                 } finally {
                     _uiState.value = _uiState.value.copy(isLoading = false)
@@ -1382,7 +1382,7 @@ class PdfViewModel(
                     }
                 }
             } catch (e: Exception) {
-                AppLogger.log(context, "ERROR", "Failed to load images from folder: ${e.message}")
+                AppLogger.log(context, "ERROR", "Failed to load images from folder: ${e.javaClass.simpleName}")
             }
 
             val sortedImages = sortImages(images, ImageSortField.NAME, ImageSortOrder.ASCENDING)
@@ -1462,7 +1462,7 @@ class PdfViewModel(
                     updateHistoryFlags()
                 }
             } catch (e: Exception) {
-                AppLogger.log(context, "ERROR", "Failed to create PDF from folder images: ${e.message}")
+                AppLogger.log(context, "ERROR", "Failed to create PDF from folder images: ${e.javaClass.simpleName}")
                 withContext(Dispatchers.Main) {
                     _uiState.value = _uiState.value.copy(
                         document = _uiState.value.document.copy(isLoading = false),
@@ -1515,68 +1515,9 @@ class PdfViewModel(
         return result
     }
 
-    private fun getFileLocationDescription(uri: Uri, isSample: Boolean): String {
-        if (isSample) return "Sample PDFs"
+    private fun getFileLocationDescription(uri: Uri, isSample: Boolean): String =
+        com.takumayamada22.pdfutility.util.pdfLogLocation(uri.scheme, uri.authority, isSample)
 
-        val scheme = uri.scheme ?: ""
-        val authority = uri.authority ?: ""
-        val path = uri.path ?: ""
-        val lowerPath = path.lowercase(Locale.ROOT)
-        val lowerAuthority = authority.lowercase(Locale.ROOT)
-
-        // 1. Cloud / Other Services by authority or path keywords
-        when {
-            lowerAuthority.contains("docs.storage") || lowerAuthority.contains("google.android.apps.docs") -> return "Google Drive"
-            lowerAuthority.contains("dropbox") -> return "Dropbox"
-            lowerAuthority.contains("skydrive") || lowerAuthority.contains("onedrive") -> return "OneDrive"
-            lowerAuthority.contains("icloud") || lowerPath.contains("icloud") -> return "iCloud Drive"
-            lowerAuthority.contains("box.android") -> return "Box"
-            lowerAuthority.contains("cloud") || lowerAuthority.contains("provider") -> {
-                if (lowerAuthority.contains("download")) return "Local Device (Downloads)"
-                return "Other Service ($authority)"
-            }
-        }
-
-        // 2. SAF External Storage Provider
-        if (authority == "com.android.externalstorage.documents") {
-            val pathSegments = uri.pathSegments
-            val lastSegment = pathSegments.lastOrNull() ?: ""
-            if (lastSegment.contains(":")) {
-                val subPath = lastSegment.substringAfter(":").substringBeforeLast("/")
-                if (subPath.isNotEmpty()) {
-                    val folderName = subPath.substringAfterLast('/')
-                    if (folderName.isNotEmpty() && !folderName.contains("@") && !folderName.matches(Regex(".*[0-9]{5,}.*"))) {
-                        return "Local Device ($folderName)"
-                    }
-                }
-            }
-            return "Local Device (External Storage)"
-        }
-
-        // 3. File scheme or other local paths
-        if (scheme == "file") {
-            when {
-                lowerPath.contains("download") -> return "Local Device (Download)"
-                lowerPath.contains("document") -> return "Local Device (Documents)"
-                lowerPath.contains("dcim") || lowerPath.contains("picture") -> return "Local Device (Pictures)"
-                else -> {
-                    val parentFile = File(path).parentFile
-                    val folderName = parentFile?.name
-                    if (folderName != null && folderName.isNotEmpty() && folderName != "0" && folderName != "files" && folderName != "cache" && !folderName.matches(Regex(".*[0-9]{5,}.*"))) {
-                        return "Local Device ($folderName)"
-                    }
-                    return "Local Device"
-                }
-            }
-        }
-
-        // 4. Other content providers / services
-        if (scheme == "content" && authority.isNotEmpty()) {
-            return "Other Service ($authority)"
-        }
-
-        return "Local Device"
-    }
 
     private val _orientationEvent = kotlinx.coroutines.flow.MutableSharedFlow<Int>()
     val orientationEvent: kotlinx.coroutines.flow.SharedFlow<Int> = _orientationEvent
@@ -1726,7 +1667,7 @@ class PdfViewModel(
                             }
                         }
                     } catch (e: Exception) {
-                        AppLogger.log(context, "WARN", "Failed to download sample ${item.fileName}: ${e.message}")
+                        AppLogger.log(context, "WARN", "Failed to download sample ${item.fileName}: ${e.javaClass.simpleName}")
                     }
                 }
 
@@ -1749,7 +1690,7 @@ class PdfViewModel(
                             }
                         }
                     } catch (e: Exception) {
-                        AppLogger.log(context, "WARN", "Failed to download test file $fileName: ${e.message}")
+                        AppLogger.log(context, "WARN", "Failed to download test file $fileName: ${e.javaClass.simpleName}")
                     }
                 }
 
@@ -1760,7 +1701,7 @@ class PdfViewModel(
             } catch (e: Exception) {
                 if (e !is java.util.concurrent.CancellationException) {
                     _downloadTestFilesStatus.value = "ダウンロードエラー: ${e.message}"
-                    AppLogger.log(context, "ERROR", "Failed to download test files: ${e.message}")
+                    AppLogger.log(context, "ERROR", "Failed to download test files: ${e.javaClass.simpleName}")
                 } else {
                     _downloadTestFilesStatus.value = "ダウンロードがキャンセルされました。"
                 }

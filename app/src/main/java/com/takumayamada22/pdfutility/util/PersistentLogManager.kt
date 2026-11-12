@@ -44,7 +44,7 @@ object PersistentLogManager {
                     writer.append(logLine)
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to write persistent log", e)
+                Log.e(TAG, "Failed to write persistent log")
             }
         }
     }
@@ -60,7 +60,7 @@ object PersistentLogManager {
                 allLines.add("--- File: ${file.name} ---")
                 allLines.addAll(file.readLines())
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to read log file ${file.name}", e)
+                Log.e(TAG, "Failed to read log file ${file.name}")
             }
         }
         return allLines
