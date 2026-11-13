@@ -285,4 +285,5 @@
     <string name="page_preview_action">預覽頁面</string>
     <string name="page_selection_action">選取或取消選取頁面</string>
     <string name="sample_pdf_integrity_error">無法驗證已下載的PDF。請重試。</string>
+    <string name="tutorial_video_guide">觀看英語影片指南</string>
 </resources>

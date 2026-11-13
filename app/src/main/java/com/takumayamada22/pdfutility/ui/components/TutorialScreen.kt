@@ -30,6 +30,7 @@ import kotlinx.coroutines.launch
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
 
 internal data class TutorialPageData(
     val icon: ImageVector,
@@ -147,9 +148,15 @@ fun TutorialScreen(viewModel: PdfViewModel) {
                     Spacer(modifier = Modifier.height(20.dp))
 
                     val context = LocalContext.current
+                    val isJapanese = LocalConfiguration.current.locales[0].language == "ja"
+                    val videoGuideUrl = if (isJapanese) {
+                        "https://www.youtube.com/playlist?list=PLNNwgShEZ8RA"
+                    } else {
+                        "https://www.youtube.com/playlist?list=PLa-QGEwHSDRo"
+                    }
                     OutlinedButton(
                         onClick = {
-                            val intent = Intent(Intent.ACTION_VIEW, "https://www.youtube.com/playlist?list=PLa-QGEwHSDRo".toUri())
+                            val intent = Intent(Intent.ACTION_VIEW, videoGuideUrl.toUri())
                             context.startActivity(intent)
                         },
                         modifier = Modifier.height(38.dp)
@@ -162,7 +169,7 @@ fun TutorialScreen(viewModel: PdfViewModel) {
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = "Watch English Video Guide",
+                            text = stringResource(R.string.tutorial_video_guide),
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }

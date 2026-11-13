@@ -169,4 +169,5 @@
     <string name="page_preview_action">Xem trước trang</string>
     <string name="page_selection_action">Chọn hoặc bỏ chọn trang</string>
     <string name="sample_pdf_integrity_error">Không thể xác minh PDF đã tải xuống. Vui lòng thử lại.</string>
+    <string name="tutorial_video_guide">Xem video hướng dẫn bằng tiếng Anh</string>
 </resources>

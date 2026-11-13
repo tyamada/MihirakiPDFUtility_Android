@@ -9,9 +9,10 @@ Android向けの強力で直感的なPDFユーティリティアプリです。�
 
 ## 動画ガイド
 
-英語の動画です。YouTubeで開きます。
+日本語と英語の動画ガイドです。YouTubeで開きます。
 
-- [説明動画の再生リスト（5本）](https://www.youtube.com/playlist?list=PLa-QGEwHSDRo)
+- [日本語の説明動画（5本・春日部つむぎ）](https://www.youtube.com/playlist?list=PLNNwgShEZ8RA)
+- [英語の説明動画（5本）](https://www.youtube.com/playlist?list=PLa-QGEwHSDRo)
 
 ## リリース候補
 

@@ -287,4 +287,5 @@
     <string name="page_preview_action">Pratonton halaman</string>
     <string name="page_selection_action">Pilih atau nyahpilih halaman</string>
     <string name="sample_pdf_integrity_error">PDF yang dimuat turun tidak dapat disahkan. Sila cuba lagi.</string>
+    <string name="tutorial_video_guide">Tonton panduan video bahasa Inggeris</string>
 </resources>

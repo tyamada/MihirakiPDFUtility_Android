@@ -169,4 +169,5 @@
     <string name="page_preview_action">I-preview ang pahina</string>
     <string name="page_selection_action">Piliin o alisin sa pagpili ang pahina</string>
     <string name="sample_pdf_integrity_error">Hindi ma-verify ang na-download na PDF. Pakisubukang muli.</string>
+    <string name="tutorial_video_guide">Panoorin ang gabay na video sa Ingles</string>
 </resources>

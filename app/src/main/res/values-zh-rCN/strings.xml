@@ -253,4 +253,5 @@
     <string name="page_preview_action">预览页面</string>
     <string name="page_selection_action">选择或取消选择页面</string>
     <string name="sample_pdf_integrity_error">无法验证下载的PDF。请重试。</string>
+    <string name="tutorial_video_guide">观看英语视频指南</string>
 </resources>

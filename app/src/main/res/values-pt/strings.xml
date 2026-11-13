@@ -169,4 +169,5 @@
     <string name="page_preview_action">Pré-visualizar página</string>
     <string name="page_selection_action">Selecionar ou desmarcar página</string>
     <string name="sample_pdf_integrity_error">Não foi possível verificar o PDF baixado. Tente novamente.</string>
+    <string name="tutorial_video_guide">Ver guia em vídeo em inglês</string>
 </resources>

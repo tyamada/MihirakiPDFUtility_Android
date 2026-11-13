@@ -169,4 +169,5 @@
     <string name="page_preview_action">Pratinjau halaman</string>
     <string name="page_selection_action">Pilih atau batalkan pilihan halaman</string>
     <string name="sample_pdf_integrity_error">PDF yang diunduh tidak dapat diverifikasi. Silakan coba lagi.</string>
+    <string name="tutorial_video_guide">Tonton panduan video bahasa Inggris</string>
 </resources>
