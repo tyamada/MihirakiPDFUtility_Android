@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 LaunchedEffect(initialUri) {
-                    initialUri?.let { viewModel.loadPdf(it) }
+                    viewModel.openInitialDocument(initialUri)
                 }
                 MainScreen(viewModel)
             }

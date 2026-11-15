@@ -1,0 +1,41 @@
+{
+  "apk_sha256": "25e42ef730035608f42daf11d7099fd1a31ab58869ff44e875f0f82e0edbede4",
+  "package": "com.takumayamada22.pdfutility.homepreview",
+  "versionName": "1.2.10-home-v2-local",
+  "versionCode": 26,
+  "changed_files": [
+    "app/src/main/java/com/takumayamada22/pdfutility/MainActivity.kt",
+    "app/src/main/java/com/takumayamada22/pdfutility/ui/PdfViewModel.kt",
+    "app/src/main/java/com/takumayamada22/pdfutility/util/PreferencesManager.kt",
+    "app/src/main/java/com/takumayamada22/pdfutility/util/LastDocumentStore.kt",
+    "app/src/androidTest/java/com/takumayamada22/pdfutility/LastDocumentStoreTest.kt"
+  ],
+  "unit_tests": 23,
+  "unit_failures": 0,
+  "device_regression_tests": 5,
+  "device_regression_failures": 0,
+  "lint_errors": 0,
+  "lint_warnings": 7,
+  "ja_process_restart": "PASS",
+  "en_process_restart": "PASS",
+  "play_all_apks_unchanged": true,
+  "device_settings_restored": true,
+  "limitations": [
+    "Original PDF reopen, not autosave of unsaved page edits",
+    "Device OS reboot not performed",
+    "Encrypted PDF restore password prompt implemented but not newly exercised end to end",
+    "Known existing BillingManagerTest API mismatch; preserved and temporarily excluded only for focused instrumentation build"
+  ],
+  "record_scope": "LOCAL実機検証と保持修正のみのリポジトリ反映",
+  "repository_validation": {
+    "base_commit": "2d382b377accff98534d893d2b2ec61cd6eff8ca",
+    "assembleDebug": "PASS",
+    "unit_tests": 19,
+    "unit_failures": 0,
+    "unit_errors": 0,
+    "lint_errors": 0,
+    "lint_warnings": 7,
+    "generated_apk_installed": false,
+    "source_files_match_device_tested_files": true
+  }
+}

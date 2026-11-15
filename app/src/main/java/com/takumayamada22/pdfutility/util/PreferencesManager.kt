@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.takumayamada22.pdfutility.data.SamplePdfSortOrder
+import com.takumayamada22.pdfutility.ui.ButtonDisplayType
+import com.takumayamada22.pdfutility.ui.ActionButtonType
 
 object PreferencesManager {
     private const val PREF_NAME = "mihiraki_pdf_prefs"
@@ -51,4 +53,23 @@ object PreferencesManager {
             putString(KEY_SAMPLE_PDF_SORT_ORDER, order.name)
         }
     }
+    fun getButtonDisplayType(context: Context): ButtonDisplayType =
+        enumValues<ButtonDisplayType>().firstOrNull {
+            it.name == getPrefs(context).getString("button_display_type", null)
+        } ?: ButtonDisplayType.ICON_ONLY
+
+    fun setButtonDisplayType(context: Context, type: ButtonDisplayType) {
+        getPrefs(context).edit { putString("button_display_type", type.name) }
+    }
+
+    fun getVisibleActionButtons(context: Context, defaults: Set<ActionButtonType>): Set<ActionButtonType> {
+        val names = getPrefs(context).getStringSet("visible_action_buttons", null) ?: return defaults
+        // An explicitly empty selection is valid; ignore obsolete/unknown enum names.
+        return enumValues<ActionButtonType>().filter { it.name in names }.toSet()
+    }
+
+    fun setVisibleActionButtons(context: Context, buttons: Set<ActionButtonType>) {
+        getPrefs(context).edit { putStringSet("visible_action_buttons", buttons.map { it.name }.toSet()) }
+    }
+
 }

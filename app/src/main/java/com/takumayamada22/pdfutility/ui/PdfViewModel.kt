@@ -22,6 +22,7 @@ import com.takumayamada22.pdfutility.domain.PdfProcessor
 import com.takumayamada22.pdfutility.domain.ThumbnailProvider
 import com.takumayamada22.pdfutility.util.AppLogger
 import com.takumayamada22.pdfutility.util.PreferencesManager
+import com.takumayamada22.pdfutility.util.LastDocumentStore
 import com.takumayamada22.pdfutility.util.EnduranceTestExecutor
 import com.takumayamada22.pdfutility.util.LayoutState
 import com.takumayamada22.pdfutility.util.LongRunningTestManager
@@ -415,7 +416,11 @@ class PdfViewModel(
     private val _uiState = MutableStateFlow(
         PdfUiState(
             dialog = PdfDialogState(showTutorial = shouldShow),
-            preference = PdfPreferenceState(thumbnailSize = defaultThumbnailSize)
+            preference = PdfPreferenceState(
+                thumbnailSize = defaultThumbnailSize,
+                buttonDisplayType = PreferencesManager.getButtonDisplayType(application),
+                visibleActionButtons = PreferencesManager.getVisibleActionButtons(application, PdfPreferenceState().visibleActionButtons)
+            )
         )
     )
     val uiState: StateFlow<PdfUiState> = _uiState
@@ -463,12 +468,14 @@ class PdfViewModel(
 
     fun setButtonDisplayType(type: ButtonDisplayType) {
         if (_uiState.value.buttonDisplayType == type) return
+        PreferencesManager.setButtonDisplayType(getApplication(), type)
         _uiState.value = _uiState.value.copy(buttonDisplayType = type)
     }
 
     fun setVisibleActionButtons(buttons: Set<ActionButtonType>) {
         if (_uiState.value.visibleActionButtons == buttons) return
-        _uiState.value = _uiState.value.copy(visibleActionButtons = buttons)
+        PreferencesManager.setVisibleActionButtons(getApplication(), buttons)
+        _uiState.value = _uiState.value.copy(visibleActionButtons = buttons.toSet())
     }
 
     private var pendingAction: (() -> Unit)? = null
@@ -644,12 +651,32 @@ class PdfViewModel(
         AppLogger.log(getApplication(), "INFO", "Operation cancelled by user, state rolled back.")
     }
 
+    private val lastDocumentStore = LastDocumentStore(application)
+    private var initialDocumentHandled = false
+
+    fun openInitialDocument(uri: Uri?) {
+        if (initialDocumentHandled) return
+        initialDocumentHandled = true
+        if (uri != null) {
+            loadPdf(uri)
+            return
+        }
+        try {
+            lastDocumentStore.read()?.let { loadPdf(it.uri, isSamplePdf = it.isSample, displayName = it.name) }
+        } catch (e: Exception) {
+            AppLogger.log(getApplication(), "WARN", "Last document restore failed: ${e.javaClass.simpleName}")
+            _uiState.value = _uiState.value.copy(errorResId = R.string.error_load_failed)
+        }
+    }
+
+    private var pendingDocumentName: String? = null
+    private var pendingDocumentSample: Boolean? = null
     private var pendingPasswordIsAppend = false
 
-    fun loadPdf(uri: Uri, password: String? = null, isSamplePdf: Boolean? = null) {
+    fun loadPdf(uri: Uri, password: String? = null, isSamplePdf: Boolean? = null, displayName: String? = null) {
         activeOperationJob?.cancel()
         activeOperationJob = viewModelScope.launch {
-            val fileName = getFileName(uri)
+            val fileName = displayName ?: getFileName(uri)
             _uiState.value = _uiState.value.copy(
                 pages = emptyList(),
                 isLoading = false,
@@ -665,12 +692,16 @@ class PdfViewModel(
                 _uiState.value = _uiState.value.copy(isLoading = true)
             }
 
+            var durableUri: Uri? = null
+            var committed = false
             try {
                 withContext(Dispatchers.IO) {
-                    val inputStream = if (uri.scheme == "file" && uri.path != null) {
-                        java.io.FileInputStream(java.io.File(uri.path!!))
+                    val source = lastDocumentStore.prepare(uri)
+                    durableUri = source
+                    val inputStream = if (source.scheme == "file" && source.path != null) {
+                        java.io.FileInputStream(java.io.File(source.path!!))
                     } else {
-                        getApplication<Application>().contentResolver.openInputStream(uri)
+                        getApplication<Application>().contentResolver.openInputStream(source)
                     }
                     if (inputStream != null) {
                         val path = uri.path ?: ""
@@ -681,15 +712,15 @@ class PdfViewModel(
                         val loadedPages = inputStream.use { loadPdfUseCase.load(it, password) }
                         if (loadedPages <= 0) throw java.io.IOException("PDF has no pages")
                         thumbnailProvider.close()
-                        thumbnailProvider.prepare(uri, password)
-                        val pageCount = thumbnailProvider.getPageCount(uri)
+                        thumbnailProvider.prepare(source, password)
+                        val pageCount = thumbnailProvider.getPageCount(source)
                         if (pageCount != loadedPages) throw java.io.IOException("PDF rendering page count mismatch")
                         val generateThumbnailsNow = true
                         val pages = (0 until pageCount).map { index ->
                             PageState(
-                                thumbnail = thumbnailProvider.getThumbnail(uri, index, getThumbnailWidth(_uiState.value.thumbnailSize)),
+                                thumbnail = thumbnailProvider.getThumbnail(source, index, getThumbnailWidth(_uiState.value.thumbnailSize)),
                                 originalIndex = index,
-                                sourceUri = uri
+                                sourceUri = source
                             )
                         }
 
@@ -699,6 +730,8 @@ class PdfViewModel(
                         val isRtl = (direction == "R2L")
                         val showCover = layout == "TwoColumnRight" || layout == "TwoPageRight"
                         
+                        lastDocumentStore.commit(source, fileName ?: "document.pdf", isSample)
+                        committed = true
                         withContext(Dispatchers.Main) {
                             _uiState.value = _uiState.value.copy(
                                 pages = pages,
@@ -727,6 +760,8 @@ class PdfViewModel(
                 }
             } catch (_: InvalidPasswordException) {
                 pendingPasswordIsAppend = false
+                pendingDocumentName = fileName
+                pendingDocumentSample = isSamplePdf
                 AppLogger.log(getApplication(), "WARN", "PDF load failed: Invalid password")
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
@@ -744,6 +779,11 @@ class PdfViewModel(
                     )
                 }
             } finally {
+                if (!committed) durableUri?.let { source ->
+                    withContext(kotlinx.coroutines.NonCancellable + Dispatchers.IO) {
+                        runCatching { lastDocumentStore.discardUncommitted(source) }
+                    }
+                }
                 loadingIndicatorJob.cancel()
                 _uiState.value = _uiState.value.copy(isLoading = false, isAppending = false)
             }
@@ -843,7 +883,7 @@ class PdfViewModel(
         if (pendingPasswordIsAppend) {
             appendPdf(uri, password)
         } else {
-            loadPdf(uri, password)
+            loadPdf(uri, password, pendingDocumentSample, pendingDocumentName)
         }
     }
 
