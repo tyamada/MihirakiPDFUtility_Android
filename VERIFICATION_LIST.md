@@ -46,3 +46,9 @@ This is a list of verification results compiled from developer and user informat
 Pixel 8a / Android 17: verified the separate LOCAL build (`com.takumayamada22.pdfutility.homepreview`, 1.2.10-home-v2-local / 26). After force-stopping and relaunching the app, the same eight-page PDF, text-only button format, and Open/Save-only toolbar selection were restored in both Japanese and English. The previous failure on November 15 was resolved for these cases. This reopens the original PDF; it does not autosave unsaved page edits or Undo history. A full device reboot was not tested.
 
 The existing Google Play build 1.2.11 (27) was preserved: all five APK hashes, version, first-install time, and update time matched the baseline. Device settings were restored. Five focused persistence regression tests passed. See the [detailed verification record](docs/validation/local-retention-20261116/RESULT.ja.md) for scope and limitations.
+
+## LOCAL build TalkBack verification (2026-11-16)
+
+Pixel 8a / Android 17, separate LOCAL build 1.2.10-home-v2-local (26): confirmed forward accessibility focus movement in Japanese and English for the eight-page sample PDF with the Open/Save-only, text-only toolbar. The user listened to both recordings and reported audible Japanese/English speech without concerning repetition or skipped items. This was user listening confirmation, not direct audio assessment by the agent.
+
+Backward focus movement and menu activation remain **undetermined**; they are not marked as passed or diagnosed as app defects. Other screens and all layout/settings combinations were not covered. TalkBack, language, and other changed device settings were restored, the temporary keyboard was disconnected, and all existing Play APK hashes and install/update metadata were unchanged. See the [detailed results and remaining items](docs/validation/talkback-local-20261116/RESULT.ja.md).

@@ -1,0 +1,102 @@
+{
+  "verified_at": "2026-11-16T06:30:48.373970+09:00",
+  "device": "Pixel 8a / Android 17",
+  "package": "com.takumayamada22.pdfutility.homepreview",
+  "local_apk_sha256": "25e42ef730035608f42daf11d7099fd1a31ab58869ff44e875f0f82e0edbede4",
+  "document": "tameshibu_episode1_2_ja.pdf / 8 pages",
+  "toolbar": "TEXT_ONLY / OPEN,SAVE",
+  "talkback_enabled_with_user_approval": true,
+  "method": "Android標準hidコマンドで一時UHIDキーボード接続。Action＋右による前進フォーカスをscreencapで記録。UIAutomator dumpはテスト中に使用せず、復元操作等に限定。",
+  "japanese": {
+    "result": "文書画面の前進フォーカス到達を確認",
+    "observed_sequence": [
+      "その他の操作",
+      "開く",
+      "保存",
+      "ページ1〜8（ページ番号部分に緑のフォーカス表示）"
+    ],
+    "evidence": [
+      "ja-focus-without-uiautomator.png",
+      "ja-fixed-hid-gui-next.png",
+      "ja-valid-01.png",
+      "ja-valid-02.png",
+      "ja-valid-03.png",
+      "ja-valid-04.png",
+      "ja-valid-05.png",
+      "ja-valid-06.png",
+      "ja-valid-07.png",
+      "ja-valid-08.png",
+      "ja-valid-09.png"
+    ]
+  },
+  "english": {
+    "result": "文書画面の前進フォーカス到達・循環を確認",
+    "observed_sequence": [
+      "Page1",
+      "Page2",
+      "Page3",
+      "Page4",
+      "Page5",
+      "Page6",
+      "Page7",
+      "Page8",
+      "document filename",
+      "More actions",
+      "Open",
+      "Save"
+    ],
+    "evidence": [
+      "en-first-ready.png",
+      "en-valid-01.png",
+      "en-valid-02.png",
+      "en-valid-03.png",
+      "en-valid-04.png",
+      "en-valid-05.png",
+      "en-valid-06.png",
+      "en-valid-07.png",
+      "en-valid-08.png",
+      "en-valid-09.png",
+      "en-valid-10.png",
+      "en-valid-11.png"
+    ]
+  },
+  "speech": {
+    "verified_by": "ユーザー本人の録音聴取",
+    "user_reply": "日英とも聞こえ、気になる重複・読み飛ばしはない",
+    "assistant_direct_listening": false,
+    "recordings": [
+      {
+        "file": "ja-document-valid.wav",
+        "duration_seconds": 44.885333333333335,
+        "sha256": "ebff79466bf09985f11c8a79982ad8c0b2d11591b9edf5b97182e4c88c72be7d"
+      },
+      {
+        "file": "en-document.wav",
+        "duration_seconds": 54.89066666666667,
+        "sha256": "4c1a94300d85efd15296d45e3f0612f733698faaa15c640bab4a202c3d8e5e58"
+      }
+    ]
+  },
+  "limitations": [
+    "今回の主確認範囲は8ページ文書・2個の文字ボタンの代表条件。空ホーム、全ボタン形式、全ダイアログ等を網羅した結果ではない。",
+    "後退移動・メニュー起動はショートカット動作を確定できず未判定。追加操作はSettingsに遷移したため、アプリの障害とは断定しない。",
+    "音声の内容・言語・重複や読み飛ばしの評価は本人の聴取回答に基づく。モデル自身が録音を聴いたという扱いにはしない。",
+    "ja-document-next-*とja-document.wavは送信タイミング修正前の試行。フォーカス順の合格証跡に使用しない。"
+  ],
+  "restored_settings": {
+    "enabled_accessibility_services": "",
+    "accessibility_enabled": "0",
+    "touch_exploration_enabled": "0",
+    "font_scale": "1.0",
+    "accelerometer_rotation": "0",
+    "user_rotation": "0",
+    "app_locales": "Locales for com.takumayamada22.pdfutility.homepreview for user 0 are []",
+    "device_locale": "ja-JP"
+  },
+  "all_baseline_settings_restored": true,
+  "temporary_hid_removed": true,
+  "play_all_apks_version_and_install_times_unchanged": true,
+  "local_apk_unchanged": true,
+  "record_scope": "2026-11-16 LOCAL実機確認の履歴。今回のリポジトリ変更は検証記録のみ。",
+  "evidence_storage": "画面・音声原本はローカル検証成果物に保持。リポジトリには追加しない。"
+}
