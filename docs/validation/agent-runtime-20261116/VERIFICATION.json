@@ -1,0 +1,77 @@
+{
+  "date_jst": "2026-11-16",
+  "record_scope": "共有証跡の照合と運用資料更新のみ。今回新たな推論・実装・ビルドはなし。",
+  "facts_checked": {
+    "cli": {
+      "version": "1.5.9",
+      "model": "gemini-3.8-flash-low",
+      "expected": {
+        "sorted": [
+          2,
+          2,
+          5,
+          9
+        ],
+        "count": 4
+      },
+      "observed": {
+        "sorted": [
+          2,
+          2,
+          5,
+          9
+        ],
+        "count": 4
+      },
+      "exit_code": 0,
+      "isolated_directory_empty_after": true
+    },
+    "android_studio_acp": {
+      "registry_id": "antigravity-acp",
+      "registry_version": "1.5.0",
+      "model": "Gemini 3.8 Flash",
+      "thinking": "Low",
+      "observed": {
+        "count": 4,
+        "sorted": [
+          2,
+          2,
+          5,
+          9
+        ]
+      },
+      "passed": true
+    }
+  },
+  "cli_authentication": "モデル一覧取得と新規会話での固定数字試験が認証済みで成功",
+  "android_studio_authentication": "公式Registry antigravity-acp v1.5.0、Google認証後の独立した新規チャットで成功",
+  "sdk": {
+    "google-antigravity": "0.1.23",
+    "google-genai": "3.3.0",
+    "imports_and_dependencies": "PASS",
+    "model_calls": "not tested"
+  },
+  "api_billing_enabled": false,
+  "auth_sharing_always_connected_or_free_guarantee": false,
+  "cli_work_directory_empty_after": true,
+  "cli_history_logs_may_be_saved": true,
+  "guardrails": [
+    "--disable-slash-commands併用時の--mode planを技術的読み取り専用保証にしない。",
+    "公式Registryを汎用ACPテンプレートで上書きしない。",
+    "CLIの通常履歴・ログは保存され得る。空作業フォルダの確認をMac全体無書込みの保証としない。",
+    "SDK/APIモデル実行未検証、API課金未有効。追加課金・APIキー方式・権限拡張を自動で行わない。",
+    "既存の中止指示・変更禁止を維持し、中止済み作業を再開しない。"
+  ],
+  "shared_evidence_files": [
+    "軽い処理の使い分けと実行手順.txt",
+    "cli-smoke-test-20261116-071711.json",
+    "acp-smoke-test-20261116-071548.json",
+    "readiness.json"
+  ],
+  "shared_evidence_directory": "/Users/tyamada22/Documents/Codex/_tooling/agent-runtime-20261116",
+  "original_plan_preserved": true,
+  "remaining": [
+    "利用時の認証・残り利用枠・追加費用を都度確認",
+    "必要な場合に限りAPI/SDKモデル実行を別途検証。課金・権限付与等は自動実行しない"
+  ]
+}
