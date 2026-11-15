@@ -23,3 +23,26 @@
 この結果は別件の未コミット変更も含む元作業ツリーの結果であり、今回のコミットにその未コミット実装を含めるものではない。追加の端末インストール、実機試験、署名付きrelease AABビルド、Play Console操作は実施していない。検証済みGradle配布物を直接起動した結果であり、`./gradlew`による新規ダウンロードの動作試験とは区別する。
 
 [機械可読の結果と残存警告一覧](VERIFICATION.json)。
+
+## TLS警告3件のrelease成果物での除去確認（2026-11-16）
+
+06:13 JST、HEAD `85b9aa2c08ecd343b524cfdd4e8713af06730391` の元ローカルmainで、既存の未コミット変更を保持したまま、検証済みGradle 8.14.7から `--offline :app:assembleRelease` を実行。R8タスク `minifyReleaseWithR8` とrelease APK生成が成功した。
+
+対象はPDFBox Android 2.0.27.0経由のBouncy Castle bcpkix-jdk15to18 1.72。警告は `JcaJceUtils$1` の空のcheckClientTrusted/checkServerTrustedと、`JcaJceUtils$2` の空のcheckClientTrustedの計3メソッド。
+
+|対象クラス（org.bouncycastle.est.jcajce配下）|R8 usage.txtでクラス全体を除去|mapping.txtで残存・改名の記載|APK内全DEXでクラス定義・型参照|
+|---|---|---|---|
+|JcaJceUtils$1|あり|なし|なし|
+|JcaJceUtils$2|あり|なし|なし|
+|JcaJceUtils（親クラス）|あり|なし|なし|
+
+APK内の全DEXをZIPから抽出してDEXヘッダー、type_ids、class_defsを解析し、元のクラス名だけでなくR8の改名情報とも照合した。今回のAPKはclasses.dex 1件・クラス定義5,583件。Bouncy Castle全体を依存から除外したわけではなく、別の351クラスは改名対応とDEXを照合して残存を確認した。
+
+- APK: `app/build/outputs/apk/release/app-release.apk`、15,331,495 bytes
+- APK SHA-256: `1c5cc4449ce897254c3712dfd70b1dfee9d663dd26518102e836b7003289348e`
+- DEX SHA-256: `c411711b416e1f7d7bee17e158ef599cb149975241c0a1efca9b65566260a0e6`
+- 成果物上の版は1.2.10（26）。配布済み版の差し替え・新規提出を意図した成果物ではない。
+
+**判断:** 今回生成したrelease APKでは警告対象クラスが除去されており、この成果物について対象コードが実行されない根拠を確認した。Lintは縮小前の依存JARを検査するため、これによって警告3件自体が解消したわけではない。警告の一括抑制や依存除外は実施していない。今後、依存・keep設定・ビルド条件が変わる際は同じ確認を行う。TLS全般・依存全体に脆弱性がないことを証明する検査ではない。
+
+検証前後でソース・未追跡ファイル・欠落状態・Git作業差分・ステージ状態が一致。端末導入・アップロード・Play Console操作は実施していない。この記録コミットにも検証時の別件の未コミット実装は含めない。ローカルに保持したR8記録・DEXクラス一覧・ビルドログのSHA-256、および詳細結果はVERIFICATION.jsonのtls_release_verificationに記録した。

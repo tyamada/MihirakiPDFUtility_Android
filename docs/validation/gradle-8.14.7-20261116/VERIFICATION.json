@@ -64,5 +64,103 @@
   "official_checksums_verified": true,
   "device_install": false,
   "release_aab_build": false,
-  "record_scope": "Gradle更新前のHEADと既存未コミット変更を含む検証結果。今回のコミットはWrapper2ファイルと記録2ファイルのみ。"
+  "record_scope": "Gradle更新前のHEADと既存未コミット変更を含む検証結果。今回のコミットはWrapper2ファイルと記録2ファイルのみ。",
+  "tls_release_verification": {
+    "verified_at": "2026-11-16T06:13:07.393717+09:00",
+    "head": "85b9aa2c08ecd343b524cfdd4e8713af06730391",
+    "scope": "既存の未コミット変更を含む現在の元ローカルmain",
+    "build": "assembleRelease PASS",
+    "r8_task_observed": true,
+    "apk": "app/build/outputs/apk/release/app-release.apk",
+    "apk_sha256": "1c5cc4449ce897254c3712dfd70b1dfee9d663dd26518102e836b7003289348e",
+    "apk_bytes": 15331495,
+    "apk_metadata": {
+      "version": 3,
+      "artifactType": {
+        "type": "APK",
+        "kind": "Directory"
+      },
+      "applicationId": "com.takumayamada22.pdfutility",
+      "variantName": "release",
+      "elements": [
+        {
+          "type": "SINGLE",
+          "filters": [],
+          "attributes": [],
+          "versionCode": 26,
+          "versionName": "1.2.10",
+          "outputFile": "app-release.apk"
+        }
+      ],
+      "elementType": "File",
+      "baselineProfiles": [
+        {
+          "minApi": 28,
+          "maxApi": 30,
+          "baselineProfiles": [
+            "baselineProfiles/1/app-release.dm"
+          ]
+        },
+        {
+          "minApi": 31,
+          "maxApi": 2147483647,
+          "baselineProfiles": [
+            "baselineProfiles/0/app-release.dm"
+          ]
+        }
+      ],
+      "minSdkVersionForDexing": 26
+    },
+    "dex_files": [
+      {
+        "file": "classes.dex",
+        "bytes": 5442512,
+        "class_count": 5583,
+        "sha256": "c411711b416e1f7d7bee17e158ef599cb149975241c0a1efca9b65566260a0e6"
+      }
+    ],
+    "target_classes": [
+      {
+        "source_class": "org.bouncycastle.est.jcajce.JcaJceUtils$1",
+        "whole_class_listed_removed": true,
+        "r8_mapping_name": null,
+        "original_class_definition_in_apk": false,
+        "original_type_reference_in_apk": false,
+        "renamed_class_definition_in_apk": false
+      },
+      {
+        "source_class": "org.bouncycastle.est.jcajce.JcaJceUtils$2",
+        "whole_class_listed_removed": true,
+        "r8_mapping_name": null,
+        "original_class_definition_in_apk": false,
+        "original_type_reference_in_apk": false,
+        "renamed_class_definition_in_apk": false
+      },
+      {
+        "source_class": "org.bouncycastle.est.jcajce.JcaJceUtils",
+        "whole_class_listed_removed": true,
+        "r8_mapping_name": null,
+        "original_class_definition_in_apk": false,
+        "original_type_reference_in_apk": false,
+        "renamed_class_definition_in_apk": false
+      }
+    ],
+    "other_bouncycastle_classes_retained_count": 351,
+    "result": "PASS: TLS警告の3メソッドを含む2匿名クラスと親クラスは全てR8除去済み。全DEXで型参照・クラス定義なし。",
+    "source_and_existing_changes_preserved": true,
+    "device_install": false,
+    "upload": false,
+    "limitations": [
+      "今回生成したrelease APKについての判定。依存更新・keep設定変更・別ビルドでは再確認が必要。",
+      "TLS全般や依存全体の脆弱性不存在を証明するものではない。",
+      "Lintは縮小前の依存JARを検出するため、この除去確認によって警告を消したわけではない。"
+    ],
+    "evidence_sha256": {
+      "usage.txt": "5636c83dbbeb34739e1bb8d93a159cf8dca6e05c0a766071b62843d5b622bc9a",
+      "mapping.txt": "97ab1249f6d18dc95d3b94cf4966f8c248dccfe92bc8351278aeb6a422a269d8",
+      "configuration.txt": "260d4d1a85e5fb663f616184920aa21d2bccd609e0e1b3bb447941541901fba5",
+      "dex-class-definitions.txt": "952b9e3c182a0b901710e978fabbd0f0eb90a881d4b8345617884ce94dda7e0e",
+      "release-build.log": "3bd42a26b172d2a8d708c51bfa575bc45d52eb8467e6e3c7bca5e775e59f0279"
+    }
+  }
 }
