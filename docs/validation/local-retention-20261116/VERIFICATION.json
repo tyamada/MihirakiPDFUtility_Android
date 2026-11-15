@@ -37,5 +37,118 @@
     "lint_warnings": 7,
     "generated_apk_installed": false,
     "source_files_match_device_tested_files": true
+  },
+  "synced_local_main_validation": {
+    "verified_at": "2026-11-16T05:44:11.506493+09:00",
+    "head": "4929defd0273b06c4eae9d1b63059298eede8816",
+    "scope": "同期後の元ローカルmain、既存未コミット変更を含む",
+    "commands": [
+      ":app:assembleDebug",
+      ":app:testDebugUnitTest",
+      ":app:lintDebug"
+    ],
+    "build": "PASS",
+    "unit_tests": 22,
+    "unit_failures": 0,
+    "unit_errors": 0,
+    "unit_skipped": 0,
+    "lint_errors": 0,
+    "lint_warnings": 8,
+    "issues": [
+      {
+        "id": "OldTargetApi",
+        "severity": "Warning",
+        "message": "Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details.",
+        "locations": [
+          {
+            "file": "app/build.gradle.kts",
+            "line": "16"
+          }
+        ]
+      },
+      {
+        "id": "AndroidGradlePluginVersion",
+        "severity": "Warning",
+        "message": "A newer version of Gradle than 8.14.5 is available: 8.14.7",
+        "locations": [
+          {
+            "file": "gradle/wrapper/gradle-wrapper.properties",
+            "line": "3"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.core:core-ktx than 1.15.0 is available: 1.18.0",
+        "locations": [
+          {
+            "file": "app/build.gradle.kts",
+            "line": "66"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of androidx.activity:activity-compose than 1.9.3 is available: 1.13.0",
+        "locations": [
+          {
+            "file": "app/build.gradle.kts",
+            "line": "70"
+          }
+        ]
+      },
+      {
+        "id": "GradleDependency",
+        "severity": "Warning",
+        "message": "A newer version of com.android.billingclient:billing-ktx than 8.0.0 is available: 9.1.0",
+        "locations": [
+          {
+            "file": "app/build.gradle.kts",
+            "line": "81"
+          }
+        ]
+      },
+      {
+        "id": "TrustAllX509TrustManager",
+        "severity": "Warning",
+        "message": "`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers",
+        "locations": [
+          {
+            "file": "<GRADLE_USER_HOME>/caches/modules-2/files-2.1/org.bouncycastle/bcpkix-jdk15to18/1.72/32faf4d74dbc333fb3a7a6c80c30417cf888fc7a/bcpkix-jdk15to18-1.72.jar",
+            "line": null
+          }
+        ]
+      },
+      {
+        "id": "TrustAllX509TrustManager",
+        "severity": "Warning",
+        "message": "`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers",
+        "locations": [
+          {
+            "file": "<GRADLE_USER_HOME>/caches/modules-2/files-2.1/org.bouncycastle/bcpkix-jdk15to18/1.72/32faf4d74dbc333fb3a7a6c80c30417cf888fc7a/bcpkix-jdk15to18-1.72.jar",
+            "line": null
+          }
+        ]
+      },
+      {
+        "id": "TrustAllX509TrustManager",
+        "severity": "Warning",
+        "message": "`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers",
+        "locations": [
+          {
+            "file": "<GRADLE_USER_HOME>/caches/modules-2/files-2.1/org.bouncycastle/bcpkix-jdk15to18/1.72/32faf4d74dbc333fb3a7a6c80c30417cf888fc7a/bcpkix-jdk15to18-1.72.jar",
+            "line": null
+          }
+        ]
+      }
+    ],
+    "source_changed_paths": [],
+    "status_preserved": true,
+    "index_preserved": true,
+    "device_install": false,
+    "release_aab_build": false,
+    "validation_kind": "元ローカルmainの既存未コミット変更を含む検証。コミット済みツリーだけの再検証とは区別。"
   }
 }

@@ -39,3 +39,18 @@
 最新origin/mainを基点とする独立作業ツリーに保持修正だけを適用して検証する。元作業ツリーの既存差分は保持する。独立ツリーでのビルド・単体試験・Lintの結果はVERIFICATION.jsonのrepository_validationに記録する。ここで生成した通常debug APKは端末へ導入しない。
 
 リポジトリ反映時の独立検証も成功: assembleDebug、単体試験19件（失敗・エラー0）、Lintエラー0・警告7。LOCAL作業コピーの23件とは対象基点が異なるため件数を区別する。今回の修正5ファイルは実機検証したソースとすべてバイト一致。
+
+## 同期後ローカルmainの既存変更を含む検証（2026-11-16）
+
+05:44 JST、元ローカルmain（HEAD `4929defd0273b06c4eae9d1b63059298eede8816`）で既存の未コミット変更と保持修正を合わせ、次を実行した。
+
+```sh
+JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradlew --offline :app:assembleDebug :app:testDebugUnitTest :app:lintDebug
+```
+
+- デバッグビルド成功。単体テスト22件、失敗0・エラー0・スキップ0。
+- Lintエラー0・警告8件。対象APIに関する警告1件、Gradle更新通知1件、依存関係更新通知3件、Bouncy Castle依存のTrustAllX509TrustManager警告3件。警告の詳細はVERIFICATION.jsonのsynced_local_main_validationに記録。
+- 検証前後の1,086パスを照合し、ソース等の内容・欠落状態に変化なし。Gitの作業状態とステージ差分も一致。既存の未コミット変更を保持した。
+- この検証範囲では、既存変更と保持修正の組合せによるビルド・単体テスト・Lintの阻害エラーは見つからなかった。
+
+この22件の結果は既存変更を含む元作業ツリーの結果であり、前項の独立ツリー19件・LOCAL作業コピー23件とは区別する。端末への追加インストール、実機試験の再実行、署名付きrelease AABのビルド、Play Console操作は行っていない。今回の記録コミットにも、検証対象だった別件の未コミット実装は含めない。
