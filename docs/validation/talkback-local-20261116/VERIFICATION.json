@@ -79,7 +79,6 @@
   },
   "limitations": [
     "今回の主確認範囲は8ページ文書・2個の文字ボタンの代表条件。空ホーム、全ボタン形式、全ダイアログ等を網羅した結果ではない。",
-    "後退移動・メニュー起動はショートカット動作を確定できず未判定。追加操作はSettingsに遷移したため、アプリの障害とは断定しない。",
     "音声の内容・言語・重複や読み飛ばしの評価は本人の聴取回答に基づく。モデル自身が録音を聴いたという扱いにはしない。",
     "ja-document-next-*とja-document.wavは送信タイミング修正前の試行。フォーカス順の合格証跡に使用しない。"
   ],
@@ -98,5 +97,55 @@
   "play_all_apks_version_and_install_times_unchanged": true,
   "local_apk_unchanged": true,
   "record_scope": "2026-11-16 LOCAL実機確認の履歴。今回のリポジトリ変更は検証記録のみ。",
-  "evidence_storage": "画面・音声原本はローカル検証成果物に保持。リポジトリには追加しない。"
+  "evidence_storage": "画面・音声原本はローカル検証成果物に保持。リポジトリには追加しない。",
+  "previous_undetermined_history": {
+    "status_at_initial_verification": "undetermined",
+    "detail": "後退移動・メニュー起動はショートカット動作を確定できず未判定。追加操作はSettingsに遷移したため、アプリの障害とは断定しない。",
+    "superseded_by": "backward_and_menu_followup"
+  },
+  "backward_and_menu_followup": {
+    "verified_at": "2026-11-16T07:00:29.757463+09:00",
+    "device": "Pixel 8a / Android 17",
+    "local_apk_sha256": "25e42ef730035608f42daf11d7099fd1a31ab58869ff44e875f0f82e0edbede4",
+    "keymap": "拡張キーマップ、修飾キー=アクション（端末設定画面で確認、変更なし）",
+    "method": "UHIDで修飾キー→200ms→操作キー→200ms→操作キー解放→150ms→修飾キー解放。画面確定を待ってscreencap取得。カーネルgeteventでもMetaと左矢印の押下・解放順を確認。",
+    "japanese": {
+      "backward": "PASS: 保存→開く→その他の操作",
+      "menu": "PASS: その他の操作からアクション＋Spaceでアプリの日本語ボトムシート表示",
+      "evidence": [
+        "ja-back-3.png",
+        "ja-back-open.png",
+        "ja-back-more.png",
+        "ja-more-activated.png"
+      ]
+    },
+    "english": {
+      "backward": "PASS: ページ番号8→7→6、Open→More actions",
+      "menu": "PASS: More actionsからアクション＋Spaceで英語ボトムシート表示",
+      "evidence": [
+        "en-back-save-recheck.png",
+        "en-back-8-parent.png",
+        "en-back-7.png",
+        "en-tab-more.png",
+        "en-back-more-confirmed.png",
+        "en-more-activated.png"
+      ],
+      "note": "en-back-8-parent.pngの実画面は番号7、en-back-7.pngは番号6。ファイル名の予測を結果判定に使わず画面で確認。Moreへの経路はTabでOpenへ移動後、後退ショートカットを使用。"
+    },
+    "settings_restored": {
+      "enabled_accessibility_services": "",
+      "accessibility_enabled": "0",
+      "touch_exploration_enabled": "0",
+      "font_scale": "1.0",
+      "accelerometer_rotation": "0",
+      "user_rotation": "0",
+      "app_locales": "Locales for com.takumayamada22.pdfutility.homepreview for user 0 are []",
+      "device_locale": "ja-JP"
+    },
+    "temporary_keyboard_removed": true,
+    "play_and_local_all_apks_and_metadata_preserved": true,
+    "scope": "8ページ文書、OPEN/SAVEのみ、TEXT_ONLYの代表条件。全画面・タッチジェスチャー・メニュー内全操作の網羅試験ではない。",
+    "additional_speech_listening": false,
+    "overall_status": "PASS within the documented representative conditions"
+  }
 }
