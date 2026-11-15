@@ -1,0 +1,68 @@
+{
+  "verified_at": "2026-11-16T05:57:17.047003+09:00",
+  "gradle": "8.14.7",
+  "head": "2ad114573a60780249bdc8c7138d673234e589a0",
+  "scope": "同期後元ローカルmainの全既存未コミット変更を含む",
+  "runner": "公式SHA-256照合済み配布ZIPを展開したGradle 8.14.7のbin/gradle",
+  "tasks": [
+    ":app:assembleDebug",
+    ":app:testDebugUnitTest",
+    ":app:lintDebug"
+  ],
+  "build": "PASS",
+  "unit_tests": 22,
+  "unit_failures": 0,
+  "unit_errors": 0,
+  "unit_skipped": 0,
+  "lint_errors": 0,
+  "lint_warnings": 7,
+  "issues": [
+    {
+      "id": "OldTargetApi",
+      "severity": "Warning",
+      "message": "Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the `android.os.Build.VERSION_CODES` javadoc for details."
+    },
+    {
+      "id": "GradleDependency",
+      "severity": "Warning",
+      "message": "A newer version of androidx.core:core-ktx than 1.15.0 is available: 1.18.0"
+    },
+    {
+      "id": "GradleDependency",
+      "severity": "Warning",
+      "message": "A newer version of androidx.activity:activity-compose than 1.9.3 is available: 1.13.0"
+    },
+    {
+      "id": "GradleDependency",
+      "severity": "Warning",
+      "message": "A newer version of com.android.billingclient:billing-ktx than 8.0.0 is available: 9.1.0"
+    },
+    {
+      "id": "TrustAllX509TrustManager",
+      "severity": "Warning",
+      "message": "`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers"
+    },
+    {
+      "id": "TrustAllX509TrustManager",
+      "severity": "Warning",
+      "message": "`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers"
+    },
+    {
+      "id": "TrustAllX509TrustManager",
+      "severity": "Warning",
+      "message": "`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers"
+    }
+  ],
+  "changed_files": [
+    "gradle/wrapper/gradle-wrapper.properties",
+    "gradle/wrapper/gradle-wrapper.jar"
+  ],
+  "other_source_and_untracked_files_preserved": true,
+  "staging_preserved": true,
+  "wrapper_jar_sha256": "ad16bca46cb71bb5887c546860d93992aeee35c1fdaf4a242b0a612375d937e0",
+  "distribution_sha256": "903bfc4bc7622323124054c10f509246212a1902948bdaf26c379cca8735e856",
+  "official_checksums_verified": true,
+  "device_install": false,
+  "release_aab_build": false,
+  "record_scope": "Gradle更新前のHEADと既存未コミット変更を含む検証結果。今回のコミットはWrapper2ファイルと記録2ファイルのみ。"
+}
