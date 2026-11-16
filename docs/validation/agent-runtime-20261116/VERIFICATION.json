@@ -73,5 +73,33 @@
   "remaining": [
     "利用時の認証・残り利用枠・追加費用を都度確認",
     "必要な場合に限りAPI/SDKモデル実行を別途検証。課金・権限付与等は自動実行しない"
-  ]
+  ],
+  "current_execution_policy": {
+    "date_jst": "2026-11-16",
+    "normal_candidates": [
+      "Antigravity CLI",
+      "Android Studio",
+      "Gemini API",
+      "AntigravityクラウドAPI",
+      "ChatGPTの軽量モデル"
+    ],
+    "selection_criteria": [
+      "機能",
+      "費用・既存利用枠",
+      "所要時間",
+      "実際の利用可否",
+      "認証状態",
+      "送信情報量"
+    ],
+    "deterministic_local_and_specialized_tools": "適切な既存専用ツール・ローカル確定処理も活用",
+    "on_problem": "ChatGPTの環境既定モデルで原因調査・修正・採否判断",
+    "verification": "主担当が実出力・実ファイル・差分・適切な検証で確認",
+    "authorization_unchanged": true,
+    "do_not_bypass": [
+      "自動承認レビューの拒否",
+      "中止指示",
+      "変更禁止"
+    ],
+    "new_model_calls_tests_implementation_or_git_actions": false
+  }
 }
