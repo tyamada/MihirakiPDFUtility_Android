@@ -33,6 +33,38 @@ SamplePdfLanguage("zh_hk", "繁體中文（香港書面語）", "Chinese (Tradit
         old.parent.mkdir(); old.write_bytes(b'%PDF-legacy-fixture')
         return items
 
+    def shared_fixture(self, root):
+        items = self.fixture(root)
+        old_path = root / 'docs/sample-releases/sample-manga-v2/manifest.json'
+        legacy = json.loads(old_path.read_text())
+        entries = []
+        for entry in legacy['entries']:
+            entry.update(filename=entry['fixed_download_url'].rsplit('/', 1)[-1], sha256='a' * 64,
+                         pages=8, locale=entry['language_key'])
+            entries.append(dict(entry, new_download_url='https://github.com/tyamada/manga-prompt-kit/releases/download/manga-pdf-20261103-v1/' + entry['filename']))
+        old_path.write_text(json.dumps(legacy))
+        path = root / 'docs/sample-releases/manga-pdf-20261103-v1/pdf-manifest.json'
+        path.parent.mkdir(parents=True)
+        path.write_text(json.dumps(dict(repository='tyamada/manga-prompt-kit', tag_candidate='manga-pdf-20261103-v1', pdf_count=6, entries=entries)))
+        return path
+
+    def test_shared_html_and_legacy_readme_are_both_strictly_verified(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); self.shared_fixture(root)
+            items = catalog.catalog_items(root, web=True)
+            page = root / 'docs/index.html'; page.write_text(catalog.html_list(items))
+            self.assertEqual(catalog.verify_public_lists(root)['public_pdf_links'], 18)
+            self.assertEqual(catalog.regenerate(root), [])
+            for changed in [items[:-1], [items[0], items[0]] + items[2:], list(reversed(items))]:
+                self.assert_invalid(page, catalog.html_list(changed), items, 'manga links|duplicate|sort by English')
+
+    def test_shared_manifest_hash_and_download_host_cannot_drift(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); path = self.shared_fixture(root); original = path.read_text()
+            for field, value in [('sha256', 'b' * 64), ('new_download_url', 'https://example.org/tameshibu.pdf')]:
+                data = json.loads(original); data['entries'][0][field] = value; path.write_text(json.dumps(data))
+                with self.assertRaises(ValueError): catalog.catalog_items(root, web=True)
+
     def assert_invalid(self, path, text, items, message):
         with self.assertRaisesRegex(ValueError, message):
             catalog.validate_text(path, text, items)
