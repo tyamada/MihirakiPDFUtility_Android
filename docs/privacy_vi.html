@@ -9,7 +9,7 @@
 <body lang="vi">
     <div class="lang-toggle">
         <select aria-label="Ngôn ngữ" onchange="location.href=this.value;">
-            <option value="privacy.html">日本語 (Japanese)</option>
+            <option value="privacy_ja.html">日本語 (Japanese)</option>
             <option value="privacy.html">English</option>
             <option value="privacy_ko.html">한국어 (Korean)</option>
             <option value="privacy_zh.html">中文 (简体)</option>
@@ -36,10 +36,7 @@
         <h1>Chính sách quyền riêng tư</h1>
     </header>
 
-    <section>
-        <h2>1. Thu thập dữ liệu</h2>
-        <p><strong>Mihiraki PDF Utility</strong> không thu thập, lưu trữ hoặc chia sẻ thông tin cá nhân. Tất cả việc xử lý PDF được thực hiện cục bộ trên thiết bị của bạn.</p>
-    </section>
+    <section><h2>1. Xử lý trên thiết bị và thông tin bạn chọn gửi</h2><p><strong>Mihiraki PDF Utility</strong> xử lý các tệp PDF trên thiết bị của bạn. Ứng dụng không tự động tải nội dung PDF, dữ liệu chẩn đoán hoặc nhật ký lên cho nhà phát triển. Tệp PDF gốc, bản sao đang làm việc, cài đặt và nhật ký có thể được lưu trữ cục bộ để phục vụ các tính năng bạn sử dụng.</p><p>Bạn có thể chọn sao chép dữ liệu chẩn đoán, chia sẻ nhật ký với ứng dụng khác hoặc gửi báo cáo hỗ trợ. Thông tin bạn gửi có thể được nhận bởi đích đến bạn đã chọn và, đối với các báo cáo gửi tới dự án này, bởi nhà phát triển. Hãy xem lại nội dung và người nhận trước khi gửi.</p></section>
 
     <section>
         <h2>2. Mua hàng trong ứng dụng</h2>
@@ -48,7 +45,7 @@
 
     <section>
         <h2>3. Quyền hạn</h2>
-        <p>Yêu cầu quyền truy cập tệp chỉ nhằm mục đích mở và lưu tài liệu PDF theo chỉ dẫn của bạn.</p>
+        <p>Ứng dụng sử dụng các tệp bạn chọn để mở, chỉnh sửa, lưu và xuất PDF. Ứng dụng có thể giữ một bản sao cục bộ của tệp PDF gốc được mở thành công lần gần nhất để mở lại sau khi khởi động lại. Các chỉnh sửa chưa lưu và lịch sử Undo không được tự động lưu. Việc tải xuống tệp mẫu sẽ kết nối với GitHub, nơi xử lý dữ liệu kết nối theo các chính sách riêng của họ.</p>
     </section>
 
     <section>
@@ -56,8 +53,10 @@
         <p>Chính sách quyền riêng tư này có thể được cập nhật theo thời gian.</p>
     </section>
 
-    <footer>
-        <p>Cập nhật lần cuối: Tháng 9 năm 2026</p>
+    <section id="retention"><h2>5. Nhật ký cục bộ và bản sao hỗ trợ</h2><p>Nhật ký cục bộ sử dụng ngưỡng dọn dẹp 24 giờ. Quá trình dọn dẹp chạy khi các chức năng ghi nhật ký liên quan hoạt động, sử dụng dấu thời gian của mục ghi hoặc thời gian sửa đổi tệp. Quá trình này không đảm bảo việc xóa mọi mục ghi chính xác sau 24 giờ kể từ khi tạo, đặc biệt là khi ứng dụng không chạy.</p><p>Quá trình dọn dẹp cục bộ không xóa các báo cáo đã gửi, các bản sao đã xuất hoặc các bản sao do các ứng dụng khác, nhà cung cấp dịch vụ hoặc các bản sao lưu nắm giữ. Việc lưu giữ và xóa các bản sao này là riêng biệt.</p><p>Đối với các bản sao hỗ trợ do nhà phát triển quản lý, mục tiêu xóa là 90 ngày sau khi trường hợp được đóng. Các bản sao không cần thiết sẽ được gỡ bỏ sớm hơn. Các trường hợp đang mở và các ngoại lệ hạn chế được xem xét hàng tuần. Mục tiêu này không tự động xóa các GitHub Issue công khai hoặc mọi bản sao và bản sao lưu bên ngoài.</p></section>
+<section id="support-information"><h2>6. Báo cáo hỗ trợ và bài đăng công khai</h2><p>Chỉ gửi những gì cần thiết để giải thích sự cố. Thông tin hỗ trợ mà nhà phát triển nhận được sẽ được dùng để giải quyết yêu cầu và điều tra vấn đề. Tên, tên tài khoản, nội dung tin nhắn và tệp đính kèm thường không được sao chép vào một bảng theo dõi riêng. Khi cần theo dõi, chỉ giữ lại mã trường hợp, liên kết sự cố, các ngày liên quan, trạng thái và hồ sơ xóa.</p><p>Các GitHub Issue là công khai. Thông tin hồ sơ, bài đăng và tệp đính kèm được xử lý theo các chính sách của GitHub. Việc chỉnh sửa hoặc xóa bình luận của chính bạn khác với việc xóa toàn bộ issue, điều này đòi hỏi chủ sở hữu kho lưu trữ hoặc quản trị viên được ủy quyền.</p><p>Để yêu cầu xóa thông tin trong một báo cáo gửi tới dự án này, hãy liên hệ với nhà phát triển qua kênh hỗ trợ ban đầu. Không đăng lại thông tin nhạy cảm trong một yêu cầu công khai. Các bài đăng công khai, hồ sơ dịch vụ, bộ nhớ đệm và bản sao lưu có các cơ chế kiểm soát riêng; ứng dụng không thể đảm bảo xóa bỏ tất cả các bản sao.</p></section>
+<footer>
+        <p>Cập nhật lần cuối: 16 tháng 11, 2026</p>
     </footer>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <body lang="es">
     <div class="lang-toggle">
         <select aria-label="Idioma" onchange="location.href=this.value;">
-            <option value="privacy.html">日本語 (Japanese)</option>
+            <option value="privacy_ja.html">日本語 (Japanese)</option>
             <option value="privacy.html">English</option>
             <option value="privacy_ko.html">한국어 (Korean)</option>
             <option value="privacy_zh.html">中文 (简体)</option>
@@ -36,10 +36,7 @@
         <h1>Política de privacidad</h1>
     </header>
 
-    <section>
-        <h2>1. Recopilación de datos</h2>
-        <p><strong>Mihiraki PDF Utility</strong> no recopila, almacena ni comparte información personal. Todo el procesamiento se realiza localmente en su dispositivo.</p>
-    </section>
+    <section><h2>1. Procesamiento en el dispositivo e información que decides enviar</h2><p><strong>Mihiraki PDF Utility</strong> procesa archivos PDF en tu dispositivo. La aplicación no sube automáticamente contenidos de PDF, diagnósticos ni registros al desarrollador. Los PDF de origen, las copias de trabajo, los ajustes y los registros pueden almacenarse localmente para las funciones que utilizas.</p><p>Puedes optar por copiar diagnósticos, compartir registros con otra aplicación o enviar un informe de asistencia. La información que envíes puede ser recibida por el destino que selecciones y, en el caso de informes para este proyecto, por el desarrollador. Revisa el contenido y el destinatario antes de enviar.</p></section>
 
     <section>
         <h2>2. Compras en la aplicación</h2>
@@ -48,7 +45,7 @@
 
     <section>
         <h2>3. Permisos</h2>
-        <p>Solicita acceso a archivos solo para abrir y guardar documentos PDF según sus indicaciones.</p>
+        <p>La aplicación utiliza los archivos que seleccionas para abrir, editar, guardar y exportar archivos PDF. Puede conservar una copia local del último PDF de origen abierto correctamente para volver a abrirlo tras reiniciar. Las ediciones no guardadas y el historial de Undo no se guardan automáticamente. Las descargas de muestras se conectan a GitHub, que gestiona los datos de conexión según sus propias políticas.</p>
     </section>
 
     <section>
@@ -56,8 +53,10 @@
         <p>Esta política de privacidad puede actualizarse periódicamente.</p>
     </section>
 
-    <footer>
-        <p>Última actualización: Septiembre de 2026</p>
+    <section id="retention"><h2>5. Registros locales y copias de asistencia</h2><p>Los registros locales utilizan un umbral de limpieza de 24 horas. La limpieza se ejecuta cuando se ejecutan las funciones de registro pertinentes, utilizando las marcas de tiempo de las entradas o las horas de modificación de los archivos. No garantiza la eliminación de cada entrada exactamente 24 horas después de su creación, especialmente mientras la aplicación no se esté ejecutando.</p><p>La limpieza local no elimina los informes enviados, las copias exportadas ni las copias conservadas por otras aplicaciones, proveedores de servicios o copias de seguridad. Su retención y eliminación son independientes.</p><p>Para las copias de asistencia gestionadas por el desarrollador, el objetivo de eliminación es de 90 días después de que se cierre el caso. Las copias innecesarias se eliminan antes. Los casos abiertos y las excepciones limitadas se revisan semanalmente. Este objetivo no elimina automáticamente las incidencias públicas de GitHub Issues ni todas las copias externas o copias de seguridad.</p></section>
+<section id="support-information"><h2>6. Informes de asistencia y publicaciones públicas</h2><p>Envía únicamente lo necesario para explicar el problema. La información de asistencia recibida por el desarrollador se utiliza para responder a la solicitud e investigar la incidencia. Los nombres, los identificadores de cuenta, el cuerpo de los mensajes y los archivos adjuntos no se copian de forma rutinaria en una hoja de seguimiento independiente. Cuando sea necesario realizar un seguimiento, conserva únicamente un identificador de caso, el enlace a la incidencia, las fechas, el estado y el registro de eliminación.</p><p>Las incidencias en GitHub Issues son públicas. La información del perfil, las publicaciones y los archivos adjuntos se gestionan conforme a las políticas de GitHub. Editar o eliminar tus propios comentarios es diferente de eliminar una incidencia completa, lo cual requiere al propietario del repositorio o a un administrador autorizado.</p><p>Para solicitar la eliminación de información en un informe destinado a este proyecto, contacta con el desarrollador a través del canal de asistencia original. No vuelvas a publicar información confidencial en una solicitud pública. Las publicaciones públicas, los registros de servicio, las memorias caché y las copias de seguridad tienen controles independientes; la aplicación no puede garantizar la eliminación de todas las copias.</p></section>
+<footer>
+        <p>Última actualización: 16 de noviembre de 2026</p>
     </footer>
 </body>
 </html>

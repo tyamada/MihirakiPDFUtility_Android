@@ -56,7 +56,7 @@ footer {
 }
 .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: 1.5rem;
 }
 .feature-card {
@@ -79,4 +79,17 @@ footer {
 .lang-toggle a:hover {
     background: #007074;
     color: #fff;
+}
+
+/* Keep narrow layouts inside their containers without splitting navigation labels. */
+*, *::before, *::after { box-sizing: border-box; }
+.nav { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem 1rem; }
+.nav a { display: inline-block; margin: 0; white-space: nowrap; }
+.feature-card { min-width: 0; }
+section, p, li, h1, h2, h3, h4 { overflow-wrap: anywhere; }
+img { max-width: 100%; height: auto; }
+.lang-toggle select { max-width: 100%; }
+@media (max-width: 600px) {
+    body { padding: 1rem; }
+    section { padding: 1rem; }
 }

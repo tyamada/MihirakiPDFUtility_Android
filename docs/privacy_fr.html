@@ -9,7 +9,7 @@
 <body lang="fr">
     <div class="lang-toggle">
         <select aria-label="Langue" onchange="location.href=this.value;">
-            <option value="privacy.html">日本語 (Japanese)</option>
+            <option value="privacy_ja.html">日本語 (Japanese)</option>
             <option value="privacy.html">English</option>
             <option value="privacy_ko.html">한국어 (Korean)</option>
             <option value="privacy_zh.html">中文 (简体)</option>
@@ -36,10 +36,7 @@
         <h1>Politique de confidentialité</h1>
     </header>
 
-    <section>
-        <h2>1. Collecte de données</h2>
-        <p><strong>Mihiraki PDF Utility</strong> ne collecte, ne stocke et ne partage aucune information personnelle. Tout le traitement PDF est effectué localement sur votre appareil.</p>
-    </section>
+    <section><h2>1. Traitement sur l&#x27;appareil et informations que vous choisissez d&#x27;envoyer</h2><p><strong>Mihiraki PDF Utility</strong> traite les PDF sur votre appareil. L&#x27;application ne téléverse pas automatiquement le contenu des PDF, les diagnostics ou les journaux vers le développeur. Les PDF sources, les copies de travail, les paramètres et les journaux peuvent être stockés localement pour les fonctionnalités que vous utilisez.</p><p>Vous pouvez choisir de copier les diagnostics, de partager les journaux avec une autre application ou d&#x27;envoyer un rapport d&#x27;assistance. Les informations que vous envoyez peuvent être reçues par la destination choisie et, pour les rapports destinés à ce projet, par le développeur. Vérifiez le contenu et le destinataire avant tout envoi.</p></section>
 
     <section>
         <h2>2. Achats intégrés</h2>
@@ -48,7 +45,7 @@
 
     <section>
         <h2>3. Autorisations</h2>
-        <p>L'accès aux fichiers est demandé uniquement pour ouvrir et enregistrer des documents PDF.</p>
+        <p>L&#x27;application utilise les fichiers que vous sélectionnez pour ouvrir, modifier, enregistrer et exporter des PDF. Elle peut conserver une copie locale du dernier PDF source ouvert avec succès pour le rouvrir après un redémarrage. Les modifications non enregistrées et l&#x27;historique Undo ne sont pas automatiquement sauvegardés. Les téléchargements d&#x27;échantillons se connectent à GitHub, qui gère les données de connexion selon ses propres règles.</p>
     </section>
 
     <section>
@@ -56,8 +53,10 @@
         <p>Cette politique de confidentialité peut être mise à jour périodiquement.</p>
     </section>
 
-    <footer>
-        <p>Dernière mise à jour : Septembre 2026</p>
+    <section id="retention"><h2>5. Journaux locaux et copies d&#x27;assistance</h2><p>Les journaux locaux utilisent un seuil de nettoyage de 24 heures. Le nettoyage s&#x27;exécute lorsque les fonctions de journalisation concernées fonctionnent, en utilisant l&#x27;horodatage des entrées ou les dates de modification des fichiers. Il ne garantit pas la suppression de chaque entrée exactement 24 heures après sa création, en particulier lorsque l&#x27;application n&#x27;est pas en cours d&#x27;exécution.</p><p>Le nettoyage local ne supprime pas les rapports envoyés, les copies exportées ou les copies conservées par d&#x27;autres applications, fournisseurs de services ou sauvegardes. Leur conservation et leur suppression sont distinctes.</p><p>Pour les copies d&#x27;assistance gérées par le développeur, l&#x27;objectif de suppression est de 90 jours après la clôture du dossier. Les copies inutiles sont retirées plus tôt. Les dossiers ouverts et les exceptions limitées sont examinés chaque semaine. Cet objectif ne supprime pas automatiquement les tickets publics sur GitHub ou chaque copie et sauvegarde externe.</p></section>
+<section id="support-information"><h2>6. Rapports d&#x27;assistance et publications publiques</h2><p>N&#x27;envoyez que ce qui est nécessaire pour expliquer le problème. Les informations d&#x27;assistance reçues par le développeur servent à répondre à la demande et à examiner le problème. Les noms, identifiants de compte, corps de message et pièces jointes ne sont pas systématiquement copiés dans une feuille de suivi distincte. Lorsqu&#x27;un suivi est nécessaire, conservez uniquement un identifiant de dossier, un lien vers le problème, les dates, l&#x27;état et l&#x27;enregistrement de suppression.</p><p>Les tickets GitHub sont publics. Les informations de profil, les messages et les pièces jointes sont traités conformément aux règles de GitHub. Modifier ou supprimer vos propres commentaires est différent de la suppression d&#x27;un ticket entier, qui nécessite le propriétaire du dépôt ou un administrateur autorisé.</p><p>Pour demander la suppression d&#x27;informations figurant dans un rapport destiné à ce projet, contactez le développeur par le canal d&#x27;assistance d&#x27;origine. Ne republiez pas d&#x27;informations sensibles dans une demande publique. Les publications publiques, les enregistrements de service, les caches et les sauvegardes disposent de contrôles distincts ; l&#x27;application ne peut pas garantir l&#x27;effacement de toutes les copies.</p></section>
+<footer>
+        <p>Dernière mise à jour : 16 novembre 2026</p>
     </footer>
 </body>
 </html>

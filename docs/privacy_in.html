@@ -9,7 +9,7 @@
 <body lang="id">
     <div class="lang-toggle">
         <select aria-label="Bahasa" onchange="location.href=this.value;">
-            <option value="privacy.html">日本語 (Japanese)</option>
+            <option value="privacy_ja.html">日本語 (Japanese)</option>
             <option value="privacy.html">English</option>
             <option value="privacy_ko.html">한국어 (Korean)</option>
             <option value="privacy_zh.html">中文 (简体)</option>
@@ -35,10 +35,7 @@
         <h1>Kebijakan Privasi</h1>
     </header>
 
-    <section>
-        <h2>1. Pengumpulan Data</h2>
-        <p><strong>Mihiraki PDF Utility</strong> tidak mengumpulkan, menyimpan, atau membagikan informasi pribadi apa pun. Semua pemrosesan PDF dilakukan secara lokal di perangkat Anda.</p>
-    </section>
+    <section><h2>1. Pemrosesan di perangkat dan informasi yang Anda pilih untuk dikirim</h2><p><strong>Mihiraki PDF Utility</strong> memproses PDF di perangkat Anda. Aplikasi ini tidak secara otomatis mengunggah konten PDF, diagnostik, atau log ke pengembang. PDF sumber, salinan kerja, pengaturan, dan log dapat disimpan secara lokal untuk fitur yang Anda gunakan.</p><p>Anda dapat memilih untuk menyalin diagnostik, membagikan log dengan aplikasi lain, atau mengirimkan laporan bantuan. Informasi yang Anda kirim dapat diterima oleh tujuan yang Anda pilih dan, untuk laporan yang ditujukan ke proyek ini, oleh pengembang. Periksa kembali konten dan penerima sebelum mengirim.</p></section>
 
     <section>
         <h2>2. Pembelian Dalam Aplikasi</h2>
@@ -47,7 +44,7 @@
 
     <section>
         <h2>3. Izin</h2>
-        <p>Meminta akses file hanya untuk tujuan membuka dan menyimpan dokumen PDF atas instruksi Anda.</p>
+        <p>Aplikasi menggunakan file yang Anda pilih untuk membuka, mengedit, menyimpan, dan mengekspor PDF. Aplikasi dapat menyimpan salinan lokal dari PDF sumber yang terakhir berhasil dibuka untuk dibuka kembali setelah dimulai ulang. Editan yang belum disimpan dan riwayat Undo tidak disimpan secara otomatis. Pengunduhan sampel terhubung ke GitHub, yang mengelola data koneksi berdasarkan kebijakannya sendiri.</p>
     </section>
 
     <section>
@@ -55,8 +52,10 @@
         <p>Kebijakan privasi ini dapat diperbarui dari waktu ke waktu.</p>
     </section>
 
-    <footer>
-        <p>Terakhir diperbarui: September 2026</p>
+    <section id="retention"><h2>5. Log lokal dan salinan bantuan</h2><p>Log lokal menggunakan batas waktu pembersihan 24 jam. Pembersihan berjalan saat fungsi pencatatan log terkait dijalankan, menggunakan stempel waktu entri atau waktu modifikasi file. Hal ini tidak menjamin penghapusan setiap entri tepat 24 jam setelah dibuat, terutama saat aplikasi sedang tidak berjalan.</p><p>Pembersihan lokal tidak menghapus laporan yang sudah dikirimkan, salinan yang diekspor, atau salinan yang disimpan oleh aplikasi lain, penyedia layanan, atau cadangan data. Penyimpanan dan penghapusannya ditangani secara terpisah.</p><p>Untuk salinan bantuan yang dikelola oleh pengembang, target penghapusannya adalah 90 hari setelah kasus ditutup. Salinan yang tidak diperlukan akan dihapus lebih awal. Kasus yang masih terbuka dan pengecualian terbatas ditinjau setiap minggu. Target ini tidak secara otomatis menghapus GitHub Issues publik atau setiap salinan dan cadangan data eksternal.</p></section>
+<section id="support-information"><h2>6. Laporan bantuan dan unggahan publik</h2><p>Kirimkan hanya apa yang diperlukan untuk menjelaskan masalahnya. Informasi bantuan yang diterima oleh pengembang digunakan untuk menanggapi permintaan dan memeriksa masalah tersebut. Nama, penanganan akun, isi pesan, dan lampiran biasanya tidak disalin ke lembar pelacakan terpisah. Jika pelacakan diperlukan, hanya ID kasus, tautan masalah, tanggal, status, dan riwayat penghapusan yang disimpan.</p><p>GitHub Issues bersifat publik. Informasi profil, unggahan, dan lampiran ditangani berdasarkan kebijakan GitHub. Mengedit atau menghapus komentar Anda sendiri berbeda dengan menghapus seluruh masalah (issue), yang memerlukan pemilik repositori atau administrator yang berwenang.</p><p>Untuk meminta penghapusan informasi dalam laporan ke proyek ini, hubungi pengembang melalui saluran bantuan asal. Jangan mengunggah kembali informasi sensitif dalam permintaan publik. Unggahan publik, catatan layanan, cache, dan cadangan data memiliki kontrol terpisah; aplikasi tidak dapat menjamin penghapusan semua salinan.</p></section>
+<footer>
+        <p>Terakhir diperbarui: 16 November 2026</p>
     </footer>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <body lang="zh-CN">
     <div class="lang-toggle">
         <select aria-label="语言" onchange="location.href=this.value;">
-            <option value="privacy.html">日本語 (Japanese)</option>
+            <option value="privacy_ja.html">日本語 (Japanese)</option>
             <option value="privacy.html">English</option>
             <option value="privacy_ko.html">한국어 (Korean)</option>
             <option value="privacy_zh.html" selected>中文 (简体)</option>
@@ -36,10 +36,7 @@
         <h1>隐私政策</h1>
     </header>
 
-    <section>
-        <h2>1. 关于数据收集</h2>
-        <p><strong>见开PDF实用工具</strong>不会收集、存储或共享任何个人信息。所有PDF处理均在您的设备本地执行，绝不会上传到外部服务器。</p>
-    </section>
+    <section><h2>1. 设备端处理与您选择发送的信息</h2><p><strong>见开PDF实用工具</strong> 在您的设备上处理 PDF。该应用不会自动向开发者上传 PDF 内容、诊断信息或日志。源 PDF、工作副本、设置和日志可能会在本地存储，以供您使用的功能使用。</p><p>您可以选择复制诊断信息、与其他应用共享日志或提交支持报告。您发送的信息可以由您选择的目的地接收；对于提交给本项目的报告，也可由开发者接收。发送前请仔细核对内容及接收方。</p></section>
 
     <section>
         <h2>2. 关于应用内购买</h2>
@@ -48,7 +45,7 @@
 
     <section>
         <h2>3. 关于权限</h2>
-        <p>仅请求访问文件的权限，用于按您的指示打开和保存PDF文档。</p>
+        <p>该应用使用您选择的文件来打开、编辑、保存和导出 PDF。它可能会保留最后一次成功打开的源 PDF 的本地副本，以便在重启后重新打开。未保存的编辑内容和 Undo 历史记录不会自动保存。示例下载会连接到 GitHub，GitHub 会根据其自身政策处理连接数据。</p>
     </section>
 
     <section>
@@ -56,8 +53,10 @@
         <p>本隐私政策可能会不时更新。</p>
     </section>
 
-    <footer>
-        <p>最后更新：2026年9月</p>
+    <section id="retention"><h2>5. 本地日志与支持副本</h2><p>本地日志采用 24 小时清理阈值。清理操作会在相关日志记录功能运行时执行，依据条目时间戳或文件修改时间。这并不保证每个条目在创建后正好 24 小时被删除，尤其是在应用未运行期间。</p><p>本地清理不会删除已提交的报告、导出的副本，也不会删除其他应用、服务提供商或备份所保留的副本。它们的保留与删除是相互独立的。</p><p>对于由开发者管理的支持副本，删除目标是案件关闭后 90 天。不必要的副本会提前清除。未结案的案件和少数例外情况会每周进行审核。此目标不会自动删除公开的 GitHub Issues，也不会删除所有外部副本和备份。</p></section>
+<section id="support-information"><h2>6. 支持报告与公开帖子</h2><p>请仅发送说明问题所需的信息。开发者收到的支持信息仅用于回复请求和调查问题。姓名、账户名称、消息正文和附件通常不会被复制到单独的跟踪表格中。如需跟踪，仅保留案件 ID、议题链接、日期、状态和删除记录。</p><p>GitHub Issues 是公开的。个人资料信息、帖子和附件均根据 GitHub 政策进行处理。编辑或删除您自己的评论不同于删除整个 issue，后者需要仓库所有者或授权管理员权限。</p><p>如需请求删除提交给本项目的报告中的信息，请通过原支持渠道联系开发者。请勿在公开请求中重新发布敏感信息。公开帖子、服务记录、缓存和备份拥有各自独立的控制机制；该应用无法保证擦除所有副本。</p></section>
+<footer>
+        <p>最后更新：2026年11月16日</p>
     </footer>
 </body>
 </html>
