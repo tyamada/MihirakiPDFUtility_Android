@@ -432,6 +432,102 @@
       "old": "Page %1$d",
       "reason": "French page number wording uses the same word and placeholder as English; reviewed as French, not untranslated English.",
       "resource_folder": "values-fr"
+    },
+    {
+      "app": "Utility",
+      "file": "app/src/main/res/values-de/strings.xml",
+      "locale": "de",
+      "key": "toolbar_standard",
+      "source": "Standard",
+      "old": "Standard",
+      "reason": "Conventional German noun used for the standard preset. Identical spelling is intentional; this exception matches only this locale, key and exact source.",
+      "resource_folder": "values-de",
+      "reference_url": "https://www.duden.de/rechtschreibung/Standard_Norm",
+      "reviewed_on": "2026-11-19"
+    },
+    {
+      "app": "Utility",
+      "file": "app/src/main/res/values-es/strings.xml",
+      "locale": "es",
+      "key": "toolbar_simple",
+      "source": "Simple",
+      "old": "Simple",
+      "reason": "Conventional Spanish adjective meaning simple. Identical spelling is intentional; this exception matches only this locale, key and exact source.",
+      "resource_folder": "values-es",
+      "reference_url": "https://dle.rae.es/simple",
+      "reviewed_on": "2026-11-19"
+    },
+    {
+      "app": "Utility",
+      "file": "app/src/main/res/values-fr/strings.xml",
+      "locale": "fr",
+      "key": "toolbar_standard",
+      "source": "Standard",
+      "old": "Standard",
+      "reason": "Established French adjective for the standard preset. Identical spelling is intentional; this exception matches only this locale, key and exact source.",
+      "resource_folder": "values-fr",
+      "reference_url": "https://www.dictionnaire-academie.fr/article/A9S2772",
+      "reviewed_on": "2026-11-19"
+    },
+    {
+      "app": "Utility",
+      "file": "app/src/main/res/values-fr/strings.xml",
+      "locale": "fr",
+      "key": "toolbar_simple",
+      "source": "Simple",
+      "old": "Simple",
+      "reason": "Conventional French adjective meaning easy to use or composed of few elements. Identical spelling is intentional; this exception matches only this locale, key and exact source.",
+      "resource_folder": "values-fr",
+      "reference_url": "https://dictionnaire-academie.fr/article/A9S1691",
+      "reviewed_on": "2026-11-19"
+    },
+    {
+      "app": "Utility",
+      "file": "app/src/main/res/values-fr/strings.xml",
+      "locale": "fr",
+      "key": "toolbar_portrait",
+      "source": "Portrait",
+      "old": "Portrait",
+      "reason": "Conventional French display-orientation label, paired with Paysage. Identical spelling is intentional; this exception matches only this locale, key and exact source.",
+      "resource_folder": "values-fr",
+      "reference_url": "https://support.google.com/docs/answer/10296604?hl=fr",
+      "reviewed_on": "2026-11-19"
+    },
+    {
+      "app": "Utility",
+      "file": "app/src/main/res/values-it/strings.xml",
+      "locale": "it",
+      "key": "toolbar_standard",
+      "source": "Standard",
+      "old": "Standard",
+      "reason": "Established Italian adjective for the normal/default model. Identical spelling is intentional; this exception matches only this locale, key and exact source.",
+      "resource_folder": "values-it",
+      "reference_url": "https://www.treccani.it/vocabolario/standard/",
+      "reviewed_on": "2026-11-19"
+    },
+    {
+      "app": "Utility",
+      "file": "app/src/main/res/values-ms/strings.xml",
+      "locale": "ms",
+      "key": "toolbar_standard",
+      "source": "Standard",
+      "old": "Standard",
+      "reason": "Established Malay loanword, recorded in Kamus Dewan. Identical spelling is intentional; this exception matches only this locale, key and exact source.",
+      "resource_folder": "values-ms",
+      "reference_url": "https://prpm.dbp.gov.my/Cari1?d=7120&keyword=standard",
+      "reviewed_on": "2026-11-19"
+    },
+    {
+      "app": "Utility",
+      "file": "app/src/main/res/values-tl/strings.xml",
+      "locale": "tl",
+      "key": "toolbar_simple",
+      "source": "Simple",
+      "old": "Simple",
+      "reason": "Established Filipino adjective, recorded with the meaning payak. Identical spelling is intentional; this exception matches only this locale, key and exact source.",
+      "resource_folder": "values-tl",
+      "reference_url": "https://diksiyonaryo.ph/search/simple",
+      "reviewed_on": "2026-11-19"
     }
   ],
   "reviewed_technical_loanword_sentences": [
