@@ -295,4 +295,19 @@
     <string name="page_selection_action">Select or deselect page</string>
     <string name="sample_pdf_integrity_error">The downloaded PDF could not be verified. Please try again.</string>
     <string name="tutorial_video_guide">Watch English Video Guide</string>
+
+    <string name="toolbar_presets_title">Automatic toolbar setup</string>
+    <string name="toolbar_standard">Standard</string>
+    <string name="toolbar_simple">Simple</string>
+    <string name="toolbar_compact">Compact</string>
+    <string name="toolbar_standard_desc">Icons and text · up to 2 rows · default</string>
+    <string name="toolbar_simple_desc">Icons and text · up to 1 row</string>
+    <string name="toolbar_compact_desc">Icons only · up to 2 rows</string>
+    <string name="toolbar_show_all">Show all buttons</string>
+    <string name="toolbar_hide_all">Hide all buttons</string>
+    <string name="toolbar_all_desc">Icons and text · both orientations</string>
+    <string name="toolbar_portrait">Portrait</string>
+    <string name="toolbar_landscape">Landscape</string>
+    <string name="toolbar_auto_note">Automatic layouts adapt to available width and text size. Selecting a button manually customizes only the selected orientation.</string>
+    <string name="toolbar_custom_note">Hidden actions remain available from the menu. Changes are saved with Apply.</string>
 </resources>

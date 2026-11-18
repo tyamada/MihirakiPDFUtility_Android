@@ -223,4 +223,19 @@
     <string name="page_selection_action">Seite auswählen oder abwählen</string>
     <string name="sample_pdf_integrity_error">Die heruntergeladene PDF konnte nicht überprüft werden. Bitte erneut versuchen.</string>
     <string name="tutorial_video_guide">Englische Videoanleitung ansehen</string>
+
+    <string name="toolbar_presets_title">Symbolleiste automatisch einrichten</string>
+    <string name="toolbar_standard">Standard</string>
+    <string name="toolbar_simple">Einfach</string>
+    <string name="toolbar_compact">Kompakt</string>
+    <string name="toolbar_standard_desc">Symbole und Text · bis zu 2 Zeilen · Standard</string>
+    <string name="toolbar_simple_desc">Symbole und Text · bis zu 1 Zeile</string>
+    <string name="toolbar_compact_desc">Nur Symbole · bis zu 2 Zeilen</string>
+    <string name="toolbar_show_all">Alle Schaltflächen anzeigen</string>
+    <string name="toolbar_hide_all">Alle Schaltflächen ausblenden</string>
+    <string name="toolbar_all_desc">Symbole und Text · beide Ausrichtungen</string>
+    <string name="toolbar_portrait">Hochformat</string>
+    <string name="toolbar_landscape">Querformat</string>
+    <string name="toolbar_auto_note">Automatische Layouts passen sich der verfügbaren Breite und Textgröße an. Die manuelle Auswahl von Schaltflächen passt nur die ausgewählte Ausrichtung an.</string>
+    <string name="toolbar_custom_note">Ausgeblendete Aktionen bleiben im Menü verfügbar. Änderungen werden mit „Übernehmen“ gespeichert.</string>
 </resources>

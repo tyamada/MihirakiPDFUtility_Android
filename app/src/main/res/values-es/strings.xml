@@ -239,4 +239,19 @@
     <string name="page_selection_action">Seleccionar o deseleccionar la página</string>
     <string name="sample_pdf_integrity_error">No se pudo verificar el PDF descargado. Inténtalo de nuevo.</string>
     <string name="tutorial_video_guide">Ver guía en vídeo en inglés</string>
+
+    <string name="toolbar_presets_title">Configuración automática de la barra</string>
+    <string name="toolbar_standard">Estándar</string>
+    <string name="toolbar_simple">Simple</string>
+    <string name="toolbar_compact">Compacta</string>
+    <string name="toolbar_standard_desc">Iconos y texto · hasta 2 filas · predeterminada</string>
+    <string name="toolbar_simple_desc">Iconos y texto · hasta 1 fila</string>
+    <string name="toolbar_compact_desc">Solo iconos · hasta 2 filas</string>
+    <string name="toolbar_show_all">Mostrar todos los botones</string>
+    <string name="toolbar_hide_all">Ocultar todos los botones</string>
+    <string name="toolbar_all_desc">Iconos y texto · ambas orientaciones</string>
+    <string name="toolbar_portrait">Vertical</string>
+    <string name="toolbar_landscape">Horizontal</string>
+    <string name="toolbar_auto_note">Los diseños automáticos se adaptan al ancho disponible y al tamaño del texto. Al seleccionar botones manualmente, solo se personaliza la orientación seleccionada.</string>
+    <string name="toolbar_custom_note">Las acciones ocultas siguen disponibles en el menú. Los cambios se guardan al pulsar Aplicar.</string>
 </resources>

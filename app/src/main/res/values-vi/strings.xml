@@ -170,4 +170,19 @@
     <string name="page_selection_action">Chọn hoặc bỏ chọn trang</string>
     <string name="sample_pdf_integrity_error">Không thể xác minh PDF đã tải xuống. Vui lòng thử lại.</string>
     <string name="tutorial_video_guide">Xem video hướng dẫn bằng tiếng Anh</string>
+
+    <string name="toolbar_presets_title">Thiết lập thanh công cụ tự động</string>
+    <string name="toolbar_standard">Tiêu chuẩn</string>
+    <string name="toolbar_simple">Đơn giản</string>
+    <string name="toolbar_compact">Gọn</string>
+    <string name="toolbar_standard_desc">Biểu tượng và văn bản · tối đa 2 hàng · mặc định</string>
+    <string name="toolbar_simple_desc">Biểu tượng và văn bản · tối đa 1 hàng</string>
+    <string name="toolbar_compact_desc">Chỉ biểu tượng · tối đa 2 hàng</string>
+    <string name="toolbar_show_all">Hiện tất cả nút</string>
+    <string name="toolbar_hide_all">Ẩn tất cả nút</string>
+    <string name="toolbar_all_desc">Biểu tượng và văn bản · cả hai hướng</string>
+    <string name="toolbar_portrait">Dọc</string>
+    <string name="toolbar_landscape">Ngang</string>
+    <string name="toolbar_auto_note">Bố cục tự động điều chỉnh theo chiều rộng khả dụng và cỡ chữ. Khi chọn nút thủ công, chỉ hướng đang chọn được tùy chỉnh.</string>
+    <string name="toolbar_custom_note">Các thao tác bị ẩn vẫn có trong trình đơn. Nhấn Áp dụng để lưu thay đổi.</string>
 </resources>

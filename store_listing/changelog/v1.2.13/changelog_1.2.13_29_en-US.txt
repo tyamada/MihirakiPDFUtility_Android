@@ -1,0 +1,3 @@
+• Added Standard, Simple, and Compact toolbar presets, plus Show All and Hide All.
+• You can now choose which buttons to show separately for portrait and landscape orientations.
+• Presets adjust the number of buttons to suit the screen width, text size, and display language. Your existing display settings are preserved.

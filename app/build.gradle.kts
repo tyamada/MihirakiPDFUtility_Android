@@ -14,8 +14,8 @@ android {
         applicationId = "com.takumayamada22.pdfutility"
         minSdk = 26
         targetSdk = 36
-        versionCode = 25
-        versionName = "1.2.9"
+        versionCode = 29
+        versionName = "1.2.13"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

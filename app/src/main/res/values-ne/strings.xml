@@ -170,4 +170,19 @@
     <string name="page_selection_action">पृष्ठ चयन गर्ने वा चयन हटाउने</string>
     <string name="sample_pdf_integrity_error">डाउनलोड गरिएको PDF प्रमाणित गर्न सकिएन। कृपया फेरि प्रयास गर्नुहोस्।</string>
     <string name="tutorial_video_guide">अङ्ग्रेजी भिडियो गाइड हेर्नुहोस्</string>
+
+    <string name="toolbar_presets_title">स्वचालित उपकरणपट्टी सेटअप</string>
+    <string name="toolbar_standard">मानक</string>
+    <string name="toolbar_simple">सरल</string>
+    <string name="toolbar_compact">संक्षिप्त</string>
+    <string name="toolbar_standard_desc">आइकन र पाठ · बढीमा २ पङ्क्ति · पूर्वनिर्धारित</string>
+    <string name="toolbar_simple_desc">आइकन र पाठ · बढीमा १ पङ्क्ति</string>
+    <string name="toolbar_compact_desc">आइकन मात्र · बढीमा २ पङ्क्ति</string>
+    <string name="toolbar_show_all">सबै बटन देखाउनुहोस्</string>
+    <string name="toolbar_hide_all">सबै बटन लुकाउनुहोस्</string>
+    <string name="toolbar_all_desc">आइकन र पाठ · दुवै अभिमुखीकरण</string>
+    <string name="toolbar_portrait">ठाडो</string>
+    <string name="toolbar_landscape">तेर्सो</string>
+    <string name="toolbar_auto_note">स्वचालित लेआउटहरू उपलब्ध चौडाइ र पाठको आकारअनुसार मिल्छन्। बटनहरू म्यानुअल रूपमा चयन गर्दा चयन गरिएको अभिमुखीकरण मात्र अनुकूलित हुन्छ।</string>
+    <string name="toolbar_custom_note">लुकाइएका कार्यहरू मेनुमा उपलब्ध रहन्छन्। परिवर्तनहरू सुरक्षित गर्न लागू गर्नुहोस् थिच्नुहोस्।</string>
 </resources>

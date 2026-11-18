@@ -1,0 +1,220 @@
+{
+  "date_jst": "2026-11-19",
+  "scope": "Toolbar presets and per-orientation visibility; no commit or store operations",
+  "defaults": {
+    "fresh_install": "STANDARD",
+    "legacy": "Preserve stored format and copy explicit visibility to both orientations, including empty set"
+  },
+  "presets": {
+    "STANDARD": {
+      "display": "ICON_AND_TEXT",
+      "max_rows": 2
+    },
+    "SIMPLE": {
+      "display": "ICON_AND_TEXT",
+      "max_rows": 1
+    },
+    "COMPACT": {
+      "display": "ICON_ONLY",
+      "max_rows": 2
+    }
+  },
+  "behavior": [
+    "Preset buttons update both orientation profiles; Apply saves, Cancel discards",
+    "Manual button changes affect selected orientation only",
+    "Automatic profiles adapt to actual toolbar width, locale and font size",
+    "Mandatory desktop settings/update controls reserve width",
+    "Opposite-orientation options checklist is a size preview; actual toolbar uses measured width",
+    "Existing start screen and menu access preserved"
+  ],
+  "checks": {
+    "debug_build": "PASS",
+    "unit_tests": {
+      "tests": 29,
+      "failures": 0
+    },
+    "lint": {
+      "errors": 0,
+      "warnings": 11,
+      "categories": [
+        "OldTargetApi",
+        "GradleDependency",
+        "TrustAllX509TrustManager"
+      ]
+    },
+    "android_test_compile": "PASS",
+    "device": "Pixel 8a / Android 17",
+    "new_device_tests": {
+      "tests": 6,
+      "failures": 0
+    },
+    "existing_device_regression": {
+      "tests": 3,
+      "failures": 0
+    },
+    "layout_matrix": {
+      "cases": 24,
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "font_scales": [
+        1.0,
+        2.0
+      ],
+      "presets": 3,
+      "orientation": "Compose Configuration portrait/landscape overrides; no physical rotation",
+      "container_width_dp": 320,
+      "assertions": [
+        "row limit",
+        "no horizontal overlap"
+      ]
+    },
+    "preference_and_ui": [
+      "fresh default",
+      "legacy empty selection",
+      "unknown legacy enum ignored",
+      "profile persistence round trip",
+      "preset apply",
+      "cancel",
+      "all show/hide",
+      "ViewModel recreation reads saved settings",
+      "portrait manual change leaves landscape unchanged"
+    ],
+    "new_resource_keys": {
+      "keys": 14,
+      "resource_variants": 16,
+      "parity": "PASS"
+    },
+    "whole_repository_translation_script": {
+      "status": "existing missing keys remain",
+      "keys": [
+        "start_title",
+        "start_description",
+        "start_open_pdf",
+        "start_more_actions"
+      ],
+      "locales": "14 non-Japanese localized variants; preexisting English fallback with Lint ignore, not introduced by this change"
+    },
+    "git_diff_check": "PASS"
+  },
+  "device_preservation": {
+    "play": "1.2.12 (28)",
+    "local": "1.2.10-home-v2-local (26)",
+    "stable_package_fields_unchanged": true,
+    "temporary_package": "com.takumayamada22.pdfutility.toolbarpreview",
+    "temporary_app_and_test_package_uninstalled": true,
+    "system_settings_changed": false
+  },
+  "limitations": [
+    "No new TalkBack speech/focus test",
+    "No physical rotation, tablet or desktop UI test",
+    "No usability feedback from BetaLobby yet; Standard is provisional default",
+    "Process-death restore not tested; preferences round trip and ViewModel recreation tested"
+  ],
+  "preservation": {
+    "preexisting_files_scanned": 1101,
+    "other_preexisting_files_content_unchanged": true,
+    "target_existing_files_changed": [
+      "app/src/main/java/com/takumayamada22/pdfutility/ui/PdfViewModel.kt",
+      "app/src/main/java/com/takumayamada22/pdfutility/ui/components/PdfOptionsDialog.kt",
+      "app/src/main/java/com/takumayamada22/pdfutility/ui/components/PdfTopAppBar.kt",
+      "app/src/main/java/com/takumayamada22/pdfutility/ui/components/PdfTopAppBarActions.kt",
+      "app/src/main/java/com/takumayamada22/pdfutility/util/PreferencesManager.kt",
+      "app/src/main/res/values-de/strings.xml",
+      "app/src/main/res/values-es/strings.xml",
+      "app/src/main/res/values-fr/strings.xml",
+      "app/src/main/res/values-in/strings.xml",
+      "app/src/main/res/values-it/strings.xml",
+      "app/src/main/res/values-ja/strings.xml",
+      "app/src/main/res/values-ko/strings.xml",
+      "app/src/main/res/values-ms/strings.xml",
+      "app/src/main/res/values-ne/strings.xml",
+      "app/src/main/res/values-pt/strings.xml",
+      "app/src/main/res/values-tl/strings.xml",
+      "app/src/main/res/values-vi/strings.xml",
+      "app/src/main/res/values-zh-rCN/strings.xml",
+      "app/src/main/res/values-zh-rHK/strings.xml",
+      "app/src/main/res/values-zh-rTW/strings.xml",
+      "app/src/main/res/values/strings.xml"
+    ],
+    "added_files": [
+      "app/src/main/java/com/takumayamada22/pdfutility/ui/ToolbarProfiles.kt",
+      "app/src/main/java/com/takumayamada22/pdfutility/ui/components/ToolbarSizing.kt",
+      "app/src/test/java/com/takumayamada22/pdfutility/ToolbarProfilesTest.kt",
+      "app/src/androidTest/java/com/takumayamada22/pdfutility/ToolbarPreferencesTest.kt",
+      "app/src/androidTest/java/com/takumayamada22/pdfutility/ToolbarLayoutTest.kt"
+    ]
+  },
+  "source_sha256": {
+    "app/src/androidTest/java/com/takumayamada22/pdfutility/ToolbarLayoutTest.kt": "9466d6157ed86082f52f9f4050e371c4dba9a2abb632e02928ddf99fa473693b",
+    "app/src/androidTest/java/com/takumayamada22/pdfutility/ToolbarPreferencesTest.kt": "a3dab73c226dae82e42855aa9f654339c64e9d62b00041b5eab714d7d162e938",
+    "app/src/main/java/com/takumayamada22/pdfutility/ui/PdfViewModel.kt": "aa0db05455b0033ea21147dc13957cd02978acdf0db562d2a5ee8c9972f2978f",
+    "app/src/main/java/com/takumayamada22/pdfutility/ui/ToolbarProfiles.kt": "5d827957f39bdb56f27aa9b5e36333581fef6a8246cd741aad32437a2d9851b2",
+    "app/src/main/java/com/takumayamada22/pdfutility/ui/components/PdfOptionsDialog.kt": "6f17f45c45fe672be239999abfbdb2aea436567b34a3357010c2659f6bde20fa",
+    "app/src/main/java/com/takumayamada22/pdfutility/ui/components/PdfTopAppBar.kt": "07846d48bc76459b93585c5cc91ba8cb26bf0531623acb228cd437f6dc63971b",
+    "app/src/main/java/com/takumayamada22/pdfutility/ui/components/PdfTopAppBarActions.kt": "148ebca0fe9b7ef8e17e279eaa07ad52004469dd164192455473d1df60a5874a",
+    "app/src/main/java/com/takumayamada22/pdfutility/ui/components/ToolbarSizing.kt": "6fe11f8d27ab295e0fea9f337974aa965b18c80674dfb557d8bf046b53db57d1",
+    "app/src/main/java/com/takumayamada22/pdfutility/util/PreferencesManager.kt": "c4a5fe682fbfd6729c28128fd4630240721b2eff9b88cd7e66500e93a063914a",
+    "app/src/main/res/values-de/strings.xml": "38d4be3b7b99452665de0df0387c05a16610f37733e1ac5acd5b355de3b1b135",
+    "app/src/main/res/values-es/strings.xml": "4a9825fecfa8be8de76c9c45e7fbbc9c113dbf6f72f933ff5007f3068a83ccbe",
+    "app/src/main/res/values-fr/strings.xml": "1e3f9ed321aa92f4df81c8f31ae05f6e58ecb30da77f0ea3ffa9fa00764853fd",
+    "app/src/main/res/values-in/strings.xml": "eda8e83be8989cdabff704ab7bd8680b1ceb0dd1340d609d3220082ac8e0d160",
+    "app/src/main/res/values-it/strings.xml": "6b7dadb87a4ba1a06a668b66df7569632ffed276c6f9097c5d7fc7a4d2bc735a",
+    "app/src/main/res/values-ja/strings.xml": "44629f74f8f4ab08345637374eb34d230989a0b41a71ad1a208f69ea94e546c6",
+    "app/src/main/res/values-ko/strings.xml": "81d41954ce61387c4015e9c3b45ff17bd4acb2c4e6db33ca09b0a624fa71a74b",
+    "app/src/main/res/values-ms/strings.xml": "242d399f649151b855f7561c650610e66567c149aac533f8f31fc7089a9b4d1e",
+    "app/src/main/res/values-ne/strings.xml": "0897c1e6def8de7179aa547b6885e97ec9c83179f0f303a5ebed3fbc6cccb973",
+    "app/src/main/res/values-pt/strings.xml": "6c6990993a49773a48aa9b87755bae9f312cec072e47f7bfd104f93107831831",
+    "app/src/main/res/values-tl/strings.xml": "8a5dc4d8f2f382ffb1d1f282d030a3f27395f2ca4e69b63fef1ee59dfa86fb03",
+    "app/src/main/res/values-vi/strings.xml": "636f9451b165425ae9c20d3fc7520bce378e223f528bb6360bec64332374aa19",
+    "app/src/main/res/values-zh-rCN/strings.xml": "4b4a83d3e48712bc04e96094a7f0d374d262fd203a31824d7710103fbb3328ae",
+    "app/src/main/res/values-zh-rHK/strings.xml": "e728dcb9284c48681b68110ee1e37c78da0f7a31647d712118ec5e0920566287",
+    "app/src/main/res/values-zh-rTW/strings.xml": "7ffe27cd4a3b3d95dc41b5f80d6f9e8104645b551bc056a999143dd8181801de",
+    "app/src/main/res/values/strings.xml": "ab770d39cc42a735cb5ab1545b74e701da97eaa2862619f00649c4608a666007",
+    "app/src/test/java/com/takumayamada22/pdfutility/ToolbarProfilesTest.kt": "83795d8705bc066a533d5bc05edd85a686dca21c002831548fe6131d2b397f5b"
+  },
+  "device": "Pixel 8a / Android 17",
+  "follow_up": {
+    "date_jst": "2026-11-19",
+    "real_activity_rotation": "PASS: portrait -> landscape -> portrait switches row cap; PDF retained; unapplied Compact draft survives rotation and Apply",
+    "process_restart": "PASS: force-stop and new launch restored one-page fixture and Compact toolbar",
+    "split_screen": "PASS: actual split with Settings app; document, two toolbar rows, overflow menu, scrollable options and Apply/Cancel visible",
+    "wide_layout": "PASS: logical 1920x1200 / 240dpi display, desktop menu and one-row Simple toolbar including Settings in Japanese and English; simulated wide display, not a real tablet",
+    "wide_rotation_attempt": "UNDETERMINED: requested portrait configuration was not reached in wide-display test; not counted as pass; display overrides restored in finally",
+    "talkback": {
+      "permission": "User explicitly approved this validation session only",
+      "method": "Existing adb input Tab / Shift+Tab. TalkBack green focus visually observed on preset cards. Enter activated Compact, backward traversal reached Apply, and Enter closed dialog to document. No virtual HID keyboard was connected.",
+      "ja": "PASS representative preset forward/backward keyboard focus; speech checked by owner",
+      "en": "PASS Standard -> Simple -> Compact -> Show all -> Hide all and backward to Compact; speech checked by owner",
+      "speech_confirmation": "User listened to both recordings and answered: 日英とも問題なく聞こえる",
+      "agent_direct_listening": false,
+      "recordings": "Device output only, no microphone. Listening copies gain +20dB; originals retained.",
+      "touch_gesture_traversal": "Not judged: injected swipes did not advance focus; not classified as an app defect",
+      "limitations": "Representative preset controls, not all settings or all TalkBack gestures"
+    },
+    "device_preservation": "All existing Play 1.2.12 (28) and LOCAL 1.2.10-home-v2-local (26) APK hashes, package metadata, six settings and device locale match baseline; temporary app/test uninstalled; display size/density restored",
+    "additional_test": "ToolbarRotationTest on Pixel 8a: OK (1 test)",
+    "isolated_commit_check": {
+      "baseline": "origin/main 906b7d4",
+      "debug_build": "PASS",
+      "unit_tests": 25,
+      "failures": 0,
+      "lint_errors": 0,
+      "lint_warnings": 11
+    },
+    "working_tree_checks": {
+      "unit_tests": 29,
+      "failures": 0,
+      "release_build": "PASS",
+      "lint_release_errors": 0,
+      "lint_release_warnings": 11
+    },
+    "next_version": "1.2.13 (29)",
+    "remaining": [
+      "Actual tablet hardware rotation not verified",
+      "BetaLobby reevaluation only after Alpha delivery"
+    ],
+    "publication": "Prepared only; no submission yet"
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "version_name": "1.2.13",
+  "version_code": 29,
+  "package": "com.takumayamada22.pdfutility",
+  "bundletool": "PASS",
+  "signed": "PASS",
+  "upload_key_sha1": "73:37:6B:CF:9B:48:57:7F:F5:E9:7D:C5:3E:AA:09:A7:DE:68:9C:1E",
+  "debuggable": false,
+  "apk_16kb_zip_alignment": "PASS",
+  "native_elf_16kb_alignment": [
+    {
+      "name": "base/lib/arm64-v8a/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/armeabi-v7a/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/x86/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/x86_64/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    }
+  ],
+  "video_links_preserved": true,
+  "toolbar_profiles_in_release_mapping": true,
+  "artifacts": [
+    {
+      "file": "MihirakiPDFUtility-1.2.13-29-release.aab",
+      "bytes": 18480316,
+      "sha256": "9c26c6c7f0b4b35dc41d428ef5dbd4dafbf07402f2226d2ebc07c63858ed6e04"
+    },
+    {
+      "file": "MihirakiPDFUtility-1.2.13-29-release.apk",
+      "bytes": 15360539,
+      "sha256": "e5c7c6885a0d063177b1e5b44bf028975d05181803f6eb268642c6c601967e2d"
+    }
+  ],
+  "basis": "Current working tree retaining previously deployed behavior plus toolbar change; unrelated unstaged changes not committed",
+  "uploaded": false,
+  "submitted": false,
+  "device_verification": {
+    "date_jst": "2026-11-19",
+    "real_activity_rotation": "PASS: portrait -> landscape -> portrait switches row cap; PDF retained; unapplied Compact draft survives rotation and Apply",
+    "process_restart": "PASS: force-stop and new launch restored one-page fixture and Compact toolbar",
+    "split_screen": "PASS: actual split with Settings app; document, two toolbar rows, overflow menu, scrollable options and Apply/Cancel visible",
+    "wide_layout": "PASS: logical 1920x1200 / 240dpi display, desktop menu and one-row Simple toolbar including Settings in Japanese and English; simulated wide display, not a real tablet",
+    "wide_rotation_attempt": "UNDETERMINED: requested portrait configuration was not reached in wide-display test; not counted as pass; display overrides restored in finally",
+    "talkback": {
+      "permission": "User explicitly approved this validation session only",
+      "method": "Existing adb input Tab / Shift+Tab. TalkBack green focus visually observed on preset cards. Enter activated Compact, backward traversal reached Apply, and Enter closed dialog to document. No virtual HID keyboard was connected.",
+      "ja": "PASS representative preset forward/backward keyboard focus; speech checked by owner",
+      "en": "PASS Standard -> Simple -> Compact -> Show all -> Hide all and backward to Compact; speech checked by owner",
+      "speech_confirmation": "User listened to both recordings and answered: 日英とも問題なく聞こえる",
+      "agent_direct_listening": false,
+      "recordings": "Device output only, no microphone. Listening copies gain +20dB; originals retained.",
+      "touch_gesture_traversal": "Not judged: injected swipes did not advance focus; not classified as an app defect",
+      "limitations": "Representative preset controls, not all settings or all TalkBack gestures"
+    },
+    "device_preservation": "All existing Play 1.2.12 (28) and LOCAL 1.2.10-home-v2-local (26) APK hashes, package metadata, six settings and device locale match baseline; temporary app/test uninstalled; display size/density restored",
+    "additional_test": "ToolbarRotationTest on Pixel 8a: OK (1 test)",
+    "isolated_commit_check": {
+      "baseline": "origin/main 906b7d4",
+      "debug_build": "PASS",
+      "unit_tests": 25,
+      "failures": 0,
+      "lint_errors": 0,
+      "lint_warnings": 11
+    },
+    "working_tree_checks": {
+      "unit_tests": 29,
+      "failures": 0,
+      "release_build": "PASS",
+      "lint_release_errors": 0,
+      "lint_release_warnings": 11
+    },
+    "next_version": "1.2.13 (29)",
+    "remaining": [
+      "Actual tablet hardware rotation not verified",
+      "BetaLobby reevaluation only after Alpha delivery"
+    ],
+    "publication": "Prepared only; no submission yet"
+  }
+}

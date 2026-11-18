@@ -267,4 +267,19 @@
     <string name="page_selection_action">ページの選択／解除</string>
     <string name="sample_pdf_integrity_error">取得したPDFを検証できませんでした。もう一度お試しください。</string>
     <string name="tutorial_video_guide">日本語の動画ガイドを見る</string>
+
+    <string name="toolbar_presets_title">ツールバーの自動設定</string>
+    <string name="toolbar_standard">標準</string>
+    <string name="toolbar_simple">シンプル</string>
+    <string name="toolbar_compact">コンパクト</string>
+    <string name="toolbar_standard_desc">アイコン＋テキスト・2行以内・初期設定</string>
+    <string name="toolbar_simple_desc">アイコン＋テキスト・1行以内</string>
+    <string name="toolbar_compact_desc">アイコンのみ・2行以内</string>
+    <string name="toolbar_show_all">すべてのボタンを表示</string>
+    <string name="toolbar_hide_all">すべてのボタンを非表示</string>
+    <string name="toolbar_all_desc">アイコン＋テキスト・縦横両方</string>
+    <string name="toolbar_portrait">縦向き（Portrait）</string>
+    <string name="toolbar_landscape">横向き（Landscape）</string>
+    <string name="toolbar_auto_note">自動設定は表示幅・文字サイズに合わせて調整します。手動で選ぶと、選択中の向きだけ個別設定に切り替わります。</string>
+    <string name="toolbar_custom_note">非表示の操作もメニューから利用できます。「適用」で変更を保存します。</string>
 </resources>

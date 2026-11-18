@@ -254,4 +254,19 @@
     <string name="page_selection_action">选择或取消选择页面</string>
     <string name="sample_pdf_integrity_error">无法验证下载的PDF。请重试。</string>
     <string name="tutorial_video_guide">观看英语视频指南</string>
+
+    <string name="toolbar_presets_title">自动设置工具栏</string>
+    <string name="toolbar_standard">标准</string>
+    <string name="toolbar_simple">简洁</string>
+    <string name="toolbar_compact">紧凑</string>
+    <string name="toolbar_standard_desc">图标和文字 · 最多2行 · 默认</string>
+    <string name="toolbar_simple_desc">图标和文字 · 最多1行</string>
+    <string name="toolbar_compact_desc">仅图标 · 最多2行</string>
+    <string name="toolbar_show_all">显示所有按钮</string>
+    <string name="toolbar_hide_all">隐藏所有按钮</string>
+    <string name="toolbar_all_desc">图标和文字 · 横竖屏均适用</string>
+    <string name="toolbar_portrait">竖屏</string>
+    <string name="toolbar_landscape">横屏</string>
+    <string name="toolbar_auto_note">自动布局会根据可用宽度和文字大小调整。手动选择按钮时，仅自定义当前选定的屏幕方向。</string>
+    <string name="toolbar_custom_note">隐藏的操作仍可通过菜单使用。点击“应用”保存更改。</string>
 </resources>

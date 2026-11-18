@@ -286,4 +286,19 @@
     <string name="page_selection_action">選取或取消選取頁面</string>
     <string name="sample_pdf_integrity_error">無法驗證已下載的PDF。請重試。</string>
     <string name="tutorial_video_guide">觀看英語影片指南</string>
+
+    <string name="toolbar_presets_title">自動設定工具列</string>
+    <string name="toolbar_standard">標準</string>
+    <string name="toolbar_simple">簡潔</string>
+    <string name="toolbar_compact">精簡</string>
+    <string name="toolbar_standard_desc">圖示及文字 · 最多2列 · 預設</string>
+    <string name="toolbar_simple_desc">圖示及文字 · 最多1列</string>
+    <string name="toolbar_compact_desc">僅圖示 · 最多2列</string>
+    <string name="toolbar_show_all">顯示所有按鈕</string>
+    <string name="toolbar_hide_all">隱藏所有按鈕</string>
+    <string name="toolbar_all_desc">圖示及文字 · 直向及橫向</string>
+    <string name="toolbar_portrait">直向</string>
+    <string name="toolbar_landscape">橫向</string>
+    <string name="toolbar_auto_note">自動配置會按可用寬度及文字大小調整。手動選擇按鈕時，只會自訂目前選取的螢幕方向。</string>
+    <string name="toolbar_custom_note">隱藏的操作仍可從選單使用。點選「套用」即可儲存變更。</string>
 </resources>

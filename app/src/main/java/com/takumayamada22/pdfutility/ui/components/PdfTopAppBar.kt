@@ -8,6 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import android.content.res.Configuration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -41,6 +44,12 @@ fun PdfTopAppBar(
     ) {
         BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
             val isDesktopOrLarge = maxWidth >= 840.dp
+            val landscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+            val selection = uiState.preference.toolbarProfiles?.forOrientation(landscape)
+            val available = with(LocalDensity.current) { (maxWidth - 24.dp).roundToPx() }
+            val buttons = if (selection == null) uiState.visibleActionButtons else
+                resolvedToolbarButtons(selection, displayType, available, isDesktopOrLarge, uiState.updateAvailable)
+            val toolbarState = uiState.copy(visibleActionButtons = buttons)
 
             Column(
                 modifier = Modifier
@@ -102,7 +111,7 @@ fun PdfTopAppBar(
                     verticalArrangement = Arrangement.spacedBy(0.dp)
                 ) {
                     PdfActionButtons(
-                        uiState = uiState,
+                        uiState = toolbarState,
                         viewModel = viewModel,
                         isBusy = isBusy,
                         displayType = displayType,

@@ -223,4 +223,19 @@
     <string name="page_selection_action">Sélectionner ou désélectionner la page</string>
     <string name="sample_pdf_integrity_error">Impossible de vérifier le PDF téléchargé. Veuillez réessayer.</string>
     <string name="tutorial_video_guide">Voir le guide vidéo en anglais</string>
+
+    <string name="toolbar_presets_title">Configuration automatique de la barre</string>
+    <string name="toolbar_standard">Standard</string>
+    <string name="toolbar_simple">Simple</string>
+    <string name="toolbar_compact">Compacte</string>
+    <string name="toolbar_standard_desc">Icônes et texte · 2 lignes maximum · par défaut</string>
+    <string name="toolbar_simple_desc">Icônes et texte · 1 ligne maximum</string>
+    <string name="toolbar_compact_desc">Icônes seules · 2 lignes maximum</string>
+    <string name="toolbar_show_all">Afficher tous les boutons</string>
+    <string name="toolbar_hide_all">Masquer tous les boutons</string>
+    <string name="toolbar_all_desc">Icônes et texte · les deux orientations</string>
+    <string name="toolbar_portrait">Portrait</string>
+    <string name="toolbar_landscape">Paysage</string>
+    <string name="toolbar_auto_note">Les dispositions automatiques s’adaptent à la largeur disponible et à la taille du texte. La sélection manuelle des boutons personnalise uniquement l’orientation sélectionnée.</string>
+    <string name="toolbar_custom_note">Les actions masquées restent accessibles dans le menu. Appuyez sur Appliquer pour enregistrer les modifications.</string>
 </resources>

@@ -148,6 +148,7 @@ data class PdfPreferenceState(
     val isRtl: Boolean = false,
     val thumbnailSize: ThumbnailSize = ThumbnailSize.M,
     val buttonDisplayType: ButtonDisplayType = ButtonDisplayType.ICON_ONLY,
+    val toolbarProfiles: ToolbarProfiles? = null,
     val visibleActionButtons: Set<ActionButtonType> = setOf(
         ActionButtonType.OPEN,
         ActionButtonType.SAMPLE_PDF,
@@ -419,7 +420,8 @@ class PdfViewModel(
             preference = PdfPreferenceState(
                 thumbnailSize = defaultThumbnailSize,
                 buttonDisplayType = PreferencesManager.getButtonDisplayType(application),
-                visibleActionButtons = PreferencesManager.getVisibleActionButtons(application, PdfPreferenceState().visibleActionButtons)
+                visibleActionButtons = PreferencesManager.getVisibleActionButtons(application, PdfPreferenceState().visibleActionButtons),
+                toolbarProfiles = PreferencesManager.getToolbarProfiles(application, PdfPreferenceState().visibleActionButtons)
             )
         )
     )
@@ -472,10 +474,20 @@ class PdfViewModel(
         _uiState.value = _uiState.value.copy(buttonDisplayType = type)
     }
 
+    fun setToolbarOptions(type: ButtonDisplayType, profiles: ToolbarProfiles) {
+        PreferencesManager.setToolbarOptions(getApplication(), type, profiles)
+        _uiState.value = _uiState.value.copy(preference = _uiState.value.preference.copy(
+            buttonDisplayType = type, toolbarProfiles = profiles
+        ))
+    }
+
     fun setVisibleActionButtons(buttons: Set<ActionButtonType>) {
         if (_uiState.value.visibleActionButtons == buttons) return
         PreferencesManager.setVisibleActionButtons(getApplication(), buttons)
-        _uiState.value = _uiState.value.copy(visibleActionButtons = buttons.toSet())
+        _uiState.value = _uiState.value.copy(preference = _uiState.value.preference.copy(
+            visibleActionButtons = buttons.toSet(),
+            toolbarProfiles = ToolbarProfiles(ToolbarSelection(null, buttons.toSet()), ToolbarSelection(null, buttons.toSet()))
+        ))
     }
 
     private var pendingAction: (() -> Unit)? = null

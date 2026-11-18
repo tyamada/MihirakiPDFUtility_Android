@@ -14,6 +14,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -33,17 +36,18 @@ internal fun ActionButton(
     displayType: ButtonDisplayType,
     tint: Color = LocalContentColor.current
 ) {
+    val measuredWidth = with(LocalDensity.current) { toolbarButtonWidth(text, displayType).toDp() }
     when (displayType) {
         ButtonDisplayType.ICON_ONLY -> {
-            IconButton(onClick = onClick, enabled = enabled) {
+            IconButton(onClick = onClick, enabled = enabled, modifier = Modifier.testTag("toolbarActionButton").width(measuredWidth)) {
                 CompositionLocalProvider(LocalContentColor provides tint) {
                     icon()
                 }
             }
         }
         ButtonDisplayType.TEXT_ONLY -> {
-            TextButton(onClick = onClick, enabled = enabled) {
-                Text(text)
+            TextButton(onClick = onClick, enabled = enabled, modifier = Modifier.testTag("toolbarActionButton").width(measuredWidth)) {
+                Text(text, maxLines = 1)
             }
         }
         ButtonDisplayType.ICON_AND_TEXT -> {
@@ -51,15 +55,15 @@ internal fun ActionButton(
                 onClick = onClick,
                 enabled = enabled,
                 contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-                modifier = Modifier.padding(2.dp),
+                modifier = Modifier.testTag("toolbarActionButton").width(measuredWidth).padding(2.dp),
                 colors = ButtonDefaults.buttonColors(contentColor = tint)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    icon()
-                    Text(text)
+                    Box(Modifier.size(24.dp).clearAndSetSemantics {}) { icon() }
+                    Text(text, maxLines = 1)
                 }
             }
         }

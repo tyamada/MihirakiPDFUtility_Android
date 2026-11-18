@@ -170,4 +170,19 @@
     <string name="page_selection_action">Piliin o alisin sa pagpili ang pahina</string>
     <string name="sample_pdf_integrity_error">Hindi ma-verify ang na-download na PDF. Pakisubukang muli.</string>
     <string name="tutorial_video_guide">Panoorin ang gabay na video sa Ingles</string>
+
+    <string name="toolbar_presets_title">Awtomatikong pag-set up ng toolbar</string>
+    <string name="toolbar_standard">Karaniwan</string>
+    <string name="toolbar_simple">Simple</string>
+    <string name="toolbar_compact">Siksik</string>
+    <string name="toolbar_standard_desc">Mga icon at teksto · hanggang 2 hanay · default</string>
+    <string name="toolbar_simple_desc">Mga icon at teksto · hanggang 1 hanay</string>
+    <string name="toolbar_compact_desc">Mga icon lang · hanggang 2 hanay</string>
+    <string name="toolbar_show_all">Ipakita ang lahat ng button</string>
+    <string name="toolbar_hide_all">Itago ang lahat ng button</string>
+    <string name="toolbar_all_desc">Mga icon at teksto · parehong oryentasyon</string>
+    <string name="toolbar_portrait">Patayo</string>
+    <string name="toolbar_landscape">Pahalang</string>
+    <string name="toolbar_auto_note">Umaangkop ang mga awtomatikong layout sa available na lapad at laki ng teksto. Kapag mano-manong pumili ng mga button, ang napiling oryentasyon lang ang nako-customize.</string>
+    <string name="toolbar_custom_note">Maa-access pa rin sa menu ang mga nakatagong aksyon. I-tap ang Ilapat para i-save ang mga pagbabago.</string>
 </resources>

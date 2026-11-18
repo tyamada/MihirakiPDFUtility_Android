@@ -5,6 +5,9 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.takumayamada22.pdfutility.data.SamplePdfSortOrder
 import com.takumayamada22.pdfutility.ui.ButtonDisplayType
+import com.takumayamada22.pdfutility.ui.ToolbarProfiles
+import com.takumayamada22.pdfutility.ui.ToolbarSelection
+import com.takumayamada22.pdfutility.ui.ToolbarPreset
 import com.takumayamada22.pdfutility.ui.ActionButtonType
 
 object PreferencesManager {
@@ -56,7 +59,7 @@ object PreferencesManager {
     fun getButtonDisplayType(context: Context): ButtonDisplayType =
         enumValues<ButtonDisplayType>().firstOrNull {
             it.name == getPrefs(context).getString("button_display_type", null)
-        } ?: ButtonDisplayType.ICON_ONLY
+        } ?: if (getPrefs(context).contains("visible_action_buttons")) ButtonDisplayType.ICON_ONLY else ButtonDisplayType.ICON_AND_TEXT
 
     fun setButtonDisplayType(context: Context, type: ButtonDisplayType) {
         getPrefs(context).edit { putString("button_display_type", type.name) }
@@ -69,7 +72,35 @@ object PreferencesManager {
     }
 
     fun setVisibleActionButtons(context: Context, buttons: Set<ActionButtonType>) {
-        getPrefs(context).edit { putStringSet("visible_action_buttons", buttons.map { it.name }.toSet()) }
+        getPrefs(context).edit {
+            putStringSet("visible_action_buttons", buttons.map { it.name }.toSet())
+            remove("toolbar_portrait_preset"); remove("toolbar_landscape_preset")
+            putStringSet("toolbar_portrait_buttons", buttons.map { it.name }.toSet())
+            putStringSet("toolbar_landscape_buttons", buttons.map { it.name }.toSet())
+        }
     }
 
+    fun getToolbarProfiles(context: Context, defaults: Set<ActionButtonType>): ToolbarProfiles {
+        val prefs = getPrefs(context)
+        val legacy = getVisibleActionButtons(context, defaults)
+        val existing = prefs.contains("visible_action_buttons") || prefs.contains("button_display_type")
+        fun read(key: String): ToolbarSelection {
+            val names = prefs.getStringSet("${key}_buttons", null)
+            val preset = prefs.getString("${key}_preset", null)
+            if (names == null && preset == null) return if (existing) ToolbarSelection(null, legacy) else ToolbarSelection()
+            return ToolbarSelection(ToolbarPreset.entries.firstOrNull { it.name == preset },
+                ActionButtonType.entries.filter { it.name in (names ?: emptySet()) }.toSet())
+        }
+        return ToolbarProfiles(read("toolbar_portrait"), read("toolbar_landscape"))
+    }
+
+    fun setToolbarOptions(context: Context, type: ButtonDisplayType, profiles: ToolbarProfiles) {
+        getPrefs(context).edit {
+            putString("button_display_type", type.name)
+            for ((key, selection) in listOf("toolbar_portrait" to profiles.portrait, "toolbar_landscape" to profiles.landscape)) {
+                putString("${key}_preset", selection.preset?.name ?: "CUSTOM")
+                putStringSet("${key}_buttons", selection.buttons.map { it.name }.toSet())
+            }
+        }
+    }
 }
