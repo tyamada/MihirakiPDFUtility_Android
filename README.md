@@ -15,7 +15,7 @@ These videos are in English and open on YouTube.
 
 ## Release candidate
 
-Candidate: <!-- current-app-version:start -->1.2.13 (29)<!-- current-app-version:end -->. This update includes all 51 sample manga PDFs from sample-manga-v2, with Latin American Spanish, European Portuguese and Hong Kong standard written Chinese editions. Downloads are verified before use, and older PDFs are retained. Closed-test distribution is being prepared.
+Candidate: <!-- current-app-version:start -->1.2.14 (30)<!-- current-app-version:end -->. This update includes all 51 sample manga PDFs from sample-manga-v2, with Latin American Spanish, European Portuguese and Hong Kong standard written Chinese editions. Downloads are verified before use, and older PDFs are retained. Closed-test distribution is being prepared.
 
 The samples cover 14 languages and 17 language/region variants, with three episodes each. Native and English region names are sorted by English name. Episode order is retained after restarting the app.
 

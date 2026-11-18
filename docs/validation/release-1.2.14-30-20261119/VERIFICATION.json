@@ -1,0 +1,121 @@
+{
+  "version_name": "1.2.14",
+  "version_code": 30,
+  "package": "com.takumayamada22.pdfutility",
+  "bundletool": "PASS",
+  "signed": "PASS",
+  "upload_key_sha1": "73:37:6B:CF:9B:48:57:7F:F5:E9:7D:C5:3E:AA:09:A7:DE:68:9C:1E",
+  "debuggable": false,
+  "apk_16kb_zip_alignment": "PASS",
+  "native_elf_16kb_alignment": [
+    {
+      "name": "base/lib/arm64-v8a/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/armeabi-v7a/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/x86/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/x86_64/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    }
+  ],
+  "video_links_preserved": true,
+  "toolbar_profiles_in_release_mapping": true,
+  "artifacts": [
+    {
+      "file": "MihirakiPDFUtility-1.2.14-30-release.aab",
+      "bytes": 18488759,
+      "sha256": "14b28ccbf1f08c9bcc90e24a140ff93265dc5b25472dafb0fd73149828def596"
+    },
+    {
+      "file": "MihirakiPDFUtility-1.2.14-30-release.apk",
+      "bytes": 15364343,
+      "sha256": "fb1f4847882611e7e4a4511a3b35eac68b11ce52e04163550b4f8ab42d6419bb"
+    }
+  ],
+  "basis": "Clean candidate worktree based on origin/main 4136189; includes 56 additional start-screen translations; original 54 uncommitted files excluded and preserved",
+  "uploaded": false,
+  "submitted": false,
+  "compiled_start_screen_translations": {
+    "additional_locales": 14,
+    "additional_strings": 56,
+    "all_match_source": true
+  },
+  "unit_tests": {
+    "tests": 29,
+    "failures": 0,
+    "errors": 0
+  },
+  "lint": {
+    "Warning": 11
+  },
+  "android_test_apk_compile": "PASS",
+  "device_validation": "Not performed for this candidate",
+  "script_checks": [
+    {
+      "command": "python3 scripts/validate_localized_strings.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/validate_plurals.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/audit_english_residue.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/validate_store_metadata.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/validate_public_pages.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/verify_sample_release_assets.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/update_docs_and_listings.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -m unittest discover -s scripts -p test_sample_public_catalog.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -m unittest discover -s scripts -p test_run_device_tests_and_save.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -m unittest discover -s scripts -p test_update_docs_and_listings.py",
+      "exit_code": 0
+    }
+  ],
+  "source_base_commit": "413618964632e8ff401308f8a794aa18ec5fc0b0",
+  "candidate_branch": "codex/release-1.2.14-30-20261119",
+  "artifact_location": "Local preparation output; AAB and APK are intentionally not committed."
+}
