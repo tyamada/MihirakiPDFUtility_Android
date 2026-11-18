@@ -64,6 +64,25 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
         }
     }
 
+    var pendingBadge by remember { mutableStateOf<com.takumayamada22.pdfutility.badge.CommemorativeBadge?>(null) }
+
+    LaunchedEffect(uiState.showTutorial) {
+        if (!uiState.showTutorial) {
+            val badgeManager = com.takumayamada22.pdfutility.badge.BadgeManager(context)
+            val claimed = badgeManager.checkAndClaimBadges()
+            if (claimed.isNotEmpty()) {
+                pendingBadge = claimed.first()
+            }
+        }
+    }
+
+    pendingBadge?.let { badge ->
+        com.takumayamada22.pdfutility.ui.components.BadgeAcquiredDialog(
+            badge = badge,
+            onDismiss = { pendingBadge = null }
+        )
+    }
+
 
 
     Scaffold(
@@ -229,10 +248,17 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
-            PdfPageGrid(
-                uiState = uiState, 
-                viewModel = viewModel
-            )
+            if (uiState.pages.isEmpty()) {
+                com.takumayamada22.pdfutility.ui.components.PdfStartScreen(
+                    isBusy = uiState.isLoading || uiState.isAppending,
+                    onOpen = { openLauncher.launch("application/pdf") },
+                    onOpenFolder = { openFolderLauncher.launch(null) },
+                    onSample = { viewModel.openSamplePdf() },
+                    onAppend = { appendLauncher.launch("application/pdf") }
+                )
+            } else {
+                PdfPageGrid(uiState = uiState, viewModel = viewModel)
+            }
 
             if (uiState.isLoading || uiState.isAppending) {
                 Surface(

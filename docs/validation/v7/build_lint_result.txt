@@ -1,0 +1,5 @@
+Final build and lint exit code: 0
+BUILD SUCCESSFUL
+Warnings: 8
+Errors: 0
+Unit tests: 5; failures/errors: 1

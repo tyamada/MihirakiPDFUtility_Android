@@ -148,6 +148,7 @@
     <string name="btn_create_pdf_from_images">创建 PDF</string>
     <string name="menu_open_folder">打开文件夹</string>
     <string name="commemorative_badge_title">发售纪念 Koyomi 徽章</string>
+    <string name="badge_acquired_heading">已获得徽章！</string>
     <string name="help_item_overview"><b>概述:</b> 支持14种语言，双页跨页视图（RTL/LTR），专为扫描书籍和漫画优化。</string>
     <string name="help_item_open_save"><b>打开与保存:</b> 点击打开图标（或Ctrl+O）加载PDF。使用保存（Ctrl+S）保存所有页面。</string>
     <string name="help_item_page_ops"><b>页面操作:</b> 拖放重排页面、旋转、删除、插入空白页、分割和裁剪边距。</string>
@@ -255,18 +256,24 @@
     <string name="sample_pdf_integrity_error">无法验证下载的PDF。请重试。</string>
     <string name="tutorial_video_guide">观看英语视频指南</string>
 
-    <string name="toolbar_presets_title">自动设置工具栏</string>
-    <string name="toolbar_standard">标准</string>
-    <string name="toolbar_simple">简洁</string>
-    <string name="toolbar_compact">紧凑</string>
-    <string name="toolbar_standard_desc">图标和文字 · 最多2行 · 默认</string>
-    <string name="toolbar_simple_desc">图标和文字 · 最多1行</string>
-    <string name="toolbar_compact_desc">仅图标 · 最多2行</string>
-    <string name="toolbar_show_all">显示所有按钮</string>
-    <string name="toolbar_hide_all">隐藏所有按钮</string>
-    <string name="toolbar_all_desc">图标和文字 · 横竖屏均适用</string>
-    <string name="toolbar_portrait">竖屏</string>
-    <string name="toolbar_landscape">横屏</string>
-    <string name="toolbar_auto_note">自动布局会根据可用宽度和文字大小调整。手动选择按钮时，仅自定义当前选定的屏幕方向。</string>
-    <string name="toolbar_custom_note">隐藏的操作仍可通过菜单使用。点击“应用”保存更改。</string>
+  <string name="toolbar_presets_title">自动设置工具栏</string>
+  <string name="toolbar_standard">标准</string>
+  <string name="toolbar_simple">简洁</string>
+  <string name="toolbar_compact">紧凑</string>
+  <string name="toolbar_standard_desc">图标和文字 · 最多2行 · 默认</string>
+  <string name="toolbar_simple_desc">图标和文字 · 最多1行</string>
+  <string name="toolbar_compact_desc">仅图标 · 最多2行</string>
+  <string name="toolbar_show_all">显示所有按钮</string>
+  <string name="toolbar_hide_all">隐藏所有按钮</string>
+  <string name="toolbar_all_desc">图标和文字 · 横竖屏均适用</string>
+  <string name="toolbar_portrait">竖屏</string>
+  <string name="toolbar_landscape">横屏</string>
+  <string name="toolbar_auto_note">自动布局会根据可用宽度和文字大小调整。手动选择按钮时，仅自定义当前选定的屏幕方向。</string>
+  <string name="toolbar_custom_note">隐藏的操作仍可通过菜单使用。点击“应用”保存更改。</string>
+
+    <!-- Start screen guidance. -->
+    <string name="start_title">打开 PDF，开始使用</string>
+    <string name="start_description">免费并排查看两页、分割页面和合并 PDF。打开 PDF 即可显示编辑工具。</string>
+    <string name="start_open_pdf">打开 PDF</string>
+    <string name="start_more_actions">更多操作</string>
 </resources>

@@ -169,20 +169,27 @@
     <string name="page_preview_action">Pré-visualizar página</string>
     <string name="page_selection_action">Selecionar ou desmarcar página</string>
     <string name="sample_pdf_integrity_error">Não foi possível verificar o PDF baixado. Tente novamente.</string>
+    <string name="badge_acquired_heading">Insígnia adquirida!</string>
     <string name="tutorial_video_guide">Ver guia em vídeo em inglês</string>
 
-    <string name="toolbar_presets_title">Configuração automática da barra</string>
-    <string name="toolbar_standard">Padrão</string>
-    <string name="toolbar_simple">Simples</string>
-    <string name="toolbar_compact">Compacta</string>
-    <string name="toolbar_standard_desc">Ícones e texto · até 2 linhas · padrão</string>
-    <string name="toolbar_simple_desc">Ícones e texto · até 1 linha</string>
-    <string name="toolbar_compact_desc">Apenas ícones · até 2 linhas</string>
-    <string name="toolbar_show_all">Mostrar todos os botões</string>
-    <string name="toolbar_hide_all">Ocultar todos os botões</string>
-    <string name="toolbar_all_desc">Ícones e texto · ambas as orientações</string>
-    <string name="toolbar_portrait">Retrato</string>
-    <string name="toolbar_landscape">Paisagem</string>
-    <string name="toolbar_auto_note">Os layouts automáticos se adaptam à largura disponível e ao tamanho do texto. A seleção manual dos botões personaliza apenas a orientação selecionada.</string>
-    <string name="toolbar_custom_note">As ações ocultas continuam disponíveis no menu. Toque em Aplicar para salvar as alterações.</string>
+  <string name="toolbar_presets_title">Configuração automática da barra</string>
+  <string name="toolbar_standard">Padrão</string>
+  <string name="toolbar_simple">Simples</string>
+  <string name="toolbar_compact">Compacta</string>
+  <string name="toolbar_standard_desc">Ícones e texto · até 2 linhas · padrão</string>
+  <string name="toolbar_simple_desc">Ícones e texto · até 1 linha</string>
+  <string name="toolbar_compact_desc">Apenas ícones · até 2 linhas</string>
+  <string name="toolbar_show_all">Mostrar todos os botões</string>
+  <string name="toolbar_hide_all">Ocultar todos os botões</string>
+  <string name="toolbar_all_desc">Ícones e texto · ambas as orientações</string>
+  <string name="toolbar_portrait">Retrato</string>
+  <string name="toolbar_landscape">Paisagem</string>
+  <string name="toolbar_auto_note">Os layouts automáticos se adaptam à largura disponível e ao tamanho do texto. A seleção manual dos botões personaliza apenas a orientação selecionada.</string>
+  <string name="toolbar_custom_note">As ações ocultas continuam disponíveis no menu. Toque em Aplicar para salvar as alterações.</string>
+
+    <!-- Start screen guidance. -->
+    <string name="start_title">Comece com um PDF</string>
+    <string name="start_description">Visualize duas páginas lado a lado, divida páginas e una PDFs gratuitamente. Abra um PDF para ver as ferramentas de edição.</string>
+    <string name="start_open_pdf">Abrir PDF</string>
+    <string name="start_more_actions">Mais ações</string>
 </resources>

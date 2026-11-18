@@ -21,13 +21,14 @@ class SamplePdfV2NetworkTest {
         assumeTrue("Opt in to live HTTPS tests with sampleV2Network=true", InstrumentationRegistry.getArguments().getString("sampleV2Network") == "true")
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val directory = File(context.cacheDir, "v2-network-qa-${UUID.randomUUID()}").apply { mkdirs() }
-        val item = SamplePdfCatalog.items.single { it.id == "ep3_zh_hk" }
+        val sampleId = InstrumentationRegistry.getArguments().getString("sampleId") ?: "ep3_zh_hk"
+        val item = SamplePdfCatalog.items.single { it.id == sampleId }
         val oldBytes = "%PDF-1.5\nolder user copy".toByteArray()
         val legacy = File(directory, item.fileName).apply { writeBytes(oldBytes) }
         val cache = SamplePdfCache(directory)
         val live = SamplePdfDownloadManager(cache)
         val offline = SamplePdfDownloadManager(cache, SamplePdfTransfer { _, _, _ -> throw IOException("Simulated offline") })
-        val report = JSONObject().put("id", item.id).put("url", item.url)
+        val report = JSONObject().put("id", item.id).put("url", item.url).put("local_filename", item.fileName)
         try {
             assertNull(cache.downloadedFile(item))
             assertEquals(DownloadState.Success, live.download(item).toList().last())

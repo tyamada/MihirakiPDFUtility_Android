@@ -17,3 +17,6 @@
 -keep class **.R$* {
     <fields>;
 }
+
+# Commemorative Badge package rules for R8 full mode
+-keep class com.takumayamada22.pdfutility.badge.** { *; }

@@ -1,0 +1,84 @@
+{
+  "recorded_at_jst": "2026-11-16T13:38:41.620265+09:00",
+  "evidence_source": "User report in this chat; not independently repeated by the assistant",
+  "device": "Pixel 8a",
+  "android_version": {
+    "value": "17",
+    "source": "previous owner report; not reconfirmed in this report"
+  },
+  "application_id": "com.takumayamada22.pdfutility",
+  "version_name": "1.2.12",
+  "version_code": 28,
+  "installation_route": "Google Play update (owner report)",
+  "results": [
+    {
+      "check": "文書・設定保持",
+      "result": "PASS",
+      "source": "owner_report"
+    },
+    {
+      "check": "ホーム",
+      "result": "PASS",
+      "source": "owner_report"
+    },
+    {
+      "check": "代替メニュー",
+      "result": "PASS",
+      "source": "owner_report"
+    },
+    {
+      "check": "回転",
+      "result": "PASS",
+      "source": "owner_report"
+    },
+    {
+      "check": "取得状態・こよみ",
+      "result": "PASS",
+      "source": "owner_report"
+    },
+    {
+      "check": "再起動後の保持",
+      "result": "PASS",
+      "source": "owner_report"
+    },
+    {
+      "check": "日本語TalkBack",
+      "result": "PASS",
+      "source": "owner_report"
+    },
+    {
+      "check": "英語TalkBack",
+      "result": "PASS",
+      "source": "owner_report"
+    },
+    {
+      "check": "検証前の設定へ復帰",
+      "result": "PASS",
+      "source": "owner_report"
+    }
+  ],
+  "prior_local_results": "Retained separately; these results are for the Play release and do not replace LOCAL or instrumentation evidence",
+  "scope_limits": [
+    "Exact test execution time and new screenshots/logs not provided",
+    "Device APK hashes and current signing identity not re-acquired",
+    "Does not claim all screen/locale combinations tested",
+    "No new purchase or restore transaction implied by acquired-state check"
+  ],
+  "console_read_only": {
+    "alpha": "Published to selected Alpha testers on 2026-11-16 13:07 JST",
+    "production": "Inactive; additional testing required",
+    "continuous_testers": 12,
+    "continuous_days": 6,
+    "required_days_shown": 14,
+    "production_access_button": "disabled"
+  },
+  "production_plan": {
+    "initial_countries": [
+      "JP",
+      "US"
+    ],
+    "submission_date": null,
+    "publication_date": null
+  },
+  "assistant_actions": "Documentation update and read-only Console checks only; no install, app data change, purchase, production submission or publication"
+}

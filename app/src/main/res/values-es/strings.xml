@@ -148,6 +148,7 @@
     <string name="btn_create_pdf_from_images">Crear PDF</string>
     <string name="menu_open_folder">Abrir carpeta</string>
     <string name="commemorative_badge_title">Insignia Koyomi conmemorativa de lanzamiento</string>
+    <string name="badge_acquired_heading">¡Insignia obtenida!</string>
     <string name="help_item_overview"><b>Resumen:</b> Soporta 14 idiomas, vistas de doble página (RTL/LTR) y está optimizado para libros escaneados y manga.</string>
     <string name="help_item_open_save"><b>Abrir y guardar:</b> Toca Abrir (Ctrl+O) para cargar un PDF. Usa Guardar (Ctrl+S) para guardar todas las páginas o Exportar selección (Ctrl+E).</string>
     <string name="help_item_page_ops"><b>Operaciones de página:</b> Reordena páginas, rota, elimina, inserta páginas en blanco, divide y recorta márgenes.</string>
@@ -240,18 +241,24 @@
     <string name="sample_pdf_integrity_error">No se pudo verificar el PDF descargado. Inténtalo de nuevo.</string>
     <string name="tutorial_video_guide">Ver guía en vídeo en inglés</string>
 
-    <string name="toolbar_presets_title">Configuración automática de la barra</string>
-    <string name="toolbar_standard">Estándar</string>
-    <string name="toolbar_simple">Simple</string>
-    <string name="toolbar_compact">Compacta</string>
-    <string name="toolbar_standard_desc">Iconos y texto · hasta 2 filas · predeterminada</string>
-    <string name="toolbar_simple_desc">Iconos y texto · hasta 1 fila</string>
-    <string name="toolbar_compact_desc">Solo iconos · hasta 2 filas</string>
-    <string name="toolbar_show_all">Mostrar todos los botones</string>
-    <string name="toolbar_hide_all">Ocultar todos los botones</string>
-    <string name="toolbar_all_desc">Iconos y texto · ambas orientaciones</string>
-    <string name="toolbar_portrait">Vertical</string>
-    <string name="toolbar_landscape">Horizontal</string>
-    <string name="toolbar_auto_note">Los diseños automáticos se adaptan al ancho disponible y al tamaño del texto. Al seleccionar botones manualmente, solo se personaliza la orientación seleccionada.</string>
-    <string name="toolbar_custom_note">Las acciones ocultas siguen disponibles en el menú. Los cambios se guardan al pulsar Aplicar.</string>
+  <string name="toolbar_presets_title">Configuración automática de la barra</string>
+  <string name="toolbar_standard">Estándar</string>
+  <string name="toolbar_simple">Simple</string>
+  <string name="toolbar_compact">Compacta</string>
+  <string name="toolbar_standard_desc">Iconos y texto · hasta 2 filas · predeterminada</string>
+  <string name="toolbar_simple_desc">Iconos y texto · hasta 1 fila</string>
+  <string name="toolbar_compact_desc">Solo iconos · hasta 2 filas</string>
+  <string name="toolbar_show_all">Mostrar todos los botones</string>
+  <string name="toolbar_hide_all">Ocultar todos los botones</string>
+  <string name="toolbar_all_desc">Iconos y texto · ambas orientaciones</string>
+  <string name="toolbar_portrait">Vertical</string>
+  <string name="toolbar_landscape">Horizontal</string>
+  <string name="toolbar_auto_note">Los diseños automáticos se adaptan al ancho disponible y al tamaño del texto. Al seleccionar botones manualmente, solo se personaliza la orientación seleccionada.</string>
+  <string name="toolbar_custom_note">Las acciones ocultas siguen disponibles en el menú. Los cambios se guardan al pulsar Aplicar.</string>
+
+    <!-- Start screen guidance. -->
+    <string name="start_title">Empieza con un PDF</string>
+    <string name="start_description">Visualiza dos páginas una al lado de la otra, divide páginas y combina archivos PDF gratis. Abre un PDF para ver las herramientas de edición.</string>
+    <string name="start_open_pdf">Abrir PDF</string>
+    <string name="start_more_actions">Más acciones</string>
 </resources>

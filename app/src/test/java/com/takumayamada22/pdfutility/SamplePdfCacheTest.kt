@@ -104,4 +104,31 @@ class SamplePdfCacheTest {
         try { cancelled.download(item()).toList(); fail("Cancellation must propagate") } catch (_: CancellationException) { }
         noParts(root); assertArrayEquals(old, legacy.readBytes()); assertNull(cache.downloadedFile(item()))
     }
+
+    @Test fun releaseUrlMigrationReusesFilipinoManagedAndLegacyFilesOffline() = runBlocking {
+        for (id in listOf("ep1_fil", "ep2_fil")) {
+            val current = SamplePdfCatalog.items.single { it.id == id }.copy(
+                bytes = good.size.toLong(), sha256 = item().sha256
+            )
+            val previous = current.copy(
+                url = "https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v2/${current.fileName}"
+            )
+            assertTrue(current.fileName.endsWith("_fil.pdf"))
+            assertTrue(current.url.endsWith("_tl.pdf"))
+            val root = temporary.newFolder()
+            val cache = SamplePdfCache(root)
+            manager(cache).download(previous).toList()
+            val existing = requireNotNull(cache.downloadedFile(previous))
+            val offline = SamplePdfDownloadManager(cache, SamplePdfTransfer { _, _, _ ->
+                fail("Changing only the release URL must not redownload")
+            })
+            assertEquals(DownloadState.Success, offline.download(current).toList().last())
+            assertEquals(existing, cache.downloadedFile(current))
+            val legacyRoot = temporary.newFolder()
+            val legacy = File(legacyRoot, current.fileName).apply { writeBytes(good) }
+            assertEquals(legacy, SamplePdfCache(legacyRoot).downloadedFile(current))
+            assertArrayEquals(good, existing.readBytes())
+        }
+    }
+
 }

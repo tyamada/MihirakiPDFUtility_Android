@@ -148,6 +148,7 @@
     <string name="btn_create_pdf_from_images">PDF erstellen</string>
     <string name="menu_open_folder">Ordner öffnen</string>
     <string name="commemorative_badge_title">Veröffentlichungs-Gedenk-Koyomi-Badge</string>
+    <string name="badge_acquired_heading">Badge erhalten!</string>
     <string name="action_owned">Bereits gekauft</string>
     <string name="help_item_display_modes"><b>Anzeigemodi:</b> Umschalten zwischen Raster- und Doppelseitenansicht. Unterstützt das Umschalten zwischen Rechts-nach-Links (RTL) und Links-nach-Rechts (LTR) Leserichtung.</string>
     <string name="help_item_device_optimization"><b>Geräteunterstützung:</b> Vollständig optimiert für Smartphones, Tablets, Faltgeräte und Desktops (ChromeOS etc. mit Tastenkombinationen &amp; Rechtsklick).</string>
@@ -224,18 +225,24 @@
     <string name="sample_pdf_integrity_error">Die heruntergeladene PDF konnte nicht überprüft werden. Bitte erneut versuchen.</string>
     <string name="tutorial_video_guide">Englische Videoanleitung ansehen</string>
 
-    <string name="toolbar_presets_title">Symbolleiste automatisch einrichten</string>
-    <string name="toolbar_standard">Standard</string>
-    <string name="toolbar_simple">Einfach</string>
-    <string name="toolbar_compact">Kompakt</string>
-    <string name="toolbar_standard_desc">Symbole und Text · bis zu 2 Zeilen · Standard</string>
-    <string name="toolbar_simple_desc">Symbole und Text · bis zu 1 Zeile</string>
-    <string name="toolbar_compact_desc">Nur Symbole · bis zu 2 Zeilen</string>
-    <string name="toolbar_show_all">Alle Schaltflächen anzeigen</string>
-    <string name="toolbar_hide_all">Alle Schaltflächen ausblenden</string>
-    <string name="toolbar_all_desc">Symbole und Text · beide Ausrichtungen</string>
-    <string name="toolbar_portrait">Hochformat</string>
-    <string name="toolbar_landscape">Querformat</string>
-    <string name="toolbar_auto_note">Automatische Layouts passen sich der verfügbaren Breite und Textgröße an. Die manuelle Auswahl von Schaltflächen passt nur die ausgewählte Ausrichtung an.</string>
-    <string name="toolbar_custom_note">Ausgeblendete Aktionen bleiben im Menü verfügbar. Änderungen werden mit „Übernehmen“ gespeichert.</string>
+  <string name="toolbar_presets_title">Symbolleiste automatisch einrichten</string>
+  <string name="toolbar_standard">Standard</string>
+  <string name="toolbar_simple">Einfach</string>
+  <string name="toolbar_compact">Kompakt</string>
+  <string name="toolbar_standard_desc">Symbole und Text · bis zu 2 Zeilen · Standard</string>
+  <string name="toolbar_simple_desc">Symbole und Text · bis zu 1 Zeile</string>
+  <string name="toolbar_compact_desc">Nur Symbole · bis zu 2 Zeilen</string>
+  <string name="toolbar_show_all">Alle Schaltflächen anzeigen</string>
+  <string name="toolbar_hide_all">Alle Schaltflächen ausblenden</string>
+  <string name="toolbar_all_desc">Symbole und Text · beide Ausrichtungen</string>
+  <string name="toolbar_portrait">Hochformat</string>
+  <string name="toolbar_landscape">Querformat</string>
+  <string name="toolbar_auto_note">Automatische Layouts passen sich der verfügbaren Breite und Textgröße an. Die manuelle Auswahl von Schaltflächen passt nur die ausgewählte Ausrichtung an.</string>
+  <string name="toolbar_custom_note">Ausgeblendete Aktionen bleiben im Menü verfügbar. Änderungen werden mit „Übernehmen“ gespeichert.</string>
+
+    <!-- Start screen guidance. -->
+    <string name="start_title">Mit einer PDF beginnen</string>
+    <string name="start_description">Zwei Seiten nebeneinander anzeigen, Seiten teilen und PDFs kostenlos zusammenführen. Öffnen Sie eine PDF, um die Bearbeitungswerkzeuge anzuzeigen.</string>
+    <string name="start_open_pdf">PDF öffnen</string>
+    <string name="start_more_actions">Weitere Aktionen</string>
 </resources>

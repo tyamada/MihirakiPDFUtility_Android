@@ -148,6 +148,7 @@
     <string name="btn_create_pdf_from_images">建立 PDF</string>
     <string name="menu_open_folder">開啟資料夾</string>
     <string name="commemorative_badge_title">發售紀念 Koyomi 徽章</string>
+    <string name="badge_acquired_heading">已獲得徽章！</string>
     <string name="help_item_display_modes"><b>顯示模式:</b> 在網格檢視和跨頁檢視之間切換。支援在由右至左 (RTL) 與由左至右 (LTR) 閱讀方向之間切換。</string>
     <string name="help_item_device_optimization"><b>裝置支援:</b> 完全針對智慧型手機、平板電腦、摺疊式裝置以及桌面端（ChromeOS 等，支援鍵盤快速鍵與滑鼠右鍵點擊）進行最佳化。</string>
 <string name="action_rotate_left">向左旋轉</string><string name="action_settings">設定</string><string name="settings_options">選項</string><string name="settings_help">說明</string><string name="report_github">回報問題 (GitHub)</string><string name="options_size_s">小 (S)</string><string name="options_size_m">中 (M)</string><string name="options_size_l">大 (L)</string><string name="options_desc">選擇縮圖尺寸 (S/M/L)。</string><string name="help_title">應用指南和幫助</string><string name="help_item_overview">概述：Mihiraki PDF Utility 支援 14 種語言、雙頁展開視圖 (RTL/LTR)，並針對掃描書籍和漫畫進行了專門優化。</string><string name="help_item_open_save">開啟與儲存：點選「開啟」圖示（或 Ctrl+O）載入 PDF。使用「儲存」（Ctrl+S）儲存所有頁面，或使用「匯出所選」（Ctrl+E）匯出所選頁面。</string><string name="help_item_page_ops">頁面操作：點選頁面進行選擇。頂部工具列按鈕會動態調整：未選取時顯示常規動作（儲存、新增、設定），並在選取時解鎖編輯工具（旋轉、移動、分割、插入空白頁、刪除、匯出所選）。</string><string name="help_item_properties">屬性和元資料：配置文件標題、作者、主題、關鍵字、PDF 版本和頁面佈局。</string><string name="help_item_security">安全性和密碼：設定或清除用於儲存和匯出受保護 PDF 的加密密碼。</string><string name="help_item_options">選項和顯示：自訂縮圖大小（小/中/大）和按鈕顯示類型（圖示+文字/僅圖示/僅文字）。</string><string name="help_item_support">支援開發：購買一次性支援項目（銅級、銀級、金級）或兌換 Google Play 促銷代碼以支援應用程式開發。</string><string name="help_item_diagnostics">診斷：執行系統診斷測試以驗證 PDF 處理器功能、記憶體使用量和範例資源的可存取性。</string><string name="help_item_audit_logs">稽核日誌：查看受隱私保護的本機操作和執行時間錯誤稽核日誌（自動保留 24 小時，嚴格排除個人資料）。</string><string name="help_item_report_issues">報告問題：使用「已報告問題」畫面批次複製診斷報告和應用程式日誌，以便透過電子郵件或 GitHub Issues 輕鬆進行故障排除和報告。</string><string name="help_purchased_items">已購買的支援徽章</string><string name="prop_pdf_version_label">PDF 版本</string><string name="version_license_title">授權和開源</string><string name="version_license_text">根據 Apache License 2.0 許可發布。\n\n第三方軟體：\n\n• Apache PDFBox-Android（版權歸 Apache 軟體基金會所有，並採用 Apache License 2.0 授權）\n\n• AndroidX 和 Jetpack Compose（Google LLC，採用 Apache License 2.0 授權）</string><string name="free_use_message">此應用程式完全免費使用。所有功能，例如編輯和保存 PDF，均不受購買限制。</string><string name="purchase_badge_shown">版本畫面上會顯示支援徽章。</string><string name="action_owned">已擁有</string><string name="diagnostics_endurance_title">長時間壓力測試</string><string name="diagnostics_endurance_desc">選擇測試時長並執行連續壓力測試，包括 14 部漫畫合併、1100 頁 9 倍追加、編輯壓力、旋轉和折疊模擬。</string><string name="endurance_progress_text">進度：已用 %1$d 分鐘 / 目標 %2$d 分鐘</string><string name="endurance_iteration_text">迭代次數：#%1$d</string><string name="endurance_course_text">目前路線：%1$s</string><string name="endurance_memory_text">記憶體使用：%1$d MB</string><string name="endurance_pattern_select">測試路線及模式選擇：</string><string name="endurance_stop_test">停止測試</string><string name="endurance_start_test">開始測試（%1$d 分鐘）</string><string name="download_all_test_files">下載所有測試 PDF 和範例</string><string name="cancel_download">取消下載</string><string name="endurance_running_banner">⚡ [耐力測試運行] 已用時間：%1$d 分鐘目標：%2$d 最小值 (#%3$d)</string><string name="endurance_stop_button">停止</string><string name="processing_pdf_message">正在處理和合併 PDF 文件…\n\n請稍候。</string><string name="course_option_all">所有課程（模式 1–10）</string><string name="course_option_pattern_1">模式 1（多文件合併）</string><string name="course_option_pattern_2">模式 2（1100p 追加 9 倍）</string><string name="course_option_pattern_3">模式 3（合併 + 編輯壓力）</string><string name="course_option_pattern_4">模式 4（追加 + 編輯壓力）</string><string name="course_option_pattern_5">模式 5（合併 + 螢幕旋轉）</string><string name="course_option_pattern_6">模式 6（追加 + 螢幕旋轉）</string><string name="course_option_pattern_7">模式 7（合併 + 可折疊模擬）</string><string name="course_option_pattern_8">模式 8（追加 + 可折疊模擬）</string><string name="course_option_pattern_9">模式 9（完全組合） A)</string><string name="course_option_pattern_10">模式 10（完整組合 B）</string><string name="help_show_tutorial">顯示教學指南</string><string name="tutorial_skip">略過</string><string name="tutorial_next">下一步</string><string name="tutorial_finish">開始使用</string><string name="tutorial_try_sample">試用範例 PDF</string><string name="tutorial_title_1">歡迎使用 Mihiraki PDF Utility</string><string name="tutorial_desc_1">針對閱讀和整理掃描書籍和漫畫進行了最佳化，支援雙頁展開視圖，並支援 14 種語言的 RTL/LTR 格式。</string><string name="tutorial_title_2">Open &amp; Sample PDFs</string><string name="tutorial_desc_2">在桌面或行動裝置橫向螢幕模式下，可透過頂部功能表列存取所有工具；在行動裝置垂直螢幕模式下，點擊右上角的三個點選單即可存取底部功能表列。</string><string name="tutorial_title_3">頁面操作和編輯</string><string name="tutorial_desc_3">輕按一下即可選擇頁面，輕鬆重新排序、旋轉、分割頁面、插入空白頁或刪除不需要的頁面。</string><string name="tutorial_title_4">顯示模式和工具列自訂</string><string name="tutorial_desc_4">網格視圖和展開視圖之間即時切換。透過「選項」自訂主工具列中顯示的操作按鈕。</string><string name="tutorial_title_5">Save &amp; Export</string><string name="tutorial_desc_5">將所有頁面儲存為新的 PDF 檔案 (Ctrl+S) 或匯出選取頁面。所有處理均在本地設備完成，並提供全面的隱私保護。</string>    <string name="help_category_getting_started">開始使用</string>
@@ -223,18 +224,24 @@
     <string name="sample_pdf_integrity_error">無法驗證下載的PDF。請再試一次。</string>
     <string name="tutorial_video_guide">觀看英語影片指南</string>
 
-    <string name="toolbar_presets_title">自動設定工具列</string>
-    <string name="toolbar_standard">標準</string>
-    <string name="toolbar_simple">簡潔</string>
-    <string name="toolbar_compact">精簡</string>
-    <string name="toolbar_standard_desc">圖示與文字 · 最多2列 · 預設</string>
-    <string name="toolbar_simple_desc">圖示與文字 · 最多1列</string>
-    <string name="toolbar_compact_desc">僅圖示 · 最多2列</string>
-    <string name="toolbar_show_all">顯示所有按鈕</string>
-    <string name="toolbar_hide_all">隱藏所有按鈕</string>
-    <string name="toolbar_all_desc">圖示與文字 · 直向與橫向</string>
-    <string name="toolbar_portrait">直向</string>
-    <string name="toolbar_landscape">橫向</string>
-    <string name="toolbar_auto_note">自動配置會依可用寬度與文字大小調整。手動選擇按鈕時，只會自訂目前選取的螢幕方向。</string>
-    <string name="toolbar_custom_note">隱藏的操作仍可從選單使用。點選「套用」即可儲存變更。</string>
+  <string name="toolbar_presets_title">自動設定工具列</string>
+  <string name="toolbar_standard">標準</string>
+  <string name="toolbar_simple">簡潔</string>
+  <string name="toolbar_compact">精簡</string>
+  <string name="toolbar_standard_desc">圖示與文字 · 最多2列 · 預設</string>
+  <string name="toolbar_simple_desc">圖示與文字 · 最多1列</string>
+  <string name="toolbar_compact_desc">僅圖示 · 最多2列</string>
+  <string name="toolbar_show_all">顯示所有按鈕</string>
+  <string name="toolbar_hide_all">隱藏所有按鈕</string>
+  <string name="toolbar_all_desc">圖示與文字 · 直向與橫向</string>
+  <string name="toolbar_portrait">直向</string>
+  <string name="toolbar_landscape">橫向</string>
+  <string name="toolbar_auto_note">自動配置會依可用寬度與文字大小調整。手動選擇按鈕時，只會自訂目前選取的螢幕方向。</string>
+  <string name="toolbar_custom_note">隱藏的操作仍可從選單使用。點選「套用」即可儲存變更。</string>
+
+    <!-- Start screen guidance. -->
+    <string name="start_title">開啟 PDF，開始使用</string>
+    <string name="start_description">免費並排檢視兩頁、分割頁面及合併 PDF。開啟 PDF 即可顯示編輯工具。</string>
+    <string name="start_open_pdf">開啟 PDF</string>
+    <string name="start_more_actions">更多操作</string>
 </resources>

@@ -1,0 +1,142 @@
+[
+  {
+    "locale": "values",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "one",
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-de",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "one",
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-es",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "many",
+      "one",
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-fr",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "many",
+      "one",
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-in",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-it",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "many",
+      "one",
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-ja",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-ko",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-ms",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-ne",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "one",
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-pt",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "many",
+      "one",
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-tl",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "one",
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-vi",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-zh-rCN",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-zh-rHK",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "other"
+    ],
+    "format_arguments_match": true
+  },
+  {
+    "locale": "values-zh-rTW",
+    "resource": "dialog_delete_desc",
+    "quantities": [
+      "other"
+    ],
+    "format_arguments_match": true
+  }
+]

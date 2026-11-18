@@ -28,7 +28,7 @@ android {
         }
 
         create("release") {
-            storeFile = rootProject.file(props.getProperty("signing.storeFile") ?: "release-key.jks")
+            storeFile = props.getProperty("signing.storeFile")?.let { rootProject.file(it) }
             storePassword = props.getProperty("signing.storePassword")
             keyAlias = props.getProperty("signing.keyAlias")
             keyPassword = props.getProperty("signing.keyPassword")

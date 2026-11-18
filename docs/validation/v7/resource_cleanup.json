@@ -1,0 +1,39 @@
+{
+  "removed_unused_strings": [
+    "settings_title",
+    "options_title",
+    "help_overview_title",
+    "help_overview_text",
+    "help_open_title",
+    "help_open_text",
+    "help_page_ops_title",
+    "help_page_ops_text",
+    "help_display_title",
+    "help_display_text",
+    "help_settings_title",
+    "help_settings_text",
+    "help_item_devices",
+    "help_item_button_reference",
+    "help_no_purchased_items",
+    "prop_pdf_version",
+    "security_title",
+    "security_leave_empty",
+    "run_diagnostics",
+    "diagnostics_title",
+    "diagnostics_privacy",
+    "bulk_copy",
+    "results_copied",
+    "device_info_format",
+    "test_timestamp_format",
+    "logs_dialog_title",
+    "logs_privacy",
+    "copy_logs",
+    "logs_copied",
+    "commemorative_badge_desc",
+    "claim_free_badge",
+    "badge_claimed_success"
+  ],
+  "removed_unused_vectors": [
+    "app/src/main/res/drawable/ic_launcher_foreground.xml"
+  ]
+}

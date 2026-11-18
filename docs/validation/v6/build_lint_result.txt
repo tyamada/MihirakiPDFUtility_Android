@@ -1,0 +1,6 @@
+Command: :app:assembleDebug :app:lintDebug :app:preBundleDocumentationCheck --offline
+Exit code: 0
+BUILD SUCCESSFUL
+Lint errors: 0
+Lint warnings: 75
+Lint hints: 4

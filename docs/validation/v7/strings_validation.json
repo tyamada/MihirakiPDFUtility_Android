@@ -1,0 +1,92 @@
+[
+  {
+    "locale": "values-de",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-es",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-fr",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-in",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-it",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-ja",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-ko",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-ms",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-ne",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-pt",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-tl",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-vi",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-zh-rCN",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-zh-rHK",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  },
+  {
+    "locale": "values-zh-rTW",
+    "keys": 269,
+    "missing": [],
+    "format_mismatch": []
+  }
+]

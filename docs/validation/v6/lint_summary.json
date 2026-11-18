@@ -1,0 +1,72 @@
+[
+  {
+    "severity": "Hint",
+    "issue": "AutoboxingStateCreation",
+    "count": 4
+  },
+  {
+    "severity": "Warning",
+    "issue": "AndroidGradlePluginVersion",
+    "count": 1
+  },
+  {
+    "severity": "Warning",
+    "issue": "ConstantLocale",
+    "count": 1
+  },
+  {
+    "severity": "Warning",
+    "issue": "GradleDependency",
+    "count": 3
+  },
+  {
+    "severity": "Warning",
+    "issue": "IconDuplicates",
+    "count": 5
+  },
+  {
+    "severity": "Warning",
+    "issue": "IconLauncherShape",
+    "count": 10
+  },
+  {
+    "severity": "Warning",
+    "issue": "IconLocation",
+    "count": 4
+  },
+  {
+    "severity": "Warning",
+    "issue": "ObsoleteSdkInt",
+    "count": 1
+  },
+  {
+    "severity": "Warning",
+    "issue": "OldTargetApi",
+    "count": 1
+  },
+  {
+    "severity": "Warning",
+    "issue": "PluralsCandidate",
+    "count": 1
+  },
+  {
+    "severity": "Warning",
+    "issue": "TrustAllX509TrustManager",
+    "count": 3
+  },
+  {
+    "severity": "Warning",
+    "issue": "TypographyEllipsis",
+    "count": 4
+  },
+  {
+    "severity": "Warning",
+    "issue": "UnusedResources",
+    "count": 34
+  },
+  {
+    "severity": "Warning",
+    "issue": "UseKtx",
+    "count": 7
+  }
+]

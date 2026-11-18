@@ -40,11 +40,11 @@ class MobileMenuCompletenessTest {
         compose.runOnUiThread { compose.activity.setContent {
             CompositionLocalProvider(LocalDensity provides Density(compose.activity.resources.displayMetrics.density, 2f)) {
                 MaterialTheme {
-                    PdfTopAppBar(PdfUiState(), vm, {}, {}, {}, {}, {}, {}, {}, {}, {})
+                    PdfTopAppBar(PdfUiState().copy(pages = listOf(com.takumayamada22.pdfutility.ui.PageState(thumbnail = null, originalIndex = 0))), vm, {}, {}, {}, {}, {}, {}, {}, {}, {})
                 }
             }
         } }
-        compose.onNodeWithContentDescription(compose.activity.getString(R.string.action_settings)).performClick()
+        compose.onNodeWithContentDescription(compose.activity.getString(R.string.start_more_actions)).performClick()
         labels.forEach { id ->
             compose.onNode(hasText(compose.activity.getString(id)) and hasClickAction()).performScrollTo().assertIsDisplayed()
         }
@@ -64,7 +64,7 @@ class MobileMenuCompletenessTest {
         compose.runOnUiThread { compose.activity.setContent {
             // The dedicated 1080px emulator becomes 1080dp wide: exercises the actual wide-layout branch.
             CompositionLocalProvider(LocalDensity provides Density(1f, 1f)) {
-                MaterialTheme { PdfTopAppBar(PdfUiState(), vm, {}, {}, {}, {}, {}, {}, {}, {}, {}) }
+                MaterialTheme { PdfTopAppBar(PdfUiState().copy(pages = listOf(com.takumayamada22.pdfutility.ui.PageState(thumbnail = null, originalIndex = 0))), vm, {}, {}, {}, {}, {}, {}, {}, {}, {}) }
             }
         } }
         menus.forEach { (menu, items) ->

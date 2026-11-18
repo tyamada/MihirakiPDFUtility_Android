@@ -25,9 +25,9 @@ data class SamplePdfItemState(
     val localFile: File? = null
 )
 
-/** Generated from the published Utility v2 manifest; stable IDs follow android-handoff.csv. */
+/** Published production-kit URLs; stable IDs and local filenames preserve existing downloads. */
 object SamplePdfCatalog {
-    private const val BASE_URL = "https://github.com/tyamada/MihirakiPDFUtility_Android/releases/download/sample-manga-v2/"
+    private const val BASE_URL = "https://github.com/tyamada/manga-prompt-kit/releases/download/manga-pdf-20261103-v1/"
 
     val items = listOf(
         SamplePdfItem(
@@ -216,7 +216,7 @@ object SamplePdfCatalog {
             id = "ep1_fil",
             title = "CLUB NG MGA PAGSUBOK - KABANATA 1 / MAPA NG PAHINGAHAN",
             fileName = "tameshibu_episode1_3_fil.pdf",
-            url = "${BASE_URL}tameshibu_episode1_3_fil.pdf",
+            url = "${BASE_URL}tameshibu_episode1_3_tl.pdf",
             fileSize = "24.5 MiB",
             languageCode = "fil",
             languageDisplayName = SamplePdfLanguages.displayName("fil"),
@@ -437,7 +437,7 @@ object SamplePdfCatalog {
             id = "ep2_fil",
             title = "CLUB NG MGA PAGSUBOK - KABANATA 2 / LUMUWANG ANG MESA",
             fileName = "tameshibu_episode2_3_fil.pdf",
-            url = "${BASE_URL}tameshibu_episode2_3_fil.pdf",
+            url = "${BASE_URL}tameshibu_episode2_3_tl.pdf",
             fileSize = "25.0 MiB",
             languageCode = "fil",
             languageDisplayName = SamplePdfLanguages.displayName("fil"),

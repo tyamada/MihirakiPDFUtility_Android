@@ -153,6 +153,7 @@
     <string name="btn_create_pdf_from_images">Crea PDF</string>
     <string name="menu_open_folder">Apri cartella</string>
     <string name="commemorative_badge_title">Badge Koyomi commemorativo del rilascio</string>
+    <string name="badge_acquired_heading">Badge ottenuto!</string>
     <string name="help_item_overview">Panoramica: Supporta 14 lingue, viste a doppia pagina affiancate (RTL/LTR) ed è particolarmente ottimizzato per libri scansionati e manga.</string>
     <string name="help_item_open_save">Apertura e salvataggio: Tocca l icona Apri (o Ctrl+O) per caricare un PDF. Usa Salva (Ctrl+S) per salvare tutte le pagine o Esporta selezionate (Ctrl+E) per esportare le pagine desiderate.</string>
     <string name="help_item_page_ops">Operazioni sulle pagine: Riordina le pagine tramite trascina e rilascia, ruota, elimina, inserisci pagine vuote, dividi doppie pagine (verticale/orizzontale) e ritaglia i margini.</string>
@@ -251,18 +252,24 @@
     <string name="sample_pdf_integrity_error">Impossibile verificare il PDF scaricato. Riprova.</string>
     <string name="tutorial_video_guide">Guarda la guida video in inglese</string>
 
-    <string name="toolbar_presets_title">Configurazione automatica della barra</string>
-    <string name="toolbar_standard">Standard</string>
-    <string name="toolbar_simple">Semplice</string>
-    <string name="toolbar_compact">Compatta</string>
-    <string name="toolbar_standard_desc">Icone e testo · fino a 2 righe · predefinita</string>
-    <string name="toolbar_simple_desc">Icone e testo · fino a 1 riga</string>
-    <string name="toolbar_compact_desc">Solo icone · fino a 2 righe</string>
-    <string name="toolbar_show_all">Mostra tutti i pulsanti</string>
-    <string name="toolbar_hide_all">Nascondi tutti i pulsanti</string>
-    <string name="toolbar_all_desc">Icone e testo · entrambi gli orientamenti</string>
-    <string name="toolbar_portrait">Verticale</string>
-    <string name="toolbar_landscape">Orizzontale</string>
-    <string name="toolbar_auto_note">I layout automatici si adattano alla larghezza disponibile e alle dimensioni del testo. La selezione manuale dei pulsanti personalizza solo l’orientamento selezionato.</string>
-    <string name="toolbar_custom_note">Le azioni nascoste restano disponibili nel menu. Tocca Applica per salvare le modifiche.</string>
+  <string name="toolbar_presets_title">Configurazione automatica della barra</string>
+  <string name="toolbar_standard">Standard</string>
+  <string name="toolbar_simple">Semplice</string>
+  <string name="toolbar_compact">Compatta</string>
+  <string name="toolbar_standard_desc">Icone e testo · fino a 2 righe · predefinita</string>
+  <string name="toolbar_simple_desc">Icone e testo · fino a 1 riga</string>
+  <string name="toolbar_compact_desc">Solo icone · fino a 2 righe</string>
+  <string name="toolbar_show_all">Mostra tutti i pulsanti</string>
+  <string name="toolbar_hide_all">Nascondi tutti i pulsanti</string>
+  <string name="toolbar_all_desc">Icone e testo · entrambi gli orientamenti</string>
+  <string name="toolbar_portrait">Verticale</string>
+  <string name="toolbar_landscape">Orizzontale</string>
+  <string name="toolbar_auto_note">I layout automatici si adattano alla larghezza disponibile e alle dimensioni del testo. La selezione manuale dei pulsanti personalizza solo l’orientamento selezionato.</string>
+  <string name="toolbar_custom_note">Le azioni nascoste restano disponibili nel menu. Tocca Applica per salvare le modifiche.</string>
+
+    <!-- Start screen guidance. -->
+    <string name="start_title">Inizia con un PDF</string>
+    <string name="start_description">Visualizza due pagine affiancate, dividi le pagine e unisci i PDF gratuitamente. Apri un PDF per vedere gli strumenti di modifica.</string>
+    <string name="start_open_pdf">Apri PDF</string>
+    <string name="start_more_actions">Altre azioni</string>
 </resources>

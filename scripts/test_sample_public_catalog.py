@@ -23,7 +23,15 @@ SamplePdfLanguage("zh_hk", "繁體中文（香港書面語）", "Chinese (Tradit
                                     author='こまいろ日和 / Komairo Hiyori', bytes=1048576 * episode,
                                     original_source_url='https://example.org/original',
                                     fixed_download_url=f'https://github.com/example/App/releases/download/sample-manga-v2/tameshibu_episode{episode}_{code}.pdf'))
+        for entry in entries:
+            entry.update(filename=entry['fixed_download_url'].rsplit('/', 1)[-1], sha256='a' * 64,
+                         pages=8, locale=entry['language_key'])
         (evidence / 'manifest.json').write_text(json.dumps(dict(pdf_count=6, entries=entries)))
+        published = root / 'docs/sample-releases/manga-pdf-20261103-v1'
+        published.mkdir()
+        (published / 'pdf-manifest.json').write_text(json.dumps(dict(
+            repository='tyamada/manga-prompt-kit', fixed_tag='manga-pdf-20261103-v1', pdf_count=len(entries),
+            entries=[dict(entry, new_download_url='https://github.com/tyamada/manga-prompt-kit/releases/download/manga-pdf-20261103-v1/' + entry['filename']) for entry in entries])))
         items = catalog.catalog_items(root)
         for name in ['README.md', 'README_ja.md']:
             (root / name).write_text('# App\n\n' + catalog.markdown_list(items) + '\nKeep https://example.org/legacy.pdf\n')
@@ -34,19 +42,8 @@ SamplePdfLanguage("zh_hk", "繁體中文（香港書面語）", "Chinese (Tradit
         return items
 
     def shared_fixture(self, root):
-        items = self.fixture(root)
-        old_path = root / 'docs/sample-releases/sample-manga-v2/manifest.json'
-        legacy = json.loads(old_path.read_text())
-        entries = []
-        for entry in legacy['entries']:
-            entry.update(filename=entry['fixed_download_url'].rsplit('/', 1)[-1], sha256='a' * 64,
-                         pages=8, locale=entry['language_key'])
-            entries.append(dict(entry, new_download_url='https://github.com/tyamada/manga-prompt-kit/releases/download/manga-pdf-20261103-v1/' + entry['filename']))
-        old_path.write_text(json.dumps(legacy))
-        path = root / 'docs/sample-releases/manga-pdf-20261103-v1/pdf-manifest.json'
-        path.parent.mkdir(parents=True)
-        path.write_text(json.dumps(dict(repository='tyamada/manga-prompt-kit', tag_candidate='manga-pdf-20261103-v1', pdf_count=6, entries=entries)))
-        return path
+        self.fixture(root)
+        return root / 'docs/sample-releases/manga-pdf-20261103-v1/pdf-manifest.json'
 
     def test_shared_html_and_legacy_readme_are_both_strictly_verified(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -92,7 +89,7 @@ SamplePdfLanguage("zh_hk", "繁體中文（香港書面語）", "Chinese (Tradit
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory); items = self.fixture(root); text = catalog.markdown_list(items)
             url = items[0]['url']
-            for wrong in [url.replace('sample-manga-v2', 'sample-manga-v1'), url.replace('/example/App/', '/example/Other/'),
+            for wrong in [url.replace('manga-pdf-20261103-v1', 'sample-manga-v2'), url.replace('/tyamada/manga-prompt-kit/', '/example/Other/'),
                           url.replace('_zh_hk.pdf', '_fil.pdf')]:
                 self.assert_invalid(root / 'README.md', text.replace(url, wrong), items, 'unexpected manga URLs')
 

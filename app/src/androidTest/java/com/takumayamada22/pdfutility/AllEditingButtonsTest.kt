@@ -57,7 +57,7 @@ class AllEditingButtonsTest {
 
     private fun clickAction(id: Int) {
         if (id == R.string.settings_password) {
-            compose.onNodeWithContentDescription(compose.activity.getString(R.string.action_settings))
+            compose.onNodeWithContentDescription(compose.activity.getString(R.string.start_more_actions))
                 .performClick()
             compose.onNodeWithText(compose.activity.getString(id))
                 .performScrollTo().performClick()

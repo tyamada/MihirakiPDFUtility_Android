@@ -35,9 +35,7 @@ class SupportDialogAccessibilityTest {
                 ) { MaterialTheme { PdfSupportDialog(vm) } }
             }
         }
-        compose.onNodeWithText(activity.getString(R.string.commemorative_badge_title))
-            .performScrollTo().assertIsDisplayed()
-        compose.onAllNodesWithText(activity.getString(R.string.action_purchase)).assertCountEquals(4)
+        compose.onAllNodesWithText(activity.getString(R.string.action_purchase)).assertCountEquals(3)
         compose.onNodeWithText(activity.getString(R.string.action_close))
             .performScrollTo().assertIsDisplayed().performClick()
     }

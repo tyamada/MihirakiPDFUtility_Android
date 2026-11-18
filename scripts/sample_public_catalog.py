@@ -37,7 +37,26 @@ def catalog_items(root, web=False):
     registry = next((root / 'app/src/main/java').rglob('SamplePdfLanguages.kt')).read_text()
     languages = {code: (native, english) for code, native, english in re.findall(
         r'SamplePdfLanguage\("([^"]+)", "([^"]+)", "([^"]+)"\)', registry)}
-    entries = manifest['entries']
+    published = json.loads((root / 'docs/sample-releases/manga-pdf-20261103-v1/pdf-manifest.json').read_text())
+    if published['repository'] != 'tyamada/manga-prompt-kit' or published['fixed_tag'] != 'manga-pdf-20261103-v1':
+        raise ValueError('Unexpected shared sample release')
+    by_id = {entry['sample_id']: entry for entry in published['entries']}
+    for old in manifest['entries']:
+        new = by_id.get(old['sample_id'])
+        if new is None:
+            raise ValueError('Published migration is missing a sample ID')
+        for key in ('bytes', 'sha256', 'title', 'episode', 'language_key', 'pages', 'locale'):
+            if new[key] != old[key]:
+                raise ValueError(f'Shared release differs from legacy: {old["sample_id"]}: {key}')
+        if new['filename'] != old.get('production_filename', old['filename']):
+            raise ValueError('Shared filename differs from recorded production filename')
+        expected = 'https://github.com/tyamada/manga-prompt-kit/releases/download/manga-pdf-20261103-v1/' + new['filename']
+        if new['new_download_url'] != expected:
+            raise ValueError('Unexpected shared download URL')
+    if len(by_id) != published['pdf_count'] or set(by_id) != {e['sample_id'] for e in manifest['entries']}:
+        raise ValueError('Published migration has missing or duplicate sample IDs')
+    entries = [dict(entry, fixed_download_url=by_id[entry['sample_id']]['new_download_url'])
+               for entry in manifest['entries']]
     if len(entries) != manifest['pdf_count'] or len({e['sample_id'] for e in entries}) != len(entries):
         raise ValueError('Manifest has missing or duplicate sample IDs')
     ordered = sorted(entries, key=lambda e: (languages[e['language_key']][1].casefold(), int(e['episode'])))
@@ -48,27 +67,6 @@ def catalog_items(root, web=False):
         items.append(dict(id=entry['sample_id'], url=entry['fixed_download_url'],
                           label=f"{entry['title']} — {language} — {entry['author']}", source=entry['original_source_url'],
                           size=f"{entry['bytes'] / 1048576:.1f} MiB"))
-    # Web pages use the shared release; legacy READMEs and app validation stay unchanged.
-    shared_path = root / 'docs/sample-releases/manga-pdf-20261103-v1/pdf-manifest.json'
-    if web and shared_path.is_file():
-        shared = json.loads(shared_path.read_text())
-        if shared['repository'] != 'tyamada/manga-prompt-kit' or shared['tag_candidate'] != 'manga-pdf-20261103-v1':
-            raise ValueError('Unexpected shared sample release')
-        newer = shared['entries']
-        by_id = {e['sample_id']: e for e in newer}
-        if shared['pdf_count'] != len(entries) or len(newer) != len(entries) or len(by_id) != len(entries):
-            raise ValueError('Shared manifest has missing or duplicate sample IDs')
-        for old in entries:
-            new = by_id[old['sample_id']]
-            for key in ('bytes', 'sha256', 'title', 'episode', 'language_key', 'pages', 'locale'):
-                if new[key] != old[key]:
-                    raise ValueError(f'Shared release differs from legacy: {old["sample_id"]}: {key}')
-            if new['filename'] != old.get('production_filename', old['filename']):
-                raise ValueError('Shared filename differs from recorded production filename')
-            expected = 'https://github.com/tyamada/manga-prompt-kit/releases/download/manga-pdf-20261103-v1/' + new['filename']
-            if new['new_download_url'] != expected:
-                raise ValueError('Unexpected shared download URL')
-        items = [dict(item, url=by_id[item['id']]['new_download_url']) for item in items]
     if len({x['url'] for x in items}) != len(items):
         raise ValueError('Manifest has duplicate URLs')
     return items
@@ -156,7 +154,6 @@ def verify_public_lists(root):
     items = catalog_items(root)
     files = []
     for path in target_pages(root):
-        items = catalog_items(root, web=path.suffix == '.html')
         count = validate_text(path, path.read_text(), items)
         files.append(dict(file=path.relative_to(root).as_posix(), manga_links=count))
     return dict(public_pages_checked=len(files), public_pdf_links=sum(x['manga_links'] for x in files),
@@ -211,7 +208,6 @@ def regenerate(root):
     items = catalog_items(root)
     changes = {}
     for path in target_pages(root):
-        items = catalog_items(root, web=path.suffix == '.html')
         text = path.read_text()
         if path.suffix == '.md':
             lines = text.splitlines(keepends=True)

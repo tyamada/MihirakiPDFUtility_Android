@@ -56,7 +56,7 @@ fun PdfTopAppBar(
                     .fillMaxWidth()
                     .padding(horizontal = 12.dp, vertical = 8.dp)
             ) {
-                if (isDesktopOrLarge) {
+                if (isDesktopOrLarge && uiState.pages.isNotEmpty()) {
                     PdfMenuBar(
                         uiState = uiState,
                         viewModel = viewModel,
@@ -86,7 +86,7 @@ fun PdfTopAppBar(
                         modifier = Modifier.weight(1f)
                     )
 
-                    if (!isDesktopOrLarge) {
+                    if (!isDesktopOrLarge || uiState.pages.isEmpty()) {
                         MobileOverflowMenu(
                             uiState = uiState,
                             viewModel = viewModel,
@@ -105,6 +105,7 @@ fun PdfTopAppBar(
 
                 Spacer(modifier = Modifier.height(4.dp))
 
+                if (uiState.pages.isNotEmpty()) {
                 FlowRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Start,
@@ -177,6 +178,7 @@ fun PdfTopAppBar(
                             }
                         }
                     }
+                }
                 }
             }
         }

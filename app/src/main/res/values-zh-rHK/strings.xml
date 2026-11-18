@@ -168,6 +168,7 @@
     <string name="btn_create_pdf_from_images">建立 PDF</string>
     <string name="menu_open_folder">開啟資料夾</string>
     <string name="commemorative_badge_title">發佈紀念 Koyomi 徽章</string>
+    <string name="badge_acquired_heading">已獲得徽章！</string>
     <string name="action_owned">已擁有</string>
     <string name="diagnostics_endurance_title">長時間壓力測試</string>
     <string name="diagnostics_endurance_desc">選擇測試時長，持續執行 14 部漫畫合併、1100 頁追加 9 次、編輯、旋轉及摺疊模擬。</string>
@@ -287,18 +288,24 @@
     <string name="sample_pdf_integrity_error">無法驗證已下載的PDF。請重試。</string>
     <string name="tutorial_video_guide">觀看英語影片指南</string>
 
-    <string name="toolbar_presets_title">自動設定工具列</string>
-    <string name="toolbar_standard">標準</string>
-    <string name="toolbar_simple">簡潔</string>
-    <string name="toolbar_compact">精簡</string>
-    <string name="toolbar_standard_desc">圖示及文字 · 最多2列 · 預設</string>
-    <string name="toolbar_simple_desc">圖示及文字 · 最多1列</string>
-    <string name="toolbar_compact_desc">僅圖示 · 最多2列</string>
-    <string name="toolbar_show_all">顯示所有按鈕</string>
-    <string name="toolbar_hide_all">隱藏所有按鈕</string>
-    <string name="toolbar_all_desc">圖示及文字 · 直向及橫向</string>
-    <string name="toolbar_portrait">直向</string>
-    <string name="toolbar_landscape">橫向</string>
-    <string name="toolbar_auto_note">自動配置會按可用寬度及文字大小調整。手動選擇按鈕時，只會自訂目前選取的螢幕方向。</string>
-    <string name="toolbar_custom_note">隱藏的操作仍可從選單使用。點選「套用」即可儲存變更。</string>
+  <string name="toolbar_presets_title">自動設定工具列</string>
+  <string name="toolbar_standard">標準</string>
+  <string name="toolbar_simple">簡潔</string>
+  <string name="toolbar_compact">精簡</string>
+  <string name="toolbar_standard_desc">圖示及文字 · 最多2列 · 預設</string>
+  <string name="toolbar_simple_desc">圖示及文字 · 最多1列</string>
+  <string name="toolbar_compact_desc">僅圖示 · 最多2列</string>
+  <string name="toolbar_show_all">顯示所有按鈕</string>
+  <string name="toolbar_hide_all">隱藏所有按鈕</string>
+  <string name="toolbar_all_desc">圖示及文字 · 直向及橫向</string>
+  <string name="toolbar_portrait">直向</string>
+  <string name="toolbar_landscape">橫向</string>
+  <string name="toolbar_auto_note">自動配置會按可用寬度及文字大小調整。手動選擇按鈕時，只會自訂目前選取的螢幕方向。</string>
+  <string name="toolbar_custom_note">隱藏的操作仍可從選單使用。點選「套用」即可儲存變更。</string>
+
+    <!-- Start screen guidance. -->
+    <string name="start_title">開啟 PDF，開始使用</string>
+    <string name="start_description">免費並排檢視兩頁、分割頁面及合併 PDF。開啟 PDF 即可顯示編輯工具。</string>
+    <string name="start_open_pdf">開啟 PDF</string>
+    <string name="start_more_actions">更多操作</string>
 </resources>

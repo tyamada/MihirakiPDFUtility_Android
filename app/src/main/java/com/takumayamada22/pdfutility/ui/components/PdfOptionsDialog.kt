@@ -164,6 +164,9 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
     val context = LocalContext.current
     val manager = viewModel.billing
     val purchasedTiers by manager.purchasedTiers.collectAsState()
+    val badgeManager = remember { com.takumayamada22.pdfutility.badge.BadgeManager(context) }
+    val acquiredBadgeIds by badgeManager.acquiredBadgeIds.collectAsState()
+    val acquiredBadges = com.takumayamada22.pdfutility.badge.BadgeCatalog.allBadges.filter { acquiredBadgeIds.contains(it.id) }
     val updateAvailable by viewModel.updateAvailable.collectAsState()
     LaunchedEffect(Unit) {
         viewModel.checkForUpdates()
@@ -228,6 +231,33 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
                         Text(stringResource(if (updateAvailable) R.string.update_app else R.string.check_for_updates))
                     }
 
+                    if (acquiredBadges.isNotEmpty()) {
+                        Spacer(Modifier.height(8.dp))
+                        HorizontalDivider(modifier = Modifier.fillMaxWidth())
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            stringResource(R.string.commemorative_badge_title),
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(Modifier.height(4.dp))
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            acquiredBadges.forEach { badge ->
+                                Image(
+                                    painter = painterResource(badge.iconRes),
+                                    contentDescription = stringResource(badge.titleRes),
+                                    modifier = Modifier.size(80.dp)
+                                )
+                            }
+                        }
+                        Spacer(Modifier.height(8.dp))
+                        HorizontalDivider(modifier = Modifier.fillMaxWidth())
+                        Spacer(Modifier.height(4.dp))
+                    }
+
                     if (purchasedTiers.isNotEmpty()) {
                         Spacer(Modifier.height(8.dp))
                         HorizontalDivider(modifier = Modifier.fillMaxWidth())
@@ -247,7 +277,6 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
                                     TipTier.BRONZE -> R.drawable.tip_bronze
                                     TipTier.SILVER -> R.drawable.tip_silver
                                     TipTier.GOLD -> R.drawable.tip_gold
-                                    TipTier.KOYOMI -> R.drawable.tameshibu_badge_koyomi
                                 }
                                 Image(
                                     painter = painterResource(iconRes),

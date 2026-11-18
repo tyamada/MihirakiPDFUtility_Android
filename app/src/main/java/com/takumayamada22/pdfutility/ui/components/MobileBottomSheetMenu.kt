@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.semantics.Role
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.ui.PdfUiState
 import com.takumayamada22.pdfutility.ui.PdfViewModel
@@ -38,8 +39,8 @@ internal fun MobileBottomSheetMenu(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
     Box {
-        IconButton(onClick = { sheetVisible = true }) {
-            Icon(Icons.Default.MoreVert, contentDescription = stringResource(R.string.action_settings))
+        IconButton(onClick = { sheetVisible = true }, enabled = !uiState.isLoading && !uiState.isAppending) {
+            Icon(Icons.Default.MoreVert, contentDescription = stringResource(R.string.start_more_actions))
         }
     }
 
@@ -144,7 +145,7 @@ private fun MenuItemRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(enabled = enabled, onClick = onClick)
+            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
             .padding(vertical = 10.dp, horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp),

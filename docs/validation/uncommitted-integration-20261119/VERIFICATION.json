@@ -1,0 +1,80 @@
+{
+  "date_jst": "2026-11-19",
+  "basis": "57d814c plus selected existing local source changes",
+  "included": [
+    "commemorative badge dialog and persistence implementation",
+    "document-first home and hidden actions tests",
+    "shared sample release URLs with stable existing cache names",
+    "sample release manifest and offline verification evidence",
+    "dated localization v4-v7 historical records and Play 1.2.12 verification"
+  ],
+  "integration_adjustments": [
+    "56 translated start-screen strings in 14 additional locales to satisfy locale completeness",
+    "retained origin main sample hash/URL drift guards and 10 catalog tests"
+  ],
+  "validation": {
+    "debug_build": "passed",
+    "android_test_apk_compile": "passed; no new device execution",
+    "unit_tests": 29,
+    "unit_failures": 0,
+    "lint_errors": 0,
+    "lint_warnings": 11,
+    "script_checks": [
+      {
+        "command": "python3 scripts/validate_localized_strings.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 scripts/validate_plurals.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 scripts/audit_english_residue.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 scripts/validate_store_metadata.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 scripts/validate_public_pages.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 scripts/verify_sample_release_assets.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 scripts/update_docs_and_listings.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 -m unittest discover -s scripts -p test_sample_public_catalog.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 -m unittest discover -s scripts -p test_run_device_tests_and_save.py",
+        "exit_code": 0
+      },
+      {
+        "command": "python3 -m unittest discover -s scripts -p test_update_docs_and_listings.py",
+        "exit_code": 0
+      }
+    ],
+    "sample_catalog_tests": 10
+  },
+  "limitations": [
+    "Translations not native-speaker or device-layout certified.",
+    "Historical v6/v7 reports are historical evidence and include old failures; current validation above supersedes them.",
+    "Existing Alpha29 AAB is unchanged and was built before the 56 added translations. No review submission performed during this integration."
+  ],
+  "retained_locally": [
+    "raw Japanese video outputs",
+    "generated PDF fixtures including 153MB stress fixture",
+    "unsubmitted production-access application drafts and older store preparation drafts",
+    "obsolete localization v2/v3 reports and Gemini handoff prompts",
+    "future badge proposal and historical release-note edits",
+    "production plan and linked closed-test planning edits"
+  ],
+  "source_worktree_preservation": "Full dirty-file hash inventory, binary tracked diff and copies of selected pre-integration files saved outside repository before synchronization."
+}

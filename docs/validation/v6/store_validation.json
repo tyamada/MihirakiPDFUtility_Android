@@ -1,0 +1,65 @@
+[
+  {
+    "file": "metadata_de.txt",
+    "title": 21,
+    "short": 73,
+    "full": 2063,
+    "valid": true
+  },
+  {
+    "file": "metadata_en.txt",
+    "title": 21,
+    "short": 79,
+    "full": 1634,
+    "valid": true
+  },
+  {
+    "file": "metadata_fr.txt",
+    "title": 21,
+    "short": 70,
+    "full": 2252,
+    "valid": true
+  },
+  {
+    "file": "metadata_it.txt",
+    "title": 18,
+    "short": 72,
+    "full": 1801,
+    "valid": true
+  },
+  {
+    "file": "metadata_ja.txt",
+    "title": 13,
+    "short": 38,
+    "full": 787,
+    "valid": true
+  },
+  {
+    "file": "metadata_ko.txt",
+    "title": 18,
+    "short": 42,
+    "full": 877,
+    "valid": true
+  },
+  {
+    "file": "metadata_zh-CN.txt",
+    "title": 18,
+    "short": 31,
+    "full": 597,
+    "valid": true
+  },
+  {
+    "file": "metadata_zh-HK.txt",
+    "title": 21,
+    "short": 39,
+    "full": 674,
+    "valid": true
+  },
+  {
+    "file": "metadata_zh-TW.txt",
+    "title": 21,
+    "short": 33,
+    "full": 683,
+    "valid": true
+  }
+]

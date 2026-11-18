@@ -186,6 +186,7 @@
     <string name="btn_create_pdf_from_images">Cipta PDF</string>
     <string name="menu_open_folder">Buka folder</string>
     <string name="commemorative_badge_title">Lencana Koyomi peringatan pelancaran</string>
+    <string name="badge_acquired_heading">Lencana diperoleh!</string>
     <string name="action_owned">Dimiliki</string>
     <string name="diagnostics_endurance_title">Ujian tekanan jangka panjang</string>
     <string name="diagnostics_endurance_desc">Pilih tempoh untuk ujian berterusan: gabung 14 manga, tambah 1100 halaman 9 kali, suntingan, putaran dan simulasi lipatan.</string>
@@ -289,18 +290,24 @@
     <string name="sample_pdf_integrity_error">PDF yang dimuat turun tidak dapat disahkan. Sila cuba lagi.</string>
     <string name="tutorial_video_guide">Tonton panduan video bahasa Inggeris</string>
 
-    <string name="toolbar_presets_title">Persediaan bar alat automatik</string>
-    <string name="toolbar_standard">Standard</string>
-    <string name="toolbar_simple">Mudah</string>
-    <string name="toolbar_compact">Padat</string>
-    <string name="toolbar_standard_desc">Ikon dan teks · sehingga 2 baris · lalai</string>
-    <string name="toolbar_simple_desc">Ikon dan teks · sehingga 1 baris</string>
-    <string name="toolbar_compact_desc">Ikon sahaja · sehingga 2 baris</string>
-    <string name="toolbar_show_all">Tunjukkan semua butang</string>
-    <string name="toolbar_hide_all">Sembunyikan semua butang</string>
-    <string name="toolbar_all_desc">Ikon dan teks · kedua-dua orientasi</string>
-    <string name="toolbar_portrait">Potret</string>
-    <string name="toolbar_landscape">Landskap</string>
-    <string name="toolbar_auto_note">Susun atur automatik menyesuaikan diri dengan lebar yang tersedia dan saiz teks. Pemilihan butang secara manual hanya menyesuaikan orientasi yang dipilih.</string>
-    <string name="toolbar_custom_note">Tindakan tersembunyi masih tersedia dalam menu. Ketik Gunakan untuk menyimpan perubahan.</string>
+  <string name="toolbar_presets_title">Persediaan bar alat automatik</string>
+  <string name="toolbar_standard">Standard</string>
+  <string name="toolbar_simple">Mudah</string>
+  <string name="toolbar_compact">Padat</string>
+  <string name="toolbar_standard_desc">Ikon dan teks · sehingga 2 baris · lalai</string>
+  <string name="toolbar_simple_desc">Ikon dan teks · sehingga 1 baris</string>
+  <string name="toolbar_compact_desc">Ikon sahaja · sehingga 2 baris</string>
+  <string name="toolbar_show_all">Tunjukkan semua butang</string>
+  <string name="toolbar_hide_all">Sembunyikan semua butang</string>
+  <string name="toolbar_all_desc">Ikon dan teks · kedua-dua orientasi</string>
+  <string name="toolbar_portrait">Potret</string>
+  <string name="toolbar_landscape">Landskap</string>
+  <string name="toolbar_auto_note">Susun atur automatik menyesuaikan diri dengan lebar yang tersedia dan saiz teks. Pemilihan butang secara manual hanya menyesuaikan orientasi yang dipilih.</string>
+  <string name="toolbar_custom_note">Tindakan tersembunyi masih tersedia dalam menu. Ketik Gunakan untuk menyimpan perubahan.</string>
+
+    <!-- Start screen guidance. -->
+    <string name="start_title">Mulakan dengan PDF</string>
+    <string name="start_description">Lihat dua halaman bersebelahan, pisahkan halaman dan gabungkan PDF secara percuma. Buka PDF untuk melihat alat penyuntingan.</string>
+    <string name="start_open_pdf">Buka PDF</string>
+    <string name="start_more_actions">Tindakan lain</string>
 </resources>

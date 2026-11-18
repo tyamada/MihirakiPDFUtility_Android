@@ -79,7 +79,6 @@ internal fun PdfSupportDialog(viewModel: PdfViewModel) {
                                     TipTier.BRONZE -> R.drawable.tip_bronze
                                     TipTier.SILVER -> R.drawable.tip_silver
                                     TipTier.GOLD -> R.drawable.tip_gold
-                                    TipTier.KOYOMI -> R.drawable.tameshibu_badge_koyomi
                                 }
                                 Image(
                                     painter = painterResource(iconRes),
@@ -88,7 +87,7 @@ internal fun PdfSupportDialog(viewModel: PdfViewModel) {
                                 )
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        text = if (tier == TipTier.KOYOMI) stringResource(R.string.commemorative_badge_title) else tier.name,
+                                        text = tier.name,
                                         style = MaterialTheme.typography.labelLarge
                                     )
                                     Text(priceText, style = MaterialTheme.typography.bodySmall)
@@ -113,7 +112,7 @@ internal fun PdfSupportDialog(viewModel: PdfViewModel) {
                     
                     when (val s = purchaseState) {
                         is PurchaseState.Success -> Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(stringResource(R.string.purchase_thanks, if (s.tier == TipTier.KOYOMI) "Koyomi" else s.tier.name), color = MaterialTheme.colorScheme.primary)
+                            Text(stringResource(R.string.purchase_thanks, s.tier.name), color = MaterialTheme.colorScheme.primary)
                             Text(stringResource(R.string.purchase_badge_shown), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
                         }
                         is PurchaseState.Cancelled -> Text(stringResource(R.string.purchase_cancelled), style = MaterialTheme.typography.bodySmall)
