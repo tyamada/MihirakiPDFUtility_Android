@@ -72,7 +72,7 @@
     "Warning": 11
   },
   "android_test_apk_compile": "PASS",
-  "device_validation": "Not performed for this candidate",
+  "device_validation": "PASS; see DEVICE_VERIFICATION.json",
   "script_checks": [
     {
       "command": "python3 scripts/validate_localized_strings.py",
@@ -117,5 +117,7 @@
   ],
   "source_base_commit": "413618964632e8ff401308f8a794aa18ec5fc0b0",
   "candidate_branch": "codex/release-1.2.14-30-20261119",
-  "artifact_location": "Local preparation output; AAB and APK are intentionally not committed."
+  "artifact_location": "Local preparation output; AAB and APK are intentionally not committed.",
+  "instrumentation_tests": 11,
+  "instrumentation_failures": 0
 }

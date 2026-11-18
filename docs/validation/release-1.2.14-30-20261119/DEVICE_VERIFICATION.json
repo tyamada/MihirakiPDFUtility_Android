@@ -1,0 +1,38 @@
+{
+  "date_jst": "2026-11-19",
+  "device": "Pixel 8a",
+  "android_version": "17",
+  "package": "com.takumayamada22.pdfutility.release30preview",
+  "variant": "Temporary debug acceptance build of the same production sources and resources as signed 30; different applicationId; Play installation not replaced",
+  "instrumentation_tests": 11,
+  "instrumentation_failures": 0,
+  "start_screen_layout_matrix": {
+    "additional_locales": 14,
+    "font_scales": [
+      1,
+      2
+    ],
+    "configuration_cases": [
+      "320x480dp portrait area",
+      "560x260dp landscape area"
+    ],
+    "total": 56,
+    "result": "PASS; title/description line extents and no ellipsis/height overflow; all four actions displayed via scrolling and clickable",
+    "limitation": "Configuration/density overrides inside Compose on physical device, not 56 physical rotations; native-speaker proofreading not performed"
+  },
+  "toolbar_layout_matrix": {
+    "languages": [
+      "ja",
+      "en"
+    ],
+    "cases": 24,
+    "result": "PASS"
+  },
+  "actual_activity_rotation": "PASS portrait-landscape-portrait; document and option draft survive recreation",
+  "process_restart": "PASS: one-page fixture and manually selected Save-only toolbar restored after force-stop/launch",
+  "badge": "PASS: initial dialog visible after tutorial; badge persists in version screen after process restart, Japanese and English",
+  "original_play_and_local_apk_hashes": "UNCHANGED",
+  "device_settings": "UNCHANGED after verification",
+  "temporary_packages": "UNINSTALLED",
+  "initial_test_failure": "TextLayoutResult.didOverflowWidth reported subpixel rounding for German title; screenshot showed complete text. Assertion now checks actual line extents with <=1 physical pixel rounding tolerance, no ellipsis and no height overflow. No production changes."
+}
