@@ -21,6 +21,16 @@ class SamplePdfRepository(private val context: Context) {
     private val cache = SamplePdfCache(sampleDirectory)
     private val downloads = SamplePdfDownloadManager(cache)
 
+    private val manifests = SamplePdfManifestStore(File(context.filesDir, "sample_pdf_catalog"))
+
+    /** Call on IO. Prefer a verified downloaded edition over automatic replacement. */
+    fun getCatalogWithFiles(): Pair<List<SamplePdfItem>, Map<String, File?>> =
+        resolveSamplePdfCatalog(manifests.read(), { manifests.previousCatalogs() }, cache::downloadedFile)
+
+    fun getCatalog(): List<SamplePdfItem> = getCatalogWithFiles().first
+
+    fun refreshCatalog() { manifests.refresh() }
+
     fun getDownloadedFile(item: SamplePdfItem): File? = cache.downloadedFile(item)
     fun isDownloaded(item: SamplePdfItem): Boolean = getDownloadedFile(item) != null
     fun deletePdf(item: SamplePdfItem): Boolean = cache.delete(item)

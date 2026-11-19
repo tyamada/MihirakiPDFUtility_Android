@@ -21,9 +21,10 @@ internal fun interface SamplePdfTransfer {
 
 internal class HttpsSamplePdfTransfer : SamplePdfTransfer {
     override suspend fun fetch(item: SamplePdfItem, target: File, progress: suspend (Float) -> Unit) {
+        SamplePdfEndpoints.requirePdf(item.url)
         var url = URL(item.url)
         for (redirect in 0..5) {
-            require(url.protocol == "https") { "Only HTTPS sample downloads are supported" }
+            SamplePdfEndpoints.requireRedirect(url.toString())
             val connection = url.openConnection() as HttpsURLConnection
             connection.instanceFollowRedirects = false
             connection.connectTimeout = 20_000

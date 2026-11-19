@@ -1,0 +1,51 @@
+{
+  "date_jst": "2026-11-19",
+  "application": "MihirakiPDFUtility_Android",
+  "base_commit": "a27f3e6c333f60d7c7301e3e4f98571d192fc18b",
+  "before": "Static Kotlin catalog and fixed Release PDF URLs only; no manifest fetch/parse/apply path",
+  "after": "Sample screen entry fetches latest JSON on IO; complete validation then atomic last-good metadata publication; UI resolves downloaded verified editions before applying newer PDF metadata",
+  "manifest_url": "https://raw.githubusercontent.com/tyamada/manga-prompt-kit/main/releases/pdf-manifest.json",
+  "fixed_manifest_url": "https://github.com/tyamada/manga-prompt-kit/releases/download/manga-pdf-20261103-v1/pdf-manifest.json",
+  "live_manifest_entries": 51,
+  "live_and_fixed_entries_identical": true,
+  "fixture_sha256": "4ffcdc152b18fe631b7db4f749907caa1ccf5888511137784d23774abf5d7ed4",
+  "validations": [
+    "strict JSON syntax, unique keys, depth<=32, UTF-8, maximum 2MiB",
+    "schema 1, expected repository/license/published status, count and all 51 existing IDs required",
+    "positive integer bytes/pages/episode, lowercase SHA256, supported stable locale/language",
+    "unique IDs and download URLs, safe filename, fixed GitHub Release HTTPS PDF URL only",
+    "initial and redirect hosts allowlisted; no HTTP, userinfo, custom port or fragment",
+    "whole-list rejection on failure; last good or bundled fallback; no partial adoption"
+  ],
+  "preservation": [
+    "Existing bundled IDs, language keys and local cache names unchanged",
+    "ep1_fil/ep2_fil keep local _fil.pdf names while download URL uses _tl.pdf",
+    "Old valid manifest snapshots retained so existing verified PDF editions remain usable after a future hash change",
+    "No automatic PDF deletion or body download; user must explicitly request PDF transfer",
+    "Previous catalog remains readable while network refresh is pending"
+  ],
+  "verification": {
+    "unit_tests": 37,
+    "unit_failures": 0,
+    "lint_errors": 0,
+    "lint_warnings": 11,
+    "build": "Debug APK and Android test APK compile passed",
+    "device": "Pixel 8a / Android 17 / separate manifestpreview applicationId",
+    "device_tests": 1,
+    "device_result": "PASS live latest JSON + Filipino episode1 HTTPS download + size/header/SHA256 + cached store recreation + offline failed-transport fallback + no re-download + invalid-schema preservation",
+    "offline_limitation": "Simulated transport failure, not airplane mode or physical network disconnection",
+    "play_local_and_settings": "Before/after exact match; temporary packages removed",
+    "native_json_parser": "Android standard org.json in production; org.json 20260814 is JVM-test-only"
+  },
+  "distribution": {
+    "version_bumped": false,
+    "signed_aab_rebuilt": false,
+    "store_changes": false,
+    "current_1_2_14_30_aab_contains_this_change": false
+  },
+  "publication": {
+    "local_commit": "Prepared after verification",
+    "pushed": false,
+    "note": "Local source integration only; no remote push or store submission in this task"
+  }
+}

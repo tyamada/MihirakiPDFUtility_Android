@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.takumayamada22.pdfutility.data.DownloadState
-import com.takumayamada22.pdfutility.data.SamplePdfCatalog
 import com.takumayamada22.pdfutility.data.SamplePdfItem
 import com.takumayamada22.pdfutility.data.SamplePdfItemState
 import com.takumayamada22.pdfutility.data.SamplePdfRepository
@@ -17,6 +16,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -45,7 +45,7 @@ class SamplePdfViewModel(application: Application) : AndroidViewModel(applicatio
 
     // Full hashes are checked on refresh, not on each download progress tick.
     private val verifiedFiles = _refreshTrigger.map {
-        SamplePdfCatalog.items.associate { item -> item.id to repository.getDownloadedFile(item) }
+        repository.getCatalogWithFiles()
     }.flowOn(Dispatchers.IO)
 
     val uiState: StateFlow<SamplePdfUiState> = combine(
@@ -54,9 +54,10 @@ class SamplePdfViewModel(application: Application) : AndroidViewModel(applicatio
         _cellularDialogItem,
         _sortOrder,
         verifiedFiles
-    ) { states, lang, dialogItem, sortOrder, files ->
-        val allLangs = SamplePdfCatalog.getAvailableLanguages()
-        val mappedItems = SamplePdfCatalog.items.map { item ->
+    ) { states, lang, dialogItem, sortOrder, catalog ->
+        val (items, files) = catalog
+        val allLangs = SamplePdfLanguages.entries.filter { language -> items.any { it.languageCode == language.code } }.map { it.code }
+        val mappedItems = items.map { item ->
             val dlState = states[item.id] ?: DownloadState.Idle
             val localFile = files[item.id]
             val isDownloaded = localFile != null
@@ -92,6 +93,16 @@ class SamplePdfViewModel(application: Application) : AndroidViewModel(applicatio
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = SamplePdfUiState()
     )
+
+    private var manifestRefreshJob: Job? = null
+
+    fun refreshCatalog() {
+        if (manifestRefreshJob?.isActive == true) return
+        manifestRefreshJob = viewModelScope.launch {
+            withContext(Dispatchers.IO) { repository.refreshCatalog() }
+            _refreshTrigger.value++
+        }
+    }
 
     private fun getDefaultLanguage(): String {
         return SamplePdfLanguages.defaultCode(Locale.getDefault())

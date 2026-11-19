@@ -30,6 +30,7 @@ fun SamplePdfScreen(
     onOpenPdf: (Uri) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    LaunchedEffect(viewModel) { viewModel.refreshCatalog() }
     var expanded by remember { mutableStateOf(false) }
 
     val allLabel = stringResource(R.string.all_languages)
