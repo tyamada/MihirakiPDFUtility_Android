@@ -308,4 +308,6 @@
     <string name="start_description">免費並排檢視兩頁、分割頁面及合併 PDF。開啟 PDF 即可顯示編輯工具。</string>
     <string name="start_open_pdf">開啟 PDF</string>
     <string name="start_more_actions">更多操作</string>
+    <string name="koyomi_badge_description">一枚印有 Koyomi 的免費發佈紀念徽章。於2026年11月1日至2027年12月31日（日本標準時間，JST）期間檢查領取資格時，會自動授予。取得後，即使活動期結束亦會保留。此徽章與購買無關。</string>
+    <string name="badge_open_details">查看%1$s的詳情</string>
 </resources>

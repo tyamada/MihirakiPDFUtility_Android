@@ -310,4 +310,6 @@
     <string name="start_description">Lihat dua halaman bersebelahan, pisahkan halaman dan gabungkan PDF secara percuma. Buka PDF untuk melihat alat penyuntingan.</string>
     <string name="start_open_pdf">Buka PDF</string>
     <string name="start_more_actions">Tindakan lain</string>
+    <string name="koyomi_badge_description">Lencana percuma yang menampilkan Koyomi sempena pelancaran. Diberikan secara automatik apabila kelayakan disemak antara 1 November 2026 hingga 31 Disember 2027 (Waktu Piawai Jepun, JST). Setelah diperoleh, lencana akan kekal walaupun tempoh tersebut tamat. Lencana ini berasingan daripada pembelian.</string>
+    <string name="badge_open_details">Lihat butiran %1$s</string>
 </resources>

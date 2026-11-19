@@ -164,7 +164,8 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
     val context = LocalContext.current
     val manager = viewModel.billing
     val purchasedTiers by manager.purchasedTiers.collectAsState()
-    val badgeManager = remember { com.takumayamada22.pdfutility.badge.BadgeManager(context) }
+    val badgeManager = viewModel.badges
+    var badgeDetailId by rememberSaveable { mutableStateOf<String?>(null) }
     val acquiredBadgeIds by badgeManager.acquiredBadgeIds.collectAsState()
     val acquiredBadges = com.takumayamada22.pdfutility.badge.BadgeCatalog.allBadges.filter { acquiredBadgeIds.contains(it.id) }
     val updateAvailable by viewModel.updateAvailable.collectAsState()
@@ -241,16 +242,9 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(Modifier.height(4.dp))
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
+                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                             acquiredBadges.forEach { badge ->
-                                Image(
-                                    painter = painterResource(badge.iconRes),
-                                    contentDescription = stringResource(badge.titleRes),
-                                    modifier = Modifier.size(80.dp)
-                                )
+                                BadgeDetailsButton(badge = badge, onOpen = { badgeDetailId = badge.id })
                             }
                         }
                         Spacer(Modifier.height(8.dp))
@@ -349,6 +343,10 @@ internal fun PdfVersionDialog(viewModel: PdfViewModel) {
             }
         }
     }
+    acquiredBadges.firstOrNull { it.id == badgeDetailId }?.let { badge ->
+        BadgeDetailsDialog(badge, onDismiss = { badgeDetailId = null })
+    }
+
 }
 
 @Composable

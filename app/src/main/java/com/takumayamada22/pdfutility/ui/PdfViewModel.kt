@@ -39,6 +39,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -322,6 +323,21 @@ class PdfViewModel(
     private val thumbnailProvider: ThumbnailProvider = ThumbnailProvider(application),
     val billing: BillingManager = BillingManager(application)
 ) : AndroidViewModel(application) {
+    val badges = com.takumayamada22.pdfutility.badge.BadgeManager(application)
+    private val _pendingBadgeNotifications = MutableStateFlow<List<com.takumayamada22.pdfutility.badge.CommemorativeBadge>>(emptyList())
+    val pendingBadgeNotifications = _pendingBadgeNotifications.asStateFlow()
+
+    fun checkCommemorativeBadges() {
+        viewModelScope.launch {
+            val newlySaved = withContext(Dispatchers.IO) { badges.checkAndClaimBadges() }
+            _pendingBadgeNotifications.update { pending -> (pending + newlySaved).distinctBy { it.id } }
+        }
+    }
+
+    fun dismissBadgeNotification(id: String) {
+        _pendingBadgeNotifications.update { pending -> pending.filterNot { it.id == id } }
+    }
+
     private val appUpdateManager = AppUpdateManagerFactory.create(application)
     private val _updateAvailable = MutableStateFlow(false)
     val updateAvailable: StateFlow<Boolean> = _updateAvailable.asStateFlow()

@@ -192,4 +192,6 @@
     <string name="start_description">Xem hai trang cạnh nhau, chia trang và gộp các tệp PDF miễn phí. Mở tệp PDF để xem các công cụ chỉnh sửa.</string>
     <string name="start_open_pdf">Mở PDF</string>
     <string name="start_more_actions">Thao tác khác</string>
+    <string name="koyomi_badge_description">Huy hiệu miễn phí có hình Koyomi để kỷ niệm ngày phát hành. Huy hiệu được trao tự động khi điều kiện nhận được kiểm tra trong khoảng từ ngày 1 tháng 11 năm 2026 đến hết ngày 31 tháng 12 năm 2027 (giờ chuẩn Nhật Bản, JST). Sau khi nhận, huy hiệu vẫn được giữ lại ngay cả khi thời gian này kết thúc. Huy hiệu này độc lập với các giao dịch mua.</string>
+    <string name="badge_open_details">Xem chi tiết về %1$s</string>
 </resources>

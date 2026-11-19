@@ -245,4 +245,6 @@
     <string name="start_description">Zwei Seiten nebeneinander anzeigen, Seiten teilen und PDFs kostenlos zusammenführen. Öffnen Sie eine PDF, um die Bearbeitungswerkzeuge anzuzeigen.</string>
     <string name="start_open_pdf">PDF öffnen</string>
     <string name="start_more_actions">Weitere Aktionen</string>
+    <string name="koyomi_badge_description">Ein kostenloses Badge mit Koyomi zur Erinnerung an die Veröffentlichung. Es wird automatisch vergeben, wenn die Berechtigung zwischen dem 1. November 2026 und dem 31. Dezember 2027 (japanische Standardzeit, JST) geprüft wird. Nach dem Erhalt bleibt es auch nach Ablauf dieses Zeitraums erhalten. Es ist von Käufen unabhängig.</string>
+    <string name="badge_open_details">Details zu %1$s anzeigen</string>
 </resources>

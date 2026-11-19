@@ -1,0 +1,100 @@
+{
+  "date_jst": "2026-11-19",
+  "base_commit": "874aea6416de9f5105011afd79f4614f355c5867",
+  "scope": "Android Utility only; preserve sample-manifest implementation and existing Alpha/AAB artifacts",
+  "eligibility": {
+    "source": "device current Instant at eligibility check, not store first-acquisition/account identity",
+    "start_inclusive_utc": "2026-10-31T15:00:00Z",
+    "start_inclusive_jst": "2026-11-01 00:00:00+09:00",
+    "end_exclusive_utc": "2027-12-31T15:00:00Z",
+    "end_exclusive_jst": "2028-01-01 00:00:00+09:00",
+    "end_exclusive_unix_seconds": 1830265200,
+    "retention": "saved IDs remain after deadline; missing state after deadline does not regrant via store account"
+  },
+  "storage": {
+    "preferences": "commemorative_badge_prefs",
+    "key": "acquired_badge_ids",
+    "koyomi_id": "koyomi_commemorative",
+    "save": "commit success before publishing ownership/notification; rollback in-memory map on failed commit",
+    "unknown_saved_ids": "retained",
+    "billing": "not used for free grant; purchased_tiers and other billing_prefs untouched"
+  },
+  "notification": {
+    "type": "existing acquisition dialog, manual close in every accessibility mode; no timer or explicit focus request",
+    "gate": "resumed, document-free start screen, no busy operation, tutorial, sheet, dialog, error or picker foreground transition",
+    "pending_state": "retained in ViewModel for current process; not replayed after process death; ownership is persisted independently",
+    "dismissal": "clears notification queue only; never removes acquired IDs"
+  },
+  "detail_ui": {
+    "entry": "version/app info acquired badge card; localized Button role and click label",
+    "content": "larger image, full name, description, fixed visible close action; capped-height vertically scrollable content",
+    "locales": "two new keys across all 16 resource variants",
+    "support_screen_review": "only paid tip products already exist there; no preexisting free Koyomi route. No new purchase-adjacent route introduced."
+  },
+  "verification": {
+    "unit_tests": {
+      "tests": 55,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "badge_specific_tests": 20,
+    "jvm_android_ui_cases": 8,
+    "jvm_ui_conditions": "ja/en x portrait320x480dp/landscape640x280dp x fontScale1/2; Native Robolectric graphics; actual TextLayoutResult confirms scale, no ellipsis/height overflow, line bounds, scroll and close access",
+    "semantics": "JA/EN button role, localized click action, title-description-close semantic order and click/close checked",
+    "notification_retention": "10-second virtual time no auto-dismiss; closing then manager recreation at deadline keeps saved ID and does not notify again",
+    "storage_tests": "real JVM Android SharedPreferences recreation; injected failed commit including already-changed in-memory map rollback; existing purchased tiers preserved",
+    "clock_tests": "boundary nanoseconds, start inclusive/end exclusive, four zones using injected Clock; no real clock changes",
+    "builds": "assembleDebug and assembleDebugAndroidTest passed; no installation",
+    "lint": {
+      "Warning": 11
+    },
+    "intentional_suppression": "ApplySharedPref/UseKtx only on saveIds: synchronous commit result and rollback are mandatory; all calls from UI routed through IO",
+    "scripts": [
+      {
+        "script": "validate_localized_strings.py",
+        "exit_code": 0
+      },
+      {
+        "script": "validate_plurals.py",
+        "exit_code": 0
+      },
+      {
+        "script": "audit_english_residue.py",
+        "exit_code": 0
+      },
+      {
+        "script": "validate_store_metadata.py",
+        "exit_code": 0
+      },
+      {
+        "script": "validate_public_pages.py",
+        "exit_code": 0
+      },
+      {
+        "script": "verify_sample_release_assets.py",
+        "exit_code": 0
+      },
+      {
+        "script": "update_docs_and_listings.py",
+        "exit_code": 0
+      }
+    ]
+  },
+  "not_performed": [
+    "No real-device or emulator installation or operation",
+    "No actual TalkBack service, speech, gesture focus traversal or device rotation",
+    "Native-speaker review of added translations not performed",
+    "JVM screenshot capture timed out in this Compose/Robolectric combination; not marked passed; UI acceptance uses native text layout and semantics instead"
+  ],
+  "forbidden_operations_performed": {
+    "installation": false,
+    "purchase": false,
+    "redeem_or_code_issue": false,
+    "device_clock_or_user_data_change": false,
+    "upload_or_submission_or_publication": false,
+    "push": false,
+    "model_api_or_billing_configuration": false
+  },
+  "distribution": "Source only. Version remains 1.2.14 (30), existing signed AAB unchanged. New policy is not retroactively present in delivered Alpha30."
+}

@@ -287,4 +287,6 @@
     <string name="toolbar_landscape">横向き（Landscape）</string>
     <string name="toolbar_auto_note">自動設定は表示幅・文字サイズに合わせて調整します。手動で選ぶと、選択中の向きだけ個別設定に切り替わります。</string>
     <string name="toolbar_custom_note">非表示の操作もメニューから利用できます。「適用」で変更を保存します。</string>
+    <string name="koyomi_badge_description">こよみをあしらった無料の製品版リリース記念バッジです。2026年11月1日から2027年12月31日まで（日本標準時）に取得条件の確認が行われると、自動的に付与されます。一度取得すると、期間終了後も保持されます。購入とは別のものです。</string>
+    <string name="badge_open_details">%1$sの詳細を表示</string>
 </resources>

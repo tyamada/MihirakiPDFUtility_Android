@@ -192,4 +192,6 @@
     <string name="start_description">Visualize duas páginas lado a lado, divida páginas e una PDFs gratuitamente. Abra um PDF para ver as ferramentas de edição.</string>
     <string name="start_open_pdf">Abrir PDF</string>
     <string name="start_more_actions">Mais ações</string>
+    <string name="koyomi_badge_description">Uma insígnia gratuita com Koyomi para comemorar o lançamento. É concedida automaticamente quando a elegibilidade é verificada entre 1 de novembro de 2026 e 31 de dezembro de 2027 (horário padrão do Japão, JST). Depois de obtida, é mantida mesmo após o fim do período. É independente das compras.</string>
+    <string name="badge_open_details">Ver detalhes de %1$s</string>
 </resources>

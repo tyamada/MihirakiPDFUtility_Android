@@ -245,4 +245,6 @@
     <string name="start_description">Affichez deux pages côte à côte, divisez les pages et fusionnez des PDF gratuitement. Ouvrez un PDF pour afficher les outils de modification.</string>
     <string name="start_open_pdf">Ouvrir un PDF</string>
     <string name="start_more_actions">Autres actions</string>
+    <string name="koyomi_badge_description">Un badge gratuit à l’effigie de Koyomi pour commémorer la sortie. Il est attribué automatiquement lorsque l’éligibilité est vérifiée entre le 1er novembre 2026 et le 31 décembre 2027 (heure normale du Japon, JST). Une fois obtenu, il est conservé même après la fin de cette période. Il est indépendant des achats.</string>
+    <string name="badge_open_details">Voir les détails de %1$s</string>
 </resources>

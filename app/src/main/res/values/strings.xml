@@ -316,4 +316,6 @@
     <string name="toolbar_landscape">Landscape</string>
     <string name="toolbar_auto_note">Automatic layouts adapt to available width and text size. Selecting a button manually customizes only the selected orientation.</string>
     <string name="toolbar_custom_note">Hidden actions remain available from the menu. Changes are saved with Apply.</string>
+    <string name="koyomi_badge_description">A free release commemorative badge featuring Koyomi. Awarded automatically when eligibility is checked from November 1, 2026 through December 31, 2027 (JST). Once acquired, it remains after the period ends. This is separate from purchases.</string>
+    <string name="badge_open_details">View details for %1$s</string>
 </resources>

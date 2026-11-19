@@ -192,4 +192,6 @@
     <string name="start_description">दुई पृष्ठ सँगसँगै हेर्नुहोस्, पृष्ठहरू विभाजन गर्नुहोस् र PDF फाइलहरू निःशुल्क मर्ज गर्नुहोस्। सम्पादन उपकरणहरू हेर्न PDF खोल्नुहोस्।</string>
     <string name="start_open_pdf">PDF खोल्नुहोस्</string>
     <string name="start_more_actions">थप कार्यहरू</string>
+    <string name="koyomi_badge_description">Koyomi को चित्र भएको विमोचनको सम्झनामा दिइने निःशुल्क ब्याज। २०२६ नोभेम्बर १ देखि २०२७ डिसेम्बर ३१ सम्म (जापान मानक समय, JST) योग्यता जाँच हुँदा यो स्वतः प्रदान गरिन्छ। एक पटक प्राप्त भएपछि, अवधि सकिएपछि पनि यो रहिरहन्छ। यो खरिदबाट अलग हो।</string>
+    <string name="badge_open_details">%1$s का विवरण हेर्नुहोस्</string>
 </resources>

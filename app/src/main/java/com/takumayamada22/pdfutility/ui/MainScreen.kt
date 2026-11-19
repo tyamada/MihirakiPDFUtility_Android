@@ -64,25 +64,25 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
         }
     }
 
-    var pendingBadge by remember { mutableStateOf<com.takumayamada22.pdfutility.badge.CommemorativeBadge?>(null) }
-
-    LaunchedEffect(uiState.showTutorial) {
-        if (!uiState.showTutorial) {
-            val badgeManager = com.takumayamada22.pdfutility.badge.BadgeManager(context)
-            val claimed = badgeManager.checkAndClaimBadges()
-            if (claimed.isNotEmpty()) {
-                pendingBadge = claimed.first()
-            }
+    val pendingBadges by viewModel.pendingBadgeNotifications.collectAsState()
+    val lifecycleState by androidx.lifecycle.compose.LocalLifecycleOwner.current.lifecycle.currentStateFlow.collectAsState()
+    LaunchedEffect(viewModel) { viewModel.checkCommemorativeBadges() }
+    val badgeModalOpen = uiState.showTutorial || uiState.activeSettingsDialog != null || uiState.showSettingsMenu ||
+        uiState.showPasswordDialog || uiState.showCcByDialog || uiState.showSamplePdfScreen ||
+        uiState.previewPageIndex != null || uiState.folderImageState.showFolderImageDialog ||
+        showDeleteConfirmation || showSplitDialog || showCropDialog || errorText != null
+    if (com.takumayamada22.pdfutility.badge.canPresentBadgeNotification(
+            lifecycleState.isAtLeast(androidx.lifecycle.Lifecycle.State.RESUMED),
+            uiState.pages.isNotEmpty() || uiState.fileName != null,
+            uiState.isLoading || uiState.isAppending || uiState.folderImageState.isLoadingFolder || enduranceProgress != null,
+            badgeModalOpen)) {
+        pendingBadges.firstOrNull()?.let { badge ->
+            com.takumayamada22.pdfutility.ui.components.BadgeAcquiredDialog(
+                badge = badge,
+                onDismiss = { viewModel.dismissBadgeNotification(badge.id) }
+            )
         }
     }
-
-    pendingBadge?.let { badge ->
-        com.takumayamada22.pdfutility.ui.components.BadgeAcquiredDialog(
-            badge = badge,
-            onDismiss = { pendingBadge = null }
-        )
-    }
-
 
 
     Scaffold(
