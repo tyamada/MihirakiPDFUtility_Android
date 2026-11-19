@@ -1,0 +1,43 @@
+{
+  "version": "1.2.14",
+  "versionCode": 30,
+  "device_verification": "PASS",
+  "main_pushed": "8283562",
+  "uploaded": true,
+  "submitted": true,
+  "pending_approval": null,
+  "old_release_id": 20,
+  "old_release_status": "not yet submitted",
+  "original_54_files_preserved": true,
+  "old_release_29_discarded_with_explicit_confirmation": true,
+  "release_id": 21,
+  "release_notes_locales": [
+    "ja-JP",
+    "en-US",
+    "ko-KR",
+    "zh-CN"
+  ],
+  "rollout_percent": 100,
+  "country_region_count": 178,
+  "supported_device_reduction": 0,
+  "warnings": [
+    "Native debug symbols not uploaded"
+  ],
+  "blocking_errors": 0,
+  "quick_check": "Completed before submission; submit action then displayed a further automatic-check indicator under review changes",
+  "aab_sha256": "14b28ccbf1f08c9bcc90e24a140ff93265dc5b25472dafb0fd73149828def596",
+  "submission_id": 22,
+  "submitted_at_jst": "2026-11-19 08:59 JST (Console minute precision)",
+  "review_status": "審査中",
+  "last_checked_jst": "2026-11-19T09:01:15+09:00",
+  "published_version_code": 28,
+  "version30_published": false,
+  "rollout_after_approval": "Managed publishing OFF; planned 100% Alpha rollout",
+  "github_ci": {
+    "commit": "82835621e69d9fcc527f5919d3970066f0194018",
+    "status": "success",
+    "url": "https://github.com/tyamada/MihirakiPDFUtility_Android/actions/runs/44423250587"
+  },
+  "remaining": "Google review approval and actual Alpha publication not yet confirmed",
+  "internal_or_production_changed": false
+}
