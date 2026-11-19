@@ -1,0 +1,105 @@
+{
+  "version_name": "1.2.15",
+  "version_code": 31,
+  "base_commit": "9c3ace4ffd97c77cbfa2fe611ece4c88fd9d63b6",
+  "includes_commits": [
+    "874aea6",
+    "dc08e14"
+  ],
+  "package": "com.takumayamada22.pdfutility",
+  "bundletool": "PASS",
+  "signed": "PASS",
+  "upload_key_sha1": "73:37:6B:CF:9B:48:57:7F:F5:E9:7D:C5:3E:AA:09:A7:DE:68:9C:1E",
+  "debuggable": false,
+  "apk_16kb_zip_alignment": "PASS",
+  "native_elf_16kb_alignment": [
+    {
+      "name": "base/lib/arm64-v8a/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/armeabi-v7a/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/x86/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/x86_64/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    }
+  ],
+  "unit_tests": {
+    "tests": 55,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "Warning": 12
+  },
+  "artifacts": [
+    {
+      "file": "MihirakiPDFUtility-1.2.15-31-release.aab",
+      "bytes": 18515320,
+      "sha256": "321d9e7474805a7f5c58dd6a58d2cbf6a73e82d40b15a9c50b6d7b99cbd86ae0"
+    },
+    {
+      "file": "MihirakiPDFUtility-1.2.15-31-release.apk",
+      "bytes": 15387815,
+      "sha256": "f9bed20c5716e2643c69bf5429d3d8661cd48f6fb9fbaec53825f0a8f2ba71a0"
+    }
+  ],
+  "original_47_files_sha256_unchanged": true,
+  "installed": false,
+  "store_operated": false,
+  "uploaded": false,
+  "submitted": false,
+  "remaining": [
+    "Real device/TalkBack validation not performed for this candidate (installation prohibited)",
+    "Play Console draft and checks not inspected (store operations prohibited)"
+  ],
+  "lint_debug": {
+    "Warning": 12
+  },
+  "lint_warning_breakdown": {
+    "OldTargetApi": 1,
+    "AndroidGradlePluginVersion": 1,
+    "GradleDependency": 7,
+    "TrustAllX509TrustManager": 3
+  },
+  "tls_r8_target_classes_removed": true,
+  "jar_payload_entries_verified": 889,
+  "jar_signing_warnings": [
+    "Self-signed upload certificate; no timestamp",
+    "JDK JarInputStream manifest ordering warning; JarFile fully verified all 889 payload entries"
+  ],
+  "script_checks": "10 commands PASS",
+  "candidate_source": "/Volumes/ChatGPT-Work-SSD/utility-release-1.2.15-31-20261120",
+  "compiled_badge_translations": {
+    "strings": 32,
+    "all_match": true
+  },
+  "main_integration": {
+    "scope": "Version, README, four localized release notes, verification records only",
+    "app_source_matches_built_candidate": true,
+    "existing_uncommitted_files_preserved": 47
+  }
+}

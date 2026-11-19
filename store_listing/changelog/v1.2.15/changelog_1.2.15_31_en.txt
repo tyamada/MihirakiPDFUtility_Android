@@ -1,0 +1,4 @@
+v1.2.15
+- Load the latest sample PDF catalog, with saved catalogs and PDFs available when offline.
+- Automatically receive the free Koyomi badge through December 31, 2027 (Japan time). Acquired badges remain after the deadline.
+- Dismiss the acquisition dialog manually and view an enlarged badge and its description in App info.

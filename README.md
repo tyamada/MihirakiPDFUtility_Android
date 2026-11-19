@@ -15,7 +15,7 @@ These videos are in English and open on YouTube.
 
 ## Release candidate
 
-Candidate: <!-- current-app-version:start -->1.2.14 (30)<!-- current-app-version:end -->. This update includes all 51 sample manga PDFs from sample-manga-v2, with Latin American Spanish, European Portuguese and Hong Kong standard written Chinese editions. Downloads are verified before use, and older PDFs are retained. Closed-test distribution is being prepared.
+Candidate: <!-- current-app-version:start -->1.2.15 (31)<!-- current-app-version:end -->. This candidate loads the latest validated sample catalog, falling back to the saved catalog or bundled samples when unavailable. Verified downloaded PDFs are retained. The free Koyomi badge is awarded automatically through December 31, 2027 (JST); acquired badges remain after the deadline. Its notification is dismissed manually, and App info shows an enlarged badge and description. This candidate has not been uploaded to Alpha.
 
 The samples cover 14 languages and 17 language/region variants, with three episodes each. Native and English region names are sorted by English name. Episode order is retained after restarting the app.
 
