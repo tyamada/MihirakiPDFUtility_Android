@@ -1,0 +1,4 @@
+v1.2.10
+- Decoupled the Release Commemorative Koyomi Badge from in-app purchases.
+- Automatically claim the Koyomi badge on app startup starting November 1, 2026, with a confirmation dialog when the badge is first claimed.
+- Added badge display on the version screen and enhanced architecture for future commemorative badges.
