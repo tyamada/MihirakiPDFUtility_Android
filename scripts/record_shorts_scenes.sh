@@ -10,12 +10,16 @@ import os
 import subprocess
 import sys
 import time
+import uuid
 from pathlib import Path
+from sample_pdf_inputs import resolve_samples, stage_device_file
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS_DIR = ROOT / 'shorts_raw_assets'
 OUT_DIR = ROOT / 'shorts_output'
-TESTDATA_DIR = ROOT / 'testdata'
+SAMPLE_INPUTS = {}
+SAMPLE_REMOTE_DIR = '/data/local/tmp/utility-shorts-' + uuid.uuid4().hex
+DEVICE = None
 LOG_FILE = OUT_DIR / 'shorts_recording_debug.log'
 
 def log(msg):
@@ -25,7 +29,7 @@ def log(msg):
         f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')} [RecordingScript]] {msg}\n")
 
 def run_adb(cmd, timeout=120):
-    res = subprocess.run(["adb"] + cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=timeout)
+    res = subprocess.run(["adb"] + (["-s", DEVICE] if DEVICE else []) + cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=timeout)
     return res.returncode, res.stdout.strip(), res.stderr.strip()
 
 def check_device():
@@ -57,16 +61,9 @@ def prepare_english_environment():
     run_adb(["shell", "wm", "dismiss-keyguard"])
     time.sleep(3)
 
-    remote_dir = "/data/local/tmp"
-    pdf_files = ["tameshibu_episode1_2_en.pdf", "tameshibu_episode2_2_en.pdf"]
-    for pdf in pdf_files:
-        local_path = TESTDATA_DIR / pdf
-        if local_path.exists():
-            log(f"Pushing {pdf} to {remote_dir}/...")
-            run_adb(["push", str(local_path), f"{remote_dir}/{pdf}"])
-            run_adb(["shell", f"chmod 644 {remote_dir}/{pdf}"])
-        else:
-            log(f"WARNING: Local PDF {local_path} not found.")
+    for sample_id, local_path in SAMPLE_INPUTS.items():
+        stage_device_file(DEVICE, local_path, SAMPLE_REMOTE_DIR + '/' + local_path.name)
+
 
 def record_scene(scene_num):
     scene_name = f"scene_0{scene_num}"
@@ -93,6 +90,7 @@ def record_scene(scene_num):
         "shell", "am", "instrument", "-w", "-r",
         "-e", "class", "com.takumayamada22.pdfutility.ShortsRecordingTest#recordScene",
         "-e", "scene", scene_name,
+        "-e", "sampleInputDir", SAMPLE_REMOTE_DIR,
         "com.takumayamada22.pdfutility.test/androidx.test.runner.AndroidJUnitRunner"
     ]
     code, out, err = run_adb(instrument_cmd, timeout=120)
@@ -101,7 +99,7 @@ def record_scene(scene_num):
     _, logcat_out, _ = run_adb(["logcat", "-d", "-s", "ShortsTest:D", "TestRunner:D", "AndroidRuntime:E"])
     log(f"--- LOGCAT DIAGNOSTICS FOR {scene_name} ---\n{logcat_out}\n---------------------------------------------")
 
-    if code != 0 or "FAILURES!!!" in out:
+    if code != 0 or "FAILURES!!!" in out or "OK (" not in out:
         log(f"ERROR: Instrumentation test failed for {scene_name}. Code: {code}, Err: {err}")
         run_adb(["shell", "pkill", "-INT", "screenrecord"])
         rec_proc.terminate()
@@ -128,11 +126,15 @@ def record_scene(scene_num):
     log(f"SUCCESS: Saved English video {local_path} (Size: {local_path.stat().st_size} bytes)")
 
 def main():
+    global SAMPLE_INPUTS, DEVICE
     parser = argparse.ArgumentParser(description="Record English YouTube Shorts scenes via ShortsRecordingTest")
     parser.add_argument("scenes", nargs="+", help="Scene numbers (1-5) or 'all'")
+    parser.add_argument("--input-dir", type=Path)
     args = parser.parse_args()
+    SAMPLE_INPUTS = resolve_samples(["ep1_en", "ep2_en"], args.input_dir)
 
     device = check_device()
+    DEVICE = device
     log(f"Using device: {device}")
 
     pre_install_app()

@@ -1,0 +1,55 @@
+{
+  "app": "com.takumayamada22.pdfutility",
+  "base_commit": "772294100852bd096c59b139c2c3d3151ec0dce9",
+  "languages": [
+    "ja",
+    "en",
+    "ko",
+    "zh-Hans",
+    "zh-Hant",
+    "de",
+    "fr",
+    "es",
+    "pt",
+    "vi",
+    "fil",
+    "ne",
+    "id",
+    "it"
+  ],
+  "public_pages_checked": 46,
+  "public_individual_manga_pdf_links": 0,
+  "hub_pages_http_verified": 14,
+  "pdfs_deleted": 0,
+  "deleted_bytes": 0,
+  "pdfs_retained": 84,
+  "retained_bytes": 2043902658,
+  "retained_tracked": 56,
+  "retained_ignored_or_untracked": 28,
+  "latest_manifest_matching_files": 18,
+  "retention_reason": "Old distributed version 1.2.7 (23) still references 33 Utility Pages sample PDFs; other 9 variants per directory differ from latest manifest and have not been cleared for deletion",
+  "build": "assembleDebug PASS",
+  "unit_tests": {
+    "tests": 57,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "lint": {
+    "Warning": 12
+  },
+  "android_test_apk_compile": "PASS",
+  "script_checks": "13 commands PASS; includes small fixture/mocked tests, not device tests",
+  "external_real_pdf_integration": {
+    "id": "ep1_en",
+    "bytes": 24171133,
+    "sha256": "d375ae5bdf0de6b2c88ea65c4219b59390be84b7da162ff7eaaf9cdaefa75416",
+    "offline_reuse": "PASS"
+  },
+  "machine_catalog_and_manifest_unchanged": true,
+  "original_47_files_sha256_unchanged": true,
+  "installed": false,
+  "store_operated": false,
+  "new_app_release_published": false,
+  "remote_pages_verified_after_push": false
+}

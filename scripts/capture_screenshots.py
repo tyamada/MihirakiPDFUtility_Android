@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import argparse
+from pathlib import Path
+from sample_pdf_inputs import language_samples
 import os
 import subprocess
 import time
@@ -155,10 +158,18 @@ def validate_unique_screenshots(screenshot_paths):
     print("QA CHECK PASSED: All captured screenshots are unique and distinct.")
 
 def main():
+    parser = argparse.ArgumentParser(description='Legacy screenshots: external source PDFs required')
+    parser.add_argument('--input-dir', type=Path)
+    args = parser.parse_args()
+    # This legacy runner still targets Viewer; do not run it against Utility.
+    build = (Path(__file__).resolve().parents[1] / 'app/build.gradle.kts').read_text()
+    if 'applicationId = "com.github.tyamada.MihirakiPDFViewer_Android"' not in build:
+        raise RuntimeError('Legacy screenshot runner targets a different application; disabled')
+    pdfs = language_samples(LANGUAGES, args.input_dir)
     print("Pre-checking source PDF files...")
     for lang_key in LANGUAGES.keys():
         pdf_filename = f"tameshibu_episode1_2_{lang_key}.pdf"
-        local_pdf_path = f"testdata/{pdf_filename}"
+        local_pdf_path = str(pdfs[lang_key])
         if not os.path.exists(local_pdf_path):
             print(f"\n[FATAL ERROR] 撮影用PDFファイルが元の場所に存在しません。")
             print(f"Missing file path: {os.path.abspath(local_pdf_path)}")
@@ -186,7 +197,7 @@ def main():
 
         # 3. Push sample PDF for this language and verify
         pdf_filename = f"tameshibu_episode1_2_{lang_key}.pdf"
-        local_pdf_path = f"testdata/{pdf_filename}"
+        local_pdf_path = str(pdfs[lang_key])
         remote_dir = "/sdcard/Download/TestPdfs"
 
         verify_and_push_file(local_pdf_path, remote_dir, pdf_filename)

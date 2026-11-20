@@ -2,6 +2,7 @@ package com.takumayamada22.pdfutility.util
 
 import android.app.Application
 import android.net.Uri
+import com.takumayamada22.pdfutility.data.SamplePdfRepository
 import com.takumayamada22.pdfutility.ui.SettingsDialogType
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -378,15 +379,13 @@ class EnduranceTestExecutor(
 
                     val filesToProcess = when (courseNum) {
                         1, 3, 4, 5, 6, 7, 8, 9 -> {
-                            val mangaFiles = activeDir.listFiles { file -> file.name.startsWith("tameshibu_") && file.name.endsWith(".pdf") }?.sortedBy { it.name } ?: emptyList()
-                            if (mangaFiles.isEmpty()) {
-                                throw java.io.FileNotFoundException("Required test files (tameshibu_*.pdf manga episode PDFs) not found in device testdata folder (${activeDir.absolutePath}). Please transfer test files from PC/Mac (testdata/) via ADB.")
-                            }
-                            mangaFiles
+                            // Use the same hash-verified sample cache as the download UI.
+                            // PC-side preparation/ADB folders are not a second unverified catalog.
+                            requireEnduranceSamples(SamplePdfRepository(application).getCatalogWithFiles())
                         }
                         2, 10 -> {
                             val loadFile = File(activeDir, "load_test_1100_pages.pdf")
-                            if (!loadFile.exists()) {
+                            if (!loadFile.isFile || loadFile.length() == 0L) {
                                 throw java.io.FileNotFoundException("Required test file (load_test_1100_pages.pdf) not found in device testdata folder (${activeDir.absolutePath}). Please transfer test files from PC/Mac (testdata/) via ADB.")
                             }
                             listOf(loadFile)

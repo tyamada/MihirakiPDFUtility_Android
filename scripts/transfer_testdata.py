@@ -1,109 +1,45 @@
 #!/usr/bin/env python3
-"""
-MihirakiPDFUtility Test Data Transfer Script
-Dynamically parses SamplePdfCatalog.kt to extract sample PDF filenames,
-combines them with load/search test PDFs, downloads missing files from GitHub Pages if needed,
-cleans up device testdata, and transfers them from PC/Mac testdata/ to the connected Android device via ADB.
-"""
+"""Transfer verified selected fixed-release PDFs and explicit regression inputs.
 
-import os
+Prepare manga separately with sample_pdf_inputs.py --download. No repository
+PDF downloads, no device directory clearing, and no silent missing-file skips.
+"""
 import argparse
-import sys
-import subprocess
-import re
-import urllib.request
 from pathlib import Path
+import subprocess
+from sample_pdf_inputs import catalog, resolve_samples, stage_device_file
 
-def get_env():
-    # Respect the caller's SDK/JDK configuration (see README).
-    return os.environ.copy()
+ROOT = Path(__file__).resolve().parents[1]
 
-
-def run_cmd(cmd, cwd=None):
-    res = subprocess.run(cmd, cwd=cwd, env=get_env(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-    return res.returncode, res.stdout
-
-def get_connected_devices():
-    code, out = run_cmd(['adb', 'devices'])
-    devices = []
-    for line in out.splitlines():
-        parts = line.strip().split()
-        if len(parts) == 2 and parts[1] == 'device':
-            devices.append(parts[0])
-    return devices
-
-def get_sample_filenames_from_catalog(root_dir):
-    catalog_path = root_dir / 'app' / 'src' / 'main' / 'java' / 'com' / 'takumayamada22' / 'pdfutility' / 'data' / 'SamplePdfCatalog.kt'
-    if not catalog_path.exists():
-        print(f"WARNING: SamplePdfCatalog.kt not found at {catalog_path}, falling back to glob.")
-        return []
-
-    content = catalog_path.read_text(encoding='utf-8')
-    filenames = re.findall(r'fileName\s*=\s*"([^"]+)"', content)
-    return filenames
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--serial", required=True, help="Explicit ADB test-device serial")
+    parser.add_argument('--serial', required=True)
+    parser.add_argument('--input-dir', type=Path)
+    parser.add_argument('--sample-id', action='append', help='Explicit samples; default is all catalog samples')
+    parser.add_argument('--test-input-dir', type=Path, default=ROOT / 'testdata')
+    parser.add_argument('--regression-file', action='append', default=[])
     args = parser.parse_args()
-    root_dir = Path(__file__).resolve().parent.parent
-    testdata_dir = root_dir / 'testdata'
-    testdata_dir.mkdir(parents=True, exist_ok=True)
+    entries = catalog()
+    ids = args.sample_id or list(entries)
+    samples = resolve_samples(ids, args.input_dir)
+    sources = [(path, entries[i]['local_filename'], 'Documents/MihirakiSamplePdfs') for i, path in samples.items()]
+    for name in args.regression_file:
+        if Path(name).name != name or name.startswith('tameshibu'):
+            parser.error('Regression filenames must be simple non-manga names')
+        path = args.test_input_dir / name
+        if not path.is_file() or path.stat().st_size == 0:
+            parser.error('Required regression input missing: ' + str(path))
+        sources.append((path, name, 'testdata'))
+    # All inputs must be verified before even listing devices.
+    devices = subprocess.check_output(['adb', 'devices'], text=True)
+    if args.serial + '\tdevice' not in devices.splitlines():
+        parser.error('Selected device is not connected/authorized')
+    base = '/sdcard/Android/data/com.takumayamada22.pdfutility/files/'
+    for path, name, folder in sources:
+        stage_device_file(args.serial, path, base + folder + '/' + name)
+    print(f'Transferred all {len(sources)} verified/preflighted inputs; no device files deleted')
 
-    devices = get_connected_devices()
-    if not devices:
-        print("ERROR: No connected Android devices or emulators found via ADB.", file=sys.stderr)
-        sys.exit(1)
-
-    if args.serial not in devices:
-        print("ERROR: Selected device is not connected or authorized.", file=sys.stderr)
-        sys.exit(1)
-    device_serial = args.serial
-    print(f"=== MihirakiPDFUtility Dynamic Test Data Transfer Tool ===")
-    print(f"Target Device: {device_serial}")
-
-    # Dynamically extract filenames from SamplePdfCatalog.kt
-    catalog_filenames = get_sample_filenames_from_catalog(root_dir)
-    print(f"Extracted {len(catalog_filenames)} sample PDF filenames from SamplePdfCatalog.kt")
-
-    # Add benchmark/load/search test files
-    extra_test_files = ['load_test_1100_pages.pdf', 'search_test_600_hits.pdf', 'search_test_600_hits_en.pdf']
-    all_target_filenames = list(set(catalog_filenames + extra_test_files))
-
-    pkg_name = 'com.takumayamada22.pdfutility'
-    device_test_dir = f"/sdcard/Android/data/{pkg_name}/files/testdata"
-
-    print(f"Cleaning up old test files from device: {device_test_dir}")
-    run_cmd(['adb', '-s', device_serial, 'shell', f'rm -rf {device_test_dir}/*'])
-    run_cmd(['adb', '-s', device_serial, 'shell', f'mkdir -p {device_test_dir}'])
-
-    success_count = 0
-    for filename in all_target_filenames:
-        local_file = testdata_dir / filename
-        if not local_file.exists() or local_file.stat().st_size == 0:
-            print(f"File {filename} not found locally. Downloading from GitHub Pages...")
-            url = f"https://tyamada.github.io/MihirakiPDFViewer_Android/testdata/{filename}"
-            if filename in catalog_filenames:
-                url = f"https://tyamada.github.io/MihirakiPDFViewer_Android/sample/{filename}"
-            try:
-                urllib.request.urlretrieve(url, str(local_file))
-                print(f"  Downloaded successfully: {filename}")
-            except Exception as e:
-                print(f"  WARNING: Failed to download {filename} from {url}: {e}")
-
-        if local_file.exists() and local_file.is_file() and local_file.stat().st_size > 0:
-            dest_path = f"{device_test_dir}/{filename}"
-            print(f"Pushing {filename} -> {dest_path} ...")
-            code, out = run_cmd(['adb', '-s', device_serial, 'push', str(local_file), dest_path])
-            if code == 0:
-                success_count += 1
-            else:
-                print(f"WARNING: Failed to push {filename}:\n{out}")
-        else:
-            print(f"NOTICE: Skipping {filename} (file does not exist locally).")
-
-    print(f"\n=== Dynamic Transfer Completed ===")
-    print(f"Successfully transferred {success_count} / {len(all_target_filenames)} target test files to device storage.")
 
 if __name__ == '__main__':
     main()

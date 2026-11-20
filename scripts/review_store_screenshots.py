@@ -4,17 +4,21 @@ import argparse
 import json
 import math
 from PIL import Image, ImageDraw
+from pathlib import Path
+from sample_pdf_inputs import language_samples
 import capture_store_screenshots as capture
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--input-dir', type=Path)
     parser.add_argument('--device', choices=capture.DEVICES, nargs='+', default=list(capture.DEVICES))
     parser.add_argument('--language', choices=capture.LANGUAGES, nargs='+', default=list(capture.LANGUAGES))
     parser.add_argument('--compatible-fingerprint', action='append', default=[],
                         help='Allow verified records from an equivalent capture runner revision')
     parser.add_argument('--mark-reviewed', action='store_true', help='Use only after inspecting every selected original')
     options = parser.parse_args()
+    pdfs = language_samples(options.language, options.input_dir)
     apks = [capture.ROOT / 'app/build/outputs/apk/debug/app-debug.apk', capture.ROOT / 'app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk']
     stamp = capture.fingerprint(apks)
     report_dir = capture.ROOT / 'store_listing/screenshot_review'
@@ -39,7 +43,7 @@ def main():
                 target = capture.orientation(avd, scene)
                 path = capture.OUT / avd / f'{lang}_{scene}_{target}.png'
                 record = path.with_suffix('.json')
-                expected = dict(fingerprint=stamp, pdfSha256=capture.sha(capture.ROOT / f'testdata/tameshibu_episode1_2_{lang}.pdf'),
+                expected = dict(fingerprint=stamp, pdfSha256=capture.sha(pdfs[lang]),
                                 avd=avd, language=lang, scene=scene, portrait=target == 'portrait',
                                 versionCode=capture.CONFIG['versionCode'], dimensions=list(capture.expected_size(avd, target == 'portrait')))
                 if not capture.can_resume(path, record, expected, options.compatible_fingerprint):

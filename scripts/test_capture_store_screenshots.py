@@ -26,7 +26,8 @@ class CaptureSafetyTest(unittest.TestCase):
             return False if path.name == 'tameshibu_episode1_2_ko.pdf' else original(path)
         with patch.object(capture, 'require_matching_application'), \
                 patch.object(sys, 'argv', ['capture', '--device', 'Smartphone_6.3', '--language', 'ko']), \
-                patch.object(Path, 'is_file', is_file), patch.object(capture, 'run') as run, \
+                patch.object(Path, 'is_file', is_file), \
+                patch.object(capture, 'language_samples', side_effect=ValueError('ko.pdf')), patch.object(capture, 'run') as run, \
                 patch.object(capture.subprocess, 'run') as subprocess_run:
             with self.assertRaisesRegex(RuntimeError, 'FATAL: source PDFs missing.*ko.pdf'):
                 capture.main()
@@ -40,6 +41,7 @@ class CaptureSafetyTest(unittest.TestCase):
         with patch.object(capture, 'require_matching_application'), \
                 patch.object(sys, 'argv', ['capture', '--device', 'Smartphone_6.3', '--language', 'fr']), \
                 patch.object(Path, 'is_file', is_file), \
+                patch.object(capture, 'language_samples', return_value={'fr': Path('/external/tameshibu_episode1_2_fr.pdf')}), \
                 patch.object(Path, 'read_text', side_effect=RuntimeError('reached AVD preflight')), \
                 patch.object(capture, 'run') as run:
             with self.assertRaisesRegex(RuntimeError, 'reached AVD preflight'):

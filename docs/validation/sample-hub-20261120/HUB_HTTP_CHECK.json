@@ -1,0 +1,72 @@
+[
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/de/",
+    "bytes": 30864,
+    "sha256": "b88134c595f37d6ebe30bf8afd647fc9c7fbec927cd7f866b213be368c042d59"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/en/",
+    "bytes": 30321,
+    "sha256": "4b52b8854f844400b4433bd5ac9f2246d60e3ac205a57959b0eece4935ccb4a9"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/es/",
+    "bytes": 31805,
+    "sha256": "bc83d5466b3bd3e9f1e8510f923f46cf328203c153173497f772a221c2504404"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/fil/",
+    "bytes": 30910,
+    "sha256": "3f3af412544bff0e12b7132a46d9e4c37df17b0ba5aee61d5a5c053c1d6ee5fe"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/fr/",
+    "bytes": 32235,
+    "sha256": "b17bdac810e274bd21b12c441dd6f225e650265e8b67da99f725cec1a1737b83"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/id/",
+    "bytes": 30863,
+    "sha256": "bbb1926991cc838a09cc969adf4d93554ddd896ff0ddbf93adf95f0fcd13b040"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/it/",
+    "bytes": 30954,
+    "sha256": "83a3e981deca1918f2408c7f319e0585fe68b8e8c5e386f801b2bd15c94b8085"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/ja/",
+    "bytes": 32050,
+    "sha256": "30ccfabe297e5c49854e7683744a3ee4aca6f303737bca4662e95763cb01e942"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/ko/",
+    "bytes": 30820,
+    "sha256": "668276b7c9747d51373551ae514bd98cd899f5df027bfe941e09a2b0b15ca0ba"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/ne/",
+    "bytes": 36476,
+    "sha256": "07fab7d37fb6a9f5362443324f69a3806111ba72be410f9ecc024452ead2a05b"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/pt/",
+    "bytes": 31638,
+    "sha256": "adb16a2de2c43e5ddaa84427f415d4fe1f28786691ccfff8a2b353e6af82f026"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/vi/",
+    "bytes": 31735,
+    "sha256": "df90d5b7a43d45f1cb0cebd2f50800dd7c26242f1998807e965fc277e031f88f"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/zh-Hans/",
+    "bytes": 30235,
+    "sha256": "b7a6ef8f11f91cd76a3bffe2a2c7a7abace3a9eba72d7fd310aa3c84542f012c"
+  },
+  {
+    "url": "https://tyamada.github.io/manga-prompt-kit/samples/zh-Hant/",
+    "bytes": 30250,
+    "sha256": "89ccf0bb364cac02a65db1885d284e5fea0525a277ab8a70bb48bcaf3d7f85b7"
+  }
+]

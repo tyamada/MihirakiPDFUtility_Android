@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Check README/index sample lists; --write regenerates only their manga lists.
+"""Validate centralized sample guides; --write replaces public manga lists.
 
-The published manifest supplies URLs, titles, authors and sizes. The app's
-language registry supplies display names and the English-name sort key.
-Legacy PDFs, release metadata, other links and existing HTML IDs are untouched.
+The machine catalog remains validated against its fixed-release evidence.
+Public README/HTML pages link to language-aware guides rather than PDF lists.
+Legacy PDFs, release metadata, unrelated links and existing HTML IDs are retained.
 """
 import argparse
 import html
@@ -15,7 +15,6 @@ from urllib.parse import urlsplit
 
 
 MANGA_LIST = re.compile(r'(?P<open><ul\b[^>]*>)(?:(?!</ul>).)*?tameshibu(?:(?!</ul>).)*?</ul>', re.S)
-MD_LINK = re.compile(r'^- \[((?:\\.|[^\]\\])*)\]\(([^\s)]+)\) \((\d+\.\d+ MiB)\)\s*$')
 SIZE = re.compile(r'\((\d+\.\d+ MiB)\)')
 
 
@@ -72,180 +71,116 @@ def catalog_items(root, web=False):
     return items
 
 
+HUB = "https://tyamada.github.io/manga-prompt-kit/samples/"
+MAINTENANCE = "https://github.com/tyamada/manga-prompt-kit/blob/main/docs/sample-download-maintenance.md"
+LABELS = {
+    "en": "Sample PDF downloads", "ja": "サンプルPDFのダウンロード", "ko": "샘플 PDF 다운로드",
+    "zh-Hans": "示例 PDF 下载", "zh-Hant": "範例 PDF 下載", "de": "Beispiel-PDFs herunterladen",
+    "fr": "Télécharger les PDF d’exemple", "es": "Descargar PDF de muestra", "pt": "Baixar PDFs de exemplo",
+    "vi": "Tải PDF mẫu", "fil": "I-download ang mga sample na PDF", "ne": "नमुना PDF डाउनलोड",
+    "id": "Unduh PDF contoh", "it": "Scarica PDF di esempio", "ms": "Panduan muat turun dalam bahasa Inggeris",
+}
+
+
+def page_locale(path):
+    if path.name == "README.md": return "en", ""
+    if path.name == "README_ja.md": return "ja", ""
+    stem = path.stem
+    code = stem.split("_", 1)[1] if "_" in stem else "en"
+    aliases = {"zh": "zh-Hans", "zh_cn": "zh-Hans", "zh-CN": "zh-Hans", "zh_hans": "zh-Hans",
+               "zh_tw": "zh-Hant", "zh-TW": "zh-Hant", "zh_hant": "zh-Hant", "zh_hk": "zh-Hant",
+               "zh-HK": "zh-Hant", "tl": "fil", "in": "id"}
+    anchor = {"zh_tw": "zh_tw", "zh-TW": "zh_tw", "zh_hk": "zh_hk", "zh-HK": "zh_hk"}.get(code, "")
+    language = aliases.get(code, code)
+    if language not in LABELS: raise ValueError(f"{path}: unsupported public page locale {code}")
+    return language, anchor
+
+
+def hub_url(path):
+    language, anchor = page_locale(path)
+    return HUB + ("en" if language == "ms" else language) + "/" + ("#" + anchor if anchor else "")
+
+
+def guide(path):
+    language, _ = page_locale(path)
+    url, label = hub_url(path), LABELS[language]
+    if path.suffix == ".md": return f"[{label}]({url})"
+    return f'<p class="sample-hub"><a href="{url}">{label}</a></p>'
+
+
 def target_pages(root):
-    required = [root / 'README.md', root / 'README_ja.md']
-    if any(not p.is_file() for p in required):
-        raise ValueError('Both English and Japanese READMEs are required')
-    pages = sorted(root.glob('README*.md')) + sorted((root / 'docs').glob('index*.html'))
-    if not any(p.suffix == '.html' for p in pages):
-        raise ValueError('No public index pages found')
-    return pages
+    required = [root / "README.md", root / "README_ja.md"]
+    if any(not p.is_file() for p in required): raise ValueError("Both English and Japanese READMEs are required")
+    return sorted(root.glob("README*.md")) + sorted((root / "docs").glob("*.html"))
 
 
-class SampleLinks(HTMLParser):
-    def __init__(self, text):
-        super().__init__(convert_charrefs=True)
-        self.links = []
-        self.anchor = None
-        self.lists = []
-        self.feed(text)
-
-    def handle_starttag(self, tag, attrs):
-        attrs = dict(attrs)
-        if tag == 'li':
-            self.lists.append(dict(text=[], links=[]))
-        if tag == 'a':
-            self.anchor = dict(url=attrs.get('href', ''), label='', size='')
-
-    def handle_data(self, data):
-        if self.anchor is not None:
-            self.anchor['label'] += data
-        if self.lists:
-            self.lists[-1]['text'].append(data)
-
-    def handle_endtag(self, tag):
-        if tag == 'a' and self.anchor is not None:
-            if is_manga_url(self.anchor['url']):
-                self.links.append(self.anchor)
-                if self.lists:
-                    self.lists[-1]['links'].append(self.anchor)
-            self.anchor = None
-        if tag == 'li' and self.lists:
-            context = self.lists.pop()
-            sizes = SIZE.findall(''.join(context['text']))
-            for link in context['links']:
-                link['size'] = sizes[0] if len(sizes) == 1 else ''
+def page_links(path, text):
+    if path.suffix == ".md": return re.findall(r"\[[^\n]*?\]\(([^\s)]+)\)", text)
+    class Links(HTMLParser):
+        def __init__(self): super().__init__(); self.links = []
+        def handle_starttag(self, tag, attrs):
+            if tag == "a": self.links.append(dict(attrs).get("href", ""))
+    parser = Links(); parser.feed(text); return parser.links
 
 
-def records(path, text):
-    if path.suffix == '.html':
-        return SampleLinks(text).links
-    links = []
-    for number, line in enumerate(text.splitlines(), 1):
-        if not re.search(r'tameshibu[^\s)]+\.pdf', line, re.I):
-            continue
-        match = MD_LINK.fullmatch(line)
-        if not match:
-            raise ValueError(f'{path}:{number}: malformed manga Markdown link or size')
-        links.append(dict(url=match[2], label=unescape_markdown(match[1]), size=match[3]))
-    return links
-
-
-def validate_text(path, text, items):
-    actual = records(path, text)
-    if len(actual) != len(items):
-        raise ValueError(f'{path}: expected {len(items)} manga links, found {len(actual)} (including zero-link pages)')
-    expected = {x['url']: x for x in items}
-    urls = [x['url'] for x in actual]
-    if len(set(urls)) != len(urls) or set(urls) != set(expected):
-        raise ValueError(f'{path}: missing, duplicate or unexpected manga URLs')
-    if urls != [x['url'] for x in items]:
-        raise ValueError(f'{path}: sort by English language name, then ascending episode')
-    for link in actual:
-        item = expected[link['url']]
-        if ' '.join(link['label'].split()) != ' '.join(item['label'].split()):
-            raise ValueError(f"{path}: {item['id']}: title/language/author differs from manifest/registry")
-        if link['size'] != item['size']:
-            raise ValueError(f"{path}: {item['id']}: missing or incorrect MiB size")
-    return len(actual)
+def validate_text(path, text, items=None):
+    links = page_links(path, text)
+    if any(is_manga_url(url) for url in links): raise ValueError(f"{path}: direct manga PDF link remains")
+    needs_guide = path.suffix == ".md" or path.stem.startswith(("index", "support"))
+    if needs_guide and hub_url(path) not in links: raise ValueError(f"{path}: missing localized sample hub link")
+    if needs_guide and page_locale(path)[0] == "ms" and LABELS["ms"] not in text:
+        raise ValueError(f"{path}: Malay page must explicitly identify English guidance")
+    return sum(url.startswith(HUB) for url in links)
 
 
 def verify_public_lists(root):
-    items = catalog_items(root)
+    # Machine catalog URLs remain validated independently; public pages contain no PDF lists.
+    catalog_items(root)
     files = []
     for path in target_pages(root):
-        count = validate_text(path, path.read_text(), items)
-        files.append(dict(file=path.relative_to(root).as_posix(), manga_links=count))
-    return dict(public_pages_checked=len(files), public_pdf_links=sum(x['manga_links'] for x in files),
-                public_list_order='English language name, episode ascending', public_lists=files)
-
-
-def markdown_list(items):
-    return ''.join(f"- [{escape_markdown(x['label'])}]({x['url']}) ({x['size']})\n" for x in items)
-
-
-def html_list(items, opening='<ul>'):
-    return opening + '\n' + ''.join(
-        f'                <li><a href="{html.escape(x["url"], quote=True)}">{html.escape(x["label"])}</a> ({x["size"]})</li>\n'
-        for x in items) + '            </ul>'
-
-
-def missing_section(filename, items):
-    # New locales need an intentional localized introduction, never silent omission.
-    if filename == 'index_ms.html':
-        title = 'PDF manga contoh'
-        intro = ('51 PDF dalam 14 bahasa dan 17 varian bahasa/wilayah, dengan tiga episod setiap varian. '
-                 'Disusun mengikut nama bahasa dalam bahasa Inggeris, kemudian episod 1–3. '
-                 'Edisi Sepanyol/Amerika Latin, Brazil/Portugal dan Taiwan/Hong Kong dibezakan. '
-                 'Edisi Hong Kong menggunakan bahasa Cina tulisan standard, bukan Kantonis percakapan.')
-        license_text = ('Bahagian karya yang haknya dimiliki oleh penerbit disediakan di bawah '
-                        '<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. '
-                        'Bahan pihak ketiga seperti fon kekal tertakluk pada lesen masing-masing. '
-                        'Apabila menggunakan semula, nyatakan tajuk, pengarang, sumber asal dan lesen serta sebarang perubahan. '
-                        'Teks, imej dan terjemahan dihasilkan menggunakan AI generatif.')
-        source_label = 'Sumber asal'
-    elif filename == 'index_zh_hk.html':
-        title = '範例漫畫 PDF'
-        intro = ('共51份PDF，涵蓋14種語言、17種語言及地區版本，每種3話。按英文語言名稱排序，同一語言按第1至3話排列。'
-                 '西班牙／拉丁美洲、巴西／葡萄牙、台灣／香港分開標示。香港版採用標準書面中文，並非口語粵語版。')
-        license_text = ('公開者擁有相關權利的部分以<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>授權。'
-                        '字型等第三方素材仍適用各自授權。重用時請標示作品名稱、作者、原作公開來源與授權，並註明修改。'
-                        '文字、圖像與翻譯使用生成式AI製作。')
-        source_label = '原作公開來源'
-    else:
-        raise ValueError(f'{filename}: missing manga list; add a localized introduction before regeneration')
-    source = items[0]['source']
-    return (f'    <section id="sample-pdfs">\n        <h2>{title}</h2>\n'
-            f'        <div class="content-area" style="max-width: 800px; margin: 0 auto; text-align: left;">\n'
-            f'            <p>{intro}</p>\n            {html_list(items)}\n'
-            f'            <p>© 2026 こまいろ日和 / Komairo Hiyori</p>\n'
-            f'            <p>{license_text}</p>\n'
-            f'            <p><a href="{source}">{source_label}</a></p>\n'
-            '        </div>\n    </section>\n\n')
+        count = validate_text(path, path.read_text())
+        files.append(dict(file=path.relative_to(root).as_posix(), manga_links=0, hub_links=count))
+    return dict(public_pages_checked=len(files), public_pdf_links=0,
+                public_list_order="centralized sample hub; no replicated PDF lists", public_lists=files)
 
 
 def regenerate(root):
-    items = catalog_items(root)
+    catalog_items(root)
     changes = {}
     for path in target_pages(root):
         text = path.read_text()
-        if path.suffix == '.md':
-            lines = text.splitlines(keepends=True)
-            positions = [n for n, line in enumerate(lines) if re.search(r'tameshibu[^\s)]+\.pdf', line, re.I)]
-            if not positions or positions != list(range(positions[0], positions[-1] + 1)):
-                raise ValueError(f'{path}: expected one contiguous manga Markdown list')
-            updated = ''.join(lines[:positions[0]]) + markdown_list(items) + ''.join(lines[positions[-1] + 1:])
+        if path.suffix == ".md":
+            lines = text.splitlines(keepends=True); output = []; inserted = False
+            for line in lines:
+                if any(is_manga_url(url) for url in page_links(path, line)):
+                    if not inserted: output.append(guide(path) + "\n"); inserted = True
+                else: output.append(line)
+            updated = "".join(output)
+            updated = re.sub(r"Sample list maintenance:.*", f"Sample download maintenance: {MAINTENANCE}", updated)
+            updated = re.sub(r"サンプル一覧の保守：.*", f"サンプル案内の更新手順：{MAINTENANCE}", updated)
         else:
-            matches = list(MANGA_LIST.finditer(text))
-            if len(matches) == 1:
-                match = matches[0]
-                updated = text[:match.start()] + html_list(items, match['open']) + text[match.end():]
-            elif not matches:
-                section = missing_section(path.name, items)
-                anchor = (re.search(r'(?m)^[ \t]*(?:<footer\b|</body>)', text)
-                          or re.search(r'<footer\b|</body>', text))
-                if not anchor:
-                    raise ValueError(f'{path}: no insertion point')
-                updated = text[:anchor.start()] + section + text[anchor.start():]
-            else:
-                raise ValueError(f'{path}: multiple manga lists')
-        validate_text(path, updated, items)
-        if updated != text:
-            changes[path] = updated
-    # Validate every generated page before making any changes.
-    for path, text in changes.items():
-        path.write_text(text)
+            updated = MANGA_LIST.sub(lambda _: guide(path), text)
+            # Other individual manga buttons outside lists must point to the same localized hub.
+            updated = re.sub(r'(<a\b[^>]*href=["\'])([^"\']+)(["\'])',
+                lambda m: m[1] + (hub_url(path) if is_manga_url(html.unescape(m[2])) else m[2]) + m[3], updated)
+        # Replace shared Release landing links in user-facing download guidance too.
+        updated = updated.replace("https://github.com/tyamada/manga-prompt-kit/releases/tag/manga-pdf-20261103-v1", hub_url(path))
+        if path.suffix == ".html" and path.stem.startswith(("index", "support")) and hub_url(path) not in page_links(path, updated):
+            match = re.search(r"<footer\b|</body>", updated)
+            if not match: raise ValueError(f"{path}: no insertion point for sample guide")
+            updated = updated[:match.start()] + guide(path) + "\n" + updated[match.start():]
+        validate_text(path, updated)
+        if updated != text: changes[path] = updated
+    for path, text in changes.items(): path.write_text(text)
     return [p.relative_to(root).as_posix() for p in changes]
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--write', action='store_true', help='Regenerate manga lists, preserving other content')
-    args = parser.parse_args()
-    root = Path(__file__).resolve().parent.parent
+    parser.add_argument("--write", action="store_true", help="Replace public manga lists with localized sample hub links")
+    args = parser.parse_args(); root = Path(__file__).resolve().parent.parent
     changed = regenerate(root) if args.write else []
     print(json.dumps(dict(changed=changed, **verify_public_lists(root)), ensure_ascii=False, indent=2))
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__": main()

@@ -11,14 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.takumayamada22.pdfutility.ui.*
-import com.tom_roush.pdfbox.pdmodel.PDDocument
-import com.tom_roush.pdfbox.pdmodel.PDPage
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.File
-import java.io.FileOutputStream
+import java.security.MessageDigest
+import com.takumayamada22.pdfutility.data.SamplePdfCatalog
+import com.takumayamada22.pdfutility.data.SamplePdfItem
 
 @RunWith(AndroidJUnit4::class)
 class ShortsRecordingTest {
@@ -49,6 +49,45 @@ class ShortsRecordingTest {
         compose.waitForIdle()
     }
 
+    private fun preparedRecordingSample(id: String): File {
+        val item = SamplePdfCatalog.items.single { it.id == id }
+        val inputPath = requireNotNull(args.getString("sampleInputDir")) {
+            "Pass -e sampleInputDir <device-directory> with verified ep1_en and ep2_en PDFs."
+        }
+        val inputDir = File(inputPath)
+        require(inputDir.isAbsolute && inputDir.isDirectory) {
+            "sampleInputDir must be an existing absolute device directory"
+        }
+        val source = File(inputDir, item.fileName)
+        require(verifiedRecordingSample(source, item)) {
+            "Missing or invalid recording input ${item.fileName}; prepare the fixed-manifest " +
+                "sample ID $id and verify its byte size and SHA-256 before recording."
+        }
+        val cacheDir = File(app.cacheDir, "shorts_samples/${item.sha256}")
+        check(cacheDir.isDirectory || cacheDir.mkdirs()) { "Recording cache unavailable" }
+        val target = File(cacheDir, item.fileName)
+        source.copyTo(target, overwrite = true)
+        check(verifiedRecordingSample(target, item)) { "Recording input changed while copying" }
+        return target
+    }
+
+    private fun verifiedRecordingSample(file: File, item: SamplePdfItem): Boolean {
+        if (!file.isFile || file.length() != item.bytes) return false
+        return file.inputStream().use { input ->
+            val header = ByteArray(5)
+            if (input.read(header) != 5 || !header.contentEquals("%PDF-".toByteArray())) return false
+            val digest = MessageDigest.getInstance("SHA-256")
+            digest.update(header)
+            val buffer = ByteArray(64 * 1024)
+            while (true) {
+                val count = input.read(buffer)
+                if (count < 0) break
+                digest.update(buffer, 0, count)
+            }
+            digest.digest().joinToString("") { "%02x".format(it.toInt() and 0xff) } == item.sha256
+        }
+    }
+
     private fun loadEnglishPdf(count: Int = 8): File {
         Log.d("ShortsTest", "loadEnglishPdf: loading PDF with count = $count")
         if (Build.VERSION.SDK_INT >= 33) {
@@ -56,26 +95,12 @@ class ShortsRecordingTest {
             localeManager.applicationLocales = LocaleList.forLanguageTags("en-US")
         }
 
-        val pdfFile = File(app.filesDir, "tameshibu_episode1_2_en.pdf")
-        val tmpFile = File("/data/local/tmp/tameshibu_episode1_2_en.pdf")
-        if (tmpFile.exists()) {
-            tmpFile.copyTo(pdfFile, overwrite = true)
-        } else if (!pdfFile.exists()) {
-            val doc = PDDocument()
-            repeat(count) { doc.addPage(PDPage()) }
-            FileOutputStream(pdfFile).use { doc.save(it) }
-            doc.close()
-        }
-
-        val extraFile = File(app.filesDir, "tameshibu_episode2_2_en.pdf")
-        val tmpExtra = File("/data/local/tmp/tameshibu_episode2_2_en.pdf")
-        if (tmpExtra.exists()) {
-            tmpExtra.copyTo(extraFile, overwrite = true)
-        } else if (!extraFile.exists()) {
-            val doc = PDDocument()
-            repeat(4) { doc.addPage(PDPage()) }
-            FileOutputStream(extraFile).use { doc.save(it) }
-            doc.close()
+        // This is real-manga recording, not a synthetic PDF unit test. Missing
+        // prepared inputs must fail rather than produce a blank "successful" video.
+        val pdfFile = preparedRecordingSample("ep1_en")
+        preparedRecordingSample("ep2_en")
+        check(SamplePdfCatalog.items.single { it.id == "ep1_en" }.pageCount == count) {
+            "Recording scene page count differs from the fixed sample catalog"
         }
 
         main {

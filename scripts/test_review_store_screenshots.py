@@ -25,6 +25,7 @@ class ReviewTest(unittest.TestCase):
                 path.with_suffix('.json').write_text(json.dumps(dict(pageCount=8, outlineVerified=True,
                     page6SearchRects=[dict(top=50, bottom=100)])))
             with patch.object(capture, 'ROOT', root), patch.object(capture, 'OUT', output), \
+                    patch.object(review, 'language_samples', return_value={'ja': root/'fixture.pdf'}), \
                     patch.object(capture, 'fingerprint', return_value='stamp'), \
                     patch.object(capture, 'can_resume', return_value=True), \
                     patch.object(capture, 'sha', side_effect=lambda p: str(p)), \
@@ -48,6 +49,7 @@ class ReviewTest(unittest.TestCase):
             original = json.dumps(dict(pageCount=8, validation='visual review pending'))
             record.write_text(original)
             with patch.object(capture, 'ROOT', root), patch.object(capture, 'OUT', output), \
+                    patch.object(review, 'language_samples', return_value={'ja': root/'fixture.pdf'}), \
                     patch.object(capture, 'fingerprint', return_value='stamp'), \
                     patch.object(capture, 'can_resume', side_effect=[True, False]), \
                     patch.object(capture, 'sha', side_effect=lambda p: str(p)), \

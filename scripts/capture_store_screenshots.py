@@ -11,6 +11,7 @@ import subprocess
 import sys
 import time
 import uuid
+from sample_pdf_inputs import language_samples
 
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = 'com.github.tyamada.MihirakiPDFViewer_Android'
@@ -347,6 +348,7 @@ def capture(device, lang, scene, digest, target, attempt):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--input-dir', type=Path)
     parser.add_argument('--device', choices=DEVICES, nargs='+', default=list(DEVICES))
     parser.add_argument('--language', choices=LANGUAGES, nargs='+', default=list(LANGUAGES))
     parser.add_argument('--scene', choices=SCENES, nargs='+', default=None)
@@ -360,7 +362,10 @@ def main():
     require_matching_application()
     selections = {avd: selected_scenes(avd, options.scene) for avd in options.device}
     # Required before build, launch, or any adb action, including on resume.
-    pdfs = {lang: ROOT / f'testdata/tameshibu_episode1_2_{lang}.pdf' for lang in options.language}
+    try:
+        pdfs = language_samples(options.language, options.input_dir)
+    except ValueError as error:
+        raise RuntimeError("FATAL: source PDFs missing or invalid: " + str(error)) from error
     missing = [str(path) for path in pdfs.values() if not path.is_file()]
     if missing:
         raise RuntimeError('FATAL: source PDFs missing: ' + ', '.join(missing))

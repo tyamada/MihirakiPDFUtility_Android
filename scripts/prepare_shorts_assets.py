@@ -4,12 +4,13 @@ YouTube Shorts Asset Preparation & Verification Script
 Verifies existing test PDFs, generates supplemental Shorts recording assets,
 and produces prompt guidelines for the Gemini app to generate stylized tutorial pages or cover art.
 """
+import argparse
 import os
 import sys
 from pathlib import Path
+from sample_pdf_inputs import language_samples
 
 ROOT = Path(__file__).resolve().parents[1]
-TESTDATA = ROOT / 'testdata'
 ASSETS = ROOT / 'shorts_raw_assets'
 PROMPT_OUT = ROOT / 'shorts_assets_gemini_prompt.md'
 
@@ -30,24 +31,10 @@ LANGUAGES = {
     "ne": "नेपाली - दोहोरो पृष्ठ पूर्वावलोकन & १४ भाषाहरू"
 }
 
-def verify_testdata():
-    print("Verifying testdata directory and required PDF files...")
-    if not TESTDATA.exists():
-        print(f"ERROR: testdata directory not found at {TESTDATA}")
-        sys.exit(1)
-
-    missing = []
-    for lang in LANGUAGES.keys():
-        pdf_name = f"tameshibu_episode1_2_{lang}.pdf"
-        pdf_path = TESTDATA / pdf_name
-        if not pdf_path.exists():
-            missing.append(pdf_name)
-
-    if missing:
-        print(f"WARNING: Some localized test PDFs are missing: {missing}")
-        print("Falling back or generating standard test PDFs...")
-    else:
-        print("SUCCESS: All localized sample PDFs for 14 languages are present in testdata/.")
+def verify_testdata(input_dir=None):
+    paths = language_samples(LANGUAGES, input_dir)
+    print(f'Verified {len(paths)} selected sample PDFs from external input')
+    return paths
 
 def generate_gemini_prompt_guide():
     print(f"Generating Gemini App prompt guide at {PROMPT_OUT}...")
@@ -95,8 +82,11 @@ def generate_gemini_prompt_guide():
     print(f"SUCCESS: Gemini prompt guide generated at {PROMPT_OUT}")
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--input-dir', type=Path)
+    args = parser.parse_args()
+    verify_testdata(args.input_dir)
     ASSETS.mkdir(parents=True, exist_ok=True)
-    verify_testdata()
     generate_gemini_prompt_guide()
     print("\nAsset preparation and Gemini prompt guide creation completed successfully!")
 

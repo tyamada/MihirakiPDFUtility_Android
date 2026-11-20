@@ -2,6 +2,7 @@
 """Record real Android UI; compose portrait Shorts with complete macOS narration."""
 import argparse, json, re, shutil, subprocess, time, xml.etree.ElementTree as ET
 from pathlib import Path
+from sample_pdf_inputs import resolve_samples
 from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / 'shorts_raw'
@@ -172,13 +173,14 @@ def compose(scene, raw, duration, marks):
 
 def main():
     global DEVICE
-    p=argparse.ArgumentParser();p.add_argument('--scene',choices=['all','1','2','3','4','5'],default='all');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--input-dir', type=Path);p.add_argument('--scene',choices=['all','1','2','3','4','5'],default='all');a=p.parse_args()
+    sample = resolve_samples(['ep1_en'], a.input_dir)['ep1_en']
     for tool in ('adb','ffmpeg','ffprobe','say'):
         if not shutil.which(tool):raise RuntimeError(f'Missing tool: {tool}')
     devices=[l.split()[0] for l in subprocess.check_output(['adb','devices'],text=True).splitlines()[1:] if '\tdevice' in l]
     if len(devices)!=1:raise RuntimeError('Exactly one online device is required')
     DEVICE=devices[0];RAW.mkdir(exist_ok=True);OUT.mkdir(exist_ok=True)
-    run(['adb','-s',DEVICE,'push',ROOT/'docs/sample/tameshibu_episode1_2_en.pdf','/sdcard/Download/shorts_sample.pdf'],stdout=subprocess.DEVNULL)
+    run(['adb','-s',DEVICE,'push',sample,'/sdcard/Download/shorts_sample.pdf'],stdout=subprocess.DEVNULL)
     old=shell('settings','get','system','show_touches').strip()
     shell('settings','put','system','show_touches','1')
     try:

@@ -29,7 +29,8 @@ import com.takumayamada22.pdfutility.util.LongRunningTestManager
 import com.takumayamada22.pdfutility.util.LongRunningTestProgress
 import com.takumayamada22.pdfutility.util.TestPdfGenerator
 import com.takumayamada22.pdfutility.data.SamplePdfRepository
-import android.os.Environment
+import com.takumayamada22.pdfutility.data.DownloadState
+import kotlinx.coroutines.flow.collect
 import java.net.URL
 import androidx.documentfile.provider.DocumentFile
 import kotlinx.coroutines.Dispatchers
@@ -1693,7 +1694,8 @@ class PdfViewModel(
                 val sampleRepo = SamplePdfRepository(context)
                 
                 // Check missing sample catalog PDFs
-                val missingSamples = SamplePdfCatalog.items.filter { !sampleRepo.isDownloaded(it) }
+                val (catalog, savedFiles) = sampleRepo.getCatalogWithFiles()
+                val missingSamples = catalog.filter { savedFiles[it.id] == null }
                 
                 // Check missing testdata files
                 val testDataDir = File(context.getExternalFilesDir(null), "testdata")
@@ -1720,45 +1722,47 @@ class PdfViewModel(
                     ensureActive()
                     downloadedCount++
                     _downloadTestFilesStatus.value = "サンプルPDFダウンロード ($downloadedCount/$totalMissing): ${item.fileName}"
-                    try {
-                        val url = URL(item.url)
-                        val conn = url.openConnection() as javax.net.ssl.HttpsURLConnection
-                        conn.connect()
-                        if (conn.responseCode == 200) {
-                            val targetDir = File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "MihirakiSamplePdfs")
-                            if (!targetDir.exists()) targetDir.mkdirs()
-                            val targetFile = File(targetDir, item.fileName)
-                            conn.inputStream.use { input ->
-                                FileOutputStream(targetFile).use { output ->
-                                    input.copyTo(output)
-                                }
-                            }
+                    var completed = false
+                    sampleRepo.downloadPdf(item).collect { state ->
+                        when (state) {
+                            is DownloadState.Error -> throw java.io.IOException(
+                                "Sample PDF download failed (${item.fileName}): ${state.message}"
+                            )
+                            DownloadState.Success -> completed = true
+                            else -> Unit
                         }
-                    } catch (e: Exception) {
-                        AppLogger.log(context, "WARN", "Failed to download sample ${item.fileName}: ${e.javaClass.simpleName}")
+                    }
+                    check(completed && sampleRepo.getDownloadedFile(item) != null) {
+                        "Sample PDF was not verified: ${item.fileName}"
                     }
                 }
 
                 // 2. Download missing extra testdata files
                 val testDataUrlBase = "https://tyamada.github.io/MihirakiPDFViewer_Android/testdata/"
                 for ((_, fileName) in missingExtraFiles.withIndex()) {
-                    if (!isActive) break
+                    ensureActive()
                     downloadedCount++
                     _downloadTestFilesStatus.value = "テストデータダウンロード ($downloadedCount/$totalMissing): $fileName"
                     try {
                         val url = URL("$testDataUrlBase$fileName")
                         val conn = url.openConnection() as javax.net.ssl.HttpsURLConnection
-                        conn.connect()
-                        if (conn.responseCode == 200) {
+                        try {
+                            conn.connect()
+                            if (conn.responseCode != 200) {
+                                throw java.io.IOException("HTTP ${conn.responseCode}: $fileName")
+                            }
                             val targetFile = File(testDataDir, fileName)
                             conn.inputStream.use { input ->
                                 FileOutputStream(targetFile).use { output ->
                                     input.copyTo(output)
                                 }
                             }
+                        } finally {
+                            conn.disconnect()
                         }
                     } catch (e: Exception) {
-                        AppLogger.log(context, "WARN", "Failed to download test file $fileName: ${e.javaClass.simpleName}")
+                        if (e is java.util.concurrent.CancellationException) throw e
+                        throw java.io.IOException("Test PDF download failed: $fileName", e)
                     }
                 }
 

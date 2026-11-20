@@ -15,6 +15,7 @@ import time
 import argparse
 from datetime import datetime
 from pathlib import Path
+from sample_pdf_inputs import catalog, resolve_samples, stage_device_file
 
 def get_env():
     # Respect the caller's SDK/JDK configuration (see README).
@@ -38,7 +39,14 @@ def main():
     parser = argparse.ArgumentParser(description="Run Long-Running Endurance Test for MihirakiPDFUtility")
     parser.add_argument("--duration", type=int, default=3, help="Test duration in minutes (default: 3 mins)")
     parser.add_argument("--serial", required=True, help="Explicit ADB test-device serial")
+    parser.add_argument('--input-dir', type=Path)
+    parser.add_argument('--sample-id', action='append', default=None, help='Selected fixed-release sample IDs')
+    parser.add_argument('--test-input-dir', type=Path, default=Path(__file__).resolve().parents[1] / 'testdata')
     args = parser.parse_args()
+    sample_paths = resolve_samples(args.sample_id or list(catalog()), args.input_dir)
+    load_pdf = args.test_input_dir / 'load_test_1100_pages.pdf'
+    if not load_pdf.is_file() or load_pdf.stat().st_size == 0:
+        parser.error('Required load_test_1100_pages.pdf is missing')
 
     root_dir = Path(__file__).resolve().parent.parent
     logs_base = root_dir / 'logs'
@@ -84,19 +92,12 @@ def main():
 
     # 2. Test File Check & Transfer
     print(f"\n--- Step 2: Verifying and Pushing Test Files ---")
-    testdata_dir = root_dir / 'testdata'
-    device_test_dir = f"/sdcard/Android/data/{pkg_name}/files/testdata"
-    run_cmd(['adb', '-s', device_serial, 'shell', f'mkdir -p {device_test_dir}'])
-
-    if testdata_dir.exists():
-        local_files = list(testdata_dir.glob('*'))
-        print(f"Found {len(local_files)} local test files under testdata/.")
-        for f in local_files:
-            if f.is_file():
-                run_cmd(['adb', '-s', device_serial, 'push', str(f), f"{device_test_dir}/{f.name}"])
-        print("Test files pushed successfully to device storage.")
-    else:
-        print("WARNING: local testdata/ directory not found.")
+    device_files_base = f"/sdcard/Android/data/{pkg_name}/files"
+    stage_device_file(device_serial, load_pdf, device_files_base + '/testdata/' + load_pdf.name)
+    entries = catalog()
+    for sample_id, source in sample_paths.items():
+        stage_device_file(device_serial, source, device_files_base + '/Documents/MihirakiSamplePdfs/' + entries[sample_id]['local_filename'])
+    print(f'All {len(sample_paths) + 1} required inputs transferred/reused without overwriting existing different files.')
 
     # 3. Preparation Complete -> Launch App & Start Timed Execution
     print(f"\n--- Step 3: Launching App & Starting Timed Endurance Execution ---")
