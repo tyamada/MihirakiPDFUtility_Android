@@ -1,0 +1,2 @@
+# Small offline image-fixture tests; no browser or device packages.
+Pillow==12.2.0
