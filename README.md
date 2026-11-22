@@ -1,5 +1,7 @@
 # Mihiraki PDF Utility (Android)
 
+Production is not publicly released. See the [publication-readiness and X test-announcement record (Japanese)](docs/PRODUCTION_DISTRIBUTION_PLAN_2026-11-15.ja.md) for the November 23, 2026 check.
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 A powerful and intuitive PDF utility for Android, specializing in organizing work, studies, submission documents, scanned books, and manga with **Mihiraki (two-page spread view)**.

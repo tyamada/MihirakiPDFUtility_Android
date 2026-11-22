@@ -1,5 +1,7 @@
 # 見開きPDFユーティリティ (Android)
 
+製品版は一般公開前です。2026-11-23時点の公開状況とXのテスト案内は[公開準備記録](docs/PRODUCTION_DISTRIBUTION_PLAN_2026-11-15.ja.md)を参照してください。
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 Android向けの強力で直感的なPDFユーティリティアプリです。仕事・学業・提出書類のPDF整理や、**見開き（2ページスプレッド表示）**による自炊書籍・漫画の管理に最適です。
