@@ -18,7 +18,7 @@
 | 韓国語 | ko | ko-KR | ko-KR | `tameshibu_episode1_2_ko.pdf` |
 | 中国語（繁体字） | zh_tw | zh-TW | zh-TW | `tameshibu_episode1_2_zh_tw.pdf` |
 
-PDFはすべて `testdata/` の原本を使用する。本文もUIと同じ言語にする。繁体字は `values-zh-rTW` を利用し、簡体字PDFとの取り違えを検査する。第2話は結合・追加場面の入力として各言語の `tameshibu_episode2_2_<key>.pdf` を使う。
+PDFはすべて リポジトリ外の検証済みサンプル入力（`MIHIRAKI_SAMPLE_PDF_DIR`） の原本を使用する。本文もUIと同じ言語にする。繁体字は `values-zh-rTW` を利用し、簡体字PDFとの取り違えを検査する。第2話は結合・追加場面の入力として各言語の `tameshibu_episode2_2_<key>.pdf` を使う。
 
 ## 2. 端末・画面構成
 

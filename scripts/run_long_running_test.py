@@ -2,7 +2,7 @@
 """
 MihirakiPDFViewer Long-Running Endurance & Stress Test Runner
 1. Verifies app installation on device (installs debug APK if missing).
-2. Verifies test files (load_test_1100_pages.pdf and testdata/ manga PDFs) and pushes missing files via ADB.
+2. Verifies test files (load_test_1100_pages.pdf and verified external-cache manga PDFs) and pushes missing files via ADB.
 3. Once preparation is ready, starts the test and precisely measures execution time.
 4. Captures continuous memory usage, logcat, and audit logs, saving reports into logs/.
 5. Explicitly logs user interruption (KeyboardInterrupt) if stopped early.
