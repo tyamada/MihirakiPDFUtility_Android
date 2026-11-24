@@ -108,7 +108,7 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                         if (event.isShiftPressed && uiState.selectedIndices.isNotEmpty()) {
                             showSplitDialog = true
                         } else {
-                            saveLauncher.launch("edited_${uiState.fileName ?: "document"}.pdf")
+                            saveLauncher.launch(suggestEditedPdfFileName(uiState.fileName))
                         }
                         true
                     }
@@ -202,7 +202,7 @@ fun MainScreen(viewModel: PdfViewModel = viewModel()) {
                     onOpenFolder = { openFolderLauncher.launch(null) },
                     onOpenSamplePdf = { viewModel.openSamplePdf() },
                     onAppend = { appendLauncher.launch("application/pdf") },
-                    onSave = { saveLauncher.launch("edited_${uiState.fileName ?: "document"}.pdf") },
+                    onSave = { saveLauncher.launch(suggestEditedPdfFileName(uiState.fileName)) },
                     onExport = { exportLauncher.launch("selected_pages.pdf") },
                     onSplitClick = { showSplitDialog = true },
                     onCropClick = { showCropDialog = true },
