@@ -10,6 +10,7 @@ This is a list of verification results compiled from developer and user informat
 | Smartphone | Google       | Pixel 8a              |     17     | 1.2.10(26)  | No issues | 3     |
 | Smartphone | motorola     | moto g24              |     14     |  1.2.5(21)  | No issues | -     |
 | Smartphone | motorola     | moto g24              |     14     | 1.2.10(26)  | No issues | 2     |
+| Smartphone | motorola     | moto g24              |     14     | 1.2.15(31)  | Basic checks passed; minor filename issue | 14 |
 | Smartphone | OPPO         | Reno11 A CPH2603      |     15     |  1.2.5(21)  | No issues | -     |
 | Smartphone | OPPO         | Reno11 A CPH2603      |     16     | 1.2.10(26)  | No issues | 6     |
 | Smartphone | Samsung      | Galaxy A54 5G SC-53D  |     16     |  1.2.5(21)  | No issues | -     |
@@ -52,6 +53,14 @@ The existing Google Play build 1.2.11 (27) was preserved: all five APK hashes, v
 Pixel 8a / Android 17, separate LOCAL build 1.2.10-home-v2-local (26): confirmed forward accessibility focus movement in Japanese and English for the eight-page sample PDF with the Open/Save-only, text-only toolbar. The user listened to both recordings and reported audible Japanese/English speech without concerning repetition or skipped items. This was user listening confirmation, not direct audio assessment by the agent.
 
 Backward focus movement and menu activation were initially undetermined; the follow-up on November 16 confirmed both in Japanese and English under the same representative document/toolbar conditions. Japanese backward movement reached Save → Open → More actions; English reached page numbers 8 → 7 → 6 and Open → More actions. Action + Space opened the app menu in both languages. The initial undetermined result is retained as history, not diagnosed as an app defect. Other screens and all layout/settings combinations were not covered. TalkBack, language, and other changed device settings were restored, the temporary keyboard was disconnected, and all existing Play APK hashes and install/update metadata were unchanged. See the [detailed results and remaining items](docs/validation/talkback-local-20261116/RESULT.ja.md).
+
+## English system-language basic verification (2026-11-25)
+
+14. On November 25, 2026 (JST), verified the existing Google Play installation of 1.2.15 (31) on moto g24 / Android 14. The device already used English (United States) as its system language, with Japanese (Japan) second (`en-US,ja-JP`); the same locale order and primary locale were confirmed at the end. No system-language change was necessary, and no other device settings were changed.
+
+Confirmed English onboarding and start-screen labels, the English sample catalog, sample download completion, and the sample-license dialog. The license agreement was not accepted as part of this test; sample editing/saving was not assessed. Instead, used an independently generated three-page English PDF to verify Open through the Android file picker, three thumbnail pages, page selection, Rotate Right through More actions, visible rotation of the selected page, Undo restoring its original orientation, Save to a separate file, and reopening the saved file with all three pages in the restored orientation. Confirmed that the English Options dialog displayed Standard / Simple / Compact and their descriptions; closed with Cancel without applying settings. No crash or blocking error was observed during these operations.
+
+Minor issue observed: the default save filename appended another `.pdf` to a source name already ending in `.pdf`, producing `edited_english-verification-20261125.pdf.pdf`. Saving and reopening succeeded; this initial observation is retained as history. The source fix and separate-build retest below resolved the naming issue for the tested cases. This was a basic portrait-mode check, not comprehensive regression coverage: landscape, TalkBack, password-protected PDFs, merge/split/delete, full-device reboot, first badge acquisition, and badge persistence were not tested here. Existing installation version and first-install/update timestamps remained unchanged; no install, uninstall, app-data clearing, or store changes were performed. Test PDFs and the downloaded sample were retained on the device.
 
 ## Save filename regression verification (2026-11-25)
 
