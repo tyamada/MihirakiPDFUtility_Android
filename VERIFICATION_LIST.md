@@ -2,28 +2,28 @@
 
 | Category | Manufacturer | Device model | OS | App version / source | Latest verification | Result | Notes |
 |:--|:--|:--|:--|:--|:--|:--|:--|
-| Smartphone | FCNT | arrows We2 M07 | 16 | 1.2.15 (31), Play | 2026-11-25 | Passed with notes | 1 |
-| Smartphone | Google | Pixel 8a | 17 | 1.2.15 (31), Play | 2026-11-25 | Passed with notes | 2 |
-| Smartphone | motorola | moto g24 | 14 | 1.2.15-filenamecheck (31), separate debug build | 2026-11-25 | Passed | 3 |
-| Smartphone | OPPO | Reno11 A CPH2603 | 16 | 1.2.15 (31), Play | 2026-11-25 | Passed with notes | 4 |
-| Smartphone | Samsung | Galaxy A54 5G SC-53D | 16 | 1.2.15-toolbarcheck (31), separate debug build | 2026-11-25 | Passed | 5 |
-| Smartphone | Sharp | AQUOS sense4 SH-41A | 12 | 1.2.15 (31), Play | 2026-11-25 | Passed with notes | 6 |
-| Smartphone | Sony | Xperia 10 VI XQ-ES44 | 16 | 1.2.15 (31), Play | 2026-11-25 | Passed with notes | 7 |
-| Smartphone | Sony | Xperia 10 VIII XQ-GH44 | 17 | 1.2.15 (31), Play | 2026-11-25 | Passed with notes | 8 |
-| Tablet | Samsung | Galaxy Tab A SM-T510 | 9 | 1.2.15 (31), Play | 2026-11-25 | Passed with notes | 9 |
-| Tablet | aiwa | tab AG10 JA3-TBA1003 | 13 | 1.2.15 (31), Play | 2026-11-25 | Passed with notes | 10 |
-| Desktop | ASUS | Chromebook CM30 | 13 | 1.2.5 (21), source not recorded | Not recorded | User-reported | 11 |
+| Smartphone | FCNT | arrows We2 M07 | 16 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 1 |
+| Smartphone | Google | Pixel 8a | 17 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 2 |
+| Smartphone | motorola | moto g24 | 14 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 3 |
+| Smartphone | OPPO | Reno11 A CPH2603 | 16 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 4 |
+| Smartphone | Samsung | Galaxy A54 5G SC-53D | 16 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 5 |
+| Smartphone | Sharp | AQUOS sense4 SH-41A | 12 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 6 |
+| Smartphone | Sony | Xperia 10 VI XQ-ES44 | 16 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 7 |
+| Smartphone | Sony | Xperia 10 VIII XQ-GH44 | 17 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 8 |
+| Tablet | Samsung | Galaxy Tab A SM-T510 | 9 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 9 |
+| Tablet | aiwa | tab AG10 JA3-TBA1003 | 13 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 10 |
+| Desktop | ASUS | Chromebook CM30 | Not reported | 1.2.16 (32), source not reported | 2026-11-25 | Developer-confirmed | 11 |
 
 ## Notes
 
-1. arrows We2 M07: basic checks passed. The installed Play build suggests `.pdf.pdf` when saving. The tested toolbar labels were complete. Newer source fixes have not been verified in a distributed update on this model.
-2. Pixel 8a: basic checks passed. The installed Play build suggests `.pdf.pdf` when saving. Basic checks used a hidden toolbar and More actions; visible toolbar layouts were not verified in this session.
-3. moto g24: save filename regression checks passed. The corrected filename was verified only in the separate filenamecheck debug build. The installed Play build remains 1.2.15 (31) without that fix.
-4. Reno11 A: basic checks passed. The installed Play build suggests `.pdf.pdf` when saving. The four visible toolbar labels were complete. Landscape and newer source fixes were not verified.
-5. Galaxy A54: toolbar label regression checks passed. Complete labels were verified in the separate toolbarcheck debug build, which also contains the filename fix. The installed Play build has not received these fixes. Physical rotation and manual/all-button profiles were not verified.
-6. AQUOS sense4: basic checks passed. The installed Play build suggests `.pdf.pdf` when saving. Portrait toolbar labels were complete; landscape and newer source fixes were not verified.
-7. Xperia 10 VI: basic checks passed. The installed Play build clips toolbar labels and suggests `.pdf.pdf` when saving. Full action labels are available through More actions. Source fixes have not been retested on this model.
-8. Xperia 10 VIII: basic checks passed. The installed Play build suggests `.pdf.pdf` when saving. Portrait toolbar labels were complete; landscape and newer source fixes were not verified.
-9. Galaxy Tab A: basic checks passed. The installed Play build suggests `.pdf.pdf` when saving. Portrait toolbar labels were complete; landscape and newer source fixes were not verified.
-10. aiwa tab AG10: basic checks passed. The installed Play build suggests `.pdf.pdf` when saving. Landscape labels were complete; the system picker retained some Japanese labels. Portrait and newer source fixes were not verified.
-11. Chromebook CM30: window and tablet modes were reported ready by the user. The verification date and distribution source were not recorded; other functions and later builds are not covered.
+1. arrows We2 M07: updated through Google Play from 1.2.15 (31) to 1.2.16 (32). English portrait basic checks, save filename, and four visible toolbar labels passed. Language changes required restarts; original Japanese-only language was restored. Landscape, TalkBack, and other untested functions are not covered.
+2. Pixel 8a: updated through Google Play from 1.2.15 (31) to 1.2.16 (32). English portrait basic checks and the save filename passed using More actions with the existing hidden-toolbar setting. Original language order and region were restored. Visible toolbar layouts, landscape, and TalkBack were not verified.
+3. moto g24: updated through Google Play from 1.2.15 (31) to 1.2.16 (32). English portrait basic checks, save filename, and visible toolbar labels passed. Original English/Japanese language order was unchanged. Landscape, TalkBack, and other untested functions are not covered.
+4. Reno11 A: updated through Google Play from 1.2.15 (31) to 1.2.16 (32). English portrait basic checks, save filename, and four visible toolbar labels passed. Original Japanese-only language and region Japan were restored. Landscape, TalkBack, and other untested functions are not covered.
+5. Galaxy A54: updated through Google Play from 1.2.15 (31) to 1.2.16 (32). English portrait basic checks, save filename, and visible toolbar labels passed. Original Japanese-only system language was restored. Landscape, TalkBack, and other untested functions are not covered.
+6. AQUOS sense4: updated through Google Play from 1.2.15 (31) to 1.2.16 (32). English portrait basic checks, save filename, and four visible toolbar labels passed. Original Japanese-only language was restored. Landscape, TalkBack, and other untested functions are not covered.
+7. Xperia 10 VI: updated through Google Play from 1.2.15 (31) to 1.2.16 (32). English portrait basic checks, save filename, and visible toolbar labels passed; earlier clipping did not recur. Original language order was restored. Landscape, TalkBack, and other untested functions are not covered.
+8. Xperia 10 VIII: updated through Google Play from 1.2.15 (31) to 1.2.16 (32). English portrait basic checks, save filename, and visible toolbar labels passed. Original Japanese system language was restored. Landscape, TalkBack, and other untested functions are not covered.
+9. Galaxy Tab A: updated through Google Play from 1.2.15 (31) to 1.2.16 (32). English portrait basic checks, save filename, and visible toolbar labels passed. Original Japanese-only system language was restored. Landscape, TalkBack, and other untested functions are not covered.
+10. aiwa tab AG10: updated through Google Play from 1.2.15 (31) to 1.2.16 (32). English landscape basic checks, save filename, and visible menu/toolbar labels passed. Original Japanese-only system language was restored. Portrait, TalkBack, and other untested functions are not covered.
+11. Chromebook CM30: the developer personally confirmed operation of 1.2.16 (32), reported on November 25, 2026. USB/Wi-Fi debugging was unavailable. Specific test steps, system language, OS version, and distribution source were not reported for this session.
