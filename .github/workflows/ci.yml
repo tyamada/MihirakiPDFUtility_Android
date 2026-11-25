@@ -48,13 +48,13 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build debug APK
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleDebug --max-workers=2 -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
 
     - name: Run Android Lint
-      run: ./gradlew lintDebug
+      run: ./gradlew lintDebug --max-workers=2 -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
 
     - name: Run unit tests
-      run: ./gradlew testDebugUnitTest
+      run: ./gradlew testDebugUnitTest --max-workers=2 -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
 
     - name: Validate translations, store metadata and public pages
       run: |
