@@ -2,17 +2,17 @@
 
 | Category | Manufacturer | Device model | OS | App version / source | Latest verification | Result | Notes |
 |:--|:--|:--|:--|:--|:--|:--|:--|
-| Smartphone | FCNT | arrows We2 M07 | 16 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 1 |
-| Smartphone | Google | Pixel 8a | 17 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 2 |
-| Smartphone | motorola | moto g24 | 14 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 3 |
-| Smartphone | OPPO | Reno11 A CPH2603 | 16 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 4 |
-| Smartphone | Samsung | Galaxy A54 5G SC-53D | 16 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 5 |
-| Smartphone | Sharp | AQUOS sense4 SH-41A | 12 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 6 |
-| Smartphone | Sony | Xperia 10 VI XQ-ES44 | 16 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 7 |
-| Smartphone | Sony | Xperia 10 VIII XQ-GH44 | 17 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 8 |
-| Tablet | Samsung | Galaxy Tab A SM-T510 | 9 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 9 |
-| Tablet | aiwa | tab AG10 JA3-TBA1003 | 13 | 1.2.16 (32), Play | 2026-11-25 | Passed with notes | 10 |
-| Desktop | ASUS | Chromebook CM30 | Not reported | 1.2.16 (32), source not reported | 2026-11-25 | Developer-confirmed | 11 |
+| Smartphone | FCNT | arrows We2 M07 | 16 | 1.2.16 (32), Play | 2026-11-25 | No issues | 1 |
+| Smartphone | Google | Pixel 8a | 17 | 1.2.16 (32), Play | 2026-11-25 | No issues | 2 |
+| Smartphone | motorola | moto g24 | 14 | 1.2.16 (32), Play | 2026-11-25 | No issues | 3 |
+| Smartphone | OPPO | Reno11 A CPH2603 | 16 | 1.2.16 (32), Play | 2026-11-25 | No issues | 4 |
+| Smartphone | Samsung | Galaxy A54 5G SC-53D | 16 | 1.2.16 (32), Play | 2026-11-25 | No issues | 5 |
+| Smartphone | Sharp | AQUOS sense4 SH-41A | 12 | 1.2.16 (32), Play | 2026-11-25 | No issues | 6 |
+| Smartphone | Sony | Xperia 10 VI XQ-ES44 | 16 | 1.2.16 (32), Play | 2026-11-25 | No issues | 7 |
+| Smartphone | Sony | Xperia 10 VIII XQ-GH44 | 17 | 1.2.16 (32), Play | 2026-11-25 | No issues | 8 |
+| Tablet | Samsung | Galaxy Tab A SM-T510 | 9 | 1.2.16 (32), Play | 2026-11-25 | No issues | 9 |
+| Tablet | aiwa | tab AG10 JA3-TBA1003 | 13 | 1.2.16 (32), Play | 2026-11-25 | No issues | 10 |
+| Desktop | ASUS | Chromebook CM30 | Not reported | 1.2.16 (32), source not reported | 2026-11-25 | No issues | 11 |
 
 ## Notes
 
