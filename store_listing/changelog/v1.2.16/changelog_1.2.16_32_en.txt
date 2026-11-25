@@ -1,0 +1,3 @@
+v1.2.16
+- Fixed duplicate .pdf extensions in suggested PDF filenames when saving.
+- Fixed toolbar labels being cut off, including in English.

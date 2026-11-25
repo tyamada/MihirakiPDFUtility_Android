@@ -17,7 +17,7 @@ These videos are in English and open on YouTube.
 
 ## Latest closed-test release
 
-Version: <!-- current-app-version:start -->1.2.15 (31)<!-- current-app-version:end -->. The app loads the latest validated sample catalog, falling back to the saved catalog or bundled samples when unavailable. Verified downloaded PDFs are retained. The free Koyomi badge is awarded automatically through December 31, 2027 (JST); acquired badges remain after the deadline. Its notification is dismissed manually, and App info shows an enlarged badge and description. Alpha 1.2.15 (31) was published to selected testers on November 20, 2026 at 08:57 JST.
+Version: <!-- current-app-version:start -->1.2.16 (32)<!-- current-app-version:end -->. The 1.2.16 candidate fixes duplicate PDF extensions in save suggestions and clipped toolbar labels. The app loads the latest validated sample catalog, falling back to the saved catalog or bundled samples when unavailable. Verified downloaded PDFs are retained. The free Koyomi badge is awarded automatically through December 31, 2027 (JST); acquired badges remain after the deadline. Its notification is dismissed manually, and App info shows an enlarged badge and description. Alpha 1.2.15 (31) was published to selected testers on November 20, 2026 at 08:57 JST.
 
 The samples cover 14 languages and 17 language/region variants, with three episodes each. Native and English region names are sorted by English name. Episode order is retained after restarting the app.
 
