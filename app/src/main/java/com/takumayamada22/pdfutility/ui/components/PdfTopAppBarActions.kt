@@ -47,7 +47,7 @@ internal fun ActionButton(
         }
         ButtonDisplayType.TEXT_ONLY -> {
             TextButton(onClick = onClick, enabled = enabled, modifier = Modifier.testTag("toolbarActionButton").width(measuredWidth)) {
-                Text(text, maxLines = 1)
+                Text(text, style = MaterialTheme.typography.labelLarge, maxLines = 1, softWrap = false)
             }
         }
         ButtonDisplayType.ICON_AND_TEXT -> {
@@ -63,7 +63,7 @@ internal fun ActionButton(
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Box(Modifier.size(24.dp).clearAndSetSemantics {}) { icon() }
-                    Text(text, maxLines = 1)
+                    Text(text, style = MaterialTheme.typography.labelLarge, maxLines = 1, softWrap = false)
                 }
             }
         }

@@ -14,6 +14,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.takumayamada22.pdfutility.ui.*
@@ -52,7 +54,7 @@ class ToolbarLayoutTest {
                 }
             }
         } }
-        for (lang in listOf("ja", "en")) for (scale in listOf(1f, 2f))
+        for (lang in listOf("ja", "en")) for (scale in listOf(1f, 1.1f, 2f))
             for (preset in ToolbarPreset.entries) for (landscape in listOf(false, true)) {
                 val case = Case(lang, scale, preset, landscape)
                 compose.runOnIdle { current.value = case }
@@ -61,6 +63,24 @@ class ToolbarLayoutTest {
                 assertTrue("No buttons for $case", nodes.isNotEmpty())
                 val rows = nodes.map { kotlin.math.round(it.boundsInRoot.top) }.distinct().size
                 assertTrue("$case: $rows rows exceeds ${preset.rows}", rows <= preset.rows)
+                // Button bounds alone do not reveal clipped or wrapped label text.
+                val labels = compose.onAllNodes(
+                    SemanticsMatcher.keyIsDefined(SemanticsActions.GetTextLayoutResult) and
+                        hasAnyAncestor(hasTestTag("toolbarActionButton")), useUnmergedTree = true)
+                for (index in labels.fetchSemanticsNodes().indices) {
+                    val layouts = mutableListOf<TextLayoutResult>()
+                    labels[index].performSemanticsAction(SemanticsActions.GetTextLayoutResult) { it(layouts) }
+                    assertTrue("Missing label layout: $case", layouts.isNotEmpty())
+                    layouts.forEach { layout ->
+                        // For softWrap=false, didOverflowWidth may describe the paragraph's
+                        // unconstrained layout width even when every glyph fits. Check glyph extents.
+                        assertTrue("Label clipped: $case ${layout.layoutInput.text}",
+                            layout.getLineRight(0) <= layout.size.width + 1f &&
+                                layout.getLineLeft(0) >= -1f && !layout.isLineEllipsized(0))
+                        assertFalse("Label height overflow: $case ${layout.layoutInput.text}", layout.didOverflowHeight)
+                        assertEquals("Wrapped label: $case", 1, layout.lineCount)
+                    }
+                }
                 val ordered = nodes.sortedWith(compareBy({ it.boundsInRoot.top }, { it.boundsInRoot.left }))
                 ordered.zipWithNext().forEach { (a, b) ->
                     if (kotlin.math.abs(a.boundsInRoot.top - b.boundsInRoot.top) < 1f)

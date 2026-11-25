@@ -15,12 +15,13 @@ import com.takumayamada22.pdfutility.ui.*
 internal fun toolbarButtonWidth(text: String, type: ButtonDisplayType): Int {
     val density = LocalDensity.current
     val measurer = rememberTextMeasurer()
-    val textWidth = measurer.measure(AnnotatedString(text), style = MaterialTheme.typography.labelLarge, maxLines = 1).size.width
+    val textWidth = measurer.measure(AnnotatedString(text), style = MaterialTheme.typography.labelLarge, maxLines = 1, softWrap = false).size.width
+    // Reserve 2dp for independent pixel rounding of padding, spacing and text.
     return with(density) {
         when (type) {
             ButtonDisplayType.ICON_ONLY -> 48.dp.roundToPx()
-            ButtonDisplayType.ICON_AND_TEXT -> maxOf(58.dp.roundToPx(), textWidth + 44.dp.roundToPx()) + 4.dp.roundToPx()
-            ButtonDisplayType.TEXT_ONLY -> maxOf(58.dp.roundToPx(), textWidth + 24.dp.roundToPx())
+            ButtonDisplayType.ICON_AND_TEXT -> maxOf(58.dp.roundToPx(), textWidth + 46.dp.roundToPx()) + 4.dp.roundToPx()
+            ButtonDisplayType.TEXT_ONLY -> maxOf(58.dp.roundToPx(), textWidth + 26.dp.roundToPx())
         }
     }
 }
