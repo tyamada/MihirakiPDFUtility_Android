@@ -6,16 +6,17 @@
 
 - VERIFICATION_LIST.mdの本文は「結果の表」と「使用上の注意（Notes）」だけに限定します。文書タイトルと表・Notesの見出しは使用できます。
 - 表とNotesは英語で記載します。製品名、実際のUI表示、ファイル名などの引用は原表記を保持できます。
-- Notesには利用者に必要な制約、既知の問題、対象版・配布元に関する注意などを簡潔に記載します。テストの手順、個々の確認結果、ログ、証跡、設定復元の経緯などの詳細は記載しません。
+- 表内の結果は「Passed」「Passed with notes」「Not verified」などの短い判定に留め、長い説明をセル内へ詰め込みません。結果の補足、確認範囲、制約、既知の問題、対象版・配布元に関する注意は、表の外のNotesに英語で記載します。必要に応じて注番号やモデル名で該当行と対応付けます（2026-11-25 ユーザー指定）。
+- Notesは利用者が結果を理解するための説明に限定します。テストの手順、操作ごとの詳細結果、ログ、証跡、設定復元の経緯などは別の検証メモへ保存します。
 - テスト結果の詳細と証跡は、別の検証メモ（docs/validation/配下など）へ保存します。更新ルール、作業手順、Git操作、実装上の説明、検証の調整経緯はこのファイルまたは別の内部メモへ保存します。
 
 ## Maintenance rule / 更新ルール
 
 - モデルごとに最新の検証結果だけを表に掲載します。同じモデルを再検証した場合は、その行と対応するNotesを最新結果へ置き換え、古い結果を重複して残しません。
-- 表ではモデル・OS・アプリの版・配布元・確認日・結果を識別できるようにします。確認範囲や未確認項目の詳細は別メモに保存し、利用上の判断に必要な制限だけをNotesへ簡潔に反映します。
+- 表ではモデル・OS・アプリの版・配布元・確認日・結果を識別できるようにします。結果を理解するための確認範囲や未確認項目の補足は表外のNotesへ記載し、操作単位の詳細や証跡は別メモに保存します。
 - 最新の実際の検証日時を基準にし、別版での合格を未検証の版へ適用しません。特に検証版と配信済みPlay版を区別します。
 - 過去の確認履歴はGit履歴や別の検証メモで保持します。未解決の問題を結果の整理によって合格扱いにしません。
-- Keep VERIFICATION_LIST.md limited to an English results table and concise user-facing Notes. Keep one latest result per device model, distinguish tested builds and distribution sources, and retain relevant limitations and known issues. Store detailed test results, procedures, evidence, and internal notes in separate files.
+- Keep VERIFICATION_LIST.md limited to an English results table and concise user-facing Notes. Keep result cells brief and put explanatory details in Notes outside the table, linked to the relevant device row when needed. Keep one latest result per device model, distinguish tested builds and distribution sources, and retain relevant limitations and known issues. Store detailed test results, procedures, evidence, and internal notes in separate files.
 
 ## 過去の証跡
 
