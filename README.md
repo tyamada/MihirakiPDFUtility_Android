@@ -25,7 +25,7 @@ For devices without Google Play or users who want to test direct APK installatio
 
 ## Latest closed-test release
 
-Version: <!-- current-app-version:start -->1.2.16 (32)<!-- current-app-version:end -->. The 1.2.16 candidate fixes duplicate PDF extensions in save suggestions and clipped toolbar labels. The app loads the latest validated sample catalog, falling back to the saved catalog or bundled samples when unavailable. Verified downloaded PDFs are retained. The free Koyomi badge is awarded automatically through December 31, 2027 (JST); acquired badges remain after the deadline. Its notification is dismissed manually, and App info shows an enlarged badge and description. Alpha 1.2.15 (31) was published to selected testers on November 20, 2026 at 08:57 JST.
+Version: <!-- current-app-version:start -->1.2.16 (32)<!-- current-app-version:end -->. The 1.2.16 release fixes duplicate PDF extensions in save suggestions and clipped toolbar labels. The app loads the latest validated sample catalog, falling back to the saved catalog or bundled samples when unavailable. Verified downloaded PDFs are retained. The free Koyomi badge is awarded automatically through December 31, 2027 (JST); acquired badges remain after the deadline. Its notification is dismissed manually, and App info shows an enlarged badge and description. Alpha 1.2.16 (32) was published to selected testers on November 25, 2026 (JST), and Production 1.2.16 (32) is currently under Google Play review for 6 initial regions.
 
 The samples cover 14 languages and 17 language/region variants, with three episodes each. Native and English region names are sorted by English name. Episode order is retained after restarting the app.
 
@@ -107,14 +107,14 @@ cd MihirakiPDFUtility_Android
 # Set JAVA_HOME to JDK 21 and ANDROID_HOME to your Android SDK directory.
 sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"
 sdkmanager --licenses
-./gradlew assembleDebug lintDebug testDebugUnitTest
+./gradlew assembleDebug lintPlayDebug lintSideloadDebug testPlayDebugUnitTest testSideloadDebugUnitTest
 # Connect one test device with USB debugging enabled, or start one emulator.
-./gradlew installDebug
+./gradlew installPlayDebug
 ```
 
 Use `gradlew.bat` on Windows. Set the SDK location through `ANDROID_HOME` or `sdk.dir=/absolute/path/to/Android/sdk` in the ignored `local.properties`. In Android Studio, open the project, sync Gradle and select Run. Android 8.0 (API 26) or later is required.
 
-The APK is `app/build/outputs/apk/debug/app-debug.apk`. Debug builds use an automatically generated development key; the author's signing key is unnecessary. A Debug APK cannot replace the Play app with the same application ID and a different signature. Use a dedicated test device.
+The Debug APKs are `app/build/outputs/apk/play/debug/app-play-debug.apk` (and `app/build/outputs/apk/sideload/debug/app-sideload-debug.apk` for the sideload flavor). Debug builds use an automatically generated development key; the author's signing key is unnecessary. A Debug APK cannot replace the Play app with the same application ID and a different signature. Use a dedicated test device.
 
 ### Release signing
 
@@ -133,7 +133,7 @@ signing.keyAlias=release
 signing.keyPassword=YOUR_KEY_PASSWORD
 ```
 
-Run `./gradlew bundleRelease` to create `app/build/outputs/bundle/release/app-release.aab`. Keep keys, passwords, `local.properties` and signed artifacts out of Git. Optional Python tooling dependencies are listed in `requirements-play-console.txt`; normal app builds do not require Play Console credentials.
+Run `./gradlew bundlePlayRelease` to create `app/build/outputs/bundle/playRelease/app-play-release.aab` (or `./gradlew assembleSideloadRelease` for `app/build/outputs/apk/sideload/release/app-sideload-release.apk`). Keep keys, passwords, `local.properties` and signed artifacts out of Git. Optional Python tooling dependencies are listed in `requirements-play-console.txt`; normal app builds do not require Play Console credentials.
 
 ## License
 

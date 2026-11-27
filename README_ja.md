@@ -26,7 +26,7 @@ Google Play を利用できない環境や直接 APK インストールを試し
 
 ## 最新クローズドテスト版
 
-版情報：<!-- current-app-version:start -->1.2.16 (32)<!-- current-app-version:end -->。1.2.16候補では保存候補名のPDF拡張子重複とツールバーの文字切れを修正しています。最新版JSONを検証してサンプル一覧を取得し、取得できない場合は保存済み一覧または同梱一覧を利用します。検証済みの取得済みPDFは保持します。無料のこよみバッジは2027年12月31日（日本時間）まで自動取得でき、取得済みは期限後も保持します。取得通知は手動で閉じ、アプリ情報から拡大画像と説明を確認できます。Alpha 1.2.15（31）は2026年11月20日8:57（日本時間）に選択したテスターへ公開されました。
+版情報：<!-- current-app-version:start -->1.2.16 (32)<!-- current-app-version:end -->。1.2.16では保存候補名のPDF拡張子重複とツールバーの文字切れを修正しています。最新版JSONを検証してサンプル一覧を取得し、取得できない場合は保存済み一覧または同梱一覧を利用します。検証済みの取得済みPDFは保持します。無料のこよみバッジは2027年12月31日（日本時間）まで自動取得でき、取得済みは期限後も保持します。取得通知は手動で閉じ、アプリ情報から拡大画像と説明を確認できます。Alpha 1.2.16（32）は2026年11月25日（日本時間）に選択したテスターへ公開済みで、製品版 1.2.16（32）は初回6か国・地域向けに Google Play 審査中です。
 
 サンプル漫画は14言語・17言語地域区分×3話。地域名は原語と英語名を併記し、英語名順に表示します。第1話順／最新話順の選択は再起動後も保持します。
 
@@ -108,14 +108,14 @@ cd MihirakiPDFUtility_Android
 # JAVA_HOMEはJDK 21、ANDROID_HOMEは自身のAndroid SDKディレクトリに設定
 sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"
 sdkmanager --licenses
-./gradlew assembleDebug lintDebug testDebugUnitTest
+./gradlew assembleDebug lintPlayDebug lintSideloadDebug testPlayDebugUnitTest testSideloadDebugUnitTest
 # USBデバッグを許可した端末、または起動済みエミュレータ1台にインストール
-./gradlew installDebug
+./gradlew installPlayDebug
 ```
 
 Windowsでは`gradlew.bat`を使用します。SDKの場所は`ANDROID_HOME`、または追跡対象外の`local.properties`の`sdk.dir=/absolute/path/to/Android/sdk`で指定します。Android Studioではプロジェクトを開いてGradle Sync後、Runを実行できます。Android 8.0（API 26）以上が必要です。
 
-APKの出力先は`app/build/outputs/apk/debug/app-debug.apk`です。Debugは自動生成の開発用鍵で署名され、作者の秘密鍵は不要です。Play版と署名が異なるため、同じアプリIDで上書きできません。試験用端末を使用してください。
+Debug APKの出力先は`app/build/outputs/apk/play/debug/app-play-debug.apk`（サイドロード版は`app/build/outputs/apk/sideload/debug/app-sideload-debug.apk`）です。Debugは自動生成の開発用鍵で署名され、作者の秘密鍵は不要です。Play版と署名が異なるため、同じアプリIDで上書きできません。試験用端末を使用してください。
 
 ### Release署名
 
@@ -134,7 +134,7 @@ signing.keyAlias=release
 signing.keyPassword=YOUR_KEY_PASSWORD
 ```
 
-`./gradlew bundleRelease`で`app/build/outputs/bundle/release/app-release.aab`を生成します。鍵・パスワード・`local.properties`・署名済み成果物をGitへ登録しないでください。補助Pythonスクリプトの依存は必要に応じて`requirements-play-console.txt`を参照してください。通常のアプリビルドにPlay Console認証は不要です。
+`./gradlew bundlePlayRelease`で`app/build/outputs/bundle/playRelease/app-play-release.aab`を生成します（サイドロード版APKは`./gradlew assembleSideloadRelease`で`app/build/outputs/apk/sideload/release/app-sideload-release.apk`を生成）。鍵・パスワード・`local.properties`・署名済み成果物をGitへ登録しないでください。補助Pythonスクリプトの依存は必要に応じて`requirements-play-console.txt`を参照してください。通常のアプリビルドにPlay Console認証は不要です。
 
 ## ライセンス
 
