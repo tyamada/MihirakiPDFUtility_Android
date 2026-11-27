@@ -1,0 +1,29 @@
+{
+  "captureId": "id_01_page_grid_portrait",
+  "scene": "01_page_grid",
+  "language": "id",
+  "locale": "id-ID",
+  "package": "com.takumayamada22.pdfutility.sideload",
+  "versionCode": 32,
+  "versionName": "1.2.16-sideload",
+  "pdfSha256": "5cabd1d07766aedbee504f7b1cd13c084e8d54f3800a2a46c9f6e2a605d21261",
+  "portrait": true,
+  "pageCount": 8,
+  "selectedIndices": [],
+  "pageOrder": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "api": 37,
+  "densityDpi": 320,
+  "screenWidthDp": 540,
+  "screenHeightDp": 960,
+  "checks": {},
+  "setup": "Real MainActivity; PDF loaded through production ViewModel API; toolbar\/dialog actions through Compose input"
+}

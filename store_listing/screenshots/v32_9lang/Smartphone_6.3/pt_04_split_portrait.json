@@ -1,0 +1,26 @@
+{
+  "captureId": "pt_04_split_portrait",
+  "scene": "04_split",
+  "language": "pt",
+  "locale": "pt-BR",
+  "package": "com.takumayamada22.pdfutility.sideload",
+  "versionCode": 32,
+  "versionName": "1.2.16-sideload",
+  "pdfSha256": "3bee185631c0db3dcf611a81fc109b7e625ddac9b0ae054babaed69574b14c53",
+  "portrait": true,
+  "pageCount": 1,
+  "selectedIndices": [
+    0
+  ],
+  "pageOrder": [
+    1
+  ],
+  "api": 37,
+  "densityDpi": 320,
+  "screenWidthDp": 540,
+  "screenHeightDp": 960,
+  "checks": {
+    "splitAndVerified": true
+  },
+  "setup": "Real MainActivity; PDF loaded through production ViewModel API; toolbar\/dialog actions through Compose input"
+}

@@ -1,0 +1,29 @@
+{
+  "captureId": "vi_07_security_portrait",
+  "scene": "07_security",
+  "language": "vi",
+  "locale": "vi-VN",
+  "package": "com.takumayamada22.pdfutility.sideload",
+  "versionCode": 32,
+  "versionName": "1.2.16-sideload",
+  "pdfSha256": "bb7676e50b5a6659972f4ea8614567e41fd56e9bc0e200287576b300f4f3812c",
+  "portrait": true,
+  "pageCount": 8,
+  "selectedIndices": [],
+  "pageOrder": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "api": 37,
+  "densityDpi": 320,
+  "screenWidthDp": 540,
+  "screenHeightDp": 960,
+  "checks": {},
+  "setup": "Real MainActivity; PDF loaded through production ViewModel API; toolbar\/dialog actions through Compose input"
+}

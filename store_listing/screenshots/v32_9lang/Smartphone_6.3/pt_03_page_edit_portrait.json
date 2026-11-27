@@ -1,0 +1,34 @@
+{
+  "captureId": "pt_03_page_edit_portrait",
+  "scene": "03_page_edit",
+  "language": "pt",
+  "locale": "pt-BR",
+  "package": "com.takumayamada22.pdfutility.sideload",
+  "versionCode": 32,
+  "versionName": "1.2.16-sideload",
+  "pdfSha256": "3bee185631c0db3dcf611a81fc109b7e625ddac9b0ae054babaed69574b14c53",
+  "portrait": true,
+  "pageCount": 8,
+  "selectedIndices": [
+    2,
+    3
+  ],
+  "pageOrder": [
+    1,
+    4,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8
+  ],
+  "api": 37,
+  "densityDpi": 320,
+  "screenWidthDp": 540,
+  "screenHeightDp": 960,
+  "checks": {
+    "reorderedAndVerified": true
+  },
+  "setup": "Real MainActivity; PDF loaded through production ViewModel API; toolbar\/dialog actions through Compose input"
+}

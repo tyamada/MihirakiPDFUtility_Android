@@ -1,0 +1,26 @@
+{
+  "captureId": "vi_04_split_portrait",
+  "scene": "04_split",
+  "language": "vi",
+  "locale": "vi-VN",
+  "package": "com.takumayamada22.pdfutility.sideload",
+  "versionCode": 32,
+  "versionName": "1.2.16-sideload",
+  "pdfSha256": "bb7676e50b5a6659972f4ea8614567e41fd56e9bc0e200287576b300f4f3812c",
+  "portrait": true,
+  "pageCount": 1,
+  "selectedIndices": [
+    0
+  ],
+  "pageOrder": [
+    1
+  ],
+  "api": 37,
+  "densityDpi": 320,
+  "screenWidthDp": 540,
+  "screenHeightDp": 960,
+  "checks": {
+    "splitAndVerified": true
+  },
+  "setup": "Real MainActivity; PDF loaded through production ViewModel API; toolbar\/dialog actions through Compose input"
+}

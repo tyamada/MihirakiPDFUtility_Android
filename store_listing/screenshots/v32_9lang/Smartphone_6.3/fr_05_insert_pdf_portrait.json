@@ -1,0 +1,40 @@
+{
+  "captureId": "fr_05_insert_pdf_portrait",
+  "scene": "05_insert_pdf",
+  "language": "fr",
+  "locale": "fr-FR",
+  "package": "com.takumayamada22.pdfutility.sideload",
+  "versionCode": 32,
+  "versionName": "1.2.16-sideload",
+  "pdfSha256": "bb98cd6b113bac4a2b90382b2728171fe16f4a8d62e26bf84f84ee4b06511c9d",
+  "portrait": true,
+  "pageCount": 16,
+  "selectedIndices": [],
+  "pageOrder": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "api": 37,
+  "densityDpi": 320,
+  "screenWidthDp": 540,
+  "screenHeightDp": 960,
+  "checks": {
+    "appendedAndVerified": true,
+    "appendedPageCount": 8
+  },
+  "setup": "Real MainActivity; PDF loaded through production ViewModel API; toolbar\/dialog actions through Compose input"
+}
