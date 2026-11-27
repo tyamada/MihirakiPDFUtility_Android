@@ -39,9 +39,25 @@ class StoreScreenshotTest {
         compose.waitForIdle()
     }
     private fun load(file: File, count: Int) {
-        main { vm.clearSelection(); vm.loadPdf(Uri.fromFile(file)) }
-        compose.waitUntil(90000) { !state().isLoading && state().fileName == file.name && state().pages.size == count }
-        ready(count)
+        var lastError: Throwable? = null
+        for (attempt in 1..3) {
+            main { vm.clearSelection(); vm.loadPdf(Uri.fromFile(file)) }
+            try {
+                compose.waitUntil(15000) { !state().isLoading && state().fileName == file.name && state().pages.size == count }
+                ready(count)
+                return
+            } catch (e: Throwable) {
+                lastError = e
+                Thread.sleep(500)
+            }
+        }
+        val s = state()
+        throw AssertionError(
+            "load(${file.name}, $count) timed out after 3 attempts: isLoading=${s.isLoading}, fileName=${s.fileName}, " +
+                "pages=${s.pages.size}, errorResId=${s.errorResId}, errorMessage=${s.errorMessage}, " +
+                "showTutorial=${s.showTutorial}, orient=${compose.activity.resources.configuration.orientation}",
+            lastError
+        )
     }
     private fun click(id: Int) {
         val label = compose.activity.getString(id)
@@ -57,24 +73,26 @@ class StoreScreenshotTest {
         // Android can retain a per-app language independently from the emulator's
         // system locale. Set the target app's locale explicitly for reproducible captures.
         if (Build.VERSION.SDK_INT >= 33) {
-            val localeManager = app.getSystemService(android.app.LocaleManager::class.java)
-            localeManager.applicationLocales = LocaleList.forLanguageTags(args.getString("captureLocale")!!)
-            compose.activityRule.scenario.recreate()
-            compose.waitUntil(15000) {
-                compose.activity.resources.configuration.locales[0].toLanguageTag() == args.getString("captureLocale")
+            val targetLocale = args.getString("captureLocale")!!
+            val currentLocale = compose.activity.resources.configuration.locales[0].toLanguageTag()
+            if (currentLocale != targetLocale) {
+                val localeManager = app.getSystemService(android.app.LocaleManager::class.java)
+                localeManager.applicationLocales = LocaleList.forLanguageTags(targetLocale)
+                compose.waitUntil(15000) {
+                    compose.activity.resources.configuration.locales[0].toLanguageTag() == targetLocale
+                }
             }
         }
-        compose.activityRule.scenario.onActivity {
-            vm = ViewModelProvider(it, PdfViewModel.provideFactory(app))[PdfViewModel::class.java]
-        }
-        ready()
         val locale = compose.activity.resources.configuration.locales[0].toLanguageTag()
         assertEquals(args.getString("captureLocale"), locale)
         val version = app.packageManager.getPackageInfo(app.packageName, 0)
         assertEquals(args.getString("captureVersionCode")!!.toLong(), version.longVersionCode)
-        compose.activity.requestedOrientation = if (args.getString("captureOrientation") == "portrait") android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT else android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         val desktop = args.getString("captureDesktop") == "true"
         val expectedPortrait = args.getString("captureOrientation") == "portrait"
+        val currentPortrait = compose.activity.resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
+        if (currentPortrait != expectedPortrait) {
+            compose.activity.requestedOrientation = if (expectedPortrait) android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT else android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
         if (desktop) {
             // Android Desktop launches the resizable Activity in a compact freeform window.
             // Use its real maximize control before capturing the full 1920x1080 display.
@@ -85,6 +103,15 @@ class StoreScreenshotTest {
             compose.waitUntil(15000) { (compose.activity.resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT) == expectedPortrait }
             assertEquals(expectedPortrait, compose.activity.resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT)
         }
+        compose.waitForIdle()
+        compose.activityRule.scenario.onActivity {
+            vm = ViewModelProvider(it, PdfViewModel.provideFactory(app))[PdfViewModel::class.java]
+        }
+        main {
+            vm.dismissTutorial(dontShowAgain = true)
+            vm.pendingBadgeNotifications.value.forEach { vm.dismissBadgeNotification(it.id) }
+        }
+        compose.waitForIdle()
         val portrait = expectedPortrait
         val source = File(folder, "$lang.pdf")
         val digest = MessageDigest.getInstance("SHA-256").digest(source.readBytes()).joinToString("") { "%02x".format(it) }
@@ -102,7 +129,8 @@ class StoreScreenshotTest {
         when (scene) {
             "01_page_grid" -> Unit
             "02_spread" -> {
-                click(R.string.action_right_binding_cover)
+                main { vm.setRightBindingWithCover() }
+                compose.waitForIdle()
                 assertTrue(state().isMihirakiView)
                 assertTrue(state().isRtl)
                 assertTrue(state().showCover)
@@ -143,13 +171,14 @@ class StoreScreenshotTest {
                 checks.put("appendedAndVerified", true).put("appendedPageCount", extra)
             }
             "06_properties" -> {
-                click(R.string.action_property)
+                main { vm.openSettingsDialog(SettingsDialogType.PROPERTY) }
+                compose.waitForIdle()
                 assertEquals(SettingsDialogType.PROPERTY, state().activeSettingsDialog)
                 compose.onNodeWithText(compose.activity.getString(R.string.prop_title)).assertExists()
             }
             "07_security" -> {
-                click(R.string.action_settings)
-                compose.onNodeWithText(compose.activity.getString(R.string.settings_password)).performClick()
+                main { vm.openSettingsDialog(SettingsDialogType.PASSWORD) }
+                compose.waitForIdle()
                 assertEquals(SettingsDialogType.PASSWORD, state().activeSettingsDialog)
             }
             else -> error("Unsupported scene: $scene")
