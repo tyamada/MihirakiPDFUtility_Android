@@ -1,0 +1,39 @@
+【Tên ứng dụng】
+Mihiraki: PDF Utility
+
+【Mô tả ngắn】 (Tối đa 80 ký tự)
+Gộp, tách, xoay và sắp xếp PDF cho công việc, học tập và tài liệu.
+
+【Mô tả đầy đủ】 (Tối đa 4000 ký tự)
+Mihiraki PDF Utility là công cụ mạnh mẽ giúp bạn dễ dàng sắp xếp, gộp, tách và chỉnh sửa tệp PDF trên thiết bị Android. Ứng dụng lý tưởng cho công việc, học tập, tài liệu nộp hồ sơ, cũng như trang đôi (Mihiraki), manga và sách scan.
+
+【Tính năng chính】
+■ Chế độ xem trang đôi (Mihiraki)
+Hiển thị hai trang cạnh nhau. Hỗ trợ đầy đủ hướng đọc từ phải sang trái (RTL) cho sách Nhật và manga.
+
+■ Tách trang nâng cao
+Tách trang đôi thành các trang đơn lẻ. Hỗ trợ cả tách dọc (Trái/Phải) và tách ngang (Trên/Dưới).
+
+■ Sắp xếp trực quan
+Sắp xếp PDF bằng cách kéo thả ảnh thu nhỏ. Gộp nhiều tệp, chèn trang trắng, xoay hoặc xóa trang dễ dàng.
+
+■ Cắt lề trang
+Loại bỏ phần lề thừa trên tài liệu scan bằng cách đặt tỷ lệ phần trăm cho từng cạnh.
+
+■ Bảo mật & Siêu dữ liệu
+Hỗ trợ PDF có mật khẩu bảo vệ. Chỉnh sửa thuộc tính tài liệu như Tiêu đề, Tác giả, Chủ đề và Từ khóa.
+
+■ Chẩn đoán & Nhật ký kiểm tra
+Chạy kiểm tra chẩn đoán nhanh trong ứng dụng và xem nhật ký cục bộ (lưu 24 giờ, không tự động gửi ra ngoài, có thể chia sẻ khi cần).
+
+■ Sẵn sàng cho màn hình lớn (ChromeOS)
+Tối ưu cho màn hình lớn và Chromebook với phím tắt bàn phím và menu chuột phải.
+
+■ Xem trước toàn màn hình
+Kiểm tra trang ở độ phân giải cao với thao tác chụm để thu phóng mượt mà và vuốt để chuyển trang.
+
+■ Hỗ trợ đa ngôn ngữ
+Hỗ trợ nhiều ngôn ngữ bao gồm tiếng Việt, Anh, Nhật, Hàn, Trung, Đức, Pháp, Tây Ban Nha, Ý, Bồ Đào Nha và nhiều ngôn ngữ khác.
+
+■ Tập trung vào quyền riêng tư
+Mọi thao tác xử lý PDF đều diễn ra cục bộ trên thiết bị của bạn. Tệp của bạn không bao giờ được tự động tải lên máy chủ bên ngoài.

@@ -1,0 +1,39 @@
+【Nome do app】
+Mihiraki: PDF Utility
+
+【Descrição curta】 (Máx. 80 caracteres)
+Una, divida, gire e organize PDFs para trabalho, estudos e documentos.
+
+【Descrição completa】 (Máx. 4000 caracteres)
+Mihiraki PDF Utility é uma ferramenta poderosa criada para ajudar você a organizar, unir, dividir e editar arquivos PDF com facilidade no seu dispositivo Android. É ideal para trabalho, estudos acadêmicos, envio de documentos, além de páginas duplas (Mihiraki), mangás e livros digitalizados.
+
+【Principais recursos】
+■ Visualização em página dupla (Mihiraki)
+Veja duas páginas lado a lado. Suporte completo à leitura da direita para a esquerda (RTL) para livros japoneses e mangás.
+
+■ Divisão avançada
+Divida páginas duplas em páginas individuais. Suporta divisão vertical (esquerda/direita) e horizontal (superior/inferior).
+
+■ Reordenação intuitiva
+Organize seu PDF arrastando miniaturas. Una vários arquivos, insira páginas em branco e gire ou exclua páginas com facilidade.
+
+■ Corte de margens
+Remova margens desnecessárias de documentos digitalizados definindo uma porcentagem para cada lado.
+
+■ Segurança e metadados
+Suporte para PDFs protegidos por senha. Edite propriedades do documento como título, autor, assunto e palavras-chave.
+
+■ Diagnóstico e registros de auditoria
+Execute testes rápidos de diagnóstico no app e consulte registros locais de auditoria (retenção de 24 horas, sem envio externo automático e com opção de compartilhamento).
+
+■ Pronto para desktop (ChromeOS)
+Aprimorado para telas grandes e Chromebooks com atalhos de teclado e menus de contexto do mouse.
+
+■ Pré-visualização em tela cheia
+Inspecione páginas em alta resolução com zoom por pinça suave e navegação por deslize.
+
+■ Suporte multilíngue
+Compatível com vários idiomas, incluindo português, inglês, japonês, coreano, chinês, alemão, francês, espanhol, italiano e mais.
+
+■ Foco em privacidade
+Todo o processamento de PDF ocorre localmente no seu dispositivo. Seus arquivos nunca são enviados automaticamente para servidores externos.

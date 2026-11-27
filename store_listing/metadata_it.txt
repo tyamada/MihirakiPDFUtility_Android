@@ -1,5 +1,5 @@
 【App Name】
-MihirakiPDFUtility
+Mihiraki: PDF Utility
 
 【Short description】 (Max 80 chars)
 Visualizzazione, divisione e unione di PDF. Perfetto per e-book e manga.

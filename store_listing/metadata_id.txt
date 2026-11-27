@@ -1,0 +1,39 @@
+【Nama Aplikasi】
+Mihiraki: PDF Utility
+
+【Deskripsi singkat】 (Maks. 80 karakter)
+Gabung, pisah, putar, dan urutkan PDF untuk kerja, studi, dan dokumen.
+
+【Deskripsi lengkap】 (Maks. 4000 karakter)
+Mihiraki PDF Utility adalah alat praktis untuk mengatur, menggabungkan, memisahkan, dan mengedit file PDF dengan mudah di perangkat Android Anda. Cocok untuk pekerjaan, studi akademik, dokumen pengajuan, serta halaman ganda (Mihiraki), manga, dan buku hasil pindaian.
+
+【Fitur Utama】
+■ Tampilan Halaman Ganda (Mihiraki)
+Tampilkan dua halaman berdampingan. Mendukung penuh arah baca kanan-ke-kiri (RTL) untuk buku Jepang dan manga.
+
+■ Pemisahan Lanjutan
+Pisahkan halaman ganda menjadi halaman tunggal. Mendukung pemisahan vertikal (kiri/kanan) dan horizontal (atas/bawah).
+
+■ Pengurutan Intuitif
+Atur PDF dengan menyeret thumbnail. Gabungkan beberapa file, sisipkan halaman kosong, serta putar atau hapus halaman dengan mudah.
+
+■ Pemotongan Margin
+Potong margin berlebih pada dokumen hasil pindaian dengan menentukan persentase di setiap sisi.
+
+■ Keamanan & Metadata
+Mendukung PDF berpelindung kata sandi. Edit properti dokumen seperti Judul, Penulis, Subjek, dan Kata Kunci.
+
+■ Diagnostik & Log Audit
+Jalankan uji diagnostik cepat di aplikasi dan periksa log audit lokal (disimpan 24 jam, tanpa pengiriman eksternal otomatis, dapat dibagikan secara manual).
+
+■ Siap Desktop (ChromeOS)
+Dioptimalkan untuk layar besar dan Chromebook dengan pintasan keyboard dan menu konteks mouse.
+
+■ Pratinjau Layar Penuh
+Periksa halaman dalam resolusi tinggi dengan zoom cubit yang halus dan navigasi geser.
+
+■ Dukungan Multibahasa
+Mendukung berbagai bahasa termasuk Bahasa Indonesia, Inggris, Jepang, Korea, Tionghoa, Jerman, Prancis, Spanyol, Italia, Portugis, dan lainnya.
+
+■ Fokus pada Privasi
+Semua pemrosesan PDF dilakukan secara lokal di perangkat Anda. File Anda tidak pernah diunggah secara otomatis ke server eksternal.

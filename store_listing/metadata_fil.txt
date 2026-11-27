@@ -1,0 +1,39 @@
+【Pangalan ng App】
+Mihiraki: PDF Utility
+
+【Maikling paglalarawan】 (Max 80 chars)
+Pagsamahin, hatiin, i-rotate, at ayusin ang mga PDF para sa trabaho at pag-aaral
+
+【Buong paglalarawan】 (Max 4000 chars)
+Ang Mihiraki PDF Utility ay isang makapangyarihang tool upang madaling ayusin, pagsamahin, hatiin, at i-edit ang mga PDF file sa iyong Android device. Mainam ito para sa trabaho, pag-aaral, mga dokumentong isusumite, pati na rin sa dalawahang pahina (Mihiraki), manga, at mga na-scan na libro.
+
+【Mga Pangunahing Tampok】
+■ Spread (Mihiraki) View
+Tingnan ang dalawang pahina nang magkatabi. Ganap na sumusuporta sa pagbabasang kanan-pakaliwa (RTL) para sa mga librong Hapones at manga.
+
+■ Masusing Paghahati
+Hatiin ang dalawahang pahina sa mga indibidwal na pahina. Sumusuporta sa patayo (Kaliwa/Kanan) at pahalang (Itaas/Ibaba) na paghahati.
+
+■ Madaling Pag-aayos ng Pahina
+Ayusin ang iyong PDF sa pamamagitan ng pag-drag ng mga thumbnail. Pagsamahin ang maraming file, magsingit ng blangkong pahina, at madaling i-rotate o tanggalin ang mga pahina.
+
+■ Pagputol ng Margin
+Alisin ang sobrang margin mula sa mga na-scan na dokumento sa pamamagitan ng pagtatakda ng porsyento sa bawat gilid.
+
+■ Seguridad at Metadata
+Sumusuporta sa mga PDF na may password. I-edit ang mga detalye ng dokumento tulad ng Pamagat, May-akda, Paksa, at Mga Keyword.
+
+■ Diagnostics at Audit Logs
+Magpatakbo ng mabilis na diagnostics sa loob ng app at suriin ang mga lokal na audit log (24 oras na pag-iimbak, walang awtomatikong pagpapadala sa labas, at maaaring ibahagi kung nais).
+
+■ Handa sa Desktop (ChromeOS)
+Pinahusay para sa malalaking screen at Chromebook na may mga keyboard shortcut at mouse context menu.
+
+■ Full-screen Preview
+Suriin ang mga pahina sa mataas na resolusyon gamit ang maayos na pinch-to-zoom at swipe navigation.
+
+■ Suporta sa Maraming Wika
+Sumusuporta sa maraming wika kabilang ang Filipino, Ingles, Hapones, Koreano, Tsino, Aleman, Pranses, Espanyol, Italyano, Portuges, at iba pa.
+
+■ Nakatuon sa Privacy
+Ang lahat ng pagproseso ng PDF ay ginagawa nang lokal sa iyong device. Hindi kailanman awtomatikong ina-upload ang iyong mga file sa mga external server.

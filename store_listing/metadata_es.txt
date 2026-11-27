@@ -1,0 +1,39 @@
+【Nombre de la aplicación】
+Mihiraki: PDF Utility
+
+【Descripción breve】 (Máx. 80 caracteres)
+Combina, divide, gira y ordena PDF para trabajo, estudio y documentos.
+
+【Descripción completa】 (Máx. 4000 caracteres)
+Mihiraki PDF Utility es una herramienta potente diseñada para ayudarte a organizar, combinar, dividir y editar archivos PDF fácilmente en tu dispositivo Android. Es ideal para el trabajo, estudios académicos, documentos de entrega, así como páginas dobles (Mihiraki), manga y libros escaneados.
+
+【Funciones principales】
+■ Vista a doble página (Mihiraki)
+Muestra dos páginas una al lado de la otra. Compatible con lectura de derecha a izquierda (RTL) para libros japoneses y manga.
+
+■ División avanzada
+Divide páginas dobles en páginas individuales. Admite división vertical (izquierda/derecha) y horizontal (arriba/abajo).
+
+■ Reordenación intuitiva
+Organiza tu PDF arrastrando miniaturas. Combina varios archivos, inserta páginas en blanco y gira o elimina páginas con facilidad.
+
+■ Recorte de márgenes
+Elimina márgenes innecesarios de documentos escaneados especificando un porcentaje para cada lado.
+
+■ Seguridad y metadatos
+Compatible con PDF protegidos con contraseña. Edita propiedades del documento como título, autor, asunto y palabras clave.
+
+■ Diagnóstico y registros de auditoría
+Ejecuta pruebas rápidas de diagnóstico en la app y revisa registros locales de auditoría (retención de 24 horas, sin envío externo automático y con opción de compartir).
+
+■ Listo para escritorio (ChromeOS)
+Optimizado para pantallas grandes y Chromebooks con atajos de teclado y menús contextuales del ratón.
+
+■ Vista previa a pantalla completa
+Inspecciona páginas en alta resolución con zoom fluido mediante pellizco y navegación deslizando.
+
+■ Soporte multilingüe
+Compatible con múltiples idiomas, incluidos español, inglés, japonés, coreano, chino, alemán, francés, italiano, portugués y más.
+
+■ Enfoque en la privacidad
+Todo el procesamiento de PDF se realiza localmente en tu dispositivo. Tus archivos nunca se suben automáticamente a servidores externos.
