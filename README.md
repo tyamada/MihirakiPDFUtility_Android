@@ -27,7 +27,7 @@ For devices without Google Play or users who want to test direct APK installatio
 
 Version: <!-- current-app-version:start -->1.2.16 (32)<!-- current-app-version:end -->. The 1.2.16 release fixes duplicate PDF extensions in save suggestions and clipped toolbar labels. The app loads the latest validated sample catalog, falling back to the saved catalog or bundled samples when unavailable. Verified downloaded PDFs are retained. The free Koyomi badge is awarded automatically through December 31, 2027 (JST); acquired badges remain after the deadline. Its notification is dismissed manually, and App info shows an enlarged badge and description. Alpha 1.2.16 (32) was published to selected testers on November 25, 2026 (JST), and Production 1.2.16 (32) is currently under Google Play review for 6 initial regions.
 
-The samples cover 14 languages and 17 language/region variants, with three episodes each. Native and English region names are sorted by English name. Episode order is retained after restarting the app.
+The bundled samples cover episodes 1–3 in 14 languages and 17 language/region variants. The latest online catalog also includes episode 4 in Japanese (52 PDFs as of November 28, 2026); later additions are loaded from each manifest entry’s download URL. Native and English region names are sorted by English name. Episode order is retained after restarting the app.
 
 [Release report](docs/CLOSED_TEST_RELEASE_PROGRESS_1.2.9_25.ja.md) · [Device retest checklist](docs/CLOSED_TEST_DEVICE_CHECKLIST_1.2.9_25.ja.md).
 
@@ -68,15 +68,15 @@ Explore how the application functions across different device types:
 
 You can download and test sample PDFs (Manga) to try out Mihiraki PDF Utility:
 
-51 PDFs in 14 languages and 17 language/region variants, with three episodes each. Spain and Latin America, Brazil and Portugal, and Taiwan and Hong Kong have separate filters. The Hong Kong edition uses standard written Chinese, not colloquial Cantonese. Downloads are verified against their expected size and SHA-256; older PDFs are retained.
+The latest catalog contains 52 PDFs: episodes 1–3 in 14 languages and 17 language/region variants, plus episode 4 in Japanese (November 28, 2026). The bundled offline fallback retains the original 51 PDFs. Spain and Latin America, Brazil and Portugal, and Taiwan and Hong Kong have separate filters. The Hong Kong edition uses standard written Chinese, not colloquial Cantonese. Downloads are verified against their expected size and SHA-256; older PDFs are retained.
 
-The links below are sorted by English language name, then Episode 1–3.
+Episode 4 is currently available only in Japanese. Open Sample PDFs while online to refresh the list.
 
 [Sample PDF downloads](https://tyamada.github.io/manga-prompt-kit/samples/en/)
 
 ### Sample PDF License (CC BY 4.0)
 
-"The Try-It Club" Episodes 1–3
+"The Try-It Club" Episodes 1–3 and Japanese Episode 4
 © 2026 Komairo Hiyori
 
 Parts of this work for which the publisher holds copyright and other licensing rights are provided under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
@@ -145,7 +145,7 @@ Before building the App Bundle, ensure that `README.md`, `LICENSE`, `docs/*.html
 
 ### Sample PDF distribution
 
-The 51 sample manga PDFs are distributed through the production-materials repository’s fixed [GitHub Release](https://tyamada.github.io/manga-prompt-kit/samples/en/). Existing GitHub Pages PDF URLs remain available for older app versions. See [migration and verification notes](docs/SAMPLE_PDF_RELEASE_MIGRATION.ja.md).
+The original 51 sample manga PDFs are distributed through the production-materials repository’s fixed [GitHub Release](https://tyamada.github.io/manga-prompt-kit/samples/en/). Existing GitHub Pages PDF URLs remain available for older app versions. See [migration and verification notes](docs/SAMPLE_PDF_RELEASE_MIGRATION.ja.md).
 
 
 [2026-11-12 distribution migration and verification](docs/SAMPLE_PDF_DISTRIBUTION_MIGRATION_20261112.ja.md)

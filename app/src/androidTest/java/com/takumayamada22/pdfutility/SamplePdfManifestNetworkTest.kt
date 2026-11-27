@@ -1,5 +1,7 @@
 package com.takumayamada22.pdfutility
 
+import android.graphics.pdf.PdfRenderer
+import android.os.ParcelFileDescriptor
 import androidx.test.platform.app.InstrumentationRegistry
 import com.takumayamada22.pdfutility.data.*
 import kotlinx.coroutines.flow.toList
@@ -21,16 +23,26 @@ class SamplePdfManifestNetworkTest {
             val catalogDir = File(root, "catalog")
             val store = SamplePdfManifestStore(catalogDir) { live }
             val items = store.refresh()
-            assertEquals(51, items.size)
-            assertEquals(SamplePdfCatalog.items.map { it.id }.toSet(), items.map { it.id }.toSet())
-            val item = items.single { it.id == "ep1_fil" }
-            assertTrue(item.url.endsWith("_tl.pdf"))
-            assertTrue(item.fileName.endsWith("_fil.pdf"))
+            assertTrue(items.size >= 52)
+            assertTrue(items.map { it.id }.toSet().containsAll(SamplePdfCatalog.items.map { it.id }))
+            val alias = items.single { it.id == "ep1_fil" }
+            assertTrue(alias.url.endsWith("_tl.pdf"))
+            assertTrue(alias.fileName.endsWith("_fil.pdf"))
+            val item = items.single { it.id == "ep4_ja" }
+            assertEquals("https://github.com/tyamada/manga-prompt-kit/releases/download/manga-pdf-20261127-ep4-ja-v1/tameshibu_episode4_ja.pdf", item.url)
+            assertEquals(99_981_486L, item.bytes)
+            assertEquals("7c4bde39dc25800aa097854c6e47f31934abe12b3a05d97450fb73523af3c3dc", item.sha256)
             val cache = SamplePdfCache(File(root, "pdfs"))
             val states = SamplePdfDownloadManager(cache).download(item).toList()
             assertEquals(DownloadState.Success, states.last())
             val downloaded = requireNotNull(cache.downloadedFile(item))
             assertEquals(item.bytes, downloaded.length())
+            ParcelFileDescriptor.open(downloaded, ParcelFileDescriptor.MODE_READ_ONLY).use { fd ->
+                PdfRenderer(fd).use { renderer ->
+                    assertEquals(8, renderer.pageCount)
+                    renderer.openPage(0).use { page -> assertTrue(page.width > 0 && page.height > 0) }
+                }
+            }
             // Simulated offline transport after process/store recreation, not device network settings.
             val offlineStore = SamplePdfManifestStore(catalogDir) { throw IOException("offline") }
             assertEquals(items, offlineStore.refresh())

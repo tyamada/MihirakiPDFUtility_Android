@@ -28,6 +28,38 @@ class SamplePdfManifestTest {
         }
     }
 
+    @Test fun japaneseOnlyEpisodeFourRefreshesOldCatalogAndSurvivesRestart() {
+        val dir = Files.createTempDirectory("episode-four-refresh").toFile()
+        try {
+            var response = fixture()
+            val store = SamplePdfManifestStore(dir) { response }
+            assertEquals(51, store.refresh().size)
+            // Root compatibility URLs deliberately remain on the original 51-book release.
+            response = changed { root ->
+                val entries = root.getJSONArray("entries")
+                val entry = JSONObject(entries.getJSONObject(0).toString())
+                    .put("sample_id", "ep4_ja").put("episode", 4)
+                    .put("language_key", "ja").put("locale", "ja-JP")
+                    .put("filename", "tameshibu_episode4_ja.pdf")
+                    .put("title", "ためし部 第4話 風と、なかよく。")
+                    .put("bytes", 99_981_486L).put("pages", 8)
+                    .put("sha256", "7c4bde39dc25800aa097854c6e47f31934abe12b3a05d97450fb73523af3c3dc")
+                    .put("new_download_url", "https://github.com/tyamada/manga-prompt-kit/releases/download/manga-pdf-20261127-ep4-ja-v1/tameshibu_episode4_ja.pdf")
+                entries.put(entry)
+                root.put("pdf_count", entries.length())
+            }
+            val items = store.refresh()
+            assertEquals(52, items.size)
+            assertEquals(4, items.count { it.languageCode == "ja" })
+            assertEquals(3, items.count { it.languageCode == "en" })
+            assertTrue(items.single { it.id == "ep4_ja" }.url.contains("manga-pdf-20261127-ep4-ja-v1"))
+            assertEquals("ep4_ja", items.sortedWith(SamplePdfSortOrder.DESCENDING.comparator()).first().id)
+            val restarted = SamplePdfManifestStore(dir) { throw IOException("offline") }
+            assertEquals(items, restarted.refresh())
+            assertEquals(2, File(dir, "snapshots").listFiles()!!.size)
+        } finally { dir.deleteRecursively() }
+    }
+
     @Test fun invalidWholeListsAndSchemaAreRejected() {
         listOf("{", "{}", "{unquoted: 1}", "{\"a\":1,}", "/* comment */" + fixture(), "[".repeat(40) + "]".repeat(40), fixture().replaceFirst("\"schema_version\": 1", "\"schema_version\": 1, \"schema_version\": 1"), fixture() + "garbage", changed { it.put("schema_version", 2) },
             changed { it.put("schema_version", "1") }, changed { it.put("repository", "other/repo") }, changed { it.put("status", "draft") },
