@@ -353,12 +353,7 @@ class PdfViewModel(
     }
 
     fun checkForUpdates() {
-        val manager = appUpdateManager
-        if (manager == null) {
-            _updateAvailable.value = false
-            _uiState.value = _uiState.value.copy(updateAvailable = false)
-            return
-        }
+        val manager = appUpdateManager ?: return
         try {
             manager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
                 val available = appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
