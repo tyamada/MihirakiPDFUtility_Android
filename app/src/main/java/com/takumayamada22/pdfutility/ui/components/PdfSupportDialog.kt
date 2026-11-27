@@ -1,6 +1,8 @@
 package com.takumayamada22.pdfutility.ui.components
 
 import android.app.Activity
+import android.content.Intent
+import androidx.core.net.toUri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.takumayamada22.pdfutility.BuildConfig
 import com.takumayamada22.pdfutility.R
 import com.takumayamada22.pdfutility.billing.PurchaseState
 import com.takumayamada22.pdfutility.billing.TipTier
@@ -60,6 +63,33 @@ internal fun PdfSupportDialog(viewModel: PdfViewModel) {
                         color = MaterialTheme.colorScheme.onSurface
                     )
 
+                    if (BuildConfig.IS_SIDELOAD) {
+                        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+                            Column(
+                                modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                                verticalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Text(stringResource(R.string.sideload_support_notice))
+                                Button(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    onClick = {
+                                        val playPackageId = "com.takumayamada22.pdfutility"
+                                        try {
+                                            context.startActivity(
+                                                Intent(Intent.ACTION_VIEW, "market://details?id=$playPackageId".toUri())
+                                            )
+                                        } catch (_: Exception) {
+                                            context.startActivity(
+                                                Intent(Intent.ACTION_VIEW, "https://play.google.com/store/apps/details?id=$playPackageId".toUri())
+                                            )
+                                        }
+                                    }
+                                ) {
+                                    Text(stringResource(R.string.sideload_open_play_store))
+                                }
+                            }
+                        }
+                    } else {
                     TipTier.entries.forEach { tier ->
                         val product = products.firstOrNull { it.productId == tier.productId }
                         val priceText = product?.oneTimePurchaseOfferDetails?.formattedPrice ?: tier.productId
@@ -108,6 +138,7 @@ internal fun PdfSupportDialog(viewModel: PdfViewModel) {
                                 }
                             }
                         }
+                    }
                     }
                     
                     when (val s = purchaseState) {

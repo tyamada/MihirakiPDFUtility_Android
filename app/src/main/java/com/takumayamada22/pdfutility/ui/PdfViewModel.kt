@@ -339,7 +339,11 @@ class PdfViewModel(
         _pendingBadgeNotifications.update { pending -> pending.filterNot { it.id == id } }
     }
 
-    private val appUpdateManager = AppUpdateManagerFactory.create(application)
+    private val appUpdateManager = if (com.takumayamada22.pdfutility.BuildConfig.IS_SIDELOAD) {
+        null
+    } else {
+        AppUpdateManagerFactory.create(application)
+    }
     private val _updateAvailable = MutableStateFlow(false)
     val updateAvailable: StateFlow<Boolean> = _updateAvailable.asStateFlow()
     private var lastUpdateCheckTimestamp = 0L
@@ -349,8 +353,14 @@ class PdfViewModel(
     }
 
     fun checkForUpdates() {
+        val manager = appUpdateManager
+        if (manager == null) {
+            _updateAvailable.value = false
+            _uiState.value = _uiState.value.copy(updateAvailable = false)
+            return
+        }
         try {
-            appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+            manager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
                 val available = appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                 _updateAvailable.value = available
                 _uiState.value = _uiState.value.copy(updateAvailable = available)
@@ -367,6 +377,16 @@ class PdfViewModel(
     }
 
     fun checkForUpdatesManual() {
+        val manager = appUpdateManager
+        if (manager == null) {
+            val app = getApplication<Application>()
+            _updateAvailable.value = false
+            _uiState.value = _uiState.value.copy(
+                updateAvailable = false,
+                errorMessage = app.getString(R.string.sideload_update_notice)
+            )
+            return
+        }
         val currentTime = System.currentTimeMillis()
         if (currentTime - lastUpdateCheckTimestamp < 10000L) {
             val app = getApplication<Application>()
@@ -376,7 +396,7 @@ class PdfViewModel(
         lastUpdateCheckTimestamp = currentTime
 
         try {
-            appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+            manager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
                 val available = appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
                 _updateAvailable.value = available
                 val app = getApplication<Application>()

@@ -194,4 +194,7 @@
     <string name="start_more_actions">थप कार्यहरू</string>
     <string name="koyomi_badge_description">Koyomi को चित्र भएको विमोचनको सम्झनामा दिइने निःशुल्क ब्याज। २०२६ नोभेम्बर १ देखि २०२७ डिसेम्बर ३१ सम्म (जापान मानक समय, JST) योग्यता जाँच हुँदा यो स्वतः प्रदान गरिन्छ। एक पटक प्राप्त भएपछि, अवधि सकिएपछि पनि यो रहिरहन्छ। यो खरिदबाट अलग हो।</string>
     <string name="badge_open_details">%1$s का विवरण हेर्नुहोस्</string>
+    <string name="sideload_support_notice">ऐच्छिक समर्थन खरिदहरू Google Play संस्करणमा उपलब्ध छन्। यस साइडलोड संस्करणमा पनि सबै PDF सम्पादन सुविधाहरू नि:शुल्क उपलब्ध छन्।</string>
+    <string name="sideload_open_play_store">Google Play संस्करण खोल्नुहोस्</string>
+    <string name="sideload_update_notice">साइडलोड संस्करणका अद्यावधिकहरू GitHub Releases मा जाँच गर्नुहोस्।</string>
 </resources>

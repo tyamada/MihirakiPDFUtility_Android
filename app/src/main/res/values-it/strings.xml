@@ -274,4 +274,7 @@
     <string name="start_more_actions">Altre azioni</string>
     <string name="koyomi_badge_description">Un badge gratuito con Koyomi per commemorare il rilascio. Viene assegnato automaticamente quando viene verificata l’idoneità tra il 1° novembre 2026 e il 31 dicembre 2027 (ora standard del Giappone, JST). Una volta ottenuto, viene conservato anche dopo la fine del periodo. È indipendente dagli acquisti.</string>
     <string name="badge_open_details">Visualizza i dettagli di %1$s</string>
+    <string name="sideload_support_notice">Gli acquisti facoltativi di supporto sono disponibili nella versione Google Play. Tutte le funzioni di modifica PDF sono disponibili qui gratuitamente.</string>
+    <string name="sideload_open_play_store">Apri la versione Google Play</string>
+    <string name="sideload_update_notice">Controlla GitHub Releases per gli aggiornamenti della versione sideload.</string>
 </resources>

@@ -51,10 +51,10 @@ jobs:
       run: ./gradlew assembleDebug --max-workers=2 -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
 
     - name: Run Android Lint
-      run: ./gradlew lintDebug --max-workers=2 -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
+      run: ./gradlew lintPlayDebug lintSideloadDebug --max-workers=2 -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
 
     - name: Run unit tests
-      run: ./gradlew testDebugUnitTest --max-workers=2 -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
+      run: ./gradlew testPlayDebugUnitTest testSideloadDebugUnitTest --max-workers=2 -Dorg.gradle.jvmargs="-Xmx4g -Dfile.encoding=UTF-8"
 
     - name: Validate translations, store metadata and public pages
       run: |

@@ -278,4 +278,7 @@
     <string name="start_more_actions">更多操作</string>
     <string name="koyomi_badge_description">一枚印有 Koyomi 的免费发售纪念徽章。2026年11月1日至2027年12月31日（日本标准时间，JST）期间检查领取资格时，将自动授予。获得后，即使活动期结束也会保留。此徽章与购买无关。</string>
     <string name="badge_open_details">查看%1$s的详情</string>
+    <string name="sideload_support_notice">可选赞赏支持仅在 Google Play 版本中提供。此侧载版同样免费提供全部 PDF 编辑功能。</string>
+    <string name="sideload_open_play_store">打开 Google Play 版本</string>
+    <string name="sideload_update_notice">请在 GitHub Releases 查看侧载版的更新。</string>
 </resources>

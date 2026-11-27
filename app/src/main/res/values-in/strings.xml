@@ -194,4 +194,7 @@
     <string name="start_more_actions">Tindakan lainnya</string>
     <string name="koyomi_badge_description">Lencana gratis bergambar Koyomi untuk memperingati peluncuran. Diberikan secara otomatis saat kelayakan diperiksa antara 1 November 2026 dan 31 Desember 2027 (Waktu Standar Jepang, JST). Setelah diperoleh, lencana tetap dimiliki meskipun periode tersebut berakhir. Lencana ini terpisah dari pembelian.</string>
     <string name="badge_open_details">Lihat detail %1$s</string>
+    <string name="sideload_support_notice">Pembelian dukungan opsional tersedia di edisi Google Play. Semua fitur pengeditan PDF tersedia di sini tanpa pembelian.</string>
+    <string name="sideload_open_play_store">Buka edisi Google Play</string>
+    <string name="sideload_update_notice">Periksa GitHub Releases untuk pembaruan edisi sideload.</string>
 </resources>

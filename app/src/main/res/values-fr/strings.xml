@@ -247,4 +247,7 @@
     <string name="start_more_actions">Autres actions</string>
     <string name="koyomi_badge_description">Un badge gratuit à l’effigie de Koyomi pour commémorer la sortie. Il est attribué automatiquement lorsque l’éligibilité est vérifiée entre le 1er novembre 2026 et le 31 décembre 2027 (heure normale du Japon, JST). Une fois obtenu, il est conservé même après la fin de cette période. Il est indépendant des achats.</string>
     <string name="badge_open_details">Voir les détails de %1$s</string>
+    <string name="sideload_support_notice">Les achats de soutien facultatifs sont disponibles dans l\'édition Google Play. Toutes les fonctions d\'édition PDF sont accessibles ici sans achat.</string>
+    <string name="sideload_open_play_store">Ouvrir l\'édition Google Play</string>
+    <string name="sideload_update_notice">Consultez GitHub Releases pour les mises à jour de l\'édition sideload.</string>
 </resources>

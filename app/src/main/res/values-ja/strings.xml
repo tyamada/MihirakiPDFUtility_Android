@@ -289,4 +289,7 @@
     <string name="toolbar_custom_note">非表示の操作もメニューから利用できます。「適用」で変更を保存します。</string>
     <string name="koyomi_badge_description">こよみをあしらった無料の製品版リリース記念バッジです。2026年11月1日から2027年12月31日まで（日本標準時）に取得条件の確認が行われると、自動的に付与されます。一度取得すると、期間終了後も保持されます。購入とは別のものです。</string>
     <string name="badge_open_details">%1$sの詳細を表示</string>
+    <string name="sideload_support_notice">任意の応援購入は Google Play 版で利用できます。このサイドロード版でもPDF編集機能はすべて無料で利用できます。</string>
+    <string name="sideload_open_play_store">Google Play 版を開く</string>
+    <string name="sideload_update_notice">サイドロード版の更新は GitHub Releases で確認してください。</string>
 </resources>

@@ -247,4 +247,7 @@
     <string name="start_more_actions">기타 작업</string>
     <string name="koyomi_badge_description">코요미가 그려진 무료 정식 출시 기념 배지입니다. 2026년 11월 1일부터 2027년 12월 31일까지(일본 표준시, JST) 획득 조건을 확인하면 자동으로 지급됩니다. 한 번 획득하면 기간이 끝난 후에도 유지됩니다. 구매와는 별개입니다.</string>
     <string name="badge_open_details">%1$s 세부정보 보기</string>
+    <string name="sideload_support_notice">선택적 후원 구매는 Google Play 버전에서 이용할 수 있습니다. 이 사이드로드 버전에서도 모든 PDF 편집 기능을 무료로 이용할 수 있습니다.</string>
+    <string name="sideload_open_play_store">Google Play 버전 열기</string>
+    <string name="sideload_update_notice">사이드로드 버전 업데이트는 GitHub Releases에서 확인하세요.</string>
 </resources>

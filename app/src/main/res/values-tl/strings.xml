@@ -194,4 +194,7 @@
     <string name="start_more_actions">Iba pang pagkilos</string>
     <string name="koyomi_badge_description">Isang libreng badge na may larawan ni Koyomi bilang paggunita sa paglulunsad. Awtomatikong ibinibigay kapag sinuri ang pagiging kwalipikado mula Nobyembre 1, 2026 hanggang Disyembre 31, 2027 (Japan Standard Time, JST). Kapag nakuha na, mananatili ito kahit matapos ang panahong iyon. Hiwalay ito sa mga pagbili.</string>
     <string name="badge_open_details">Tingnan ang mga detalye ng %1$s</string>
+    <string name="sideload_support_notice">Available ang opsyonal na suportang pagbili sa Google Play edition. Magagamit dito nang libre ang lahat ng feature sa pag-edit ng PDF.</string>
+    <string name="sideload_open_play_store">Buksan ang Google Play edition</string>
+    <string name="sideload_update_notice">Tingnan ang GitHub Releases para sa mga update ng sideload edition.</string>
 </resources>

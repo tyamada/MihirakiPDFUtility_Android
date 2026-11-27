@@ -263,4 +263,7 @@
     <string name="start_more_actions">Más acciones</string>
     <string name="koyomi_badge_description">Una insignia gratuita con Koyomi para conmemorar el lanzamiento. Se otorga automáticamente cuando se comprueba que se cumplen los requisitos entre el 1 de noviembre de 2026 y el 31 de diciembre de 2027 (hora estándar de Japón, JST). Una vez obtenida, se conserva incluso después de que finalice el periodo. Es independiente de las compras.</string>
     <string name="badge_open_details">Ver detalles de %1$s</string>
+    <string name="sideload_support_notice">Las compras opcionales de apoyo están disponibles en la edición de Google Play. Todas las funciones de edición de PDF están disponibles aquí sin compra.</string>
+    <string name="sideload_open_play_store">Abrir edición de Google Play</string>
+    <string name="sideload_update_notice">Consulta GitHub Releases para ver actualizaciones de la edición sideload.</string>
 </resources>

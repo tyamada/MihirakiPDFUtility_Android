@@ -318,4 +318,7 @@
     <string name="toolbar_custom_note">Hidden actions remain available from the menu. Changes are saved with Apply.</string>
     <string name="koyomi_badge_description">A free release commemorative badge featuring Koyomi. Awarded automatically when eligibility is checked from November 1, 2026 through December 31, 2027 (JST). Once acquired, it remains after the period ends. This is separate from purchases.</string>
     <string name="badge_open_details">View details for %1$s</string>
+    <string name="sideload_support_notice">Optional support purchases are available in the Google Play edition. All PDF editing features are available here without purchase.</string>
+    <string name="sideload_open_play_store">Open Google Play edition</string>
+    <string name="sideload_update_notice">Check GitHub Releases for updates to the sideload edition.</string>
 </resources>

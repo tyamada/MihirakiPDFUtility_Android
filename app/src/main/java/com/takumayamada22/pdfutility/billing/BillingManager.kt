@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import com.android.billingclient.api.*
+import com.takumayamada22.pdfutility.BuildConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -26,10 +27,14 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
     private val _purchasedTiers = MutableStateFlow(loadPurchasedTiers())
     val purchasedTiers = _purchasedTiers.asStateFlow()
     
-    private val client = BillingClient.newBuilder(context)
-        .setListener(this)
-        .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
-        .build()
+    private val client: BillingClient? = if (BuildConfig.IS_SIDELOAD) {
+        null
+    } else {
+        BillingClient.newBuilder(context)
+            .setListener(this)
+            .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
+            .build()
+    }
 
     private fun loadPurchasedTiers(): Set<TipTier> {
         val savedNames = prefs.getStringSet("purchased_tiers", emptySet()) ?: emptySet()
@@ -44,8 +49,9 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
     }
 
     fun connect() {
+        val activeClient = client ?: return
         Log.d("Billing", "Starting connection...")
-        client.startConnection(
+        activeClient.startConnection(
             object : BillingClientStateListener {
                 override fun onBillingServiceDisconnected() {
                     Log.d("Billing", "Service disconnected")
@@ -64,6 +70,7 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
     }
 
     private fun query() {
+        val activeClient = client ?: return
         Log.d("Billing", "Querying products...")
         val productList = TipTier.entries.map {
             QueryProductDetailsParams.Product.newBuilder()
@@ -72,7 +79,7 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
                 .build()
         }
         val params = QueryProductDetailsParams.newBuilder().setProductList(productList).build()
-        client.queryProductDetailsAsync(params) { billingResult, queryResult ->
+        activeClient.queryProductDetailsAsync(params) { billingResult, queryResult ->
             Log.d("Billing", "Query result code: ${billingResult.responseCode}")
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 _products.value = queryResult.productDetailsList
@@ -83,7 +90,8 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
     }
 
     fun queryExistingPurchases() {
-        client.queryPurchasesAsync(
+        val activeClient = client ?: return
+        activeClient.queryPurchasesAsync(
             QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.INAPP).build()
         ) { billingResult, purchases ->
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
@@ -100,15 +108,16 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
                     val acknowledgeParams = AcknowledgePurchaseParams.newBuilder()
                         .setPurchaseToken(purchase.purchaseToken)
                         .build()
-                    client.acknowledgePurchase(acknowledgeParams) { _ -> }
+                    activeClient.acknowledgePurchase(acknowledgeParams) { _ -> }
                 }
             }
         }
     }
 
     fun purchase(activity: Activity, details: ProductDetails) {
+        val activeClient = client ?: return
         val params = BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(details).build()
-        val result = client.launchBillingFlow(activity, BillingFlowParams.newBuilder().setProductDetailsParamsList(listOf(params)).build())
+        val result = activeClient.launchBillingFlow(activity, BillingFlowParams.newBuilder().setProductDetailsParamsList(listOf(params)).build())
         if (result.responseCode != BillingClient.BillingResponseCode.OK) {
             _purchase.value = PurchaseState.Error(result.debugMessage)
         }
@@ -124,13 +133,14 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
             _purchase.value = PurchaseState.Error(result.debugMessage)
             return
         }
+        val activeClient = client ?: return
         purchases.orEmpty().filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }.forEach { purchase ->
             purchase.products.firstNotNullOfOrNull(TipTier::fromProductId)?.let { tier ->
                 if (!purchase.isAcknowledged) {
                     val acknowledgeParams = AcknowledgePurchaseParams.newBuilder()
                         .setPurchaseToken(purchase.purchaseToken)
                         .build()
-                    client.acknowledgePurchase(acknowledgeParams) { ackResult ->
+                    activeClient.acknowledgePurchase(acknowledgeParams) { ackResult ->
                         if (ackResult.responseCode == BillingClient.BillingResponseCode.OK) {
                             val newTiers = _purchasedTiers.value + tier
                             _purchasedTiers.value = newTiers
@@ -151,6 +161,6 @@ class BillingManager(context: Context) : PurchasesUpdatedListener, AutoCloseable
     }
 
     override fun close() {
-        client.endConnection()
+        client?.endConnection()
     }
 }
