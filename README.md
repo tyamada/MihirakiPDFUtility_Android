@@ -2,6 +2,7 @@
 
 Production is not publicly released. See the [publication-readiness and X test-announcement record (Japanese)](docs/PRODUCTION_DISTRIBUTION_PLAN_2026-11-15.ja.md) for the November 23, 2026 check.
 
+[![Sideload Trial APK](https://img.shields.io/badge/GitHub%20Releases-Trial%20APK-blue?style=flat&logo=android&logoColor=white)](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/tag/v1.2.16-sideload-test.1)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 A powerful and intuitive PDF utility for Android, specializing in organizing work, studies, submission documents, scanned books, and manga with **Mihiraki (two-page spread view)**.
@@ -14,6 +15,13 @@ A powerful and intuitive PDF utility for Android, specializing in organizing wor
 These videos are in English and open on YouTube.
 
 - [Tutorial playlist (5 videos)](https://www.youtube.com/playlist?list=PLa-QGEwHSDRo)
+
+## Sideload Trial APK (Pre-release)
+
+For devices without Google Play or users who want to test direct APK installation, a trial sideload APK with `SHA256SUMS` and signing certificate fingerprint is available on [GitHub Releases (`v1.2.16-sideload-test.1`)](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/tag/v1.2.16-sideload-test.1).
+
+- Uses a separate package ID (`com.takumayamada22.pdfutility.sideload`), so it can coexist alongside the Google Play edition without overwriting its data.
+- All PDF editing features and the free Koyomi badge work identically; optional Play support purchases and Play in-app updates are disabled.
 
 ## Latest closed-test release
 

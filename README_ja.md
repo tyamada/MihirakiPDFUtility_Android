@@ -2,6 +2,7 @@
 
 製品版は一般公開前です。2026-11-23時点の公開状況とXのテスト案内は[公開準備記録](docs/PRODUCTION_DISTRIBUTION_PLAN_2026-11-15.ja.md)を参照してください。
 
+[![サイドロード試験公開 APK](https://img.shields.io/badge/GitHub%20Releases-%E8%A9%A6%E9%A8%93%E5%85%AC%E9%96%8B%20APK-blue?style=flat&logo=android&logoColor=white)](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/tag/v1.2.16-sideload-test.1)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 Android向けの強力で直感的なPDFユーティリティアプリです。仕事・学業・提出書類のPDF整理や、**見開き（2ページスプレッド表示）**による自炊書籍・漫画の管理に最適です。
@@ -15,6 +16,13 @@ Android向けの強力で直感的なPDFユーティリティアプリです。�
 
 - [日本語の説明動画（5本・春日部つむぎ）](https://www.youtube.com/playlist?list=PLNNwgShEZ8RA)
 - [英語の説明動画（5本）](https://www.youtube.com/playlist?list=PLa-QGEwHSDRo)
+
+## サイドロード試験公開 APK（Pre-release）
+
+Google Play を利用できない環境や直接 APK インストールを試したい方向けに、[GitHub Releases（`v1.2.16-sideload-test.1`）](https://github.com/tyamada/MihirakiPDFUtility_Android/releases/tag/v1.2.16-sideload-test.1) でサイドロード用 APK と `SHA256SUMS`・署名証明書フィンガープリントを試験公開しています。
+
+- Google Play 版とは別のパッケージ ID（`com.takumayamada22.pdfutility.sideload`）を使用しているため、Play 版と共存できます。
+- PDF 編集機能および無料こよみバッジはすべて同様に利用できます（任意の Play 応援購入・Play アプリ内更新は無効）。
 
 ## 最新クローズドテスト版
 
